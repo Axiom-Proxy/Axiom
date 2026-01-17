@@ -151,6 +151,9 @@ window.themeManager = {
         if (themeData.quaternary) {
             root.style.setProperty('--accent-alpha', this.hexToRgba(themeData.quaternary, 0.25));
         }
+        if (themeData.secondary) {
+            root.style.setProperty('--input-bg-alpha', this.hexToRgba(themeData.secondary, 0.6));
+        }
 
         if (location.pathname.includes('main.html') || sessionStorage.getItem('isMainPage') !== 'true') {
             const hasCustomWallpaper = localStorage.getItem("axiomUseCustomWallpaper") === "true" &&

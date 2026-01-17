@@ -19,7 +19,7 @@ function getWebpageContext() {
 }
 
 function buildSystemPrompt() {
-  let basePrompt = (localStorage.getItem("axiomPremium") == "true" && window.premium.check())
+  let basePrompt = window.premium.checkSync()
     ? sys_prompt_prem
     : sys_prompt_def;
   return basePrompt + getWebpageContext();

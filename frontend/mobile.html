@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Axiom Network</title>
+    <!-- icons  -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="styles/main.css">
     <script src="./os/winbox.bundle.min.js"></script>
@@ -18,48 +19,24 @@
         <div class="loader"></div>
     </div>
 
-    <div id="desktop">
-    </div>
-
-    <div id="contextMenu" class="context-menu">
-        <div class="context-menu-item" data-app="browser">
-            <span class="material-symbols-outlined">language</span>
-            <span>Browser</span>
-        </div>
-        <div class="context-menu-item" data-app="games">
-            <span class="material-symbols-outlined">gamepad</span>
-            <span>Games</span>
-        </div>
-        <div class="context-menu-item" data-app="ai">
-            <span class="material-symbols-outlined">article</span>
-            <span>AI Chat</span>
-        </div>
-        <div class="context-menu-item" data-app="notepad">
-            <span class="material-symbols-outlined">note</span>
-            <span>Notepad</span>
-        </div>
-        <div class="context-menu-item" data-app="settings">
-            <span class="material-symbols-outlined">settings</span>
-            <span>Settings</span>
-        </div>
-    </div>
+    <iframe id="main" style="width: 100%; height: calc(100% - 50px); border: 0; position: fixed;">
+    </iframe>
 
     <div id="taskbar">
         <span class="material-symbols-outlined start-btn" id="browser">language</span>
         <span class="material-symbols-outlined start-btn" id="games">gamepad</span>
-        <span class="material-symbols-outlined start-btn" id="movies">movie</span>
-        <span class="material-symbols-outlined start-btn" id="youtube">youtube_activity</span>
         <span class="material-symbols-outlined start-btn" id="ai">article</span>
         <span class="material-symbols-outlined start-btn" id="notepad">note</span>
-        <span class="material-symbols-outlined start-btn" id="terminal">terminal</span>
         <span class="material-symbols-outlined start-btn" id="settings">settings</span>
     </div>
+
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
     <script src="./browser/scripts/premium.js"></script>
     <script src="./browser/scripts/themes.js"></script>
-    <script src="./scripts/os/osEssensials.js"></script>
+    <script src="./scripts/os/osEssensialsMobile.js"></script>
     <script src="./scripts/analytics.js"></script>
     <script>
-
         window.addEventListener('load', () => {
             sessionStorage.setItem('isMainPage', 'true');
         });
@@ -75,7 +52,6 @@
                 window.themeManager.applyTheme();
             }
         });
-        
     </script>
 </body>
 

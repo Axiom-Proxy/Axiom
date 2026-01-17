@@ -76,7 +76,7 @@ body {
   border-radius: var(--border-radius);
   display: flex;
   flex-direction: column;
-  top: 0;
+  top: 50px;
   left: 50px;
   overflow: hidden;
   background: var(--surface-alpha, rgba(17, 17, 17, 0.8));
@@ -155,11 +155,12 @@ body {
   font-size: 25px;
   width: min-content;
   border-radius: 4px;
-  transition: all 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 #taskbar span:hover {
-  transform: scale(1.1);
+  background-color: var(--accent-color, #3b82f6);
+  color: var(--text-color, #fff);
 }
 
 #loader {
@@ -255,7 +256,7 @@ body {
 }
 
 .winbox .wb-body {
-  padding: 0 !important;
+  padding: 20px !important;
   color: var(--text-color, #ccc) !important;
   font-size: 0.9rem !important;
   overflow: hidden !important;

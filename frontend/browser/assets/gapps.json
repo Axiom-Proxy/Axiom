@@ -426,12 +426,6 @@
     "type": "game"
   },
   {
-    "app_name": "Doom 1",
-    "app_url": "https://browncha023.github.io/GBA/launcher.html#dm",
-    "app_img": "./assets/gapp-images/DOOM.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Cubes 2048",
     "app_url": "https://www.crazygames.com/game/cubes-2048-io",
     "app_img": "./assets/gapp-images/C2048.webp",
@@ -720,12 +714,6 @@
     "type": "game"
   },
   {
-    "app_name": "GBA Games",
-    "app_url": "https://real-sgs.vercel.app/Tools/GBA-Emulator",
-    "app_img": "./assets/gapp-images/gba.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Bandit.RIP",
     "app_url": "https://bandit.rip/",
     "app_img": "./assets/gapp-images/banditrip.webp",
@@ -828,12 +816,6 @@
     "type": "game"
   },
   {
-    "app_name": "Genshin Impact",
-    "app_url": "https://now.gg/iframe/snippet?app_pkg=com.miHoYo.GenshinImpact&partner=interstellar",
-    "app_img": "./assets/gapp-images/genshinimpact.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Temple Run 2",
     "app_url": "https://watchdocumentaries.com/wp-content/uploads/games/temple-run-2/",
     "app_img": "./assets/gapp-images/temple-run-2.webp",
@@ -900,12 +882,6 @@
     "type": "game"
   },
   {
-    "app_name": "Character AI",
-    "app_url": "https://now.gg/iframe/snippet?app_pkg=ai.character.app&partner=interstellar",
-    "app_img": "./assets/gapp-images/characterai.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Stickman Archero Fight",
     "app_url": "https://html5.gamedistribution.com/rvvASMiM/3f4c166817ad4fd4b5b05d9adba22fcd/index.html",
     "app_img": "./assets/gapp-images/stickman-archero-fight.webp",
@@ -936,12 +912,6 @@
     "type": "game"
   },
   {
-    "app_name": "Nintendo DS Emulator",
-    "app_url": "https://ds.44670.org/",
-    "app_img": "./assets/gapp-images/ds.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Pixel Shooter",
     "app_url": "https://94bfktj403i6m18as4vkvtreqd0ohci4-a-sites-opensocial.googleusercontent.com/gadgets/ifr?url=https://274019683-173520394482650759.preview.editmysite.com/uploads/b/139890129-131715539788281629/files/ps.xml",
     "app_img": "./assets/gapp-images/pixel-shooter.webp",
@@ -957,12 +927,6 @@
     "app_name": "Haunted School 1",
     "app_url": "https://games.crazygames.com/en_US/haunted-school---horror-game/index.html",
     "app_img": "./assets/gapp-images/na.webp",
-    "type": "game"
-  },
-  {
-    "app_name": "Now.GG (NowGG.me) [Working]",
-    "app_url": "https://nowgg.me",
-    "app_img": "./assets/gapp-images/shuttle.webp",
     "type": "game"
   },
   {
@@ -1011,12 +975,6 @@
     "app_name": "Merge Fruit",
     "app_url": "https://html5.gamedistribution.com/2dee9d404697435aa76111eb4015e1d5/",
     "app_img": "./assets/gapp-images/mergefruit.webp",
-    "type": "game"
-  },
-  {
-    "app_name": "Doom 2",
-    "app_url": "https://browncha023.github.io/GBA/launcher.html#dm2",
-    "app_img": "./assets/gapp-images/doom2.webp",
     "type": "game"
   },
   {
@@ -1074,21 +1032,9 @@
     "type": "game"
   },
   {
-    "app_name": "EA SPORTS FC\u00c3\u00a2\u00e2\u20ac\u017e\u00c2\u00a2 MOBILE 24 SOCCER",
-    "app_url": "https://now.gg/iframe/snippet?app_pkg=com.ea.gp.fifamobile&partner=interstellar",
-    "app_img": "./assets/gapp-images/easports-fcmobile24.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Crazy Games",
     "app_url": "https://www.crazygames.com/",
     "app_img": "./assets/gapp-images/crazy.webp",
-    "type": "game"
-  },
-  {
-    "app_name": "WorldBox",
-    "app_url": "https://now.gg/iframe/snippet?app_pkg=com.mkarpenko.worldbox&partner=interstellar",
-    "app_img": "./assets/gapp-images/worldbox.webp",
     "type": "game"
   },
   {
@@ -1212,12 +1158,6 @@
     "type": "game"
   },
   {
-    "app_name": "Free Fire",
-    "app_url": "https://now.gg/iframe/snippet?app_pkg=com.dts.freefireth&partner=interstellar",
-    "app_img": "./assets/gapp-images/freefire.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Chess.com",
     "app_url": "https://chess.com",
     "app_img": "./assets/gapp-images/chess.webp",
@@ -1260,12 +1200,6 @@
     "type": "game"
   },
   {
-    "app_name": "Toca Kitchen 2",
-    "app_url": "https://now.gg/iframe/snippet?app_pkg=com.tocaboca.tocakitchen2&partner=interstellar",
-    "app_img": "./assets/gapp-images/tocakitchen2.webp",
-    "type": "game"
-  },
-  {
     "app_name": "1v1.LOL",
     "app_url": "https://1v1.lol",
     "app_img": "./assets/gapp-images/1v1-lol.webp",
@@ -1290,33 +1224,15 @@
     "type": "game"
   },
   {
-    "app_name": "Stumble Guys (Android)",
-    "app_url": "https://now.gg/iframe/snippet?app_pkg=com.kitkagames.fallbuddies&partner=interstellar",
-    "app_img": "./assets/gapp-images/stumble-guys.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Basket Random",
     "app_url": "https://html5.gamedistribution.com/rvvASMiM/bf1268dccb5d43e7970bb3edaa54afc8/index.html",
     "app_img": "./assets/gapp-images/br.webp",
     "type": "game"
   },
   {
-    "app_name": "Cookie Run Kingdom",
-    "app_url": "https://now.gg/iframe/snippet?app_pkg=com.devsisters.ck&partner=interstellar",
-    "app_img": "./assets/gapp-images/cookierunkingdom.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Wordle",
     "app_url": "https://www.nytimes.com/games/wordle/index.html",
     "app_img": "./assets/gapp-images/w.webp",
-    "type": "game"
-  },
-  {
-    "app_name": "Now.GG",
-    "app_url": "https://now.gg",
-    "app_img": "./assets/gapp-images/now-gg.webp",
     "type": "game"
   },
   {
@@ -1377,12 +1293,6 @@
     "app_name": "Rainbow Obby",
     "app_url": "https://785a4295-96c4-43e5-b237-fb07fc3ef44d.poki-gdn.com/f1d39f75-7a25-41de-86cf-ba00804737b5/index.html",
     "app_img": "./assets/gapp-images/rainbowobby.webp",
-    "type": "game"
-  },
-  {
-    "app_name": "PM: Light Platinum",
-    "app_url": "https://browncha023.github.io/GBA/launcher.html#pokemonlp",
-    "app_img": "./assets/gapp-images/lp.webp",
     "type": "game"
   },
   {
@@ -1536,12 +1446,6 @@
     "type": "game"
   },
   {
-    "app_name": "Solar Smash",
-    "app_url": "https://now.gg/iframe/snippet?app_pkg=com.paradyme.solarsmash&partner=interstellar",
-    "app_img": "./assets/gapp-images/solarsmash.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Agar.io",
     "app_url": "https://agar.io",
     "app_img": "./assets/gapp-images/agario.webp",
@@ -1557,12 +1461,6 @@
     "app_name": "Red Ball 2",
     "app_url": "https://www.algebrashelper.com/redball-2",
     "app_img": "./assets/gapp-images/redball2.webp",
-    "type": "game"
-  },
-  {
-    "app_name": "GBA Emulator",
-    "app_url": "https://ds.44670.org/gba/",
-    "app_img": "./assets/gapp-images/gba.webp",
     "type": "game"
   },
   {
@@ -1584,12 +1482,6 @@
     "type": "game"
   },
   {
-    "app_name": "EA SPORTS\u00c3\u00a2\u00e2\u20ac\u017e\u00c2\u00a2 UFC\u00c3\u201a\u00c2\u00ae Mobile 2",
-    "app_url": "https://now.gg/iframe/snippet?app_pkg=com.ea.gp.easportsufc2&partner=interstellar",
-    "app_img": "./assets/gapp-images/easports-ufc.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Gunspin",
     "app_url": "https://html5.gamedistribution.com/rvvASMiM/917cce8c44c44638a8cdc2a1794b65c8/index.html",
     "app_img": "./assets/gapp-images/gunspin.webp",
@@ -1602,12 +1494,6 @@
     "type": "game"
   },
   {
-    "app_name": "Melon Playground",
-    "app_url": "https://now.gg/iframe/snippet?app_pkg=com.studio27.MelonPlayground&partner=interstellar",
-    "app_img": "./assets/gapp-images/melonplayground.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Snow Rider 3D",
     "app_url": "https://html5.gamedistribution.com/rvvASMiM/3b79a8537ebc414fb4f9672a9b8c68c8/index.html?gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3Nub3dyaWRlcjNkLmNvbS8iLCJwYXJlbnREb21haW4iOiJzbm93cmlkZXIzZC5jb20iLCJ0b3BEb21haW4iOiJzbm93cmlkZXIzZC5jb20iLCJoYXNJbXByZXNzaW9uIjpmYWxzZSwibG9hZGVyRW5hYmxlZCI6dHJ1ZSwiaG9zdCI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidmVyc2lvbiI6IjEuNS4xNiJ9",
     "app_img": "./assets/gapp-images/snowrider3d.webp",
@@ -1617,12 +1503,6 @@
     "app_name": "Parappa the Rapper",
     "app_url": "https://retrogamesonline.io/parappa-the-rapper.embed",
     "app_img": "./assets/gapp-images/ptr.webp",
-    "type": "game"
-  },
-  {
-    "app_name": "Kirby Mirror (GBA)",
-    "app_url": "https://www.retrogames.onl/gba/kirby-mirror-gba.html",
-    "app_img": "./assets/gapp-images/kirby.webp",
     "type": "game"
   },
   {
@@ -1692,12 +1572,6 @@
     "type": "game"
   },
   {
-    "app_name": "BuildNow.GG",
-    "app_url": "https://games.crazygames.com/en_US/buildnow-gg/index.html",
-    "app_img": "./assets/gapp-images/build-now.webp",
-    "type": "game"
-  },
-  {
     "app_name": "Riddle School 1",
     "app_url": "https://uploads.ungrounded.net/ruffle_wrapper/ruffleembed.html?v=1.0.67&browsermode=default&props=%7B%22ruffle%22%3A%22%2Fruffle_wrapper%2Flib%2Fruffle.js%3F1695474658%22%2C%22public_path%22%3A%22%2Fruffle_wrapper%2Flib%2F%22%2C%22swf%22%3A%22https%3A%2F%2Fuploads.ungrounded.net%2F314000%2F314680_Riddle_School.swf%3F1148577264%22%2C%22vars%22%3A%7B%22NewgroundsAPI_PublisherID%22%3A1%2C%22NewgroundsAPI_SandboxID%22%3A%2265103f0745c96%22%2C%22NewgroundsAPI_SessionID%22%3A%22%22%2C%22NewgroundsAPI_UserName%22%3A%22%26lt%3Bdeleted%26gt%3B%22%2C%22NewgroundsAPI_UserID%22%3A0%2C%22ng_username%22%3A%22%26lt%3Bdeleted%26gt%3B%22%7D%2C%22width%22%3A550%2C%22height%22%3A400%2C%22icon%22%3A%22https%3A%2F%2Fpicon.ngfiles.com%2F314000%2Fflash_314680_card.webp%3Ff1607914286%22%2C%22warnOnUnsupportedContent%22%3Afalse%7D",
     "app_img": "./assets/gapp-images/riddle-school.webp",
@@ -1713,12 +1587,6 @@
     "app_name": "Brain Test 3",
     "app_url": "https://games.poki.com/458768/1f3ae540-a95f-4f20-a000-29512612e341",
     "app_img": "./assets/gapp-images/braintest3.webp",
-    "type": "game"
-  },
-  {
-    "app_name": "Madden NFL 24",
-    "app_url": "https://now.gg/iframe/snippet?app_pkg=com.ea.gp.maddennfl21mobile&partner=interstellar",
-    "app_img": "./assets/gapp-images/maddennfl24.webp",
     "type": "game"
   },
   {

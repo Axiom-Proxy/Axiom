@@ -19,7 +19,7 @@ body {
 
 h3 {
     font-size: 55px;
-    font-weight: 100;
+    font-weight: 200;
     margin: 0;
     color: var(--text-color, rgb(255, 255, 255));
 }
@@ -72,13 +72,18 @@ h3 {
     align-items: center;
     gap: 5px;
     padding: 8px;
-    border-radius: 4px;
+    border-radius: 16px;
     width: 60px;
     background-color: var(--surface-alpha, rgba(15, 15, 15, .5));
     user-select: none;
     border: 1px solid var(--theme-border, transparent);
     transition: all 0.2s ease;
     cursor: pointer;
+}
+
+.shortcut img {
+    width: 32px;
+    height: 32px;
 }
 
 .shortcut:hover {

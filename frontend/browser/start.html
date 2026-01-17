@@ -16,30 +16,13 @@
         <input class="search-input" placeholder="Search or enter URL" type="text" id="search">
         <i class="material-symbols-outlined  search-icon">search</i>
     </div>
-    <div id="shortcuts">
-        <div class="shortcut" onclick="window.location='./gapps.html'">
-            <i class="material-symbols-outlined">gamepad</i>
-            <span>Games</span>
-        </div>
-        <div class="shortcut" onclick="window.location='./apps.html'">
-            <i class="material-symbols-outlined">menu</i>
-            <span>Apps</span>
-        </div>
-
-        <div class="shortcut" onclick="window.location='./ai.html'">
-            <i class="material-symbols-outlined">article</i>
-            <span>AI Chat</span>
-        </div>
-
-        <div class="shortcut" onclick="window.location='./settings.html'">
-            <i class="material-symbols-outlined">settings</i>
-            <span>Settings</span>
-        </div>
+  
 
 
     </div>
 
     <script src="scripts/themes.js"></script>
+    <script src="../scripts/analytics.js"></script>
     <script>
         document.getElementById("search").addEventListener("keydown", function (event) {
             if (event.key == "Enter") {

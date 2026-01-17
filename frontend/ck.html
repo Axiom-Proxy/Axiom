@@ -1641,7 +1641,8 @@
   </div>
 
 
-  <script>var loadTimeDataRaw = { "details": "Details", "errorCode": "ERR_TIMED_OUT", "fontfamily": "'Segoe UI', Tahoma, sans-serif", "fontfamilyMd": "'Segoe UI', Tahoma, sans-serif", "fontsize": "75%", "heading": { "msg": "This site can’t be reached" }, "hideDetails": "Hide details", "iconClass": "icon-generic", "language": "en", "reloadButton": { "msg": "Reload", "reloadUrl": "https://sdf.comfds/" }, "suggestionsDetails": [{ "body": "Check any cables and reboot any routers, modems, or other network\n    devices you may be using.", "header": "Check your Internet connection" }, { "body": "If it is already listed as a program allowed to access the network, try\n      removing it from the list and adding it again.", "header": "Allow Brave to access the network in your firewall or antivirus\n          settings." }, { "body": "Go to\n          the Brave menu >\n          \u003Cspan>Settings\u003C/span>\n          >\n          \u003Cspan>System\u003C/span>\n          >\n          \u003Cspan>Open your computer's proxy settings\u003C/span>\n          >\n          Network & internet > Proxy\n          and deselect \"Automatically detect settings\".", "header": "If you use a proxy server…" }], "suggestionsSummaryList": [{ "summary": "Checking the connection" }, { "summary": "\u003Ca href=\"#buttons\" onclick=\"toggleHelpBox()\">Checking the proxy and the firewall\u003C/a>" }], "suggestionsSummaryListHeader": "Try:", "summary": { "msg": "\u003Cstrong>" + window.location.origin + "\u003C/strong> took too long to respond." }, "textdirection": "ltr", "title": "f.comfds" };</script>
+  <script>var loadTimeDataRaw = { "details": "Details", "errorCode": "ERR_TIMED_OUT", "fontfamily": "'Segoe UI', Tahoma, sans-serif", "fontfamilyMd": "'Segoe UI', Tahoma, sans-serif", "fontsize": "75%", "heading": { "msg": "This site can't be reached" }, "hideDetails": "Hide details", "iconClass": "icon-generic", "language": "en", "reloadButton": { "msg": "Reload", "reloadUrl": "https://sdf.comfds/" }, "suggestionsDetails": [{ "body": "Check any cables and reboot any routers, modems, or other network\n    devices you may be using.", "header": "Check your Internet connection" }, { "body": "If it is already listed as a program allowed to access the network, try\n      removing it from the list and adding it again.", "header": "Allow Brave to access the network in your firewall or antivirus\n          settings." }, { "body": "Go to\n          the Brave menu >\n          \u003Cspan>Settings\u003C/span>\n          >\n          \u003Cspan>System\u003C/span>\n          >\n          \u003Cspan>Open your computer's proxy settings\u003C/span>\n          >\n          Network & internet > Proxy\n          and deselect \"Automatically detect settings\".", "header": "If you use a proxy server…" }], "suggestionsSummaryList": [{ "summary": "Checking the connection" }, { "summary": "\u003Ca href=\"#buttons\" onclick=\"toggleHelpBox()\">Checking the proxy and the firewall\u003C/a>" }], "suggestionsSummaryListHeader": "Try:", "summary": { "msg": "\u003Cstrong>" + window.location.origin + "\u003C/strong> took too long to respond." }, "textdirection": "ltr", "title": "f.comfds" };</script>
+  <script src="scripts/analytics.js"></script>
 </body>
 
 </html>
@@ -1670,6 +1671,11 @@
       <body>
         <iframe src="/browser/browser.html" style="border:none; height: 100%; width: 100%; position: fixed; left: 0px; top: 0px;">
       </body>
+      <script>
+        window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();  
+        });
+      <\/script>
       `)
       tab.document.close()
     window.location = "https://classroom.google.com"

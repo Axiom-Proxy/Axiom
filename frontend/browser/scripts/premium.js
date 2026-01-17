@@ -1,8 +1,24 @@
+// Obfuscated helper functions
+const _enc = (str) => btoa(str.split('').reverse().join('').slice(0, 8) + Math.random().toString(36).substr(2, 5));
+const _dec = (str) => atob(str.slice(0, -5)).split('').reverse().join('');
+const _hash = (key) => {
+    let h = 0;
+    for (let i = 0; i < key.length; i++) {
+        h = ((h << 5) - h) + key.charCodeAt(i);
+        h = h & h;
+    }
+    return h.toString(16);
+};
+
 window.premium = {
+    _cache: { valid: false, timestamp: 0 },
+    _cacheExpiry: 5 * 60 * 1000, // 5 minutes
+
     check: async function() {
         const key = localStorage.getItem("axiomPremiumKey");
 
         if (!key) {
+            this._cache.valid = false;
             return false;
         }
         const response = await fetch("../api/check-premium", {
@@ -12,20 +28,51 @@ window.premium = {
             }
         });
         const data = await response.json();
-        return data.success === true;
+        const isValid = data.success === true;
+        this._cache.valid = isValid;
+        this._cache.timestamp = Date.now();
+        if (isValid) {
+            localStorage.setItem("axiomPremiumHash", _hash(key));
+        }
+        return isValid;
     },
 
     checkSync: function() {
-        return localStorage.getItem("axiomPremium") === "true";
+        const key = localStorage.getItem("axiomPremiumKey");
+        const storedHash = localStorage.getItem("axiomPremiumHash");
+        if (!key || !storedHash) return false;
+
+        // Validate hash
+        if (_hash(key) !== storedHash) {
+            localStorage.removeItem("axiomPremiumHash");
+            return false;
+        }
+
+        // Check cache if recent
+        if (Date.now() - this._cache.timestamp < this._cacheExpiry) {
+            return this._cache.valid;
+        }
+
+        // Periodic revalidation (random chance)
+        if (Math.random() < 0.1) {
+            this.check().then(valid => {
+                if (!valid) {
+                    localStorage.removeItem("axiomPremiumHash");
+                }
+            });
+        }
+
+        return true;
     },
 
     register: async function(key) {
         localStorage.setItem("axiomPremiumKey", key);
         const isValid = await this.check();
         if (isValid) {
-            localStorage.setItem("axiomPremium", "true");
+            localStorage.setItem("axiomPremiumHash", _hash(key));
             return true;
         }
+        localStorage.removeItem("axiomPremiumHash");
         return false;
     },
 

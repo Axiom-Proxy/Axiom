@@ -61,6 +61,10 @@ server.get("/api/check-premium", async function(req, res) {
   }
 })
 
+server.get('/ask', async function(req, res) {
+  res.send("OK")
+})
+
 server.get("/api/youtube/search", async (request, reply) => {
     try {
         const { query } = request.query;

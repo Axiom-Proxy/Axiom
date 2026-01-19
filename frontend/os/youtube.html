@@ -272,7 +272,7 @@
     }
 
     function openVideo(videoId) {
-        const youtubeUrl = `https://www.youtube.com/embed/${videoId}`;
+        const youtubeUrl = `../render.html?url=` +  btoa(`https://www.youtube.com/embed/${videoId}`);
         localStorage.setItem('currentVideoId', videoId);
         document.getElementById("player").style.display = "block";
         document.getElementById("iframe").src = youtubeUrl;

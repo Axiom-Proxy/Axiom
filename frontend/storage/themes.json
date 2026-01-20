@@ -126,16 +126,16 @@
     "premium": true
   },
   "Zenith": {
-    "primary": "#000000",
-    "secondary": "#ff0000",
-    "tertiary": "#000000",
-    "quaternary": "#ff0000",
-    "quinary": "#000000",
-    "border": "#000000",
-    "text": "#ffffff",
-    "inactiveTabBg": "#000000",
-    "activeTabBg": "#ff0000",
-    "tabText": "#ffffff",
+    "primary": "#45050C",
+    "secondary": "#720E07",
+    "tertiary": "#001011",
+    "quaternary": "#880D1E",
+    "quinary": "#45050C",
+    "border": "#45050C",
+    "text": "#001011",
+    "inactiveTabBg": "#45050C",
+    "activeTabBg": "#720E07",
+    "tabText": "#001011",
     "premium": true
   }
 }

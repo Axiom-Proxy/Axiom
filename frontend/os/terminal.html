@@ -1,73 +1,111 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Axiom Terminal V3</title>
-		<style>
-			@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap');
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom Terminal V3</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap');
 
-body {
-    color: #fff;	
-    font-family: "Google Sans Code";
-}
+        body {
+            background-color: transparent;
+            color: #fff;
+            font-family: "Google Sans Code", monospace;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
 
-@keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    50% {
-       opacity: 0; 
-    }
-    100% {
-        opacity: 1;
-    }
-}
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
 
-#cursor {
-    background-color: white;
-    width: min-content;
-    display: inline;
-    height: min-content;
-    animation: blink 1s steps(1) infinite;
-}
+        #terminal {
+            margin: auto;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: inherit;
+            font-family: inherit;
+        }
 
-#typing-sector {
-    display: inline;
-}
-</style>
-	</head>
-	<body>
-		Welcome to the Axiom Terminal! You can use javascript here.
-		<br>
-		><div id="typing-sector"></div><div id="cursor">f</div>
-	</body>
-	<script>
-		let text = ""
+        #cursor {
+            display: inline-block;
+            animation: blink 1s steps(5) infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="terminal">
+        Welcome to the Axiom Terminal! You can use JavaScript here.
+        <br>
+        > <span id="typing-sector"></span><span id="cursor">_</span>
+    </div>
 
-console.log = function(input){
-    document.getElementById("typing-sector").innerHTMl+="<br>" + input
-}
-console.warn = function(input) { console.log("[WARN]: " + input) }
-console.error = function(input) { console.log("[ERR]: " + input) }
+    <script>
+        let inputText = "";
 
-function handleCommand(text){
-    eval(text)
-}
+        // Override console methods
+        const originalConsoleLog = console.log;
+        const originalConsoleWarn = console.warn;
+        const originalConsoleError = console.error;
 
-document.addEventListener("keydown", function(event){
-    if (event.key == "Backspace"){
-        text = text.slice(0, text.length - 1)
-        document.getElementById("typing-sector").innerText = (document.getElementById("typing-sector").innerText).slice(0, (document.getElementById("typing-sector").innerText).length-1)
-        return
-    }
-    if (event.key == "Enter"){
-        handleCommand(text)
-        text = ""
-        document.getElementById("typing-sector").innerHTML += "<br>>"
-        return
-    }
-    if (event.key == "Shift") return
-    text += event.key
-    document.getElementById("typing-sector").innerText += event.key
-})
-	</script>
+        function overrideConsoleMethods() {
+            console.log = function(input) {
+                document.getElementById("typing-sector").innerHTML += "<br>" + input;
+            };
+
+            console.warn = function(input) {
+                document.getElementById("typing-sector").innerHTML += `<br>[WARN]: ${input}`;
+            };
+
+            console.error = function(input) {
+                document.getElementById("typing-sector").innerHTML += `<br>[ERR]: ${input}`;
+            };
+        }
+
+        overrideConsoleMethods();
+
+        // Handle command execution
+        function executeCommand(text) {
+            try {
+                eval(text);
+            } catch (e) {
+                console.error(`Error executing command: ${e.message}`);
+            }
+        }
+
+        document.addEventListener("keydown", function(event) {
+            const cursor = document.getElementById("cursor");
+            
+            if (event.key === "Backspace") {
+                // Remove last character from inputText
+                if (inputText.length > 0) {
+                    inputText = inputText.slice(0, -1);
+                    
+                    // Update typing-sector text
+                    const sector = document.getElementById("typing-sector");
+                    let currentText = sector.innerText;
+                    if (currentText.endsWith("> ")) { 
+                        currentText = currentText.substring(0, currentText.length - 2); // Remove "> "
+                    } else {
+                        currentText = currentText.substring(0, currentText.length - 1);
+                    }
+                    sector.innerText = currentText;
+                }
+            } else if (event.key === "Enter") {
+                executeCommand(inputText);
+                inputText = "";
+                
+                // Add new line with prompt
+                document.getElementById("typing-sector").innerHTML += "<br>> ";
+            } else if (event.key.length === 1) { 
+                inputText += event.key;
+                document.getElementById("typing-sector").innerText += event.key;
+            }
+        });
+    </script>
+</body>
 </html>

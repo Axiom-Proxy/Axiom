@@ -23,7 +23,13 @@
         <input id="search" oninput="search()" placeholder="Search or enter URL..." type="search" />
         <span onclick="navigateToPage()" class="material-symbols-outlined">search</span>
         <span onclick="handle_eruda()" class="material-symbols-outlined">terminal</span>
-        <span onclick="handle_fullscreen()" class="material-symbols-outlined">fullscreen</span>
+        <span onclick="handle_bookmark()" id="handle_bookmark" class="material-symbols-outlined">star</span>
+
+    </div>
+
+    <div id="loader">
+        <h2 class="loader-text">Axiom<span class="os-indicator">OS</span></h2>
+        <div class="loader"></div>
     </div>
 
     <div id="frames">

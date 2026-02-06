@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom Search</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="../styles/main.css"> <!-- just get the init styles, we wont use half of em anyways -->
+    <link rel="stylesheet" href="./styles/search.css">
+</head>
+
+<body>
+
+    <header>
+        <h3>Axiom <span class="search">Search</span></h3>
+        <div class="search-container">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search or enter URL">
+        </div>
+    </header>
+    
+    <div id="content">
+        <div id="results">
+            <span id="loader_item" class="loader" style="width: 50px; height: 50px; position: fixed; top: 50%; left: 50%;"></span>
+            <p id="result_count">Found 0 results in 0 seconds</p>
+        </div>
+    </div>
+
+    <script src="../browser/scripts/themes.js"></script>
+
+    <script src="./scripts/search.js"></script>
+</body>
+
+</html>

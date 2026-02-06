@@ -1,7 +1,10 @@
+<!DOCTYPE html>
+<html>
 <head>
     <meta name="description" content="Learn about geology in a fun way!">
     <meta name="keywords" content="School, Science, STEM">
     <meta name="author" content="AxiomEdu">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 
@@ -48,46 +51,67 @@
         background-color: rgb(128, 134, 139);
         z-index: 1;
     }
+
+    #options {
+        display: flex;
+        gap: 10px;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #options div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        background-color: #3b82f6;
+        padding: 4px;
+        border-radius: 4px;
+    }
 </style>
 <div id="cover"></div>
 <center>
     <h2>Welcome to Axiom!</h2>
-    <h3>Next time when you visit, there will be a <span style="color: #3b82f6;">fake error page</span>.</h3>
-    <h3>Press <span style="color: #3b82f6;">C</span> on that page to get to the Axiom OS.</h3>
-    <h3>Alternatively, you can press <span style="color: #3b82f6;">X</span> to go directly to the Axiom OS Browser.</h3>
-    <h3>For now though, you can press this button</h3>
-    <button id="cloak" disabled>Continue in 10 seconds</button>
+    <p>Use one of the following to make the link last longer!</p>
+    <div id="options">
+        <div id="window">
+            <span class="material-symbols-outlined">tab</span>
+            <span>Window A:B</span>
+        </div>
+        <div id="file">
+            <span class="material-symbols-outlined">file_copy</span>
+            <span>File Cloak</span>
+        </div>
+        <div id="blob">
+            <span class="material-symbols-outlined">link</span>
+            <span>Blob Cloak</span>
+        </div>
+        <div id="cloak">
+            <span class="material-symbols-outlined">language</span>
+            <span>A:B Cloak</span>
+        </div>
+    </div>
 </center>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EP8214CHBW"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-EP8214CHBW');
+    gtag('config', 'G-EP8214CHBW');
 </script>
 
 <script>
 
-    let count = 10;
-    let interval = setInterval(function () {
-        document.getElementById("cloak").innerHTML = "Continue in " + count + " seconds";
-        count--;
-        if (count == 0) {
-            clearInterval(interval);
-            document.getElementById("cloak").disabled = false;
-            document.getElementById("cloak").innerHTML = "Continue";
-            document.getElementById("cloak").addEventListener("click", cloak);
-        }
-    }, 1000);
-
-
     function cloak() {
-        tab = window.open("about:blank", target = "_blank")
+        tab = window.open("about:blank", target="_blank")
         tab.document.write(`
       <html>
       <head>
+        <title>Google</title>
+        <link rel="icon" href="${window.location.origin}/os/google_favicon.ico" type="image/x-icon">
       </head>
       <body>
         <iframe src="main.html" style="border:none; height: 100%; width: 100%; position: fixed; left: 0px; top: 0px;">
@@ -98,26 +122,91 @@
         });
       <\/script>
 `)
-tab.document.close()
-}
+        tab.document.close()
+    }
 
-if (localStorage.getItem("firstTime") != null) {
-window.location.href = "ck.html"
-}
-else {
-localStorage.setItem("firstTime", "true")
-document.getElementById("cover").remove();
-}
+    if (localStorage.getItem("firstTime") != null) {
+        //window.location.href = "ck.html"
+    }
+    else {
+        localStorage.setItem("firstTime", "true")
+        document.getElementById("cover").remove();
+    }
+    document.getElementById("cover").remove();
+    
+    // check for mobile
+    if (navigator.userAgent.match(/Android/i) ||
+        navigator.userAgent.match(/webOS/i) ||
+        navigator.userAgent.match(/iPhone/i) ||
+        navigator.userAgent.match(/iPad/i) ||
+        navigator.userAgent.match(/iPod/i) ||
+        navigator.userAgent.match(/BlackBerry/i) ||
+        navigator.userAgent.match(/Windows Phone/i)) {
+        window.location.href = "mobile.html"
+    }
 
-// check for mobbile
-if (navigator.userAgent.match(/Android/i) ||
-    navigator.userAgent.match(/webOS/i) ||
-    navigator.userAgent.match(/iPhone/i) ||
-    navigator.userAgent.match(/iPad/i) ||
-    navigator.userAgent.match(/iPod/i) ||
-    navigator.userAgent.match(/BlackBerry/i) ||
-    navigator.userAgent.match(/Windows Phone/i)) {
-    window.location.href = "mobile.html"
-}
+    let windowab = document.getElementById("window")
+    windowab.addEventListener("click", () => {
+        const windowFeatures = 'width=1200,height=1200,resizable=yes,scrollbars=yes,status=yes';
+        const newWindow = window.open(window.location.origin, 'Google', windowFeatures);
+        
+        // After a short delay, modify the new window to have Google title and favicon
+        setTimeout(() => {
+            if (newWindow) {
+                try {
+                    newWindow.document.title = "Google";
+                    const link = newWindow.document.createElement('link');
+                    link.rel = 'icon';
+                    link.href = 'os/google_favicon.ico';
+                    newWindow.document.head.appendChild(link);
+                } catch (e) {
+                    // Cross-origin restrictions might prevent this
+                    console.log("Could not modify window properties due to cross-origin restrictions");
+                }
+            }
+        }, 100);
+    })
+    
+    let file = document.getElementById("file")
+    file.addEventListener("click", () => {
+        // create blob with Google title and favicon
+        const htmlContent = `
+            <html>
+            <head>
+                <title>Google</title>
+                <link rel="icon" href="${window.location.origin}/os/google_favicon.ico" type="image/x-icon">
+            </head>
+            <body>
+                <iframe src="${window.location.origin}/main.html" style="border:none; height: 100%; width: 100%; position: fixed; left: 0px; top: 0px;"></iframe>
+            </body>
+            </html>
+        `;
+        const object_URL = URL.createObjectURL(new Blob([htmlContent], { type: 'text/html' }));
 
+        const a = document.createElement('a');
+        a.href = object_URL;
+        a.download = "axiom_launcher_" + window.location.origin + ".html"; 
+
+        document.body.appendChild(a);
+        a.click();
+    })
+
+    let blob = document.getElementById("blob")
+    blob.addEventListener("click", () => {
+        const htmlContent = `
+            <html>
+            <head>
+                <title>Google</title>
+                <link rel="icon" href="${window.location.origin}/os/google_favicon.ico" type="image/x-icon">
+            </head>
+            <body>
+                <iframe src="${window.location.origin}/main.html" style="border:none; height: 100%; width: 100%; position: fixed; left: 0px; top: 0px;"></iframe>
+            </body>
+            </html>
+        `;
+        const object_URL = URL.createObjectURL(new Blob([htmlContent], { type: 'text/html' }));
+
+        window.open(object_URL, '_blank');
+    })
 </script>
+</html>

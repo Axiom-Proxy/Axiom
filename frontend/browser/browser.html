@@ -14,6 +14,7 @@
         #tabs {
             padding: 0 12px 0 12px;
             height: var(--toolbar-height);
+            margin-left: 40px;
         }
 
         .tab {
@@ -42,11 +43,61 @@
         #frames {
             height: calc(100% - var(--toolbar-height));
             margin-top: var(--toolbar-height);
+            margin-left: 40px;
         }
     </style>
 </head>
 
 <body>
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 100%;
+            background-color: transparent;
+            color: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar .start-btn {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar .start-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        iframe {
+            border: 1px solid var(--theme-border);
+            border-top-left-radius: 15px;
+            border-bottom: none;
+        }
+    </style>
+    <div class="sidebar">
+        <img src="./assets/axiom.png" alt="Axiom Logo" style="width: 30px; height: 25px; margin-top: 13px; margin-left: 2px;">
+        <br>
+        <span class="material-symbols-outlined start-btn" id="browser">language</span>
+        <span class="material-symbols-outlined start-btn" id="games">gamepad</span>
+        <span class="material-symbols-outlined start-btn" id="youtube">youtube_activity</span>
+        <span class="material-symbols-outlined start-btn" id="ai">article</span>
+        <span class="material-symbols-outlined start-btn" id="notepad">note</span>
+        <span class="material-symbols-outlined start-btn" id="terminal">terminal</span>
+        <span class="material-symbols-outlined start-btn" id="settings">settings</span>
+    </div>
+
     <div id="tabs">
         <div id="tabs2" style="display: flex; height: 100%; align-items: center;"></div>
         <div id="create_tab" onclick="createTab('New Tab', './start.html')">

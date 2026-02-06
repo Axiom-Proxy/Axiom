@@ -1,8 +1,6 @@
 const search_engine_preference =
-  localStorage.getItem("search_engine") || "Google";
-let suggestions = [];
 
-search_engine = "https://search.brave.com/search?q=";
+search_engine = "../search/index.html?q=";
 
 const premium = window.premium.check()
 let typing = 0;
@@ -29,8 +27,17 @@ document.getElementById("search").addEventListener("keydown", function () {
 });
 
 function navigateToPage() {
-  const url = document.getElementById("search").value;
-  window.location = `render.html?url=${btoa(url)}`;
+  const input = document.getElementById("search").value;
+
+  if (
+    input.startsWith("http://") ||
+    input.startsWith("https://") ||
+    /^[\w-]+(\.[\w-]+)+$/.test(input)
+  ) {
+    window.location = `render.html?url=${btoa(input)}`;
+  } else {
+    window.location = `/search/index.html?q=${encodeURIComponent(input)}`;
+  }
 }
 
 function cleanContent(htmlString){
@@ -65,7 +72,20 @@ function updateDocumentTitle() {
       
       if (currentUrl && currentUrl !== lastKnownUrl && !typing) {
         lastKnownUrl = currentUrl;
+
         document.getElementById("search").value = currentUrl;
+
+        // check if URL is in bookmarks
+        let bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]"); 
+        if (bookmarks.some((bookmark) => bookmark.url === currentUrl)) {
+          // fill in #handle_bookmark by giving it add-bookmark.filled
+          document.getElementById("handle_bookmark").classList.add("filled"); 
+        }
+        else {
+          if (document.getElementById("handle_bookmark").classList.contains("filled")) {
+            document.getElementById("handle_bookmark").classList.remove("filled");
+          }
+        }
 
         
         const newBrowserUrl = `render.html?url=${btoa(currentUrl)}`;
@@ -77,13 +97,33 @@ function updateDocumentTitle() {
       
       if (frameTitle && document.title !== frameTitle) {
         if (premium) {
-          
           sessionStorage.setItem("axiomAICon", cleanContent(scramjetFrame.frame.contentDocument.innerHTML));
+        }
+        const loaderElement = document.getElementById("loader");
+        if (loaderElement) {
+          loaderElement.classList.add("fade-out");
+          loaderElement.addEventListener("animationend", () => {
+            loaderElement.remove();
+          }, { once: true });
         }
         document.title = frameTitle;
       }
     } catch (e) {
     }
+  }
+}
+
+function handle_bookmark(){
+  let bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+  const input = document.getElementById("search").value;
+  if (bookmarks.some((bookmark) => bookmark.url === input)) {
+    bookmarks = bookmarks.filter((bookmark) => bookmark.url !== input);
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    document.getElementById("handle_bookmark").classList.remove("filled");
+  } else {
+    bookmarks.push({ url: input });
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    document.getElementById("handle_bookmark").classList.add("filled");
   }
 }
 
@@ -125,14 +165,6 @@ function handle_eruda() {
       window.eruda.hide();
       eruda_status = 0;
     }
-  }
-}
-
-function handle_fullscreen() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-  } else {
-    document.exitFullscreen();
   }
 }
 
@@ -188,7 +220,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (url) {
     const finalUrl = buildSearchUrl(url, search_engine);
 
-    // Initialize search bar with the URL
     document.getElementById("search").value = url;
     lastKnownUrl = finalUrl;
 

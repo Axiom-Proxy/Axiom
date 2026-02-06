@@ -2,13 +2,13 @@ window.themeManager = {
     themes: null,
     currentTheme: null,
     listeners: [],
-    wallpaperBasePath: null,
     variableMap: {
         '--bg-color': 'primary',
         '--window-bg': 'secondary',
         '--window-header': 'tertiary',
         '--text-color': 'text',
         '--accent-color': 'quaternary',
+        '--secondary-accent-color': 'secondaryAccent',
 
         '--color-background': 'primary',
         '--color-surface': 'secondary',
@@ -17,11 +17,13 @@ window.themeManager = {
         '--color-text-primary': 'text',
         '--color-text-secondary': 'text',
         '--color-accent': 'quaternary',
+        '--color-accent-secondary': 'secondaryAccent',
 
         '--theme-primary': 'primary',
         '--theme-secondary': 'secondary',
         '--theme-tertiary': 'tertiary',
         '--theme-quaternary': 'quaternary',
+        '--theme-secondary-accent': 'secondaryAccent',
         '--theme-quinary': 'quinary',
         '--theme-border': 'border',
         '--theme-text': 'text',
@@ -82,6 +84,7 @@ window.themeManager = {
                 "secondary": "#1e1e1e",
                 "tertiary": "#252525",
                 "quaternary": "#3b82f6",
+                "secondaryAccent": "#f682b4",
                 "quinary": "#1e1e1e",
                 "border": "#252525",
                 "text": "#ffffff",
@@ -151,6 +154,9 @@ window.themeManager = {
         if (themeData.quaternary) {
             root.style.setProperty('--accent-alpha', this.hexToRgba(themeData.quaternary, 0.25));
         }
+        if (themeData.secondaryAccent) {
+            root.style.setProperty('--secondary-accent-alpha', this.hexToRgba(themeData.secondaryAccent, 0.25));
+        }
         if (themeData.secondary) {
             root.style.setProperty('--input-bg-alpha', this.hexToRgba(themeData.secondary, 0.6));
         }
@@ -160,11 +166,8 @@ window.themeManager = {
                                        localStorage.getItem("axiomCustomWallpaper") !== null;
 
             if (!hasCustomWallpaper) {
-                const wallpaperPath = this.getWallpaperPath(themeName);
-                document.body.style.backgroundImage = `url('${wallpaperPath}')`;
-                document.body.style.backgroundSize = 'cover';
-                document.body.style.backgroundPosition = 'center';
-                document.body.style.backgroundRepeat = 'no-repeat';
+                document.body.style.backgroundImage = 'none';
+                document.body.style.backgroundColor = themeData.primary;
             }
         }
 

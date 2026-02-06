@@ -8,10 +8,58 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>New Tab</title>
     <link rel="stylesheet" href="styles/start.css">
+    <style>
+        #bookmarkContainer {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            z-index: 1;
+            border-bottom: var(--theme-border) 1px solid;
+            margin: 0;
+            padding: 5px;
+            padding-bottom: 5px;
+        }
+
+        .bookmark {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            margin: 0;
+            padding: 0;
+            border: var(--theme-border) 1px solid;
+            width: 120px;
+            padding: 1px 5px 1px 5px;
+            border-radius: 5px;
+            height: 25px;
+        }
+
+        .bookmark img {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+        }
+
+        .bookmark p {
+            margin: 0;
+            margin-left: 5px;
+        }
+
+        .remove-bookmark {
+            margin: 0;
+            margin-left: auto !important;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-    <h3>Axiom</h3>
+
+    <div id="bookmarkContainer" style="display: none;"></div>
+
+        <h3 class="logo">Axiom<span class="os-indicator">OS</span></h3>
     <div class="search-container">
         <input class="search-input" placeholder="Search or enter URL" type="text" id="search">
         <i class="material-symbols-outlined  search-icon">search</i>
@@ -31,11 +79,95 @@
   gtag('config', 'G-EP8214CHBW');
 </script>
     <script>
+
+/*
+
+function handle_bookmark(){
+  let bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+  const input = document.getElementById("search").value;
+  if (bookmarks.some((bookmark) => bookmark.url === input)) {
+    bookmarks = bookmarks.filter((bookmark) => bookmark.url !== input);
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    document.getElementById("handle_bookmark").classList.remove("filled");
+  } else {
+    bookmarks.push({ url: input });
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    document.getElementById("handle_bookmark").classList.add("filled");
+  }
+}
+
+reference */
+
+
+
         document.getElementById("search").addEventListener("keydown", function (event) {
             if (event.key == "Enter") {
-                window.location = "../render.html?url=" + btoa(document.getElementById("search").value);
+                const input = document.getElementById("search").value;
+
+                if (
+                    input.startsWith("http://") ||
+                    input.startsWith("https://") ||
+                    /^[\w-]+(\.[\w-]+)+$/.test(input)
+                ) {
+                    window.location = "../render.html?url=" + btoa(input);
+                } else {
+                    window.location = "../search/index.html?q=" + encodeURIComponent(input);
+                }
             }
         });
+
+        function loadBookmarks() {
+            const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+            const container = document.getElementById("bookmarkContainer");
+            container.innerHTML = "";
+
+            bookmarks.forEach((bookmark, index) => {
+                document.getElementById("bookmarkContainer").style.display = "flex";
+                const bookmarkDiv = document.createElement("div");
+                bookmarkDiv.className = "bookmark";
+
+                const contentDiv = document.createElement("div");
+                contentDiv.style.display = "flex";
+                contentDiv.style.alignItems = "center";
+                contentDiv.style.gap = "5px";
+
+                const img = document.createElement("img");
+                img.src = bookmark.icon || "./assets/axiom.png";
+                img.alt = bookmark.title || "Bookmark";
+
+                const title = document.createElement("p");
+                title.textContent = bookmark.title || bookmark.url;
+
+                contentDiv.appendChild(img);
+                contentDiv.appendChild(title);
+
+                const removeBtn = document.createElement("p");
+                removeBtn.className = "remove-bookmark";
+                removeBtn.textContent = "X";
+                removeBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    removeBookmark(index);
+                });
+
+                bookmarkDiv.appendChild(contentDiv);
+                bookmarkDiv.appendChild(removeBtn);
+
+                bookmarkDiv.addEventListener("click", () => {
+                    window.location = "../render.html?url=" + btoa(bookmark.url);
+                });
+
+                container.appendChild(bookmarkDiv);
+            });
+        }
+
+        function removeBookmark(index) {
+            let bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+            bookmarks.splice(index, 1);
+            localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+            loadBookmarks();
+        }
+
+        loadBookmarks();
     </script>
 </body>
 

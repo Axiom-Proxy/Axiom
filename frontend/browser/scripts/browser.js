@@ -95,7 +95,7 @@ function createTab(name, url) {
         if (frameURL == "") {
           x = getURLParameter("url");
           if (x.includes(".") == false) {
-            x = "https://duckduckgo.com/search?q=" + x;
+            x = "/search/index.html?q=" + encodeURIComponent(x);
           }
           if (x.startsWith("https://") == false) {
             x = "https://" + x;
@@ -150,10 +150,50 @@ document.addEventListener("DOMContentLoaded", function () {
     var url = getURLParameter("url");
 
     if (url) {
-      createTab("Home", "../render.html?url=" + url);
+      // Check if input is a URL or a search query
+      if (
+        url.startsWith("http://") ||
+        url.startsWith("https://") ||
+        /^[\w-]+(\.[\w-]+)+$/.test(url)
+      ) {
+        // It's a URL, go to render.html
+        createTab("Home", "../render.html?url=" + url);
+      } else {
+        // It's a search query, go to search page
+        createTab("Search", "../search/index.html?q=" + encodeURIComponent(url));
+      }
     } else {
       createTab("New Tab", "start.html");
     }
     initialized = 1;
   }
+
+  document.getElementById("browser").addEventListener("click", () => {
+    createTab("New Tab", "./start.html");
+  });
+
+  document.getElementById("games").addEventListener("click", () => {
+    createTab("Games", "./gapps.html");
+  });
+
+
+  document.getElementById("youtube").addEventListener("click", () => {
+    createTab("YouTube", "../os/youtube.html");
+  });
+
+  document.getElementById("ai").addEventListener("click", () => {
+    createTab("AI Chat", "./ai.html");
+  });
+
+  document.getElementById("notepad").addEventListener("click", () => {
+    createTab("Notepad", "../os/notepad.html");
+  });
+
+  document.getElementById("terminal").addEventListener("click", () => {
+    createTab("Terminal", "../os/terminal.html");
+  });
+
+  document.getElementById("settings").addEventListener("click", () => {
+    createTab("Settings", "./settings.html");
+  });
 });

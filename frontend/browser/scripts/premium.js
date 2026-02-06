@@ -155,76 +155,6 @@ window.premium = {
         }
     },
 
-    wallpaper: {
-        set: function(imageDataUrl) {
-            if (!window.premium.checkSync()) {
-                console.warn("Custom wallpapers require premium");
-                return false;
-            }
-
-            localStorage.setItem("axiomCustomWallpaper", imageDataUrl);
-            localStorage.setItem("axiomUseCustomWallpaper", "true");
-            this.apply();
-            return true;
-        },
-
-        apply: function() {
-            const useCustom = localStorage.getItem("axiomUseCustomWallpaper") === "true";
-            const customWallpaper = localStorage.getItem("axiomCustomWallpaper");
-
-            if (useCustom && customWallpaper && window === window.top) {
-                document.body.style.backgroundImage = `url('${customWallpaper}')`;
-                document.body.style.backgroundSize = 'cover';
-                document.body.style.backgroundPosition = 'center';
-                document.body.style.backgroundRepeat = 'no-repeat';
-                return true;
-            }
-            return false;
-        },
-
-        clear: function() {
-            localStorage.removeItem("axiomCustomWallpaper");
-            localStorage.removeItem("axiomUseCustomWallpaper");
-            if (window.themeManager) {
-                window.themeManager.applyTheme();
-            }
-            return true;
-        },
-
-        hasCustom: function() {
-            return localStorage.getItem("axiomUseCustomWallpaper") === "true" &&
-                   localStorage.getItem("axiomCustomWallpaper") !== null;
-        },
-
-        upload: function(file) {
-            return new Promise((resolve, reject) => {
-                if (!window.premium.checkSync()) {
-                    reject("Custom wallpapers require premium");
-                    return;
-                }
-
-                if (!file.type.startsWith("image/")) {
-                    reject("File must be an image");
-                    return;
-                }
-
-                if (file.size > 5 * 1024 * 1024) {
-                    reject("Image must be under 5MB");
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const dataUrl = e.target.result;
-                    this.set(dataUrl);
-                    resolve(dataUrl);
-                };
-                reader.onerror = () => reject("Failed to read file");
-                reader.readAsDataURL(file);
-            });
-        }
-    },
-
     isThemePremium: function(themeName) {
         if (!window.themeManager || !window.themeManager.themes) {
             return false;
@@ -240,15 +170,3 @@ window.premium = {
         return this.checkSync();
     }
 };
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.premium.wallpaper.hasCustom() && window.premium.checkSync()) {
-            window.premium.wallpaper.apply();
-        }
-    });
-} else {
-    if (window.premium.wallpaper.hasCustom() && window.premium.checkSync()) {
-        window.premium.wallpaper.apply();
-    }
-}

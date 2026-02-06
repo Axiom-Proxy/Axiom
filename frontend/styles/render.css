@@ -145,3 +145,111 @@ iframe.active {
 .resultBox li:last-child {
   border-bottom: none;
 }
+
+/* Loader Styles */
+#loader {
+  background-color: black;
+  position: fixed;
+  top: var(--searchbar-height);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--searchbar-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.loader-text {
+  font-size: 55px;
+  font-weight: 100;
+}
+
+.logo {
+  user-select: none;
+  font-size: 60px;
+  font-weight: 200;
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 10px);
+  transform: translate(-50%, -70%);
+  z-index: 5;
+}
+
+.os-indicator {
+  user-select: none;
+  font-size: 15px;
+  font-weight: 600;
+  /* superscript */
+  position: relative;
+  top: -2em;
+  background: linear-gradient(
+    to top,
+    var(--accent-color),
+    var(--secondary-accent-color)
+  );
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  z-index: -1;
+  position: relative;
+  animation: rotate 1s linear infinite;
+}
+
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  animation: prixClipFix 2s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+  75% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+#loader.fade-out {
+  animation: fadeOut 0.4s ease-out forwards;
+}
+
+#add-bookmark.filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+}

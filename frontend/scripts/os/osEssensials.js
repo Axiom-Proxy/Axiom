@@ -1,13 +1,39 @@
+// Track open windows count
+let openWindowsCount = 0;
+const logo = document.querySelector('.logo');
+
+function updateLogoVisibility() {
+  if (openWindowsCount > 0) {
+    // Fade out logo when windows are open
+    logo.style.transition = 'opacity 0.3s ease-in-out';
+    logo.style.opacity = '0';
+  } else {
+    // Fade in logo when all windows are closed
+    logo.style.transition = 'opacity 0.3s ease-in-out';
+    logo.style.opacity = '1';
+  }
+}
+
 function createWindow(name, content) {
-  new WinBox({
+  const winbox = new WinBox({
     title: name,
     html: content,
     width: "800px",
     height: "600px",
-       background: "rgba(0, 0, 0, 0.5)",
+    background: "rgba(0, 0, 0, 0.5)",
     x: "center",
-    y: "center"
+    y: "center",
+    onclose: function() {
+      openWindowsCount--;
+      updateLogoVisibility();
+      return false; // Allow the window to close
+    }
   });
+
+  openWindowsCount++;
+  updateLogoVisibility();
+
+  return winbox;
 }
 
 // listeners
@@ -53,20 +79,6 @@ document.getElementById("terminal").addEventListener("click", () => {
     "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./os/terminal.html'></iframe>"
   );
 });
-
-document.getElementById("movies").addEventListener("click", () => {
-  createWindow(
-    "Movies",
-    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./os/movies.html'></iframe>"
-  );
-})
-
-document.getElementById("youtube").addEventListener("click", () => {
-  createWindow(
-    "YouTube",
-    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./os/youtube.html'></iframe>"
-  );
-})
 
 const contextMenu = document.getElementById("contextMenu");
 const desktop = document.getElementById("desktop");
@@ -122,11 +134,11 @@ setInterval(function () {
   }
 }, 50);
 
-// give images around a second to load
+// give things around a second to load
 setTimeout(() => {
   document.getElementById("loader").style.animation = "fade 0.3s ease-in-out";
 
   setTimeout(() => {
     document.getElementById("loader").style.display = "none";
   }, 300);
-}, 100);
+}, 200);

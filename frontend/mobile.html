@@ -13,8 +13,19 @@
 
 <body>
 
+        <div class="full-wh">
+        <div class="bg-animation">
+            <div id='stars'></div>
+            <div id='stars2'></div>
+            <div id='stars3'></div>
+            <div id='stars4'></div>
+        </div>
+
+    </div>
+
+
     <!-- bg-images are large so we do a loader while they load to make things look smooth -->
-    <div id="loader">
+    <div id="loader" style="z-index: -1;">
         <h2 class="loader-text">Axiom<span class="os-indicator">OS</span></h2>
         <div class="loader"></div>
     </div>
@@ -49,15 +60,6 @@
         });
         window.addEventListener('unload', () => {
             sessionStorage.removeItem('isMainPage');
-        });
-
-
-        window.addEventListener('message', (event) => {
-            if (event.data.type === 'wallpaperChanged') {
-                window.premium.wallpaper.apply();
-            } else if (event.data.type === 'wallpaperCleared') {
-                window.themeManager.applyTheme();
-            }
         });
     </script>
 </body>

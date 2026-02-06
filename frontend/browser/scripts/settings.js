@@ -73,58 +73,6 @@ async function initThemeSelector() {
   });
 }
 
-function initWallpaperUpload() {
-  const wallpaperSection = document.getElementById("wallpaper-section");
-  if (!wallpaperSection) return;
-
-  const isPremium = window.premium.checkSync();
-
-  if (!isPremium) {
-    wallpaperSection.innerHTML = `
-      <h4>Custom Wallpaper</h4>
-      <p class="premium-required">Requires Premium</p>
-    `;
-    return;
-  }
-
-  const hasCustom = window.premium.wallpaper.hasCustom();
-
-  wallpaperSection.innerHTML = `
-    <h4>Custom Wallpaper</h4>
-    <input type="file" id="wallpaper-upload" accept="image/*" style="display: none;">
-    <button onclick="document.getElementById('wallpaper-upload').click()" class="upload-btn">
-      <span class="material-symbols-outlined">upload</span> Upload Wallpaper
-    </button>
-    ${hasCustom ? '<button onclick="clearCustomWallpaper()" class="clear-btn"><span class="material-symbols-outlined">wallpaper</span> Use Theme Wallpaper</button>' : ''}
-    <p class="hint">Max 5MB. Supports PNG, JPG, WebP</p>
-  `;
-
-  // Add upload handler
-  document.getElementById("wallpaper-upload").addEventListener("change", async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    try {
-      await window.premium.wallpaper.upload(file);
-      if (window.parent && window.parent !== window) {
-        window.parent.postMessage({ type: 'wallpaperChanged' }, '*');
-      }
-      initWallpaperUpload(); 
-      alert("Wallpaper set successfully!");
-    } catch (err) {
-      alert("Error: " + err);
-    }
-  });
-}
-
-function clearCustomWallpaper() {
-  window.premium.wallpaper.clear();
-  if (window.parent && window.parent !== window) {
-    window.parent.postMessage({ type: 'wallpaperCleared' }, '*');
-  }
-  initWallpaperUpload();
-}
-
 function initTabSessions() {
   const sessionsSection = document.getElementById("tab-sessions-section");
   if (!sessionsSection) return;
@@ -206,7 +154,6 @@ function deleteSession(name) {
 }
 
 initThemeSelector();
-initWallpaperUpload();
 initTabSessions();
 
 if (window.premium.checkSync()) {

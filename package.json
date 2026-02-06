@@ -7,7 +7,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "python watch_server.py"
   },
   "dependencies": {
     "@fastify/rate-limit": "^10.3.0",
@@ -20,6 +20,7 @@
     "dotenv": "^17.2.3",
     "fastify": "^5.6.2",
     "jquery": "^3.7.1",
-    "jquery-ui-dist": "^1.13.3"
+    "jquery-ui-dist": "^1.13.3",
+    "puppeteer": "^24.36.1"
   }
 }

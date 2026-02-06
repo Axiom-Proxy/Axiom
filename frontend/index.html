@@ -70,7 +70,6 @@
         border-radius: 4px;
     }
 </style>
-<div id="cover"></div>
 <center>
     <h2>Welcome to Axiom!</h2>
     <p>Use one of the following to make the link last longer!</p>
@@ -87,21 +86,13 @@
             <span class="material-symbols-outlined">link</span>
             <span>Blob Cloak</span>
         </div>
-        <div id="cloak">
+        <div onclick="cloak()">
             <span class="material-symbols-outlined">language</span>
             <span>A:B Cloak</span>
         </div>
     </div>
 </center>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EP8214CHBW"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-EP8214CHBW');
-</script>
 
 <script>
 
@@ -116,23 +107,10 @@
       <body>
         <iframe src="main.html" style="border:none; height: 100%; width: 100%; position: fixed; left: 0px; top: 0px;">
       </body>
-      <script>
-        window.addEventListener('beforeunload', function (e) {
-            e.preventDefault();  
-        });
-      <\/script>
 `)
         tab.document.close()
     }
 
-    if (localStorage.getItem("firstTime") != null) {
-        //window.location.href = "ck.html"
-    }
-    else {
-        localStorage.setItem("firstTime", "true")
-        document.getElementById("cover").remove();
-    }
-    document.getElementById("cover").remove();
     
     // check for mobile
     if (navigator.userAgent.match(/Android/i) ||
@@ -150,7 +128,6 @@
         const windowFeatures = 'width=1200,height=1200,resizable=yes,scrollbars=yes,status=yes';
         const newWindow = window.open(window.location.origin, 'Google', windowFeatures);
         
-        // After a short delay, modify the new window to have Google title and favicon
         setTimeout(() => {
             if (newWindow) {
                 try {
@@ -160,7 +137,6 @@
                     link.href = 'os/google_favicon.ico';
                     newWindow.document.head.appendChild(link);
                 } catch (e) {
-                    // Cross-origin restrictions might prevent this
                     console.log("Could not modify window properties due to cross-origin restrictions");
                 }
             }
@@ -169,7 +145,6 @@
     
     let file = document.getElementById("file")
     file.addEventListener("click", () => {
-        // create blob with Google title and favicon
         const htmlContent = `
             <html>
             <head>

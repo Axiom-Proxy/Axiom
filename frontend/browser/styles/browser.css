@@ -66,8 +66,6 @@ body {
   padding: calc(var(--padding-base) * 1.2) calc(var(--padding-base) * 1.5);
   border-radius: var(--border-radius-base);
   background: var(--surface-alpha, rgba(30, 30, 30, 0.6));
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
   border: 1px solid var(--theme-border, rgba(14, 13, 13, 0.3));
   color: var(--theme-tab-text, var(--color-text-secondary));
   cursor: pointer;
@@ -96,6 +94,14 @@ body {
   font-weight: 400;
   display: flex;
   align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.tab p:not(.close) {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .tab p.close {
@@ -118,8 +124,6 @@ body {
   padding: calc(var(--padding-base) * 1.2);
   border-radius: var(--border-radius-base);
   background: var(--surface-alpha, rgba(30, 30, 30, 0.6));
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
   border: 1px solid var(--theme-border, rgba(14, 13, 13, 0.3));
   color: var(--color-text-secondary);
   cursor: pointer;

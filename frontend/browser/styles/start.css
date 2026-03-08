@@ -47,7 +47,6 @@ h3 {
 
 .search-input:focus {
     outline: none;
-    border-color: var(--accent-color, #3b82f6);
 }
 
 .search-icon {
@@ -95,23 +94,40 @@ h3 {
 .logo {
   user-select: none;
   font-size: 60px;
-  font-weight: 200;
+  font-weight: 100;
   left: calc(50% + 10px);
   z-index: 5;
 }
 
-.os-indicator {
-  user-select: none;
-  font-size: 15px;
-  font-weight: 600;
-  /* superscript */
-  position: relative;
-  top: -2em;
-  background: linear-gradient(
-    to top,
-    var(--accent-color),
-    var(--secondary-accent-color)
-  );
-  padding: 2px 6px;
-  border-radius: 4px;
+.search-input.has-suggestions {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: calc(100% - 2px);
+  background-color: var(--surface-alpha, rgba(15, 15, 15, 0.97));
+  border: 1px solid var(--theme-border, rgba(255,255,255,0.1));
+  border-top: none;
+  border-radius: 0 0 20px 20px;
+  z-index: 100;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.suggestion-item {
+  padding: 11px 15px 11px 50px;
+  cursor: pointer;
+  color: var(--text-color, white);
+  font-size: 0.875em;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+  background-color: var(--accent-alpha, rgba(255,255,255,0.08));
 }

@@ -185,10 +185,6 @@ document.addEventListener("DOMContentLoaded", function () {
     createTab("AI Chat", "./ai.html");
   });
 
-  document.getElementById("notepad").addEventListener("click", () => {
-    createTab("Notepad", "../os/notepad.html");
-  });
-
   document.getElementById("terminal").addEventListener("click", () => {
     createTab("Terminal", "../os/terminal.html");
   });

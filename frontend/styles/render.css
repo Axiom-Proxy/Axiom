@@ -33,7 +33,6 @@ body {
   background-color: transparent;
 }
 
-/* Searchbar / Browser Controls */
 #searchbar {
   height: var(--searchbar-height);
   display: flex;
@@ -80,12 +79,10 @@ body {
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* Tabs */
 #tabs {
   display: none;
 }
 
-/* Frames */
 #frames {
   position: relative;
   width: 100%;
@@ -109,7 +106,6 @@ iframe.active {
   display: block;
 }
 
-/* Autocomplete suggestions */
 .resultBox {
   position: absolute;
   top: calc(var(--searchbar-height) + 5px);
@@ -146,9 +142,7 @@ iframe.active {
   border-bottom: none;
 }
 
-/* Loader Styles */
 #loader {
-  background-color: black;
   position: fixed;
   top: var(--searchbar-height);
   left: 0;
@@ -164,6 +158,7 @@ iframe.active {
 .loader-text {
   font-size: 55px;
   font-weight: 100;
+  color: var(--text-color, #ffffff);
 }
 
 .logo {
@@ -209,7 +204,7 @@ iframe.active {
   position: absolute;
   inset: 0px;
   border-radius: 50%;
-  border: 5px solid #fff;
+  border: 5px solid var(--text-color, #3b82f6);
   animation: prixClipFix 2s linear infinite;
 }
 

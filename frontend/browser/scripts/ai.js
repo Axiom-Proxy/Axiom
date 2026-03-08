@@ -81,7 +81,7 @@ async function sendMessage() {
 
   try {
     const fullPrompt = history.map(h => h.role === 'system' ? h.content : `${h.role}: ${h.content}`).join('\n') + '\nAssistant:';
-    const response = await fetch(`https://charbot.ape3d.com/?prompt=${encodeURIComponent(history[0]['content'] + '\n' + fullPrompt)}`);
+    const response = await fetch(`https://g4f.space/ai/${encodeURIComponent(history[0]['content'] + '\n' + fullPrompt)}`);
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
     let fullMessage = '';

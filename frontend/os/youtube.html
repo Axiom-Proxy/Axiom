@@ -32,7 +32,6 @@
             border: white solid 1px;
             border-radius: 25px;
             background: transparent;
-            backdrop-filter: blur(10px);
             color: var(--theme-text);
             font-size: 16px;
             outline: none;
@@ -55,7 +54,6 @@
             width: 100%;
             max-width: 900px;
             margin-bottom: 20px;
-            backdrop-filter: blur(10px);
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -100,7 +98,6 @@
             margin-bottom: 15px;
             padding: 12px 15px;
             border-radius: 12px;
-            backdrop-filter: blur(10px);
             cursor: pointer;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -272,10 +269,10 @@
     }
 
     function openVideo(videoId) {
-        const youtubeUrl = `../render.html?url=` +  btoa(`https://www.youtube.com/embed/${videoId}`);
+        const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
         localStorage.setItem('currentVideoId', videoId);
         document.getElementById("player").style.display = "block";
-        document.getElementById("iframe").src = youtubeUrl;
+        document.getElementById("iframe").src = embedUrl;
     }
 
     searchInput.addEventListener('keydown', (e) => {

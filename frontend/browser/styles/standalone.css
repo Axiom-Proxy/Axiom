@@ -46,8 +46,6 @@ body {
   position: fixed;
   background: var(--bg-color-alpha, rgba(0, 0, 0, 0.3));
   border-radius: 20px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid var(--theme-border, rgba(255, 255, 255, 0.1));
   display: flex;
   align-items: center;
@@ -81,8 +79,6 @@ body {
   overflow: hidden;
   background: var(--surface-alpha, rgba(17, 17, 17, 0.8));
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--theme-border, rgba(14, 13, 13, 0.3));
 }
 
@@ -241,8 +237,6 @@ body {
 .winbox {
   background: var(--surface-alpha, rgba(17, 17, 17, 0.8)) !important;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
   border-radius: 5px;
 }
 
@@ -282,8 +276,7 @@ body {
 .context-menu {
   position: fixed;
   background: var(--surface-alpha, rgba(17, 17, 17, 0.95));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+
   border: 1px solid var(--theme-border, rgba(14, 13, 13, 0.3));
   border-radius: 8px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);

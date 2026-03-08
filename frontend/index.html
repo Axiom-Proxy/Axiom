@@ -1,60 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="description" content="Learn about geology in a fun way!">
     <meta name="keywords" content="School, Science, STEM">
     <meta name="author" content="AxiomEdu">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 
 <style>
-    @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+    .full-wh {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+    }
 
-    body {
-        color: white;
-        background-color: black;
-        font-family: "Inter";
-        justify-content: center;
-        align-items: center;
+    .landing-content {
+        position: relative;
+        z-index: 1;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
         height: 100vh;
-        overflow: hidden;
+        gap: 12px;
     }
 
-    button {
-        background-color: #3b82f6;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        border-radius: 15px;
-        cursor: pointer;
+    .landing-content h2 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 0 0 4px;
+        letter-spacing: 0.5px;
     }
 
-    button:disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
-    }
-
-    #cover {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgb(128, 134, 139);
-        z-index: 1;
+    .landing-content p {
+        margin: 0 0 16px;
+        opacity: 0.7;
+        font-size: 0.95rem;
     }
 
     #options {
         display: flex;
-        gap: 10px;
+        gap: 12px;
         flex-direction: row;
         justify-content: center;
     }
@@ -63,37 +52,58 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
         cursor: pointer;
-        background-color: #3b82f6;
-        padding: 4px;
-        border-radius: 4px;
+        border: 1px solid var(--theme-border);
+        padding: 14px 18px;
+        border-radius: 12px;
+        transition: background 0.2s, border-color 0.2s, transform 0.15s;
+        font-size: 0.85rem;
+        color: #fff;
+    }
+
+    #options div:hover {
+        transform: translateY(-2px);
+    }
+
+    #options div .material-symbols-outlined {
+        font-size: 28px;
     }
 </style>
-<center>
-    <h2>Welcome to Axiom!</h2>
-    <p>Use one of the following to make the link last longer!</p>
-    <div id="options">
-        <div id="window">
-            <span class="material-symbols-outlined">tab</span>
-            <span>Window A:B</span>
-        </div>
-        <div id="file">
-            <span class="material-symbols-outlined">file_copy</span>
-            <span>File Cloak</span>
-        </div>
-        <div id="blob">
-            <span class="material-symbols-outlined">link</span>
-            <span>Blob Cloak</span>
-        </div>
-        <div onclick="cloak()">
-            <span class="material-symbols-outlined">language</span>
-            <span>A:B Cloak</span>
+
+<body>
+    <div class="full-wh">
+        <div class="bg-animation">
+            <div id='stars'></div>
+            <div id='stars2'></div>
         </div>
     </div>
-</center>
+
+    <div class="landing-content">
+        <h2>Welcome to Axiom!</h2>
+        <p>Use one of the following to make the link last longer!</p>
+        <div id="options">
+            <div id="window">
+                <span class="material-symbols-outlined">tab</span>
+                <span>Window A:B</span>
+            </div>
+            <div id="file">
+                <span class="material-symbols-outlined">file_copy</span>
+                <span>File Cloak</span>
+            </div>
+            <div id="blob">
+                <span class="material-symbols-outlined">link</span>
+                <span>Blob Cloak</span>
+            </div>
+            <div onclick="cloak()">
+                <span class="material-symbols-outlined">language</span>
+                <span>A:B Cloak</span>
+            </div>
+        </div>
+    </div>
 
 
+<script src="./browser/scripts/themes.js"></script>
 <script>
 
     function cloak() {
@@ -126,7 +136,7 @@
     let windowab = document.getElementById("window")
     windowab.addEventListener("click", () => {
         const windowFeatures = 'width=1200,height=1200,resizable=yes,scrollbars=yes,status=yes';
-        const newWindow = window.open(window.location.origin, 'Google', windowFeatures);
+        const newWindow = window.open(window.location.origin + '/main.html', 'Google', windowFeatures);
         
         setTimeout(() => {
             if (newWindow) {
@@ -134,7 +144,7 @@
                     newWindow.document.title = "Google";
                     const link = newWindow.document.createElement('link');
                     link.rel = 'icon';
-                    link.href = 'os/google_favicon.ico';
+                    link.href = window.location.origin + '/os/google_favicon.ico';
                     newWindow.document.head.appendChild(link);
                 } catch (e) {
                     console.log("Could not modify window properties due to cross-origin restrictions");
@@ -184,4 +194,5 @@
         window.open(object_URL, '_blank');
     })
 </script>
+</body>
 </html>

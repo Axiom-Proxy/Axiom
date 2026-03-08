@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600&display=swap");
 
 :root {
   --taskbar-height: 50px;
@@ -35,17 +35,14 @@ body {
 
 #taskbar {
   height: var(--taskbar-height);
-  bottom: 0;
+  top: -1px;
   width: min-content;
-  left: 50%;
-  transform: translateX(-50%);
+  left: calc(50% - 100px);
   position: fixed;
   background: var(--bg-color-alpha, rgba(0, 0, 0, 0.3));
   border-radius: 20px;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,7 +50,47 @@ body {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--theme-border, rgba(14, 13, 13, 0.3));
   padding: 0px 15px;
-  box-shadow: 0px 4px 4px rgba(255, 255, 255, 0.04);
+}
+
+.startmenu {
+  height: var(--taskbar-height);
+  top: -2px;
+  width: min-content;
+  left: 25px;
+  transform: translateX(-50%);
+  position: fixed;
+  background: var(--bg-color-alpha, rgba(0, 0, 0, 0.3));
+  border-radius: 20px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--theme-border, rgba(14, 13, 13, 0.3));
+  padding: 0px 15px;
+}
+
+.battery {
+  height: var(--taskbar-height);
+  top: -2px;
+  width: min-content;
+  right: -2px;
+  position: fixed;
+  background: var(--bg-color-alpha, rgba(0, 0, 0, 0.3));
+  border-radius: 20px;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--theme-border, rgba(14, 13, 13, 0.3));
+  padding: 0px 15px;
 }
 
 .start-btn {
@@ -64,6 +101,24 @@ body {
   color: var(--text-color, #fff);
   text-transform: uppercase;
   font-size: 0.8rem;
+  position: relative;
+}
+
+.start-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: calc(50% - 8px);
+  width: 15px;
+  height: 2px;
+  border-radius: 5px;
+  background: var(--text-color, #fff);
+  transform: scale(0);
+  transition: transform 0.2s ease;
+}
+
+.start-btn.has-dot::after {
+  transform: scale(1);
 }
 
 .blob-container {
@@ -133,73 +188,6 @@ body {
   animation-delay: 5.3s;
 }
 
-.window {
-  position: absolute;
-  min-width: 500px;
-  min-height: 500px;
-  width: 400px;
-  border-radius: var(--border-radius);
-  display: flex;
-  flex-direction: column;
-  top: 0;
-  left: 50px;
-  overflow: hidden;
-  background: var(--surface-alpha, rgba(17, 17, 17, 0.8));
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--theme-border, rgba(14, 13, 13, 0.3));
-}
-
-.window-header {
-  height: 36px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 15px;
-  cursor: default;
-  background-color: var(--bg-color-alpha-low, rgba(0, 0, 0, 0.2));
-  border-bottom: 1px solid var(--theme-border, rgba(14, 13, 13, 0.3));
-}
-
-.window-title {
-  font-size: 0.85rem;
-  font-weight: 500;
-  opacity: 0.8;
-  pointer-events: none;
-}
-
-.window-controls {
-  display: flex;
-  gap: 8px;
-}
-
-.control-btn {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-
-.control-btn:hover {
-  opacity: 0.8;
-}
-
-.btn-min {
-  display: none;
-}
-
-.window-content {
-  flex: 1;
-  padding: 20px;
-  overflow: auto;
-  color: var(--text-color, #ccc);
-  font-size: 0.9rem;
-  user-select: text;
-  cursor: default;
-}
-
 .resizer {
   width: 15px;
   height: 15px;
@@ -216,11 +204,6 @@ body {
   width: min-content;
   border-radius: 0;
   transition: all 0.2s;
-}
-
-#taskbar span:hover {
-  transform: scale(1.05);
-  border-bottom: 2px solid var(--accent-color);
 }
 
 #loader {
@@ -304,8 +287,6 @@ body {
 .winbox {
   background: var(--surface-alpha, rgba(17, 17, 17, 0.8)) !important;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
   border-radius: 5px;
 }
 
@@ -345,8 +326,6 @@ body {
 .context-menu {
   position: fixed;
   background: var(--surface-alpha, rgba(17, 17, 17, 0.95));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--theme-border, rgba(14, 13, 13, 0.3));
   border-radius: 8px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
@@ -3707,7 +3686,7 @@ body {
     -webkit-transform: translateY(0px);
   }
   to {
-    -webkit-transform: translateY(-2000px);
+    -webkit-transform: translateY(2000px);
   }
 }
 @-moz-keyframes animStar {
@@ -3715,7 +3694,7 @@ body {
     -moz-transform: translateY(0px);
   }
   to {
-    -moz-transform: translateY(-2000px);
+    -moz-transform: translateY(2000px);
   }
 }
 @-ms-keyframes animStar {
@@ -3723,7 +3702,7 @@ body {
     -ms-transform: translateY(0px);
   }
   to {
-    -ms-transform: translateY(-2000px);
+    -ms-transform: translateY(2000px);
   }
 }
 @keyframes animStar {
@@ -3737,16 +3716,18 @@ body {
 
 .logo {
   user-select: none;
-  font-size: 60px;
-  font-weight: 200;
+  font-size: 50px;
+  font-weight: 100;
   position: absolute;
   top: 50%;
-  left: calc(50% + 10px);
+  left: calc(50% - 6px);
   transform: translate(-50%, -70%);
   z-index: 5;
 }
 
+
 .os-indicator {
+  display: none;
   user-select: none;
   user-select: none;
   font-size: 15px;

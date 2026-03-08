@@ -2,6 +2,9 @@
 let openWindowsCount = 0;
 const logo = document.querySelector('.logo');
 
+// Track open window count per app
+const appWindowCounts = {};
+
 function updateLogoVisibility() {
   if (openWindowsCount > 0) {
     // Fade out logo when windows are open
@@ -14,7 +17,17 @@ function updateLogoVisibility() {
   }
 }
 
-function createWindow(name, content) {
+function setAppDot(appId, visible) {
+  const btn = document.getElementById(appId);
+  if (!btn) return;
+  if (visible) {
+    btn.classList.add('has-dot');
+  } else {
+    btn.classList.remove('has-dot');
+  }
+}
+
+function createWindow(name, content, appId) {
   const winbox = new WinBox({
     title: name,
     html: content,
@@ -26,12 +39,20 @@ function createWindow(name, content) {
     onclose: function() {
       openWindowsCount--;
       updateLogoVisibility();
+      if (appId) {
+        appWindowCounts[appId] = (appWindowCounts[appId] || 1) - 1;
+        setAppDot(appId, appWindowCounts[appId] > 0);
+      }
       return false; // Allow the window to close
     }
   });
 
   openWindowsCount++;
   updateLogoVisibility();
+  if (appId) {
+    appWindowCounts[appId] = (appWindowCounts[appId] || 0) + 1;
+    setAppDot(appId, true);
+  }
 
   return winbox;
 }
@@ -41,42 +62,48 @@ function createWindow(name, content) {
 document.getElementById("browser").addEventListener("click", () => {
   createWindow(
     "Axiom Browser",
-    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./browser/browser.html'></iframe>"
+    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./browser/browser.html'></iframe>",
+    "browser"
   );
 });
 
 document.getElementById("games").addEventListener("click", () => {
   createWindow(
     "Games",
-    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./browser/gapps.html'></iframe>"
+    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./browser/gapps.html'></iframe>",
+    "games"
   );
 });
 
 document.getElementById("ai").addEventListener("click", () => {
   createWindow(
     "AI Chat",
-    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./browser/ai.html'></iframe>"
-  );
-});
-
-document.getElementById("notepad").addEventListener("click", () => {
-  createWindow(
-    "Notepad",
-    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./os/notepad.html'></iframe>"
+    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./browser/ai.html'></iframe>",
+    "ai"
   );
 });
 
 document.getElementById("settings").addEventListener("click", () => {
   createWindow(
     "Settings",
-    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./browser/settings.html'></iframe>"
+    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./browser/settings.html'></iframe>",
+    "settings"
   );
 });
 
 document.getElementById("terminal").addEventListener("click", () => {
   createWindow(
     "Terminal",
-    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./os/terminal.html'></iframe>"
+    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='./os/terminal.html'></iframe>",
+    "terminal"
+  );
+});
+
+document.getElementById("info").addEventListener("click", () => {
+  createWindow(
+    "Axiom Info",
+    "<iframe style='width: 100%; height: 100%; border: none; border-radius: 5px;' src='axiom.html'></iframe>",
+    "terminal"
   );
 });
 

@@ -168,7 +168,7 @@ function handle_eruda() {
   }
 }
 
-const stockSW = "/scram_es/sw.js";
+const stockSW = "/educational_sl/sw.js";
 
 const swAllowedHostnames = ["localhost", "127.0.0.1"];
 
@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Failed to register service worker:", err);
   }
 
-  const wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/"; 
+  const wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/edu/"; 
 
   await connection.setTransport("/epoxy/index.mjs", [
     {

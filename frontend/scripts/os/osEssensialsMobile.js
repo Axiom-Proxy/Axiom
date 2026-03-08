@@ -25,13 +25,6 @@ document.getElementById("ai").addEventListener("click", () => {
   );
 });
 
-document.getElementById("notepad").addEventListener("click", () => {
-  swapWindow(
-    "Notepad",
-    "os/notepad.html"
-  );
-});
-
 document.getElementById("settings").addEventListener("click", () => {
   swapWindow(
     "Settings",

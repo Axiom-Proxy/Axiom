@@ -166,8 +166,8 @@ window.themeManager = {
                                        localStorage.getItem("axiomCustomWallpaper") !== null;
 
             if (!hasCustomWallpaper) {
-                document.body.style.backgroundImage = 'none';
-                document.body.style.backgroundColor = themeData.primary;
+                document.body.style.backgroundImage = `linear-gradient(0deg, ${themeData.primary} 0%, ${themeData.secondary} 100%)`;
+                document.body.style.backgroundColor = '';
             }
         }
 

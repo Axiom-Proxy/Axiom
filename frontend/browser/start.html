@@ -59,10 +59,11 @@
 
     <div id="bookmarkContainer" style="display: none;"></div>
 
-        <h3 class="logo">Axiom<span class="os-indicator">OS</span></h3>
+        <h3 class="logo">Axiom</h3>
     <div class="search-container">
-        <input class="search-input" placeholder="Search or enter URL" type="text" id="search">
+        <input class="search-input" placeholder="Search or enter URL" type="text" id="search" autocomplete="off">
         <i class="material-symbols-outlined  search-icon">search</i>
+        <div class="suggestions-dropdown" id="suggestions" style="display:none;"></div>
     </div>
   
 
@@ -73,40 +74,94 @@
     
     <script>
 
-/*
 
-function handle_bookmark(){
-  let bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
-  const input = document.getElementById("search").value;
-  if (bookmarks.some((bookmark) => bookmark.url === input)) {
-    bookmarks = bookmarks.filter((bookmark) => bookmark.url !== input);
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-    document.getElementById("handle_bookmark").classList.remove("filled");
-  } else {
-    bookmarks.push({ url: input });
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-    document.getElementById("handle_bookmark").classList.add("filled");
-  }
-}
+        const searchInput = document.getElementById("search");
+        const suggestionsBox = document.getElementById("suggestions");
+        let activeIndex = -1;
+        let debounceTimer = null;
 
-reference */
-
-
-
-        document.getElementById("search").addEventListener("keydown", function (event) {
-            if (event.key == "Enter") {
-                const input = document.getElementById("search").value;
-
-                if (
-                    input.startsWith("http://") ||
-                    input.startsWith("https://") ||
-                    /^[\w-]+(\.[\w-]+)+$/.test(input)
-                ) {
-                    window.location = "../render.html?url=" + btoa(input);
-                } else {
-                    window.location = "../search/index.html?q=" + encodeURIComponent(input);
-                }
+        function navigate(input) {
+            if (
+                input.startsWith("http://") ||
+                input.startsWith("https://") ||
+                /^[\w-]+(\.[\w-]+)+$/.test(input)
+            ) {
+                window.location = "../render.html?url=" + btoa(input);
+            } else {
+                window.location = "../search/index.html?q=" + encodeURIComponent(input);
             }
+        }
+
+        function hideSuggestions() {
+            suggestionsBox.style.display = "none";
+            suggestionsBox.innerHTML = "";
+            searchInput.classList.remove("has-suggestions");
+            activeIndex = -1;
+        }
+
+        function showSuggestions(items) {
+            if (!items.length) { hideSuggestions(); return; }
+            suggestionsBox.innerHTML = "";
+            searchInput.classList.add("has-suggestions");
+            items.slice(0, 4).forEach((text, i) => {
+                const div = document.createElement("div");
+                div.className = "suggestion-item";
+                div.textContent = text;
+                div.addEventListener("mousedown", (e) => {
+                    e.preventDefault();
+                    searchInput.value = text;
+                    hideSuggestions();
+                    navigate(text);
+                });
+                suggestionsBox.appendChild(div);
+            });
+            suggestionsBox.style.display = "block";
+            activeIndex = -1;
+        }
+
+        searchInput.addEventListener("input", function () {
+            const query = this.value.trim();
+            clearTimeout(debounceTimer);
+            if (!query) { hideSuggestions(); return; }
+            debounceTimer = setTimeout(async () => {
+                try {
+                    const res = await fetch("/search_complete/" + encodeURIComponent(query));
+                    const data = await res.json();
+                    showSuggestions(data[1] || []);
+                } catch (e) { hideSuggestions(); }
+            }, 200);
+        });
+
+        searchInput.addEventListener("keydown", function (event) {
+            const items = suggestionsBox.querySelectorAll(".suggestion-item");
+            if (event.key === "ArrowDown") {
+                event.preventDefault();
+                activeIndex = Math.min(activeIndex + 1, items.length - 1);
+                items.forEach((el, i) => el.classList.toggle("active", i === activeIndex));
+            } else if (event.key === "ArrowUp") {
+                event.preventDefault();
+                activeIndex = Math.max(activeIndex - 1, -1);
+                items.forEach((el, i) => el.classList.toggle("active", i === activeIndex));
+                if (activeIndex === -1) searchInput.value = searchInput.dataset.original || searchInput.value;
+            } else if (event.key === "Enter") {
+                if (activeIndex >= 0 && items[activeIndex]) {
+                    searchInput.value = items[activeIndex].textContent;
+                    hideSuggestions();
+                }
+                const input = searchInput.value;
+                hideSuggestions();
+                navigate(input);
+            } else if (event.key === "Escape") {
+                hideSuggestions();
+            }
+            if (event.key === "ArrowDown" && activeIndex >= 0) {
+                searchInput.dataset.original = searchInput.value;
+                searchInput.value = items[activeIndex].textContent;
+            }
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest(".search-container")) hideSuggestions();
         });
 
         function loadBookmarks() {

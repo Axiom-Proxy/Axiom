@@ -1,6 +1,6 @@
 {
   "Default": {
-    "primary": "#050510",
+    "primary": "black",
     "secondary": "#101015",
     "tertiary": "#252525",
     "quaternary": "#f63b82",
@@ -158,20 +158,6 @@
     "inactiveTabBg": "#190535",
     "activeTabBg": "#2a0845",
     "tabText": "#ffffff",
-    "premium": true
-  },
-  "Fem+boy": {
-    "primary": "#ffe6eb",
-    "secondary": "#80c7e6",
-    "tertiary": "#66b3d1",
-    "quaternary": "#0099cc",
-    "secondaryAccent": "#4dd4ff",
-    "quinary": "#ff99cc",
-    "border": "#0099cc",
-    "text": "#1a1a1a",
-    "inactiveTabBg": "#cceeff",
-    "activeTabBg": "#99ddff",
-    "tabText": "#1a1a1a",
     "premium": true
   },
   "Zenith": {

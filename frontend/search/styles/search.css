@@ -5,11 +5,9 @@ body {
 header {
   margin-left: 0px;
   display: flex;
-  background-color: var(--theme-primary);
   align-items: center;
   justify-content: space-between;
   padding-right: 15px;
-  position: fixed;
   top: 0;
   width: 100%;
 }
@@ -18,24 +16,13 @@ header h3 {
   margin-left: 15px;
 }
 
-.search {
-  color: var(--accent-color);
-}
-
 .search-container {
   position: relative;
-  display: inline-block;
-  width: min(70%, 1000px);
-  margin-bottom: 20px;
-  position: fixed;
-  top: 30px;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  flex: 1;
+  max-width: 1000px;
+  margin-left: 20px;
 }
 
-#results {
-  margin-top: 70px;
-}
 
 .search-input {
   border: none;
@@ -48,7 +35,7 @@ header h3 {
   user-select: none;
   background-color: var(--theme-secondary);
   padding: 10px 10px 10px 50px;
-  width: 100%;
+  width: 70%;
   outline: none;
 }
 
@@ -69,12 +56,10 @@ header h3 {
 
 #result_count {
   font-size: 0.7em;
-  color: var(--theme-quaternary);
 }
 
 .url {
   font-size: 0.8em;
-  color: var(--theme-quaternary);
 }
 
 .title {
@@ -91,4 +76,34 @@ header h3 {
   width: 95%;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.search-input.has-suggestions {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 70%;
+  background-color: var(--theme-secondary, #1a1a1a);
+  border-top: none;
+  border-radius: 0 0 15px 15px;
+  z-index: 100;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.suggestion-item {
+  padding: 10px 15px 10px 50px;
+  cursor: pointer;
+  color: var(--primary-button-text-color, #fff);
+  font-size: 1em;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+  background-color: var(--accent-alpha, rgba(255,255,255,0.08));
 }

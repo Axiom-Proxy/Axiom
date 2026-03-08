@@ -112,7 +112,7 @@ h3 {
 .message-ai {
   width: min-content;
   min-width: 50%;
-  background-color: var(--accent-alpha);
+  background-color: var(--theme-secondary);
   padding: 8px;
   border-radius: 8px;
 }
@@ -122,7 +122,7 @@ h3 {
   border-radius: 6px;
   padding: 8px;
   margin-bottom: 8px;
-  border-left: 3px solid var(--accent-color);
+  border-left: 3px solid var(--theme-secondary);
 }
 
 .think-box summary {

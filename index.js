@@ -17,7 +17,7 @@ try {
   if (keys) premium_keys = keys.split(",");
 } catch (e) { console.warn("Using default keys."); }
 
-const server = fastify({ logger: true, trustProxy: true });
+const server = fastify({ logger: false, trustProxy: true });
 
 async function safeFetch(url, options = {}) {
   const controller = new AbortController();
@@ -179,5 +179,5 @@ server.server.on("upgrade", (req, socket, head) => {
 process.on("uncaughtException", (err) => console.error("Uncaught:", err));
 process.on("unhandledRejection", (r) => console.error("Unhandled:", r));
 
-const port = process.env.PORT || 8085;
+const port = process.env.PORT || 8080;
 server.listen({ port, host: "0.0.0.0" }).then(() => console.log(`Running on ${port}`));

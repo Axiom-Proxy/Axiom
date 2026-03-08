@@ -131,14 +131,37 @@ const searchInput = document.querySelector("#search");
 
 function buildSearchUrl(input, searchEngine) {
   try {
-    if (
-      !input.startsWith("http://") &&
-      !input.startsWith("https://") &&
-      input.includes(".")
-    ) {
-      input = "https://" + input;
+    // If input is empty, return search engine
+    if (!input || input.trim() === "") {
+      return `${searchEngine}${encodeURIComponent("")}`;
     }
-    return new URL(input).toString();
+
+    // If input already starts with http:// or https://, validate and return
+    if (input.startsWith("http://") || input.startsWith("https://")) {
+      // Validate URL format before constructing
+      try {
+        const url = new URL(input);
+        return url.toString();
+      } catch (e) {
+        // Invalid URL format, treat as search query
+        return `${searchEngine}${encodeURIComponent(input)}`;
+      }
+    }
+
+    // If input contains a dot, assume it's a domain and prepend https://
+    if (input.includes(".")) {
+      input = "https://" + input;
+      try {
+        const url = new URL(input);
+        return url.toString();
+      } catch (e) {
+        // Invalid URL format, treat as search query
+        return `${searchEngine}${encodeURIComponent(input)}`;
+      }
+    }
+
+    // Otherwise, treat as search query
+    return `${searchEngine}${encodeURIComponent(input)}`;
   } catch (err) {
     return `${searchEngine}${encodeURIComponent(input)}`;
   }

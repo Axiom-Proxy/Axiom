@@ -17,7 +17,7 @@ try {
   if (keys) premium_keys = keys.split(",");
 } catch (e) { console.warn("Using default keys."); }
 
-const server = fastify({ logger: false, trustProxy: true });
+const server = fastify({ logger: true, trustProxy: true });
 
 async function safeFetch(url, options = {}) {
   const controller = new AbortController();
@@ -37,6 +37,22 @@ server.register(require("@fastify/static"), { root: epoxyPath, prefix: "/epoxy/"
 server.register(require("@fastify/static"), { root: baremuxPath, prefix: "/baremux/", decorateReply: false });
 
 server.register(require("@fastify/rate-limit"), { timeWindow: "1m", max: 100 });
+
+server.post("/v1/chat/completions", async (req, res) => {
+  try {
+    await callPollinationsAI(req, res, req.body.stream);
+  } catch (err) {
+    console.error("AI Route Error:", err);
+    res.code(500).send({ error: "AI request failed" });
+  }
+});
+
+server.post("/v1/models", async (req, res) => {
+  res.send({
+    object: "list",
+    data: ["mistral"].map(m => ({ id: m, object: "model", created: Math.floor(Date.now() / 1000), owned_by: "axiom" })),
+  });
+});
 
 server.get("/api/check-premium", async (req, res) => {
   res.send({ success: premium_keys.includes(req.headers.key) });
@@ -80,12 +96,12 @@ server.get("/api/youtube/search", async (request, res) => {
       const videoPath = $thumbnailLink.attr("href");
       const videoId = videoPath ? videoPath.split("v=")[1] : null;
       
-      if (!videoId) return;
+      if (!videoId) return; 
 
       const $img = $video.find(".thumbnail img.thumbnail");
       let thumbnailUrl = $img.attr("data-src") || $img.attr("src");
 
-      if (!thumbnailUrl || thumbnailUrl.startsWith("data:")) {
+       if (!thumbnailUrl || thumbnailUrl.startsWith("data:")) {
          thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`;
       } else if (thumbnailUrl.startsWith("/")) {
          thumbnailUrl = `https://inv.nadeko.net${thumbnailUrl}`;
@@ -100,6 +116,7 @@ server.get("/api/youtube/search", async (request, res) => {
       const length = $video.find(".length").text().trim();
       const lengthSeconds = parseDuration(length);
 
+      // 6. Metadata
       const videoData = $video.find(".video-data").text().trim();
 
       videos.push({
@@ -107,7 +124,7 @@ server.get("/api/youtube/search", async (request, res) => {
         title,
         author: channelName || "Unknown",
         lengthSeconds,
-        published: videoData,
+        published: videoData, // Simplified
         videoThumbnails: [{ url: thumbnailUrl }],
         url: `https://www.youtube.com/watch?v=${videoId}`,
         invidiousUrl: `https://inv.nadeko.net${videoPath}`
@@ -128,15 +145,6 @@ server.get('/search_complete/*', async (req, res) => {
     const response = await safeFetch(`https://google.com/complete/search?client=firefox&hl=en&q=${encodeURIComponent(query)}`);
     res.send(await response.json());
   } catch (e) { res.code(500).send('Error'); }
-});
-
-server.register(require("@fastify/static"), {
-  root: path.join(__dirname, "/frontend"),
-  prefix: "/",
-  decorateReply: true,
-  setHeaders: (res, path) => {
-    if (path.endsWith("sw.js")) res.setHeader("Service-Worker-Allowed", "/");
-  },
 });
 
 function getSearXNGUrls(html) {
@@ -167,6 +175,31 @@ function parseDuration(str) {
   return s;
 }
 
+async function callPollinationsAI(req, res, isStreaming, model = "mistral") {
+  const payload = { model, messages: req.body.messages || [], ...(isStreaming && { stream: true }) };
+  const response = await fetch("https://gen.pollinations.ai/v1/chat/completions", {
+    method: "POST",
+    headers: { "content-type": "application/json", "authorization": `Bearer pk_XDXnwCpYbihkQcEg` },
+    body: JSON.stringify(payload),
+  });
+
+  if (isStreaming) {
+    res.raw.writeHead(200, { "Content-Type": "text/event-stream", "Cache-Control": "no-cache", "Connection": "keep-alive" });
+    response.body.pipe(res.raw);
+  } else {
+    res.send(await response.json());
+  }
+}
+
+server.register(require("@fastify/static"), {
+  root: path.join(__dirname, "/frontend"),
+  prefix: "/",
+  decorateReply: true,
+  setHeaders: (res, path) => {
+    if (path.endsWith("sw.js")) res.setHeader("Service-Worker-Allowed", "/");
+  },
+});
+
 server.server.on("upgrade", (req, socket, head) => {
   socket.on("error", (err) => { try { socket.destroy(); } catch (e) {} });
   if (req.url.startsWith("/edu/")) {
@@ -180,5 +213,5 @@ server.server.on("upgrade", (req, socket, head) => {
 process.on("uncaughtException", (err) => console.error("Uncaught:", err));
 process.on("unhandledRejection", (r) => console.error("Unhandled:", r));
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8085;
 server.listen({ port, host: "0.0.0.0" }).then(() => console.log(`Running on ${port}`));

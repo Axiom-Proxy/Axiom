@@ -32,15 +32,6 @@ async function safeFetch(url, options = {}) {
   }
 }
 
-server.register(require("@fastify/static"), {
-  root: path.join(__dirname, "/frontend"),
-  prefix: "/",
-  decorateReply: true,
-  setHeaders: (res, path) => {
-    if (path.endsWith("sw.js")) res.setHeader("Service-Worker-Allowed", "/");
-  },
-});
-
 server.register(require("@fastify/static"), { root: scramjetPath, prefix: "/educational_vr/", decorateReply: false });
 server.register(require("@fastify/static"), { root: epoxyPath, prefix: "/epoxy/", decorateReply: false });
 server.register(require("@fastify/static"), { root: baremuxPath, prefix: "/baremux/", decorateReply: false });
@@ -137,6 +128,15 @@ server.get('/search_complete/*', async (req, res) => {
     const response = await safeFetch(`https://google.com/complete/search?client=firefox&hl=en&q=${encodeURIComponent(query)}`);
     res.send(await response.json());
   } catch (e) { res.code(500).send('Error'); }
+});
+
+server.register(require("@fastify/static"), {
+  root: path.join(__dirname, "/frontend"),
+  prefix: "/",
+  decorateReply: true,
+  setHeaders: (res, path) => {
+    if (path.endsWith("sw.js")) res.setHeader("Service-Worker-Allowed", "/");
+  },
 });
 
 function getSearXNGUrls(html) {

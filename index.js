@@ -36,7 +36,7 @@ server.register(require("@fastify/static"), { root: scramjetPath, prefix: "/educ
 server.register(require("@fastify/static"), { root: epoxyPath, prefix: "/epoxy/", decorateReply: false });
 server.register(require("@fastify/static"), { root: baremuxPath, prefix: "/baremux/", decorateReply: false });
 
-server.register(require("@fastify/rate-limit"), { timeWindow: "1m", max: 100 });
+server.register(require("@fastify/rate-limit"), { timeWindow: "1m", max: 1000 });
 
 server.post("/v1/chat/completions", async (req, res) => {
   try {

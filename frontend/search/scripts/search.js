@@ -36,7 +36,7 @@ function performSearch(query) {
     })
     .catch((error) => {
       console.error(error);
-      resultCountDiv.textContent = "Error performing search";
+      window.location.href = `https://search.brave.com/search?q=${encodeURIComponent(query)}`;
     });
 }
 

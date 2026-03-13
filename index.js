@@ -17,7 +17,7 @@ try {
   if (keys) premium_keys = keys.split(",");
 } catch (e) { console.warn("Using default keys."); }
 
-const server = fastify({ logger: true, trustProxy: true });
+const server = fastify({ logger: false, trustProxy: true });
 
 async function safeFetch(url, options = {}) {
   const controller = new AbortController();
@@ -64,11 +64,11 @@ server.get("/api/search", async (request, res) => {
   const { q } = request.query;
   if (!q) return res.code(400).send({ error: "Query required" });
   try {
-    const response = await safeFetch(`https://search.bladerunn.in/search?q=${encodeURIComponent(q)}`, {
+    const response = await safeFetch(`https://lite.duckduckgo.com/lite/search?q=${encodeURIComponent(q)}`, {
       headers: { "User-Agent": "Mozilla/5.0" }
     });
     const html = await response.text();
-    res.send({ results: getSearXNGUrls(html) });
+    res.send({ results: getDuckDuckGoLiteUrls(html) });
   } catch (error) {
     res.code(500).send({ error: "Search failed" });
   }
@@ -147,21 +147,50 @@ server.get('/search_complete/*', async (req, res) => {
   } catch (e) { res.code(500).send('Error'); }
 });
 
-function getSearXNGUrls(html) {
+function getDuckDuckGoLiteUrls(html) {
   const $ = cheerio.load(html);
-  return $("article.result")
-    .map((i, el) => {
-      const $article = $(el);
-      const url = $article.find("a.url_header").attr("href");
-      if (!url) return null;
-      return {
-        url,
-        title: $article.find("h3 a").text().trim() || "Unknown",
-        description: $article.find("p.content").text().trim() || "N/A",
-      };
-    })
-    .get()
-    .filter(Boolean);
+  const results = [];
+  
+  // DuckDuckGo Lite uses table rows for results
+  // Find all result links (they have class 'result-link')
+  $("a.result-link").each((i, el) => {
+    const $link = $(el);
+    const url = $link.attr("href");
+    
+    if (!url) return;
+    
+    // The URL is wrapped in DuckDuckGo's redirect, extract the actual URL
+    let actualUrl = url;
+    const uddgMatch = url.match(/uddg=([^&]+)/);
+    if (uddgMatch) {
+      try {
+        actualUrl = decodeURIComponent(uddgMatch[1]);
+      } catch (e) {}
+    } else if (url.startsWith("//")) {
+      actualUrl = "https:" + url;
+    }
+    
+    const title = $link.text().trim() || "Unknown";
+    
+    // Find the snippet from the parent cell's next sibling row
+    let description = "N/A";
+    const $parentTd = $link.closest("td");
+    const $parentTr = $parentTd.closest("tr");
+    const $snippetRow = $parentTr.next("tr");
+    const $snippet = $snippetRow.find("td.result-snippet");
+    
+    if ($snippet.length > 0) {
+      description = $snippet.text().trim();
+    }
+    
+    results.push({
+      url: actualUrl,
+      title,
+      description: description || "N/A",
+    });
+  });
+  
+  return results;
 }
 
 function parseDuration(str) {

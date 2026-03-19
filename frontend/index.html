@@ -113,14 +113,8 @@
 
 <script src="./browser/scripts/themes.js"></script>
 <script>
-    const AD_URL = "https://www.effectivegatecpm.com/em4vjuaxr?key=03442a307d89d9816a78111c66d3044e";
-
-    function openAd() {
-        window.open(AD_URL, '_blank');
-    }
 
     function cloak() {
-        openAd();
         tab = window.open("about:blank", target="_blank")
         tab.document.write(`
       <html>
@@ -149,7 +143,6 @@
 
     let windowab = document.getElementById("window")
     windowab.addEventListener("click", () => {
-        openAd();
         const windowFeatures = 'width=1200,height=1200,resizable=yes,scrollbars=yes,status=yes';
         const newWindow = window.open(window.location.origin + '/main.html', 'Google', windowFeatures);
         
@@ -170,7 +163,6 @@
     
     let file = document.getElementById("file")
     file.addEventListener("click", () => {
-        openAd();
         const htmlContent = `
             <html>
             <head>
@@ -194,7 +186,6 @@
 
     let blob = document.getElementById("blob")
     blob.addEventListener("click", () => {
-        openAd();
         const htmlContent = `
             <html>
             <head>

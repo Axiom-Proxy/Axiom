@@ -125,6 +125,7 @@
       <body>
         <iframe src="main.html" style="border:none; height: 100%; width: 100%; position: fixed; left: 0px; top: 0px;">
       </body>
+
 `)
         tab.document.close()
     }
@@ -173,6 +174,7 @@
                 <iframe src="${window.location.origin}/main.html" style="border:none; height: 100%; width: 100%; position: fixed; left: 0px; top: 0px;"></iframe>
             </body>
             </html>
+
         `;
         const object_URL = URL.createObjectURL(new Blob([htmlContent], { type: 'text/html' }));
 
@@ -196,6 +198,7 @@
                 <iframe src="${window.location.origin}/main.html" style="border:none; height: 100%; width: 100%; position: fixed; left: 0px; top: 0px;"></iframe>
             </body>
             </html>
+
         `;
         const object_URL = URL.createObjectURL(new Blob([htmlContent], { type: 'text/html' }));
 

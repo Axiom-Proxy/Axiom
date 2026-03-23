@@ -1468,5 +1468,3752 @@
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/yohoho",
     "app_img": "./assets/gapp-images-secondary/Yohoho.jpg",
     "type": "game"
+  },
+    {
+    "app_name": "Roblox",
+    "app_url": "https://99.ip.nowgg.fun/apps/a/19900/b.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/roblox.webp"
+  },
+  {
+    "app_name": "Five Nights at \"The Big E's\"",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@5e255a186ac0dd4793109dfbe68b946e5cc8dce5/v1-fn.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/five-nights-at-the-big-e-s.webp"
+  },
+  {
+    "app_name": "Neal.fun",
+    "app_url": "https://neal.fun",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/neal-fun.webp"
+  },
+  {
+    "app_name": "Retro Bowl",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/rbo.zip",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/retro-bowl.webp"
+  },
+  {
+    "app_name": "BasketBros.io",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/bbo.zip",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/basketbros-io.webp"
+  },
+  {
+    "app_name": "1v1.lol",
+    "app_url": "https://1v1.lol",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/1v1-lol.webp"
+  },
+  {
+    "app_name": "Awesome Tanks 2",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/atnk-v2.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/awesome-tanks-2.webp"
+  },
+  {
+    "app_name": "Bounce Back",
+    "app_url": "https://skoolcdn.github.io/gfiles/gfiles/html5/bounceback",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bounce-back.webp"
+  },
+  {
+    "app_name": "BuildNow.GG",
+    "app_url": "https://games.crazygames.com/en_US/buildnow-gg/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/buildnow-gg.webp"
+  },
+  {
+    "app_name": "Counter Strike",
+    "app_url": "https://play-cs.com",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/counter-strike.webp"
+  },
+  {
+    "app_name": "Funny Shooter 2",
+    "app_url": "https://htmlxm.github.io/h4/funny-shooter-2",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/funny-shooter-2.webp"
+  },
+  {
+    "app_name": "Janissary Battles",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/8b55f4f729be4e70b6155f27d2e04690/?gd_sdk_referrer_url=https://gamedistribution.com/games/janissary-battles",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/janissary-battles.webp"
+  },
+  {
+    "app_name": "Master Archer",
+    "app_url": "https://playcanv.as/p/JERg21J8",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/master-archer.webp"
+  },
+  {
+    "app_name": "Missiles",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/missiles/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/missiles.webp"
+  },
+  {
+    "app_name": "Rooftop Snipers",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/snip-roof.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rooftop-snipers.webp"
+  },
+  {
+    "app_name": "Station 141",
+    "app_url": "https://assets.hbmc.net/station-141/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/station-141.webp"
+  },
+  {
+    "app_name": "Stick Archers",
+    "app_url": "https://assets.hbmc.net/stick-archers/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stick-archers.webp"
+  },
+  {
+    "app_name": "Stick Merge",
+    "app_url": "https://assets.hbmc.net/stick-merge/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stick-merge.webp"
+  },
+  {
+    "app_name": "Superhot",
+    "app_url": "https://assets.hbmc.net/superhot/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/superhot.webp"
+  },
+  {
+    "app_name": "Time Shooter SWAT",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/6493b872f0564380a7adad671d1e0a57/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/time-shooter-swat.webp"
+  },
+  {
+    "app_name": "Wolfenstein",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/wolfenstein-3d/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/wolfenstein.webp"
+  },
+  {
+    "app_name": "Ballistic Chickens",
+    "app_url": "https://assets.hbmc.net/ballistic-chickens/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ballistic-chickens.webp"
+  },
+  {
+    "app_name": "Boxhead 2Play",
+    "app_url": "https://assets.hbmc.net/boxhead2play/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/boxhead-2play.webp"
+  },
+  {
+    "app_name": "Champion Archer",
+    "app_url": "https://assets.hbmc.net/championarcher/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/champion-archer.webp"
+  },
+  {
+    "app_name": "Creative Kill Chamber",
+    "app_url": "https://assets.hbmc.net/creativekillchamber/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/creative-kill-chamber.webp"
+  },
+  {
+    "app_name": "Defend The Tank",
+    "app_url": "https://assets.hbmc.net/defend-the-tank/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/defend-the-tank.webp"
+  },
+  {
+    "app_name": "Dragon vs Bricks",
+    "app_url": "https://assets.hbmc.net/dragon-vs-bricks/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/dragon-vs-bricks.webp"
+  },
+  {
+    "app_name": "Endless War 3",
+    "app_url": "https://assets.hbmc.net/endlesswar3/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/endless-war-3.webp"
+  },
+  {
+    "app_name": "Evil Glitch",
+    "app_url": "https://assets.hbmc.net/evil-glitch/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/evil-glitch.webp"
+  },
+  {
+    "app_name": "Exo",
+    "app_url": "https://assets.hbmc.net/exo/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/exo.webp"
+  },
+  {
+    "app_name": "Froggy's Battle",
+    "app_url": "https://assets.hbmc.net/froggys-battle/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/froggy-s-battle.webp"
+  },
+  {
+    "app_name": "Just One Boss",
+    "app_url": "https://assets.hbmc.net/just-one-boss/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/just-one-boss.webp"
+  },
+  {
+    "app_name": "Kitchen Gun Game",
+    "app_url": "https://assets.hbmc.net/kitchen-gun-game/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/kitchen-gun-game.webp"
+  },
+  {
+    "app_name": "Matrix Rampage",
+    "app_url": "https://assets.hbmc.net/matrixrampage/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/matrix-rampage.webp"
+  },
+  {
+    "app_name": "n-gon",
+    "app_url": "https://assets.hbmc.net/n-gon/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/n-gon.webp"
+  },
+  {
+    "app_name": "Pixel Gun Survival",
+    "app_url": "https://assets.hbmc.net/pixel-gun-survival/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pixel-gun-survival.webp"
+  },
+  {
+    "app_name": "Protektor",
+    "app_url": "https://assets.hbmc.net/protektor/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/protektor.webp"
+  },
+  {
+    "app_name": "Shell Shockers",
+    "app_url": "https://assets.hbmc.net/shellshockers/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/shell-shockers.webp"
+  },
+  {
+    "app_name": "Shot in the Dark",
+    "app_url": "https://assets.hbmc.net/shotinthedark/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/shot-in-the-dark.webp"
+  },
+  {
+    "app_name": "Smoking Barrels",
+    "app_url": "https://assets.hbmc.net/smokingbarrels/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/smoking-barrels.webp"
+  },
+  {
+    "app_name": "Soldier Legend",
+    "app_url": "https://assets.hbmc.net/soldier-legend/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/soldier-legend.webp"
+  },
+  {
+    "app_name": "Stick Duel Battle",
+    "app_url": "https://assets.hbmc.net/stick-duel-battle/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stick-duel-battle.webp"
+  },
+  {
+    "app_name": "Storm the House 2",
+    "app_url": "https://assets.hbmc.net/stormthehouse2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/storm-the-house-2.webp"
+  },
+  {
+    "app_name": "Tactical Weapon Pack 2",
+    "app_url": "https://assets.hbmc.net/tactical-weapon-pack-2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tactical-weapon-pack-2.webp"
+  },
+  {
+    "app_name": "Tactical Assassin 2",
+    "app_url": "https://assets.hbmc.net/tacticalassasin2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tactical-assassin-2.webp"
+  },
+  {
+    "app_name": "Tank Trouble 2",
+    "app_url": "https://assets.hbmc.net/tank-trouble-2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tank-trouble-2.webp"
+  },
+  {
+    "app_name": "Zombs Royale",
+    "app_url": "https://assets.hbmc.net/zombs-royale/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/zombs-royale.webp"
+  },
+  {
+    "app_name": "Hotline Miami",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/hotline-miami/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hotline-miami.webp"
+  },
+  {
+    "app_name": "ULTRAKILL",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/ultrakill/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ultrakill.webp"
+  },
+  {
+    "app_name": "Kour",
+    "app_url": "https://kour.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/kour.webp"
+  },
+  {
+    "app_name": "Pixel Gun 4D",
+    "app_url": "https://play.unity.com/api/v1/games/game/d4fc8fd5-f4eb-48e3-a64f-a76cceef7734/build/latest/frame",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pixel-gun-4d.webp"
+  },
+  {
+    "app_name": "Stick Fight The Chaos",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/06cdcc1cd320472ab3f3574d702ff217/index.html?gd_sdk_referrer_url=https%3A%2F%2Fgamedistribution.com%2Fgames%2Fstick-fight-the-chaos%2F&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL2dhbWVkaXN0cmlidXRpb24uY29tL2dhbWVzL3N0aWNrLWZpZ2h0LXRoZS1jaGFvcy8iLCJwYXJlbnREb21haW4iOiJnYW1lZGlzdHJpYnV0aW9uLmNvbSIsInRvcERvbWFpbiI6ImFnZW9md2FyZ2FtZS5pbyIsImhhc0ltcHJlc3Npb24iOmZhbHNlLCJsb2FkZXJFbmFibGVkIjp0cnVlLCJob3N0IjoiaHRtbDUuZ2FtZWRpc3RyaWJ1dGlvbi5jb20iLCJ2ZXJzaW9uIjoiMS41LjE3In0%253D",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stick-fight-the-chaos.webp"
+  },
+  {
+    "app_name": "War Bot",
+    "app_url": "https://warbot.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/war-bot.webp"
+  },
+  {
+    "app_name": "CS",
+    "app_url": "https://db.duckmath.org/html/cs_online/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cs.webp"
+  },
+  {
+    "app_name": "Ragdoll Hit",
+    "app_url": "https://ragdollhit.gitlab.io/file/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ragdoll-hit.webp"
+  },
+  {
+    "app_name": "Front Wars IO",
+    "app_url": "https://frontwars.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/front-wars-io.webp"
+  },
+  {
+    "app_name": "Krunker.io",
+    "app_url": "https://krunker.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/krunker-io.webp"
+  },
+  {
+    "app_name": "Doom",
+    "app_url": "https://raz0red.github.io/webprboom/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/doom.webp"
+  },
+  {
+    "app_name": "GTA",
+    "app_url": "https://cbgamesdev.github.io/chilibowlflash/GBA-gh-pages/launcher.html#gta",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/gta.webp"
+  },
+  {
+    "app_name": "Narrow One",
+    "app_url": "https://narrow.one/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/narrow-one.webp"
+  },
+  {
+    "app_name": "Hasmob",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/623baec23d504c83acab0b5250859ba8/index.html?gd_sdk_referrer_url=https%3A%2F%2Fhazmob.io&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL2hhem1vYi5pbyIsInBhcmVudERvbWFpbiI6Imhhem1vYi5pbyIsInRvcERvbWFpbiI6Imhhem1vYi5pbyIsImhhc0ltcHJlc3Npb24iOmZhbHNlLCJsb2FkZXJFbmFibGVkIjp0cnVlLCJob3N0IjoiaHRtbDUuZ2FtZWRpc3RyaWJ1dGlvbi5jb20iLCJ2ZXJzaW9uIjoiMS41LjE4In0%253D",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hasmob.webp"
+  },
+  {
+    "app_name": "Tag",
+    "app_url": "https://kdata1.com/2024/05/tag/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tag.webp"
+  },
+  {
+    "app_name": "Cheese Chompers 3D",
+    "app_url": "https://nealfun.app/game/cheesechompers3d/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cheese-chompers-3d.webp"
+  },
+  {
+    "app_name": "Among Us Singleplayer",
+    "app_url": "https://kdata1.com/2020/12/3054073/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/among-us-singleplayer.webp"
+  },
+  {
+    "app_name": "Kick The Teddy",
+    "app_url": "https://unblocked-games.s3.amazonaws.com/games/kick-the-teddy-bear/unblocked.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/kick-the-teddy.webp"
+  },
+  {
+    "app_name": "Solar Smash",
+    "app_url": "https://noahsamazingtutoringhelp.github.io/Noahs-Calculus-Tutor/games/31.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/solar-smash.webp"
+  },
+  {
+    "app_name": "Bloons Tower Defense",
+    "app_url": "https://ad-freegames.github.io/flash/game/bloons-tower-defense.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bloons-tower-defense.webp"
+  },
+  {
+    "app_name": "Plants Versus Zombies",
+    "app_url": "https://roblnet13.github.io/pvz/game/iframe",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/plants-versus-zombies.webp"
+  },
+  {
+    "app_name": "Stickman Hook",
+    "app_url": "https://stickman-hook.io/iframe/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stickman-hook.webp"
+  },
+  {
+    "app_name": "Getaway Shootout",
+    "app_url": "https://assets.hbmc.net/getaway-shootout/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/getaway-shootout.webp"
+  },
+  {
+    "app_name": "Archery World Tour",
+    "app_url": "https://gamesnacks.com/embed/games/archery",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/archery-world-tour.webp"
+  },
+  {
+    "app_name": "Basket Random",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/rnd-bk.zip",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/basket-random.webp"
+  },
+  {
+    "app_name": "Basketball FRVR",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@e155f118b64eee8b7ecd88f7f834eec269ddc76d/bk-frvr.zip",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/basketball-frvr.webp"
+  },
+  {
+    "app_name": "Basketball Stars",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/69d78d071f704fa183d75b4114ae40ec/?gd_sdk_referrer_url=https://gamedistribution.com/games/basketball-stars",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/basketball-stars.webp"
+  },
+  {
+    "app_name": "Cannon Basketball 4",
+    "app_url": "https://assets.hbmc.net/cannon-basketball-4/index.html",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/cannon-basketball-4.webp"
+  },
+  {
+    "app_name": "Champion Island",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/champion-island.zip",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/champion-island.webp"
+  },
+  {
+    "app_name": "Let's Surf",
+    "app_url": "https://assets.hbmc.net/edge-surf/index.html",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/let-s-surf.webp"
+  },
+  {
+    "app_name": "Penalty Kicks",
+    "app_url": "https://www.mathplayground.com/penalty-kicks/index.html",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/penalty-kicks.webp"
+  },
+  {
+    "app_name": "Soccer Random",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/random-soc.zip",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/soccer-random.webp"
+  },
+  {
+    "app_name": "Soccer Skills",
+    "app_url": "https://assets.hbmc.net/soccer-skills/index.html",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/soccer-skills.webp"
+  },
+  {
+    "app_name": "Volley Random",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/random-vol.zip",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/volley-random.webp"
+  },
+  {
+    "app_name": "Boxing Random",
+    "app_url": "https://html5.gamedistribution.com/e8c02771085e4c8b9de3deda5e087e0e/?gd_sdk_referrer_url=https%3A%2F%2Fwww.twoplayergames.org%2Fgame%2Fboxing-random",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/boxing-random.webp"
+  },
+  {
+    "app_name": "CN Ping Pong",
+    "app_url": "https://assets.hbmc.net/cnpingpong/index.html",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/cn-ping-pong.webp"
+  },
+  {
+    "app_name": "Mini Putt",
+    "app_url": "https://assets.hbmc.net/miniputt/index.html",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/mini-putt.webp"
+  },
+  {
+    "app_name": "Stickman Golf",
+    "app_url": "https://assets.hbmc.net/stickman-golf/index.html",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/stickman-golf.webp"
+  },
+  {
+    "app_name": "Backflip Dive 3D",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/a9d7229d3be14c0284d5281d125f27f3/index.html?gd_sdk_referrer_url=https%3A%2F%2Fgamaverse.com%2Fbackflip-dive-3d-game%2F&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL2dhbWF2ZXJzZS5jb20vYmFja2ZsaXAtZGl2ZS0zZC1nYW1lLyIsInBhcmVudERvbWFpbiI6ImdhbWF2ZXJzZS5jb20iLCJ0b3BEb21haW4iOiJnYW1hdmVyc2UuY29tIiwiaGFzSW1wcmVzc2lvbiI6ZmFsc2UsImxvYWRlckVuYWJsZWQiOnRydWUsImhvc3QiOiJodG1sNS5nYW1lZGlzdHJpYnV0aW9uLmNvbSIsInZlcnNpb24iOiIxLjUuMTcifQ%253D%253D",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/backflip-dive-3d.webp"
+  },
+  {
+    "app_name": "Backflipper",
+    "app_url": "https://ubg76.gitlab.io/backflipper/",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/backflipper.webp"
+  },
+  {
+    "app_name": "Baseball Bros",
+    "app_url": "https://baseballbros.io/",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/baseball-bros.webp"
+  },
+  {
+    "app_name": "Cat Tennis",
+    "app_url": "https://sz-games.github.io/Games11/cat%20tennis/",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/cat-tennis.webp"
+  },
+  {
+    "app_name": "Football Bros",
+    "app_url": "https://footballbros.io/",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/football-bros.webp"
+  },
+  {
+    "app_name": "Google Baseball",
+    "app_url": "https://freeonlinegames.github.io/fourth-of-july-2019.html",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/google-baseball.webp"
+  },
+  {
+    "app_name": "Pool",
+    "app_url": "https://www.hoodamath.com/mobile/games/8-ball-pool/game.html?nocheckorient=1",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/pool.webp"
+  },
+  {
+    "app_name": "Rocket League",
+    "app_url": "https://ubg77.github.io/edit/rocket-soccer-derby/",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/rocket-league.webp"
+  },
+  {
+    "app_name": "Super Liquid Soccer",
+    "app_url": "https://gnhustgames.github.io/super-liquid-soccer/",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/super-liquid-soccer.webp"
+  },
+  {
+    "app_name": "Retro Bowl College",
+    "app_url": "https://ethonion10.neocities.org/",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/retro-bowl-college.webp"
+  },
+  {
+    "app_name": "Wacky Flip",
+    "app_url": "https://game.azgame.io/wacky-flip/",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/wacky-flip.webp"
+  },
+  {
+    "app_name": "Super Monkey Ball",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/monkeyball.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/super-monkey-ball.webp"
+  },
+  {
+    "app_name": "99 Balls 3D",
+    "app_url": "https://gamesnacks.com/games/99balls3d",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/99-balls-3d.webp"
+  },
+  {
+    "app_name": "99 Balls Evo",
+    "app_url": "https://assets.hbmc.net/99balls/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/99-balls-evo.webp"
+  },
+  {
+    "app_name": "Achievement Unlocked",
+    "app_url": "https://assets.hbmc.net/achievementunlocked/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/achievement-unlocked.webp"
+  },
+  {
+    "app_name": "Amidst The Clouds",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/amidst-the-clouds/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/amidst-the-clouds.webp"
+  },
+  {
+    "app_name": "Appel",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/appel/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/appel.webp"
+  },
+  {
+    "app_name": "Big NEON Tower Tiny Square",
+    "app_url": "https://www.coolmathgames.com/0-big-neon-tower-tiny-square/play",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/big-neon-tower-tiny-square.webp"
+  },
+  {
+    "app_name": "Big Tower Tiny Square",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/btts/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/big-tower-tiny-square.webp"
+  },
+  {
+    "app_name": "Bob The Robber 2",
+    "app_url": "https://assets.hbmc.net/bobtherobber2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bob-the-robber-2.webp"
+  },
+  {
+    "app_name": "Boxel Rebound",
+    "app_url": "https://trinculo54.github.io/Boxel-rebound-hope/Newer/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/boxel-rebound.webp"
+  },
+  {
+    "app_name": "Circlo",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/circlo/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/circlo.webp"
+  },
+  {
+    "app_name": "Cubeform",
+    "app_url": "https://www.mathplayground.com/cubeform/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cubeform.webp"
+  },
+  {
+    "app_name": "Doodle Jump",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/doodle-jump/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/doodle-jump.webp"
+  },
+  {
+    "app_name": "Fireboy and Watergirl",
+    "app_url": "https://ubg100.github.io/games/fbwg1/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fireboy-and-watergirl.webp"
+  },
+  {
+    "app_name": "Happy Wheels",
+    "app_url": "https://games-online.io/game/HappyWheels",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/happy-wheels.webp"
+  },
+  {
+    "app_name": "Henry Stickmin: Breaking the Bank",
+    "app_url": "https://assets.hbmc.net/breakingthebank/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/henry-stickmin-breaking-the-bank.webp"
+  },
+  {
+    "app_name": "Henry Stickmin: Escaping The Prision",
+    "app_url": "https://assets.hbmc.net/escapingtheprison/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/henry-stickmin-escaping-the-prision.webp"
+  },
+  {
+    "app_name": "Henry Stickmin: Fleeing The Complex",
+    "app_url": "https://assets.hbmc.net/fleeingthecomplex/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/henry-stickmin-fleeing-the-complex.webp"
+  },
+  {
+    "app_name": "Offline Paradise",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/offline-paradise/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/offline-paradise.webp"
+  },
+  {
+    "app_name": "Pizza Tower",
+    "app_url": "https://kdata1.com/2021/03/3527391/2.1/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pizza-tower.webp"
+  },
+  {
+    "app_name": "Rolling Forests",
+    "app_url": "https://assets.hbmc.net/rolling-forests/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rolling-forests.webp"
+  },
+  {
+    "app_name": "Rolly Vortex",
+    "app_url": "https://assets.hbmc.net/rolly-vortex/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rolly-vortex.webp"
+  },
+  {
+    "app_name": "Rotate",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/0faa4468d18e4f7aa2e0161b4fefa193/?gd_sdk_referrer_url=https://gamedistribution.com/games/rotate",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rotate.webp"
+  },
+  {
+    "app_name": "Run 3",
+    "app_url": "https://bonbang.github.io/store99/run-3",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/run-3.webp"
+  },
+  {
+    "app_name": "Slope",
+    "app_url": "https://assets.hbmc.net/slope/",
+    "type": "app"
+  },
+  {
+    "app_name": "Slope 2",
+    "app_url": "https://assets.hbmc.net/slope-2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/slope-2.webp"
+  },
+  {
+    "app_name": "Slope Ball",
+    "app_url": "https://assets.hbmc.net/slope-ball/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/slope-ball.webp"
+  },
+  {
+    "app_name": "Stack Bounce",
+    "app_url": "https://gamesnacks.com/games/stackbounce",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stack-bounce.webp"
+  },
+  {
+    "app_name": "Super Mario 64",
+    "app_url": "https://ultimatemen.github.io/games/superm64/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/super-mario-64.webp"
+  },
+  {
+    "app_name": "Super Mario Bros",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/mario/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/super-mario-bros.webp"
+  },
+  {
+    "app_name": "Tunnel Rush",
+    "app_url": "https://tunnelrush.app/iframe/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tunnel-rush.webp"
+  },
+  {
+    "app_name": "Doctor Acorn 2",
+    "app_url": "https://assets.hbmc.net/doctor-acorn2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/doctor-acorn-2.webp"
+  },
+  {
+    "app_name": "Double Wires",
+    "app_url": "https://www.gamenora.com/upload/games/swf/Double%20Wires/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/double-wires.webp"
+  },
+  {
+    "app_name": "Fancy Pants Adventures",
+    "app_url": "https://assets.hbmc.net/fancypantsadventures/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fancy-pants-adventures.webp"
+  },
+  {
+    "app_name": "George and the Printer",
+    "app_url": "https://assets.hbmc.net/georgeandtheprinter/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/george-and-the-printer.webp"
+  },
+  {
+    "app_name": "Go Ball",
+    "app_url": "https://assets.hbmc.net/go-ball/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/go-ball.webp"
+  },
+  {
+    "app_name": "Marvin Spectrum",
+    "app_url": "https://assets.hbmc.net/marvinspectrum/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/marvin-spectrum.webp"
+  },
+  {
+    "app_name": "Ninja",
+    "app_url": "https://assets.hbmc.net/ninja/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ninja.webp"
+  },
+  {
+    "app_name": "Ninja vs Evilcorp",
+    "app_url": "https://assets.hbmc.net/ninjavsevilcorp/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ninja-vs-evilcorp.webp"
+  },
+  {
+    "app_name": "Noob Steve Parkour",
+    "app_url": "https://assets.hbmc.net/noob-steve-parkour/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/noob-steve-parkour.webp"
+  },
+  {
+    "app_name": "NS Shaft",
+    "app_url": "https://assets.hbmc.net/ns-shaft/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ns-shaft.webp"
+  },
+  {
+    "app_name": "NS Resurgence",
+    "app_url": "https://assets.hbmc.net/nsresurgence/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ns-resurgence.webp"
+  },
+  {
+    "app_name": "Stickman Boost",
+    "app_url": "https://assets.hbmc.net/stickman-boost/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stickman-boost.webp"
+  },
+  {
+    "app_name": "Super Mario Construct",
+    "app_url": "https://assets.hbmc.net/supermarioconstruct/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/super-mario-construct.webp"
+  },
+  {
+    "app_name": "This Is The Only Level",
+    "app_url": "https://assets.hbmc.net/thisistheonlylevel/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/this-is-the-only-level.webp"
+  },
+  {
+    "app_name": "Yoshi Fabrication",
+    "app_url": "https://assets.hbmc.net/yoshifabrication/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/yoshi-fabrication.webp"
+  },
+  {
+    "app_name": "Obby Faster",
+    "app_url": "https://4texas4.github.io/files/games/obbyfaster.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/obby-faster.webp"
+  },
+  {
+    "app_name": "A Difficult Game About Climbing",
+    "app_url": "https://g.vseigru.net/10/igra-a-difficult-game-about-climbing/game.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/a-difficult-game-about-climbing.webp"
+  },
+  {
+    "app_name": "Climbing Over It",
+    "app_url": "https://ubg76.gitlab.io/climbing-over-it/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/climbing-over-it.webp"
+  },
+  {
+    "app_name": "Cluster Rush",
+    "app_url": "https://www.yoosfuhl.com/game/clusterrush/game.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cluster-rush.webp"
+  },
+  {
+    "app_name": "Color Tunnel",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/b0ade7a13a4d50bc3f65e2401b55c8/index.html?gd_sdk_referrer_url=https://colortunnel.io&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL2NvbG9ydHVubmVsLmlvIiwicGFyZW50RG9tYWluIjoiY29sb3J0dW5uZWwuaW8iLCJ0b3BEb21haW4iOiJjb2xvcnR1bm5lbC5pbyIsImhhc0ltcHJlc3Npb24iOmZhbHNlLCJsb2FkZXJFbmFibGVkIjp0cnVlLCJob3N0IjoiaHRtbDUuZ2FtZWRpc3RyaWJ1dGlvbi5jb20iLCJ2ZXJzaW9uIjoiMS41LjE3In0%253D",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/color-tunnel.webp"
+  },
+  {
+    "app_name": "Donkey Kong",
+    "app_url": "https://jiwjfowhfusfdgfigiydgsifygdiyfgdi.netlify.app/games/donkeykong64/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/donkey-kong.webp"
+  },
+  {
+    "app_name": "DreadHead Parkour",
+    "app_url": "https://bestofgooglesites.com/games/dreadhead-parkour/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/dreadhead-parkour.webp"
+  },
+  {
+    "app_name": "Going Balls",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/2d44a0c8ce704965b2031bcc4ae6a9a8/index.html?gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL2h0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tLzJkNDRhMGM4Y2U3MDQ5NjViMjAzMWJjYzRhZTZhOWE4LyIsInBhcmVudERvbWFpbiI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidG9wRG9tYWluIjoiaHRtbDUuZ2FtZWRpc3RyaWJ1dGlvbi5jb20iLCJoYXNJbXByZXNzaW9uIjpmYWxzZSwibG9hZGVyRW5hYmxlZCI6dHJ1ZSwiaG9zdCI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidmVyc2lvbiI6IjEuNS4xNyJ9",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/going-balls.webp"
+  },
+  {
+    "app_name": "Helix Jump",
+    "app_url": "https://cdn.gamesnacks.com/helixjump1/gameCode/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/helix-jump.webp"
+  },
+  {
+    "app_name": "Obby But Your On A Bike",
+    "app_url": "https://db.duck.quackprep.com/html/obby_but_youre_on_a_bike/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/obby-but-your-on-a-bike.webp"
+  },
+  {
+    "app_name": "Obby Robby",
+    "app_url": "https://www.rapidwebapp.com/game/obbyrobby/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/obby-robby.webp"
+  },
+  {
+    "app_name": "Only Up",
+    "app_url": "https://g.vseigru.net/10/igra-onli-ap-2/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/only-up.webp"
+  },
+  {
+    "app_name": "Pacman",
+    "app_url": "https://ad-freegames.github.io/flash/game/pacman.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pacman.webp"
+  },
+  {
+    "app_name": "Rolling Ball 3D",
+    "app_url": "https://www.hoodamath.com/mobile/games/rolling-ball-3d/game.html?nocheckorient=1",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rolling-ball-3d.webp"
+  },
+  {
+    "app_name": "Stack Game",
+    "app_url": "https://www.coolmathgames.com/sites/default/files/public_games/50382/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stack-game.webp"
+  },
+  {
+    "app_name": "Tomb Of The Mask",
+    "app_url": "https://cbgamesdev.github.io/chilibowlflash/totm/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tomb-of-the-mask.webp"
+  },
+  {
+    "app_name": "Spider Dude Parkour",
+    "app_url": "https://db.duck.quackprep.com/html/spider_dude_parkour/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/spider-dude-parkour.webp"
+  },
+  {
+    "app_name": "I Wanna Be That Guy",
+    "app_url": "https://copy.sh/iw/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/i-wanna-be-that-guy.webp"
+  },
+  {
+    "app_name": "Red Ball 4",
+    "app_url": "https://redball4online.github.io/file/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/red-ball-4.webp"
+  },
+  {
+    "app_name": "The Little Giant",
+    "app_url": "https://grims.pro/_games/thelittlegiant/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/the-little-giant.webp"
+  },
+  {
+    "app_name": "Level Devil",
+    "app_url": "https://leveldevil2.io/game/level-devil-2/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/level-devil.webp"
+  },
+  {
+    "app_name": "Simply Up",
+    "app_url": "https://blob.gamezfun.com/807c4b26-8eff-492e-9ba9-88d6e3694295/index.html?noads=true",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/simply-up.webp"
+  },
+  {
+    "app_name": "Vex 3",
+    "app_url": "https://assets.hbmc.net/vex3/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/vex-3.webp"
+  },
+  {
+    "app_name": "Vex 4",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/80e6a5ae477f4d4fbcd1ea293d10087d/?gd_sdk_referrer_url=https://gamedistribution.com/games/vex-4",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/vex-4.webp"
+  },
+  {
+    "app_name": "Vex 5",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/f120262ab72743039fbce88c1f370df8/?gd_sdk_referrer_url=https://gamedistribution.com/games/vex-5",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/vex-5.webp"
+  },
+  {
+    "app_name": "Vex 6",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/4925e12574364121a48c61c35f649c36/?gd_sdk_referrer_url=https://gamedistribution.com/games/vex-6",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/vex-6.webp"
+  },
+  {
+    "app_name": "Vex 7",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/rvvASMiM/0c454c9562d249d28ba3a2b50564042c/index.html?gd_sdk_referrer_url=https%3A%2F%2Ftr.y8.com%2Fgames%2Fvex_7&key=y8&value=default&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3RyLnk4LmNvbS9nYW1lcy92ZXhfNyIsInBhcmVudERvbWFpbiI6InRyLnk4LmNvbSIsInRvcERvbWFpbiI6InRyLnk4LmNvbSIsImhhc0ltcHJlc3Npb24iOmZhbHNlLCJsb2FkZXJFbmFibGVkIjp0cnVlLCJob3N0IjoiaHRtbDUuZ2FtZWRpc3RyaWJ1dGlvbi5jb20iLCJ2ZXJzaW9uIjoiMS41LjE2In0%253D",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/vex-7.webp"
+  },
+  {
+    "app_name": "OvO",
+    "app_url": "https://ovo.onrender.com/versions/1.4.4b/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ovo.webp"
+  },
+  {
+    "app_name": "10 Minutes Till dawn",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/Build1.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/10-minutes-till-dawn.webp"
+  },
+  {
+    "app_name": "Ages of Conflict",
+    "app_url": "https://assets.hbmc.net/ages-of-conflict/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ages-of-conflict.webp"
+  },
+  {
+    "app_name": "Alien Hominid",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/alienhominid/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/alien-hominid.webp"
+  },
+  {
+    "app_name": "Alien Shooter",
+    "app_url": "https://691164868467584636.playables.usercontent.goog/v/assets/index.html#origin=https%3A%2F%2Fwww.youtube.com",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/alien-shooter.webp"
+  },
+  {
+    "app_name": "Amongus",
+    "app_url": "https://assets.hbmc.net/among-us/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/amongus.webp"
+  },
+  {
+    "app_name": "Ashbelt",
+    "app_url": "https://ultimatemen.github.io/games/ashbelt/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ashbelt.webp"
+  },
+  {
+    "app_name": "Bacon May Die",
+    "app_url": "https://game.enjoy4fun.com/baconmaydie/v2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bacon-may-die.webp"
+  },
+  {
+    "app_name": "Deepest Sword",
+    "app_url": "https://html-classic.itch.zone/html/4017918/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/deepest-sword.webp"
+  },
+  {
+    "app_name": "Genshin Impact",
+    "app_url": "https://www.easyfun.gg/cloud-games/genshin-impact.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/genshin-impact.webp"
+  },
+  {
+    "app_name": "Knife Master",
+    "app_url": "https://assets.hbmc.net/knife-master/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/knife-master.webp"
+  },
+  {
+    "app_name": "Om-Nom Bounce",
+    "app_url": "https://assets.hbmc.net/om-bounce/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/om-nom-bounce.webp"
+  },
+  {
+    "app_name": "Rabbit Samurai",
+    "app_url": "https://assets.hbmc.net/rabbit-samurai/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rabbit-samurai.webp"
+  },
+  {
+    "app_name": "Rabbit Samurai 2",
+    "app_url": "https://assets.hbmc.net/rabbit-samurai2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rabbit-samurai-2.webp"
+  },
+  {
+    "app_name": "Radius Raid",
+    "app_url": "https://jackrugile.com/radius-raid/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/radius-raid.webp"
+  },
+  {
+    "app_name": "Stickman Archero Fight",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/3f4c166817ad4fd4b5b05d9adba22fcd/?gd_sdk_referrer_url=https://www.gamegab.com/play/16561/Stickman-Archero-Fight/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stickman-archero-fight.webp"
+  },
+  {
+    "app_name": "Stickman Survival",
+    "app_url": "https://assets.hbmc.net/Stickman-Survival/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stickman-survival.webp"
+  },
+  {
+    "app_name": "The Chroma Incident",
+    "app_url": "https://js13kgames.com/games/the-chroma-incident/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/the-chroma-incident.webp"
+  },
+  {
+    "app_name": "Veloce",
+    "app_url": "https://assets.hbmc.net/veloce/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/veloce.webp"
+  },
+  {
+    "app_name": "Battle for Gondor",
+    "app_url": "https://assets.hbmc.net/battleforgondor/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/battle-for-gondor.webp"
+  },
+  {
+    "app_name": "Hex Empire",
+    "app_url": "https://assets.hbmc.net/hexempire/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hex-empire.webp"
+  },
+  {
+    "app_name": "Just Fall",
+    "app_url": "https://assets.hbmc.net/just-fall/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/just-fall.webp"
+  },
+  {
+    "app_name": "Stick War",
+    "app_url": "https://assets.hbmc.net/stickwar/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stick-war.webp"
+  },
+  {
+    "app_name": "The Battle",
+    "app_url": "https://assets.hbmc.net/thebattle/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/the-battle.webp"
+  },
+  {
+    "app_name": "Bendy and the Ink Machine",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/bendy/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bendy-and-the-ink-machine.webp"
+  },
+  {
+    "app_name": "Buckshot Roulette",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/buckshot-roulette/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/buckshot-roulette.webp"
+  },
+  {
+    "app_name": "Five Nights at Freddy's",
+    "app_url": "https://rawcdn.githack.com/genizy/fnaf/7be68ae3d98c60a9a62b4164c2d61a416a0beb1a/1/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/five-nights-at-freddy-s.webp"
+  },
+  {
+    "app_name": "Five Nights at Freddy's 2",
+    "app_url": "https://rawcdn.githack.com/genizy/fnaf/7be68ae3d98c60a9a62b4164c2d61a416a0beb1a/2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/five-nights-at-freddy-s-2.webp"
+  },
+  {
+    "app_name": "Five Nights at Freddy's 3",
+    "app_url": "https://rawcdn.githack.com/genizy/fnaf/7be68ae3d98c60a9a62b4164c2d61a416a0beb1a/3/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/five-nights-at-freddy-s-3.webp"
+  },
+  {
+    "app_name": "Five Nights at Freddy's 4",
+    "app_url": "https://rawcdn.githack.com/genizy/fnaf/7be68ae3d98c60a9a62b4164c2d61a416a0beb1a/4/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/five-nights-at-freddy-s-4.webp"
+  },
+  {
+    "app_name": "Five Nights at Freddy's 4 (Halloween Edition)",
+    "app_url": "https://rawcdn.githack.com/genizy/fnaf/7be68ae3d98c60a9a62b4164c2d61a416a0beb1a/4-halloween/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/five-nights-at-freddy-s-4-halloween-edition.webp"
+  },
+  {
+    "app_name": "The Binding Of Isaac",
+    "app_url": "https://db.duck.quackprep.com/html/thebindingofisaac/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/the-binding-of-isaac.webp"
+  },
+  {
+    "app_name": "60 Seconds",
+    "app_url": "https://www.puzzlegame.com/games/60-Seconds-Atomic-Adventure/index.html?yad",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/60-seconds.webp"
+  },
+  {
+    "app_name": "Papers Grade Please",
+    "app_url": "https://www.yad.com/games/Papers-Grade-Please/index.html?yad",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/papers-grade-please.webp"
+  },
+  {
+    "app_name": "Pokemon Green",
+    "app_url": "https://script.google.com/macros/s/AKfycbxWYXzXN3TRwxELxgrTkjmE5hyqPMgzdNn6clWSzVcU-m0m9MDdHHb-VP-VDnz06vNe/exec",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pokemon-green.webp"
+  },
+  {
+    "app_name": "Pokemon Red",
+    "app_url": "https://picklekid31.github.io/GBA-unblocked-games/launcher.html#pokemonred",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pokemon-red.webp"
+  },
+  {
+    "app_name": "Avalanche",
+    "app_url": "https://assets.hbmc.net/avalanche/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/avalanche.webp"
+  },
+  {
+    "app_name": "Backrooms",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/backro.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/backrooms.webp"
+  },
+  {
+    "app_name": "Chrome Dino",
+    "app_url": "https://assets.hbmc.net/chrome-dino/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/chrome-dino.webp"
+  },
+  {
+    "app_name": "Cluster Truck",
+    "app_url": "https://www.snake-games.io/localgames/cluster-rush/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cluster-truck.webp"
+  },
+  {
+    "app_name": "Crossy Road",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/crossy-road/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/crossy-road.webp"
+  },
+  {
+    "app_name": "Crowd Run 3D",
+    "app_url": "https://games.cdn.famobi.com/html5games/c/crowd-run-3d/v040/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/crowd-run-3d.webp"
+  },
+  {
+    "app_name": "Death Run 3D",
+    "app_url": "https://assets.hbmc.net/death-run-3d/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/death-run-3d.webp"
+  },
+  {
+    "app_name": "Dino Run 3d",
+    "app_url": "https://russell2259.github.io/dino3d/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/dino-run-3d.webp"
+  },
+  {
+    "app_name": "Ducklife",
+    "app_url": "https://assets.hbmc.net/ducklife1/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ducklife.webp"
+  },
+  {
+    "app_name": "Ducklife 2",
+    "app_url": "https://assets.hbmc.net/ducklife2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ducklife-2.webp"
+  },
+  {
+    "app_name": "Ducklife 3",
+    "app_url": "https://assets.hbmc.net/ducklife3/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ducklife-3.webp"
+  },
+  {
+    "app_name": "Ducklife 4",
+    "app_url": "https://assets.hbmc.net/ducklife4/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ducklife-4.webp"
+  },
+  {
+    "app_name": "Jetpack Joyride",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/jetpack-joyride/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/jetpack-joyride.webp"
+  },
+  {
+    "app_name": "OvO 2",
+    "app_url": "https://dthesle.github.io/OvO2/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ovo-2.webp"
+  },
+  {
+    "app_name": "OvO Dimensions",
+    "app_url": "https://www.miniplay.com/embed/ovo-dimensions",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ovo-dimensions.webp"
+  },
+  {
+    "app_name": "Papery Planes",
+    "app_url": "https://assets.hbmc.net/papery-planes/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/papery-planes.webp"
+  },
+  {
+    "app_name": "Polybranch",
+    "app_url": "https://assets.hbmc.net/polybranch/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/polybranch.webp"
+  },
+  {
+    "app_name": "Snow Rider 3D",
+    "app_url": "https://23azostore.github.io/s8/snow-rider-3d/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/snow-rider-3d.webp"
+  },
+  {
+    "app_name": "Subway Surfers",
+    "app_url": "https://assets.hbmc.net/subway-surfers/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/subway-surfers.webp"
+  },
+  {
+    "app_name": "Subway Surfers: New York",
+    "app_url": "https://assets.hbmc.net/subway-surfers-ny/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/subway-surfers-new-york.webp"
+  },
+  {
+    "app_name": "Tall Man Run",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/7980c23fbbae4af6851e01052fce3cce/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tall-man-run.webp"
+  },
+  {
+    "app_name": "Temple Run",
+    "app_url": "https://burgerbounty.github.io/s8/temple-run-2/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/temple-run.webp"
+  },
+  {
+    "app_name": "Temple Run 2",
+    "app_url": "https://assets.hbmc.net/temple-run-2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/temple-run-2.webp"
+  },
+  {
+    "app_name": "Tube Jumpers",
+    "app_url": "https://assets.hbmc.net/tube-jumpers/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tube-jumpers.webp"
+  },
+  {
+    "app_name": "Tunnel Rush Mania",
+    "app_url": "https://html5.gamemonetize.co/2fp4sd31llh6u6vjxe1wxbx8meapsgop/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tunnel-rush-mania.webp"
+  },
+  {
+    "app_name": "Vex 8",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/949009d40a2846f89f887de2285d6c28/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/vex-8.webp"
+  },
+  {
+    "app_name": "Aquapark Slides",
+    "app_url": "https://assets.hbmc.net/aquapark-slides/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/aquapark-slides.webp"
+  },
+  {
+    "app_name": "Ball Dodge",
+    "app_url": "https://assets.hbmc.net/ball-dodge/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ball-dodge.webp"
+  },
+  {
+    "app_name": "Burger & Frights",
+    "app_url": "https://assets.hbmc.net/burger-and-frights/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/burger-frights.webp"
+  },
+  {
+    "app_name": "Cubefield",
+    "app_url": "https://assets.hbmc.net/cubefield/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cubefield.webp"
+  },
+  {
+    "app_name": "Flippy Fish",
+    "app_url": "https://assets.hbmc.net/flippy-fish/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/flippy-fish.webp"
+  },
+  {
+    "app_name": "Happy Hop",
+    "app_url": "https://assets.hbmc.net/happy-hop/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/happy-hop.webp"
+  },
+  {
+    "app_name": "Helicopter",
+    "app_url": "https://assets.hbmc.net/helicopter/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/helicopter.webp"
+  },
+  {
+    "app_name": "Speed Stars",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/speed-stars/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/speed-stars.webp"
+  },
+  {
+    "app_name": "Asphalt Retro",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/2c122cee7ef04222a962449e32a34e98/?gd_sdk_referrer_url=https://gamedistribution.com/games/asphalt-retro",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/asphalt-retro.webp"
+  },
+  {
+    "app_name": "Cars Simulator",
+    "app_url": "https://assets.hbmc.net/cars-simulator/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cars-simulator.webp"
+  },
+  {
+    "app_name": "Draw the Hill",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/drth.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/draw-the-hill.webp"
+  },
+  {
+    "app_name": "Drift Boss",
+    "app_url": "https://www.mathplayground.com/drift-boss-v3/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/drift-boss.webp"
+  },
+  {
+    "app_name": "Drift Hunters",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/drh.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/drift-hunters.webp"
+  },
+  {
+    "app_name": "Drive Mad",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/drm-js.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/drive-mad.webp"
+  },
+  {
+    "app_name": "Eggy Car",
+    "app_url": "https://webglmath.github.io/eggy-car/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/eggy-car.webp"
+  },
+  {
+    "app_name": "HexGL",
+    "app_url": "https://hexgl.bkcore.com/play/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hexgl.webp"
+  },
+  {
+    "app_name": "Madalin Stunt Cars 2",
+    "app_url": "https://assets.hbmc.net/madalin-stunt-cars-2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/madalin-stunt-cars-2.webp"
+  },
+  {
+    "app_name": "Madalin Stunt Cars 3",
+    "app_url": "https://assets.hbmc.net/madalin-stunt-cars-3/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/madalin-stunt-cars-3.webp"
+  },
+  {
+    "app_name": "Monster Tracks",
+    "app_url": "https://assets.hbmc.net/monster-tracks/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/monster-tracks.webp"
+  },
+  {
+    "app_name": "Monster Truck Stunts",
+    "app_url": "https://files.twoplayergames.org/files/games/other/Monster_Truck_Port_Stunt/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/monster-truck-stunts.webp"
+  },
+  {
+    "app_name": "Moto X3M",
+    "app_url": "https://www.coolmathgames.com/0-moto-x3m/play",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/moto-x3m.webp"
+  },
+  {
+    "app_name": "Moto X3M Pool Party",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/motox3m-pool/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/moto-x3m-pool-party.webp"
+  },
+  {
+    "app_name": "Moto X3M Spooky",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/motox3m-spooky/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/moto-x3m-spooky.webp"
+  },
+  {
+    "app_name": "Moto X3M Winter",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/motox3m-winter/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/moto-x3m-winter.webp"
+  },
+  {
+    "app_name": "Polytrack",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/polytack.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/polytrack.webp"
+  },
+  {
+    "app_name": "Rocket League 2D",
+    "app_url": "https://v6p9d9t4.ssl.hwcdn.net/html/3325334/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rocket-league-2d.webp"
+  },
+  {
+    "app_name": "Smash Karts",
+    "app_url": "https://smartcart1.github.io/s/smash-karts/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/smash-karts.webp"
+  },
+  {
+    "app_name": "Slowroads",
+    "app_url": "https://assets.hbmc.net/slowroads/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/slowroads.webp"
+  },
+  {
+    "app_name": "Swerve",
+    "app_url": "https://assets.hbmc.net/swerve/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/swerve.webp"
+  },
+  {
+    "app_name": "Adrenaline Challenge",
+    "app_url": "https://assets.hbmc.net/adrenalinechallenge/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/adrenaline-challenge.webp"
+  },
+  {
+    "app_name": "Adventure Drivers",
+    "app_url": "https://assets.hbmc.net/adventure-drivers/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/adventure-drivers.webp"
+  },
+  {
+    "app_name": "Scrap Metal",
+    "app_url": "https://assets.hbmc.net/scrapmetal/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/scrap-metal.webp"
+  },
+  {
+    "app_name": "Sky Car Stunt",
+    "app_url": "https://assets.hbmc.net/sky-car-stunt/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/sky-car-stunt.webp"
+  },
+  {
+    "app_name": "Tanuki Sunset",
+    "app_url": "https://assets.hbmc.net/tanuki-sunset/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tanuki-sunset.webp"
+  },
+  {
+    "app_name": "The Heist",
+    "app_url": "https://assets.hbmc.net/theheist/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/the-heist.webp"
+  },
+  {
+    "app_name": "X Trial Racing",
+    "app_url": "https://assets.hbmc.net/x-trial-racing/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/x-trial-racing.webp"
+  },
+  {
+    "app_name": "Bergentruck 201x",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/bergentruck/BERGENTRUCK_201X.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bergentruck-201x.webp"
+  },
+  {
+    "app_name": "Hill Climb Racing",
+    "app_url": "https://4texas4.github.io/zenith/games/hillclimbracing.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hill-climb-racing.webp"
+  },
+  {
+    "app_name": "Cyber Race",
+    "app_url": "https://4texas4.github.io/files/games/cybercarspunkracing.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cyber-race.webp"
+  },
+  {
+    "app_name": "Earn To Die",
+    "app_url": "https://selenite.cc/semag/ern/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/earn-to-die.webp"
+  },
+  {
+    "app_name": "Italian Brainrot Bike Rush",
+    "app_url": "https://files.twoplayergames.org/files/games/h1/italian-brainrot-bike-rush-v01f/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/italian-brainrot-bike-rush.webp"
+  },
+  {
+    "app_name": "Jelly Truck",
+    "app_url": "https://t9lat22.github.io/jelly-truck/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/jelly-truck.webp"
+  },
+  {
+    "app_name": "Mario Kart 64",
+    "app_url": "https://jiwjfowhfusfdgfigiydgsifygdiyfgdi.netlify.app/games/mariokart64/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/mario-kart-64.webp"
+  },
+  {
+    "app_name": "ShortCut Race",
+    "app_url": "https://www.hoodamath.com/mobile/games/shortcut-race/game.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/shortcut-race.webp"
+  },
+  {
+    "app_name": "Sky Race 3D",
+    "app_url": "https://4texas4.github.io/files/games/skyrace3d.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/sky-race-3d.webp"
+  },
+  {
+    "app_name": "Fast Roads",
+    "app_url": "https://siegfriedschmidt.github.io/fastroads/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fast-roads.webp"
+  },
+  {
+    "app_name": "Smashy Roads",
+    "app_url": "https://game.azgame.io/escape-road-city/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/smashy-roads.webp"
+  },
+  {
+    "app_name": "Smashyroads 2",
+    "app_url": "https://azgames.io/escape-road-city-2.embed",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/smashyroads-2.webp"
+  },
+  {
+    "app_name": "Snow Rider",
+    "app_url": "https://itsvijaysingh.github.io/Snow-Rider3D/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/snow-rider.webp"
+  },
+  {
+    "app_name": "Wheelie Bike",
+    "app_url": "https://www.hoodamath.com/mobile/games/wheelie-bike/game.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/wheelie-bike.webp"
+  },
+  {
+    "app_name": "Race Survival Arena King",
+    "app_url": "https://db.duck.quackprep.com/html/race_survival_arena_king/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/race-survival-arena-king.webp"
+  },
+  {
+    "app_name": "Summer Rider 3D",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/3ff5df9f5d0248fd9dcd70e2cc253de5/index.html?timestamp=-62135596800&siteid=88&siteLocale=en&locale=en&channelid=1&gd_sdk_referrer_url=https%3A%2F%2Fwww.gamesgames.com%2Fgame%2Fsummer-rider-3d%23theatermode&countryCode=en&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3d3dy5nYW1lc2dhbWVzLmNvbS9nYW1lL3N1bW1lci1yaWRlci0zZCN0aGVhdGVybW9kZSIsInBhcmVudERvbWFpbiI6ImdhbWF2ZXJzZS5jb20iLCJ0b3BEb21haW4iOiJnYW1hdmVyc2UuY29tIiwiaGFzSW1wcmVzc2lvbiI6ZmFsc2UsImxvYWRlckVuYWJsZWQiOnRydWUsImhvc3QiOiJodG1sNS5nYW1lZGlzdHJpYnV0aW9uLmNvbSIsInZlcnNpb24iOiIxLjUuMTcifQ%253D%253D",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/summer-rider-3d.webp"
+  },
+  {
+    "app_name": "SoftWheelieLife",
+    "app_url": "https://scratch.mit.edu/projects/12310158/embed/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/softwheelielife.webp"
+  },
+  {
+    "app_name": "Night City Racing",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/837aa1aafa2442cf81a622b505bff752/index.html?gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3d3dy5mcml2LmNtLyIsInBhcmVudERvbWFpbiI6ImZyaXYuY20iLCJ0b3BEb21haW4iOiJmcml2LmNtIiwiaGFzSW1wcmVzc2lvbiI6ZmFsc2UsImxvYWRlckVuYWJsZWQiOnRydWUsImhvc3QiOiJodG1sNS5nYW1lZGlzdHJpYnV0aW9uLmNvbSIsInZlcnNpb24iOiIxLjUuMTgifQ%253D%253D",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/night-city-racing.webp"
+  },
+  {
+    "app_name": "Water Rider 3D",
+    "app_url": "https://www.hoodamath.com/mobile/games/water-rider-3d/game.html?nocheckorient=1",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/water-rider-3d.webp"
+  },
+  {
+    "app_name": "Extreme Car Driving Simulator",
+    "app_url": "https://ubg365.github.io/extreme-car-driving-simulator/play.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/extreme-car-driving-simulator.webp"
+  },
+  {
+    "app_name": "Wheelie Life",
+    "app_url": "https://1games.io/game/street-wheelie/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/wheelie-life.webp"
+  },
+  {
+    "app_name": "Car Simulator Arena",
+    "app_url": "https://files.vitalitygames.com/games/webgl/2017/12/13/car-simulator-arena/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/car-simulator-arena.webp"
+  },
+  {
+    "app_name": "Escape Road Winter",
+    "app_url": "https://azgames.io/escape-road-winter.embed",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/escape-road-winter.webp"
+  },
+  {
+    "app_name": "Neon Rider",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/3c48eb1a56064a83b3c2ca0acbe01bb2/index.html?gd_sdk_referrer_url=https%3A%2F%2Fwww.twoplayergames.org%2Fgame%2Fneon-rider&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3d3dy50d29wbGF5ZXJnYW1lcy5vcmcvZ2FtZS9uZW9uLXJpZGVyIiwicGFyZW50RG9tYWluIjoidHdvcGxheWVyZ2FtZXMub3JnIiwidG9wRG9tYWluIjoidHdvcGxheWVyZ2FtZXMub3JnIiwiaGFzSW1wcmVzc2lvbiI6ZmFsc2UsImxvYWRlckVuYWJsZWQiOnRydWUsImhvc3QiOiJodG1sNS5nYW1lZGlzdHJpYnV0aW9uLmNvbSIsInZlcnNpb24iOiIxLjUuMTcifQ%253D%253D",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/neon-rider.webp"
+  },
+  {
+    "app_name": "Overtake",
+    "app_url": "https://play.fancade.com/621913A1EAF5CF24?istart=1&max_h=9999999&max_w=999999",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/overtake.webp"
+  },
+  {
+    "app_name": "Pepsi Skate 3D",
+    "app_url": "https://the.deconstructors.co.uk/tam-pepi-skate-3d/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pepsi-skate-3d.webp"
+  },
+  {
+    "app_name": "Free Rider Jumps",
+    "app_url": "https://freeriderjumps.com/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/free-rider-jumps.webp"
+  },
+  {
+    "app_name": "2048",
+    "app_url": "https://assets.hbmc.net/2048/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/2048.webp"
+  },
+  {
+    "app_name": "Amaze!",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/amaze-js.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/amaze.webp"
+  },
+  {
+    "app_name": "Bad Ice Cream",
+    "app_url": "https://assets.hbmc.net/bad-ice-cream/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bad-ice-cream.webp"
+  },
+  {
+    "app_name": "Bad Ice Cream 2",
+    "app_url": "https://assets.hbmc.net/bad-ice-cream-2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bad-ice-cream-2.webp"
+  },
+  {
+    "app_name": "Bad Ice Cream 3",
+    "app_url": "https://assets.hbmc.net/bad-ice-cream-3/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bad-ice-cream-3.webp"
+  },
+  {
+    "app_name": "Bitlife",
+    "app_url": "https://assets.hbmc.net/bitlife/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bitlife.webp"
+  },
+  {
+    "app_name": "Black Hole Square",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/black-hole-square/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/black-hole-square.webp"
+  },
+  {
+    "app_name": "Bloxorz",
+    "app_url": "https://raw.githack.com/Skoolgq/flashgamedump/main/bloxorz.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bloxorz.webp"
+  },
+  {
+    "app_name": "Chess.com",
+    "app_url": "https://chess.com",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/chess-com.webp"
+  },
+  {
+    "app_name": "Connect 3",
+    "app_url": "https://assets.hbmc.net/connect3/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/connect-3.webp"
+  },
+  {
+    "app_name": "Core Ball",
+    "app_url": "https://assets.hbmc.net/core-ball/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/core-ball.webp"
+  },
+  {
+    "app_name": "Cut the Rope",
+    "app_url": "https://assets.hbmc.net/ctr/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cut-the-rope.webp"
+  },
+  {
+    "app_name": "Cut the Rope Holiday",
+    "app_url": "https://assets.hbmc.net/ctr-holiday/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cut-the-rope-holiday.webp"
+  },
+  {
+    "app_name": "Cut the Rope Time Travel",
+    "app_url": "https://assets.hbmc.net/ctr-tr/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cut-the-rope-time-travel.webp"
+  },
+  {
+    "app_name": "Google Feud",
+    "app_url": "https://assets.hbmc.net/google-feud/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/google-feud.webp"
+  },
+  {
+    "app_name": "Grey Box",
+    "app_url": "https://assets.hbmc.net/greybox/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/grey-box.webp"
+  },
+  {
+    "app_name": "Hacker Tetris",
+    "app_url": "https://assets.hbmc.net/twitch-tetris/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hacker-tetris.webp"
+  },
+  {
+    "app_name": "Hextris",
+    "app_url": "https://assets.hbmc.net/hextris/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hextris.webp"
+  },
+  {
+    "app_name": "Jstris",
+    "app_url": "https://jstris.jezevec10.com",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/jstris.webp"
+  },
+  {
+    "app_name": "Pokemon 2048",
+    "app_url": "https://filipekiss.github.io/2048",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pokemon-2048.webp"
+  },
+  {
+    "app_name": "Polka Dot Game",
+    "app_url": "https://www.polkadotgame.com/game.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/polka-dot-game.webp"
+  },
+  {
+    "app_name": "Riddle School",
+    "app_url": "https://assets.hbmc.net/riddleschool/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/riddle-school.webp"
+  },
+  {
+    "app_name": "Riddle School 2",
+    "app_url": "https://assets.hbmc.net/riddleschool2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/riddle-school-2.webp"
+  },
+  {
+    "app_name": "Riddle School 3",
+    "app_url": "https://assets.hbmc.net/riddleschool3/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/riddle-school-3.webp"
+  },
+  {
+    "app_name": "Riddle School 4",
+    "app_url": "https://assets.hbmc.net/riddleschool4/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/riddle-school-4.webp"
+  },
+  {
+    "app_name": "Riddle School 5",
+    "app_url": "https://assets.hbmc.net/riddleschool5/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/riddle-school-5.webp"
+  },
+  {
+    "app_name": "Riddle Transfer",
+    "app_url": "https://assets.hbmc.net/riddletransfer/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/riddle-transfer.webp"
+  },
+  {
+    "app_name": "Riddle Transfer 2",
+    "app_url": "https://assets.hbmc.net/riddletransfer2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/riddle-transfer-2.webp"
+  },
+  {
+    "app_name": "Watermelon Game (Suika)",
+    "app_url": "https://watermelongame.com",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/watermelon-game-suika.webp"
+  },
+  {
+    "app_name": "World's Hardest GM",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/worlds-hardest-game/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/world-s-hardest-gm.webp"
+  },
+  {
+    "app_name": "World's Hardest Game 2",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/worlds-hardest-game-2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/world-s-hardest-game-2.webp"
+  },
+  {
+    "app_name": "osu!",
+    "app_url": "https://assets.hbmc.net/osu%21/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/osu.webp"
+  },
+  {
+    "app_name": "xx142-b2.exe",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/xx142-b2exe/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/xx142-b2-exe.webp"
+  },
+  {
+    "app_name": "2048 Multitask",
+    "app_url": "https://assets.hbmc.net/2048-multitask/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/2048-multitask.webp"
+  },
+  {
+    "app_name": "9007199254740992",
+    "app_url": "https://assets.hbmc.net/9007199254740992/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/9007199254740992.webp"
+  },
+  {
+    "app_name": "A Dance of Fire and Ice",
+    "app_url": "https://assets.hbmc.net/a-dance-of-fire-and-ice/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/a-dance-of-fire-and-ice.webp"
+  },
+  {
+    "app_name": "Align 4",
+    "app_url": "https://assets.hbmc.net/align-4/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/align-4.webp"
+  },
+  {
+    "app_name": "Astray",
+    "app_url": "https://assets.hbmc.net/astray/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/astray.webp"
+  },
+  {
+    "app_name": "Cupcake 2048",
+    "app_url": "https://assets.hbmc.net/cupcake2048/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cupcake-2048.webp"
+  },
+  {
+    "app_name": "Deal or No Deal",
+    "app_url": "https://assets.hbmc.net/deal-or-no-deal/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/deal-or-no-deal.webp"
+  },
+  {
+    "app_name": "Doge 2048",
+    "app_url": "https://assets.hbmc.net/doge2048/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/doge-2048.webp"
+  },
+  {
+    "app_name": "Factory Balls",
+    "app_url": "https://assets.hbmc.net/factoryballs/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/factory-balls.webp"
+  },
+  {
+    "app_name": "Fair Squares",
+    "app_url": "https://assets.hbmc.net/fairsquares/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fair-squares.webp"
+  },
+  {
+    "app_name": "Flash Tetris",
+    "app_url": "https://assets.hbmc.net/flashtetris/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/flash-tetris.webp"
+  },
+  {
+    "app_name": "Game Inside",
+    "app_url": "https://assets.hbmc.net/game-inside/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/game-inside.webp"
+  },
+  {
+    "app_name": "Gravity Soccer",
+    "app_url": "https://assets.hbmc.net/gravity-soccer/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/gravity-soccer.webp"
+  },
+  {
+    "app_name": "Handshakes",
+    "app_url": "https://assets.hbmc.net/handshakes/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/handshakes.webp"
+  },
+  {
+    "app_name": "Impossible Quiz",
+    "app_url": "https://assets.hbmc.net/impossiblequiz/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/impossible-quiz.webp"
+  },
+  {
+    "app_name": "Meme 2048",
+    "app_url": "https://assets.hbmc.net/meme2048/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/meme-2048.webp"
+  },
+  {
+    "app_name": "Minesweeper",
+    "app_url": "https://assets.hbmc.net/minesweeper/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/minesweeper.webp"
+  },
+  {
+    "app_name": "Pandemic 2",
+    "app_url": "https://assets.hbmc.net/pandemic2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pandemic-2.webp"
+  },
+  {
+    "app_name": "Push The Square",
+    "app_url": "https://assets.hbmc.net/push-the-square/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/push-the-square.webp"
+  },
+  {
+    "app_name": "Push Your Luck",
+    "app_url": "https://assets.hbmc.net/push-your-luck/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/push-your-luck.webp"
+  },
+  {
+    "app_name": "Shuttle Deck",
+    "app_url": "https://assets.hbmc.net/shuttledeck/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/shuttle-deck.webp"
+  },
+  {
+    "app_name": "Sleeping Beauty",
+    "app_url": "https://assets.hbmc.net/sleepingbeauty/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/sleeping-beauty.webp"
+  },
+  {
+    "app_name": "Solitaire",
+    "app_url": "https://assets.hbmc.net/solitaire/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/solitaire.webp"
+  },
+  {
+    "app_name": "Sushi Unroll",
+    "app_url": "https://assets.hbmc.net/sushi-unroll/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/sushi-unroll.webp"
+  },
+  {
+    "app_name": "Synesthesia",
+    "app_url": "https://assets.hbmc.net/synesthesia/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/synesthesia.webp"
+  },
+  {
+    "app_name": "Tiny Islands",
+    "app_url": "https://assets.hbmc.net/tiny-islands/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tiny-islands.webp"
+  },
+  {
+    "app_name": "Waterworks",
+    "app_url": "https://assets.hbmc.net/waterworks/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/waterworks.webp"
+  },
+  {
+    "app_name": "Win the Whitehouse",
+    "app_url": "https://assets.hbmc.net/win-the-whitehouse/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/win-the-whitehouse.webp"
+  },
+  {
+    "app_name": "Wordle",
+    "app_url": "https://assets.hbmc.net/wordle/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/wordle.webp"
+  },
+  {
+    "app_name": "Amanda The Adventurer",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/amanda-the-adventurer/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/amanda-the-adventurer.webp"
+  },
+  {
+    "app_name": "Baldi's Basics Plus",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/baldi-plus/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/baldi-s-basics-plus.webp"
+  },
+  {
+    "app_name": "Kindergarten",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/kindergarten/1/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/kindergarten.webp"
+  },
+  {
+    "app_name": "Kindergarten 2",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/kindergarten/2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/kindergarten-2.webp"
+  },
+  {
+    "app_name": "Lacey's Flash apps",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/lacysflashgames/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/lacey-s-flash-apps.webp"
+  },
+  {
+    "app_name": "Block Blast",
+    "app_url": "https://reunbozdo.github.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/block-blast.webp"
+  },
+  {
+    "app_name": "Draw Climber",
+    "app_url": "https://unblockedgames76.gitlab.io/draw-climber/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/draw-climber.webp"
+  },
+  {
+    "app_name": "Factory Balls Forever",
+    "app_url": "https://tylerpalko.github.io/gamehub/factoryballsforever/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/factory-balls-forever.webp"
+  },
+  {
+    "app_name": "Feud",
+    "app_url": "https://googlefeud.com/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/feud.webp"
+  },
+  {
+    "app_name": "Fire Boy Water Girl",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/03f124074b0049f89fdace0cacf8ead5/index.html?gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL2h0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tLzAzZjEyNDA3NGIwMDQ5Zjg5ZmRhY2UwY2FjZjhlYWQ1LyIsInBhcmVudERvbWFpbiI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidG9wRG9tYWluIjoiaHRtbDUuZ2FtZWRpc3RyaWJ1dGlvbi5jb20iLCJoYXNJbXByZXNzaW9uIjpmYWxzZSwibG9hZGVyRW5hYmxlZCI6dHJ1ZSwiaG9zdCI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidmVyc2lvbiI6IjEuNS4xNyJ9",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fire-boy-water-girl.webp"
+  },
+  {
+    "app_name": "Hoop Stack",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/4b17dd99b4b3438680a3051a44912adb/index.html?gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL2h0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tLzRiMTdkZDk5YjRiMzQzODY4MGEzMDUxYTQ0OTEyYWRiLyIsInBhcmVudERvbWFpbiI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidG9wRG9tYWluIjoiaHRtbDUuZ2FtZWRpc3RyaWJ1dGlvbi5jb20iLCJoYXNJbXByZXNzaW9uIjpmYWxzZSwibG9hZGVyRW5hYmxlZCI6dHJ1ZSwiaG9zdCI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidmVyc2lvbiI6IjEuNS4xNyJ9",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hoop-stack.webp"
+  },
+  {
+    "app_name": "Ludo",
+    "app_url": "https://ludoking.com/play/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ludo.webp"
+  },
+  {
+    "app_name": "Make It Meme",
+    "app_url": "https://gnhustgames.org/makeitmeme-source/#/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/make-it-meme.webp"
+  },
+  {
+    "app_name": "Pull Pins",
+    "app_url": "https://games.cdn.famobi.com/html5games/p/pull-pins/v220/?fg_domain=play.famobi.com&fg_aid=A-FAMOBI-COM&fg_uid=c24e5a78-927a-4b7c-a536-3452d1f57021&fg_pid=96ab9c2f-6013-4b31-96dc-ccb5c7a89329&fg_beat=955&original_ref=https%3A%2F%2Fgames.cdn.famobi.com%2F",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pull-pins.webp"
+  },
+  {
+    "app_name": "Skibidi Toilet Puzzle",
+    "app_url": "https://g.igroutka.ru/games/23/sxwIYS2PNkzF9vul/rvvASMiM/0a5d7f62d76d464592bc5f99c2032b58/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/skibidi-toilet-puzzle.webp"
+  },
+  {
+    "app_name": "The Impossible Quiz",
+    "app_url": "https://ad-freegames.github.io/flash/game/the-impossible-quiz.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/the-impossible-quiz.webp"
+  },
+  {
+    "app_name": "Twisted Tangle",
+    "app_url": "https://cargames.click/twisted-tangle/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/twisted-tangle.webp"
+  },
+  {
+    "app_name": "UNO",
+    "app_url": "https://www.xpgameplus.com/games/uno/default.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/uno.webp"
+  },
+  {
+    "app_name": "Wood Turning",
+    "app_url": "https://www.bestgames.com/games/Woodturning-3d/index.html?bestgames",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/wood-turning.webp"
+  },
+  {
+    "app_name": "Zuma",
+    "app_url": "https://4texas4.github.io/files/games/Zuma.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/zuma.webp"
+  },
+  {
+    "app_name": "Escape The Prison",
+    "app_url": "https://db.duck.quackprep.com/html/escapetheprison/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/escape-the-prison.webp"
+  },
+  {
+    "app_name": "Infinite Craft",
+    "app_url": "https://script.google.com/macros/s/AKfycby6VkmafM4044keDc4OclZ4Saq2a8lth-pAC1XY_7c1_qVsH9IsVKrqbuWH-SJO1puW/exec",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/infinite-craft.webp"
+  },
+  {
+    "app_name": "Angry Birds",
+    "app_url": "https://funhtml5games.com/angrybirds/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/angry-birds.webp"
+  },
+  {
+    "app_name": "Sandtris",
+    "app_url": "https://sandtris.com/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/sandtris.webp"
+  },
+  {
+    "app_name": "Car Drawing Game",
+    "app_url": "https://slope-game.github.io/car-drawing-game/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/car-drawing-game.webp"
+  },
+  {
+    "app_name": "Happy Filled Glass",
+    "app_url": "https://www.hoodamath.com/mobile/games/happy-filled-glass/game.html?nocheckorient=1",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/happy-filled-glass.webp"
+  },
+  {
+    "app_name": "Adventure Capitalist",
+    "app_url": "https://than1089.github.io/adventure-capitalist/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/adventure-capitalist.webp"
+  },
+  {
+    "app_name": "Bloons TD",
+    "app_url": "https://assets.hbmc.net/bloonstd/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bloons-td.webp"
+  },
+  {
+    "app_name": "Candy Jump",
+    "app_url": "https://candyjump.games235.com/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/candy-jump.webp"
+  },
+  {
+    "app_name": "Cookie Clicker",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/cc-ajax.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cookie-clicker.webp"
+  },
+  {
+    "app_name": "DogeMiner",
+    "app_url": "https://assets.hbmc.net/DogeMiner/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/dogeminer.webp"
+  },
+  {
+    "app_name": "Flappy Bird",
+    "app_url": "https://assets.hbmc.net/flappybird/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/flappy-bird.webp"
+  },
+  {
+    "app_name": "Idle Breakout",
+    "app_url": "https://cdn.jsdelivr.net/gh/ashxmed/symmetrical-adventure@c0499269bb26b580162503f1ce371eee657f093e/break-idle.zip",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/idle-breakout.webp"
+  },
+  {
+    "app_name": "Monkey Mart",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/monkey-mart/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/monkey-mart.webp"
+  },
+  {
+    "app_name": "Papa's Burgeria",
+    "app_url": "https://assets.hbmc.net/papasburgeria/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/papa-s-burgeria.webp"
+  },
+  {
+    "app_name": "Papa's Freezeria",
+    "app_url": "https://en.gameslol.net/data/awayjs/papa/freezeria.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/papa-s-freezeria.webp"
+  },
+  {
+    "app_name": "Papa's Pizzeria",
+    "app_url": "https://assets.hbmc.net/papaspizzaria/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/papa-s-pizzeria.webp"
+  },
+  {
+    "app_name": "Papa's Taco Mia",
+    "app_url": "https://www.numuki.com/gameframe/papa-s-taco-mia",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/papa-s-taco-mia.webp"
+  },
+  {
+    "app_name": "Slime Rush TD",
+    "app_url": "https://assets.hbmc.net/slime-rush-td/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/slime-rush-td.webp"
+  },
+  {
+    "app_name": "A Dark Room",
+    "app_url": "https://assets.hbmc.net/adarkroom/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/a-dark-room.webp"
+  },
+  {
+    "app_name": "Canyon Defense",
+    "app_url": "https://assets.hbmc.net/canyondefense/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/canyon-defense.webp"
+  },
+  {
+    "app_name": "CS:GO Clicker",
+    "app_url": "https://assets.hbmc.net/csgo-clicker/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cs-go-clicker.webp"
+  },
+  {
+    "app_name": "Evolution",
+    "app_url": "https://assets.hbmc.net/evolution/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/evolution.webp"
+  },
+  {
+    "app_name": "Grindcraft",
+    "app_url": "https://assets.hbmc.net/grindcraft/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/grindcraft.webp"
+  },
+  {
+    "app_name": "Idle Shark",
+    "app_url": "https://assets.hbmc.net/idle-shark/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/idle-shark.webp"
+  },
+  {
+    "app_name": "Merge Round Racers",
+    "app_url": "https://assets.hbmc.net/merge-round-racers/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/merge-round-racers.webp"
+  },
+  {
+    "app_name": "Particle Clicker",
+    "app_url": "https://assets.hbmc.net/particle-clicker/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/particle-clicker.webp"
+  },
+  {
+    "app_name": "Popcat Classic",
+    "app_url": "https://assets.hbmc.net/popcat-classic/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/popcat-classic.webp"
+  },
+  {
+    "app_name": "Sort the Court",
+    "app_url": "https://assets.hbmc.net/sort-the-court/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/sort-the-court.webp"
+  },
+  {
+    "app_name": "Space Company",
+    "app_url": "https://assets.hbmc.net/space-company/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/space-company.webp"
+  },
+  {
+    "app_name": "Space Garden",
+    "app_url": "https://assets.hbmc.net/spacegarden/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/space-garden.webp"
+  },
+  {
+    "app_name": "Starve",
+    "app_url": "https://assets.hbmc.net/starve/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/starve.webp"
+  },
+  {
+    "app_name": "You Are Bezos",
+    "app_url": "https://assets.hbmc.net/you-are-bezos/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/you-are-bezos.webp"
+  },
+  {
+    "app_name": "BLOODMONEY!",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/bloodmoney/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bloodmoney.webp"
+  },
+  {
+    "app_name": "Idle Ants",
+    "app_url": "https://szhong.4399.com/4399swf//upload_swf/ftp37/gamehwq/20211224/13/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/idle-ants.webp"
+  },
+  {
+    "app_name": "Nut Clicker",
+    "app_url": "https://nutsimulator.github.io/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/nut-clicker.webp"
+  },
+  {
+    "app_name": "Duck Life 5",
+    "app_url": "https://elite-gamez.github.io/g/Duck%20Life%205.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/duck-life-5.webp"
+  },
+  {
+    "app_name": "Duck Life Battle",
+    "app_url": "https://elite-gamez.github.io/g/Duck%20Life%20Battle.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/duck-life-battle.webp"
+  },
+  {
+    "app_name": "Pou",
+    "app_url": "https://ubg98.github.io/Pou/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pou.webp"
+  },
+  {
+    "app_name": "67 clicker",
+    "app_url": "https://2games.io/game/67-clicker/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/67-clicker.webp"
+  },
+  {
+    "app_name": "Angry Birds: Showdown",
+    "app_url": "https://6381249690777614785.playables.usercontent.goog/v/assets/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/angry-birds-showdown.webp"
+  },
+  {
+    "app_name": "Bloons TD 2",
+    "app_url": "https://assets.hbmc.net/bloonstd2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bloons-td-2.webp"
+  },
+  {
+    "app_name": "Burrito Bison: Launcha Libre",
+    "app_url": "https://rawcdn.githack.com/GameHub88/Yexex-Assets/main/bb/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/burrito-bison-launcha-libre.webp"
+  },
+  {
+    "app_name": "Cannon Balls 3D",
+    "app_url": "https://14726002176993811037.playables.usercontent.goog/v/assets/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cannon-balls-3d.webp"
+  },
+  {
+    "app_name": "Cell Machine",
+    "app_url": "https://assets.hbmc.net/cell-machine/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cell-machine.webp"
+  },
+  {
+    "app_name": "Dante",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/dante/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/dante.webp"
+  },
+  {
+    "app_name": "Friday Night Funkin'",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/fridaynightfunkin/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/friday-night-funkin.webp"
+  },
+  {
+    "app_name": "Fruit Ninja",
+    "app_url": "https://assets.hbmc.net/fruitninja/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fruit-ninja.webp"
+  },
+  {
+    "app_name": "Glass City",
+    "app_url": "https://assets.hbmc.net/glass-city/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/glass-city.webp"
+  },
+  {
+    "app_name": "Google Snake",
+    "app_url": "https://assets.hbmc.net/google-snake/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/google-snake.webp"
+  },
+  {
+    "app_name": "GunSpin",
+    "app_url": "https://ubg365.github.io/gunspin/play.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/gunspin.webp"
+  },
+  {
+    "app_name": "Kick The Buddy",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/09399bfcb6e8462b873a6154b506ea99/index.html?gdpr-targeting=1&gd_sdk_referrer_url=https%3A%2F%2Fwww.silvergames.com%2Fen%2Fsuper-buddy-kick&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3d3dy5zaWx2ZXJnYW1lcy5jb20vZW4vc3VwZXItYnVkZHkta2ljayIsInBhcmVudERvbWFpbiI6InNpbHZlcmdhbWVzLmNvbSIsInRvcERvbWFpbiI6InNpbHZlcmdhbWVzLmNvbSIsImhhc0ltcHJlc3Npb24iOmZhbHNlLCJsb2FkZXJFbmFibGVkIjp0cnVlLCJob3N0IjoiaHRtbDUuZ2FtZWRpc3RyaWJ1dGlvbi5jb20iLCJ2ZXJzaW9uIjoiMS41LjE3In0%253D",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/kick-the-buddy.webp"
+  },
+  {
+    "app_name": "Learn To Fly",
+    "app_url": "https://assets.hbmc.net/learntofly/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/learn-to-fly.webp"
+  },
+  {
+    "app_name": "Learn To Fly 2",
+    "app_url": "https://assets.hbmc.net/learntofly2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/learn-to-fly-2.webp"
+  },
+  {
+    "app_name": "Learn To Fly 3",
+    "app_url": "https://assets.hbmc.net/learn-to-fly-3/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/learn-to-fly-3.webp"
+  },
+  {
+    "app_name": "Line Rider",
+    "app_url": "https://www.linerider.com/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/line-rider.webp"
+  },
+  {
+    "app_name": "Little Alchemy",
+    "app_url": "https://littlealchemy.com",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/little-alchemy.webp"
+  },
+  {
+    "app_name": "Little Alchemy 2",
+    "app_url": "https://littlealchemy2.com",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/little-alchemy-2.webp"
+  },
+  {
+    "app_name": "Melon Sandbox",
+    "app_url": "https://nowgg.nl/play/playducky/7199/melon-sandbox.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/melon-sandbox.webp"
+  },
+  {
+    "app_name": "Mindustry",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/mindustry/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/mindustry.webp"
+  },
+  {
+    "app_name": "Minecraft (Java Edition)",
+    "app_url": "https://mcraft.fun",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/minecraft-java-edition.webp"
+  },
+  {
+    "app_name": "Pool/Billiards Classic",
+    "app_url": "https://13739011225202344337.playables.usercontent.goog/v/assets/index.html#origin=https%3A%2F%2Fwww.youtube.com",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pool-billiards-classic.webp"
+  },
+  {
+    "app_name": "Portal",
+    "app_url": "https://assets.hbmc.net/portalflash/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/portal.webp"
+  },
+  {
+    "app_name": "Rise Higher",
+    "app_url": "https://www.mathplayground.com/rise-higher/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rise-higher.webp"
+  },
+  {
+    "app_name": "Stack",
+    "app_url": "https://assets.hbmc.net/stack/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stack.webp"
+  },
+  {
+    "app_name": "Stack Bump 3D",
+    "app_url": "https://assets.hbmc.net/stack-bump-3d/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stack-bump-3d.webp"
+  },
+  {
+    "app_name": "The Final Earth",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/the-final-earth/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/the-final-earth.webp"
+  },
+  {
+    "app_name": "The Final Earth 2",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/the-final-earth-2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/the-final-earth-2.webp"
+  },
+  {
+    "app_name": "There is No Game",
+    "app_url": "https://23azostore.github.io/s/there-is-no-game/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/there-is-no-game.webp"
+  },
+  {
+    "app_name": "Tiny Fishing",
+    "app_url": "https://raw.githack.com/Skoolgq/Polaris-Assets/main/tiny-fishing/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tiny-fishing.webp"
+  },
+  {
+    "app_name": "100ng",
+    "app_url": "https://assets.hbmc.net/100ng/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/100ng.webp"
+  },
+  {
+    "app_name": "Angry Sharks",
+    "app_url": "https://assets.hbmc.net/angry-sharks/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/angry-sharks.webp"
+  },
+  {
+    "app_name": "Baldi's Basics",
+    "app_url": "https://assets.hbmc.net/baldis-basics/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/baldi-s-basics.webp"
+  },
+  {
+    "app_name": "Big Red Button",
+    "app_url": "https://assets.hbmc.net/bigredbutton/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/big-red-button.webp"
+  },
+  {
+    "app_name": "Black Knight",
+    "app_url": "https://assets.hbmc.net/blackknight/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/black-knight.webp"
+  },
+  {
+    "app_name": "Craftmine",
+    "app_url": "https://assets.hbmc.net/craftmine/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/craftmine.webp"
+  },
+  {
+    "app_name": "Edge Not Found",
+    "app_url": "https://assets.hbmc.net/edgenotfound/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/edge-not-found.webp"
+  },
+  {
+    "app_name": "Eel Slap",
+    "app_url": "https://assets.hbmc.net/eel-slap/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/eel-slap.webp"
+  },
+  {
+    "app_name": "Elastic Man",
+    "app_url": "https://assets.hbmc.net/elasticman/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/elastic-man.webp"
+  },
+  {
+    "app_name": "Fake Virus",
+    "app_url": "https://assets.hbmc.net/fake-virus/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fake-virus.webp"
+  },
+  {
+    "app_name": "Flappy 2048",
+    "app_url": "https://assets.hbmc.net/flappy-2048/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/flappy-2048.webp"
+  },
+  {
+    "app_name": "FNAW",
+    "app_url": "https://assets.hbmc.net/fnaw/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fnaw.webp"
+  },
+  {
+    "app_name": "Frying Nemo",
+    "app_url": "https://assets.hbmc.net/frying-nemo/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/frying-nemo.webp"
+  },
+  {
+    "app_name": "Generic Fishing Game",
+    "app_url": "https://assets.hbmc.net/generic-fishing-game/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/generic-fishing-game.webp"
+  },
+  {
+    "app_name": "Gimme The Airpod",
+    "app_url": "https://assets.hbmc.net/gimme-the-airpod/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/gimme-the-airpod.webp"
+  },
+  {
+    "app_name": "Goodnight",
+    "app_url": "https://assets.hbmc.net/goodnight/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/goodnight.webp"
+  },
+  {
+    "app_name": "Hacker Typer",
+    "app_url": "https://assets.hbmc.net/hackertype/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hacker-typer.webp"
+  },
+  {
+    "app_name": "Hungry Lamu",
+    "app_url": "https://assets.hbmc.net/hungry-lamu/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hungry-lamu.webp"
+  },
+  {
+    "app_name": "Interactive Buddy",
+    "app_url": "https://assets.hbmc.net/interactivebuddy/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/interactive-buddy.webp"
+  },
+  {
+    "app_name": "Kitten Cannon",
+    "app_url": "https://assets.hbmc.net/kittencannon/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/kitten-cannon.webp"
+  },
+  {
+    "app_name": "Mine Blocks",
+    "app_url": "https://assets.hbmc.net/mineblocks/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/mine-blocks.webp"
+  },
+  {
+    "app_name": "Minecraft Classic",
+    "app_url": "https://assets.hbmc.net/minecraft-classic/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/minecraft-classic.webp"
+  },
+  {
+    "app_name": "Minecraft Beta",
+    "app_url": "https://assets.hbmc.net/minecraftbeta/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/minecraft-beta.webp"
+  },
+  {
+    "app_name": "My Rusty Submarine",
+    "app_url": "https://assets.hbmc.net/my-rusty-submarine/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/my-rusty-submarine.webp"
+  },
+  {
+    "app_name": "Physibox",
+    "app_url": "https://assets.hbmc.net/physibox/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/physibox.webp"
+  },
+  {
+    "app_name": "Precision Client",
+    "app_url": "https://assets.hbmc.net/precision-client/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/precision-client.webp"
+  },
+  {
+    "app_name": "Resent Client",
+    "app_url": "https://assets.hbmc.net/resent-client/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/resent-client.webp"
+  },
+  {
+    "app_name": "Ruffle",
+    "app_url": "https://assets.hbmc.net/ruffle/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ruffle.webp"
+  },
+  {
+    "app_name": "Sand Game",
+    "app_url": "https://assets.hbmc.net/sand-game/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/sand-game.webp"
+  },
+  {
+    "app_name": "Sandboxels",
+    "app_url": "https://assets.hbmc.net/sandboxels/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/sandboxels.webp"
+  },
+  {
+    "app_name": "Santy Is Home",
+    "app_url": "https://assets.hbmc.net/santy-is-home/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/santy-is-home.webp"
+  },
+  {
+    "app_name": "Spinning Rat",
+    "app_url": "https://assets.hbmc.net/spinningrat/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/spinning-rat.webp"
+  },
+  {
+    "app_name": "The Hotel",
+    "app_url": "https://assets.hbmc.net/the-hotel/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/the-hotel.webp"
+  },
+  {
+    "app_name": "Toss the Turtle",
+    "app_url": "https://assets.hbmc.net/tosstheturtle/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/toss-the-turtle.webp"
+  },
+  {
+    "app_name": "Townscaper",
+    "app_url": "https://assets.hbmc.net/townscaper/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/townscaper.webp"
+  },
+  {
+    "app_name": "TV Static",
+    "app_url": "https://assets.hbmc.net/tv-static/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/tv-static.webp"
+  },
+  {
+    "app_name": "Wall Smash",
+    "app_url": "https://assets.hbmc.net/wallsmash/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/wall-smash.webp"
+  },
+  {
+    "app_name": "Weave Silk",
+    "app_url": "https://assets.hbmc.net/weavesilk/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/weave-silk.webp"
+  },
+  {
+    "app_name": "WebGL Fluid Simulation",
+    "app_url": "https://assets.hbmc.net/webgl-fluid-simulation/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/webgl-fluid-simulation.webp"
+  },
+  {
+    "app_name": "WebRetro",
+    "app_url": "https://assets.hbmc.net/webretro/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/webretro.webp"
+  },
+  {
+    "app_name": "People Playground",
+    "app_url": "https://html-classic.itch.zone/html/14803006/ppg/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/people-playground.webp"
+  },
+  {
+    "app_name": "Class of '09",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/class-of-09/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/class-of-09.webp"
+  },
+  {
+    "app_name": "Cuphead",
+    "app_url": "https://rawcdn.githack.com/web-ports/cuphead/734089aa8d8a82017733717dece88c83ba952a98/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/cuphead.webp"
+  },
+  {
+    "app_name": "Deltarune",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/deltarune/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/deltarune.webp"
+  },
+  {
+    "app_name": "Raft",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/raft/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/raft.webp"
+  },
+  {
+    "app_name": "R.E.P.O (REPO)",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/repo/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/r-e-p-o-repo.webp"
+  },
+  {
+    "app_name": "Undertale",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/undertale/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/undertale.webp"
+  },
+  {
+    "app_name": "Undertale (Yellow)",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/undertale-yellow/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/undertale-yellow.webp"
+  },
+  {
+    "app_name": "WebFishing",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/webfishing/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/webfishing.webp"
+  },
+  {
+    "app_name": "Happy Sheepies",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/happy-sheepies/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/happy-sheepies.webp"
+  },
+  {
+    "app_name": "Yume Nikki",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/yume-nikki/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/yume-nikki.webp"
+  },
+  {
+    "app_name": "Crazy Cattle 3D",
+    "app_url": "https://1games.io/game/crazy-cattle-3d/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/crazy-cattle-3d.webp"
+  },
+  {
+    "app_name": "Rat Simulator",
+    "app_url": "https://ratcar.netlify.app/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rat-simulator.webp"
+  },
+  {
+    "app_name": "Minecraft",
+    "app_url": "https://4texas4.github.io/EaglyMC/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/minecraft.webp"
+  },
+  {
+    "app_name": "Daddy Long Legs",
+    "app_url": "https://class811.github.io/g50/daddy-long-legs/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/daddy-long-legs.webp"
+  },
+  {
+    "app_name": "Dune",
+    "app_url": "https://4texas4.github.io/zenith/games/dune.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/dune.webp"
+  },
+  {
+    "app_name": "Magic Tiles 3",
+    "app_url": "https://4texas4.github.io/zenith/games/magic-tiles-3.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/magic-tiles-3.webp"
+  },
+  {
+    "app_name": "Ball Hop",
+    "app_url": "https://ug17.github.io/play/Ball-Hop/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ball-hop.webp"
+  },
+  {
+    "app_name": "Bit Planes",
+    "app_url": "https://medv.io/bit-planes/",
+    "type": "app"
+  },
+  {
+    "app_name": "Blob Opera",
+    "app_url": "https://gacembed.withgoogle.com/blob-opera/#/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/blob-opera.webp"
+  },
+  {
+    "app_name": "Bloxd",
+    "app_url": "https://bloxd.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bloxd.webp"
+  },
+  {
+    "app_name": "Bongo Cat",
+    "app_url": "https://bongo.cat/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bongo-cat.webp"
+  },
+  {
+    "app_name": "Break Stick Completely",
+    "app_url": "https://storage.y8.com/y8-studio/html5/Playgama/break_stick_completely/?key=y8&value=default",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/break-stick-completely.webp"
+  },
+  {
+    "app_name": "Charlie The Steak",
+    "app_url": "https://charliethesteakonline.com/gg/charlie-the-steak-online/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/charlie-the-steak.webp"
+  },
+  {
+    "app_name": "Choir",
+    "app_url": "https://d21u3ic0kp9e91.cloudfront.net/choir/04/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/choir.webp"
+  },
+  {
+    "app_name": "Color Combat",
+    "app_url": "https://cbgamesdev.github.io/chilibowlflash/colorcombat.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/color-combat.webp"
+  },
+  {
+    "app_name": "Color Roll 3D",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/a216492f41f74bd8ad98eb55ad097dda/index.html?gd_sdk_referrer_url=https://www.mathnook.com/fun-games-2/color-roll-3d.html&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3d3dy5tYXRobm9vay5jb20vZnVuLWdhbWVzLTIvY29sb3Itcm9sbC0zZC5odG1sIiwicGFyZW50RG9tYWluIjoibWF0aG5vb2suY29tIiwidG9wRG9tYWluIjoibWF0aG5vb2suY29tIiwiaGFzSW1wcmVzc2lvbiI6ZmFsc2UsImxvYWRlckVuYWJsZWQiOnRydWUsImhvc3QiOiJodG1sNS5nYW1lZGlzdHJpYnV0aW9uLmNvbSIsInZlcnNpb24iOiIxLjUuMTcifQ%253D%253D",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/color-roll-3d.webp"
+  },
+  {
+    "app_name": "Crazy Chicken 3D",
+    "app_url": "https://html-classic.itch.zone/html/13448030/crazychicken%20web%20port/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/crazy-chicken-3d.webp"
+  },
+  {
+    "app_name": "Crazy Crash 3d",
+    "app_url": "https://4texas4.github.io/files/games/crazycrash3d.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/crazy-crash-3d.webp"
+  },
+  {
+    "app_name": "Crazy Kitty 3d",
+    "app_url": "https://1games.io/game/crazy-kitty-3d/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/crazy-kitty-3d.webp"
+  },
+  {
+    "app_name": "Creatur",
+    "app_url": "https://www.creatur.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/creatur.webp"
+  },
+  {
+    "app_name": "Defend Your Nuts",
+    "app_url": "https://www.friv.com/z/games/defendyournuts/game.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/defend-your-nuts.webp"
+  },
+  {
+    "app_name": "Digdig",
+    "app_url": "https://digdig.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/digdig.webp"
+  },
+  {
+    "app_name": "Doblox",
+    "app_url": "https://4texas4.github.io/files/games/DOBLOX.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/doblox.webp"
+  },
+  {
+    "app_name": "Doodle Cricket",
+    "app_url": "https://f3.silvergames.com/m/doodle-cricket/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/doodle-cricket.webp"
+  },
+  {
+    "app_name": "Flight",
+    "app_url": "https://games.engineering.com/PaperFlight1/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/flight.webp"
+  },
+  {
+    "app_name": "Flow Lines",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/a7a0226fd3c349caaa3c41ca63680d3a/index.html?gd_sdk_referrer_url=https://www.y8.com/games/flow_lines&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3d3dy55OC5jb20vZ2FtZXMvZmxvd19saW5lcyIsInBhcmVudERvbWFpbiI6Ink4LmNvbSIsInRvcERvbWFpbiI6Ink4LmNvbSIsImhhc0ltcHJlc3Npb24iOmZhbHNlLCJsb2FkZXJFbmFibGVkIjp0cnVlLCJob3N0IjoiaHRtbDUuZ2FtZWRpc3RyaWJ1dGlvbi5jb20iLCJ2ZXJzaW9uIjoiMS41LjE3In0%253D&key=y8&value=default",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/flow-lines.webp"
+  },
+  {
+    "app_name": "Fluid Sim",
+    "app_url": "https://fivestarontop.pages.dev/fluidsim/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fluid-sim.webp"
+  },
+  {
+    "app_name": "Fruit Basket",
+    "app_url": "https://html5.gamedistribution.com/rvvASMiM/634a50cca48b4c0d87cedb3add5c5c81/index.html?gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL2h0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tLzYzNGE1MGNjYTQ4YjRjMGQ4N2NlZGIzYWRkNWM1YzgxLyIsInBhcmVudERvbWFpbiI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidG9wRG9tYWluIjoiaHRtbDUuZ2FtZWRpc3RyaWJ1dGlvbi5jb20iLCJoYXNJbXByZXNzaW9uIjpmYWxzZSwibG9hZGVyRW5hYmxlZCI6dHJ1ZSwiaG9zdCI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidmVyc2lvbiI6IjEuNS4xNyJ9",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fruit-basket.webp"
+  },
+  {
+    "app_name": "G-Switch 4 Creator",
+    "app_url": "https://www.seriusgames.com/html5/g-switch-4-1.3.32/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/g-switch-4-creator.webp"
+  },
+  {
+    "app_name": "Gobble",
+    "app_url": "https://sz-games.github.io/Games11/Gobble/Gobble.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/gobble.webp"
+  },
+  {
+    "app_name": "Google Snake Mods",
+    "app_url": "https://googlesnakemods.com/v/current/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/google-snake-mods.webp"
+  },
+  {
+    "app_name": "Grow a Garden",
+    "app_url": "https://script.google.com/macros/s/AKfycbwK_YDMKEccZyVOz_fpe66G4Je4VyFPdT10OdaKpM699Utzbq41n2m6OXqAzpX0oqrLTA/exec",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/grow-a-garden.webp"
+  },
+  {
+    "app_name": "House Of Hazards",
+    "app_url": "https://t9lat22.github.io/house-of-hazards/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/house-of-hazards.webp"
+  },
+  {
+    "app_name": "Hypersnake",
+    "app_url": "https://game-cdn.ikop.xyz/uploads/game/html5/7297/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hypersnake.webp"
+  },
+  {
+    "app_name": "Incredibox",
+    "app_url": "https://incredibox-game.io/game/incredibox-mod/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/incredibox.webp"
+  },
+  {
+    "app_name": "Lay Eggs",
+    "app_url": "https://ubg76.gitlab.io/lay-eggs/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/lay-eggs.webp"
+  },
+  {
+    "app_name": "Long cat",
+    "app_url": "https://game.enjoy4fun.com/longcat/v1/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/long-cat.webp"
+  },
+  {
+    "app_name": "Magic Cat",
+    "app_url": "https://html5-games.io/game/magic_cat/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/magic-cat.webp"
+  },
+  {
+    "app_name": "Mini Monkey Mart",
+    "app_url": "https://monkey-mart.io/iframe/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/mini-monkey-mart.webp"
+  },
+  {
+    "app_name": "Neon Swing",
+    "app_url": "https://mazahackasgan.github.io/neon-swing/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/neon-swing.webp"
+  },
+  {
+    "app_name": "Orange",
+    "app_url": "https://www.hoodamath.com/mobile/games/orange/game.html?nocheckorient=1",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/orange.webp"
+  },
+  {
+    "app_name": "Pointer Pointer",
+    "app_url": "https://pointerpointer.com/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/pointer-pointer.webp"
+  },
+  {
+    "app_name": "Ragdoll Playground",
+    "app_url": "https://1games.io/game/ragdoll-playground/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ragdoll-playground.webp"
+  },
+  {
+    "app_name": "Re Run",
+    "app_url": "https://4texas4.github.io/files/games/RE_RUN.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/re-run.webp"
+  },
+  {
+    "app_name": "Resizer",
+    "app_url": "https://www.hoodamath.com/mobile/games/resizer/game.html?nocheckorient=1",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/resizer.webp"
+  },
+  {
+    "app_name": "Rocket Pult",
+    "app_url": "https://scrap-metal.github.io/s9/rocket-pult/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rocket-pult.webp"
+  },
+  {
+    "app_name": "Rythem Heaven",
+    "app_url": "https://rightful-valuable-mum.glitch.me/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rythem-heaven.webp"
+  },
+  {
+    "app_name": "Sausage Flip",
+    "app_url": "https://t9lat22.github.io/sausage-flip/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/sausage-flip.webp"
+  },
+  {
+    "app_name": "School Boy Escape",
+    "app_url": "https://4texas4.github.io/files/games/schoolboyescape.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/school-boy-escape.webp"
+  },
+  {
+    "app_name": "Sink It",
+    "app_url": "https://gamesonline86.github.io/sink-it/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/sink-it.webp"
+  },
+  {
+    "app_name": "Sky Riders",
+    "app_url": "https://glseries.net/assets/applications/content/sky-riders/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/sky-riders.webp"
+  },
+  {
+    "app_name": "Slice Master",
+    "app_url": "https://bitlifeonline.github.io/slice-master/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/slice-master.webp"
+  },
+  {
+    "app_name": "Sprunki",
+    "app_url": "https://www.yoosfuhl.com/game/sprunkiincredibox/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/sprunki.webp"
+  },
+  {
+    "app_name": "Steal a Brainrot",
+    "app_url": "https://script.google.com/macros/s/AKfycbxJalyip_ETy_kolDAlSVxdcnLtn16P6gIoJ5kDwt1abHFX32SUJEOLCWU31veTffv2/exec",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/steal-a-brainrot.webp"
+  },
+  {
+    "app_name": "Stick RGP",
+    "app_url": "https://ad-freegames.github.io/flash/game/stick-rpg.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stick-rgp.webp"
+  },
+  {
+    "app_name": "SWOOOP",
+    "app_url": "https://playcanv.as/p/JtL2iqIH/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/swooop.webp"
+  },
+  {
+    "app_name": "This is Sand",
+    "app_url": "https://thisissand.com/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/this-is-sand.webp"
+  },
+  {
+    "app_name": "Thorns And Balloons",
+    "app_url": "https://www.hoodamath.com/mobile/games/thorn-and-balloons/game.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/thorns-and-balloons.webp"
+  },
+  {
+    "app_name": "We Become What We Behold",
+    "app_url": "https://unblocked-games.s3.amazonaws.com/games/2024/more/we-become-what-we-behold/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/we-become-what-we-behold.webp"
+  },
+  {
+    "app_name": "Whack Your Boss",
+    "app_url": "https://ad-freegames.github.io/flash/game/whack-your-boss.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/whack-your-boss.webp"
+  },
+  {
+    "app_name": "Zen Word",
+    "app_url": "https://4texas4.github.io/files/games/ZenWord.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/zen-word.webp"
+  },
+  {
+    "app_name": "Ragdoll Archers",
+    "app_url": "https://db.duck.quackprep.com/html/ragdoll_archers/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/ragdoll-archers.webp"
+  },
+  {
+    "app_name": "Hollow Knight",
+    "app_url": "https://db.duck.quackprep.com/html/hollow_knight/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hollow-knight.webp"
+  },
+  {
+    "app_name": "Growden IO",
+    "app_url": "https://db.duck.quackprep.com/html/growden_io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/growden-io.webp"
+  },
+  {
+    "app_name": "Spiral Roll",
+    "app_url": "https://db.duck.quackprep.com/html/spiral_roll/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/spiral-roll.webp"
+  },
+  {
+    "app_name": "Bottle Jump 3d",
+    "app_url": "https://game.azgame.io/bottle-jump/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bottle-jump-3d.webp"
+  },
+  {
+    "app_name": "Bottle Flip 3d",
+    "app_url": "https://play.wgplayground.com/game/5fa116c15ddf2e4894b341fc1e3c1d8c/?r=bottleflip3d.com",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bottle-flip-3d.webp"
+  },
+  {
+    "app_name": "Bouncemasters",
+    "app_url": "https://maxwellstevenson.com/Vafor_IT/bouncemasters/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bouncemasters.webp"
+  },
+  {
+    "app_name": "Bowmasters",
+    "app_url": "https://g.igroutka.ru/games/3/igra_boumasters/7/igra-boumasters/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bowmasters.webp"
+  },
+  {
+    "app_name": "Flappy Dunk",
+    "app_url": "https://flappydunk.com/wp-content/uploads/games/F/flappy-dunk/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/flappy-dunk.webp"
+  },
+  {
+    "app_name": "Powder Game 2",
+    "app_url": "https://dan-ball.jp/en/javagame/dust2/",
+    "type": "app"
+  },
+  {
+    "app_name": "Free Head Skate",
+    "app_url": "https://www.hoodamath.com/mobile/games/freehead-skate/game.html?nocheckorient=1",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/free-head-skate.webp"
+  },
+  {
+    "app_name": "Color Block Jam",
+    "app_url": "https://gamedistro.rhenrywarren.workers.dev/rvvASMiM/bea1d886820c494091bf1df4e77b956a/index.html?gd_sdk_referrer_url=https://lupine.red#translate.google.com",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/color-block-jam.webp"
+  },
+  {
+    "app_name": "Talking Ben",
+    "app_url": "https://turbowarp.org/649123736/embed?autostart=true&fullscreen-background=true",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/talking-ben.webp"
+  },
+  {
+    "app_name": "Under The Red Sky",
+    "app_url": "https://st.8games.net/7/8g/igra-parkur-pod-krasnym-nebom/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/under-the-red-sky.webp"
+  },
+  {
+    "app_name": "Overtide",
+    "app_url": "https://overtide.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/overtide.webp"
+  },
+  {
+    "app_name": "Poxel",
+    "app_url": "https://poxel.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/poxel.webp"
+  },
+  {
+    "app_name": "Handless Millionare",
+    "app_url": "https://pixel-cave.com/games/hm/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/handless-millionare.webp"
+  },
+  {
+    "app_name": "Andy's Apple Farm",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/andys-apple-farm/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/andy-s-apple-farm.webp"
+  },
+  {
+    "app_name": "Baldi's Basics Classic Remastered",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/baldi-remaster/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/baldi-s-basics-classic-remastered.webp"
+  },
+  {
+    "app_name": "Dead Plate",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/dead-plate/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/dead-plate.webp"
+  },
+  {
+    "app_name": "The Deadseat",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/deadseat/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/the-deadseat.webp"
+  },
+  {
+    "app_name": "Do NOT Take This Cat Home",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/donottakethiscathome/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/do-not-take-this-cat-home.webp"
+  },
+  {
+    "app_name": "Fears to Fathom: Home Alone",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/fears-to-fathom/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fears-to-fathom-home-alone.webp"
+  },
+  {
+    "app_name": "Human Expenditure Program",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/human-expenditure-program/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/human-expenditure-program.webp"
+  },
+  {
+    "app_name": "Omori",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/omori-fixed/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/omori.webp"
+  },
+  {
+    "app_name": "Slender: The Eight Pages",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/slender/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/slender-the-eight-pages.webp"
+  },
+  {
+    "app_name": "That's Not My Neighbor",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/thats-not-my-neighbor/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/that-s-not-my-neighbor.webp"
+  },
+  {
+    "app_name": "The Man From The Window",
+    "app_url": "https://rawcdn.githack.com/fowntain/web-port-doge/1102f068fff0083d2a5ed979ebac6425540d78a5/the-man-in-the-window/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/the-man-from-the-window.webp"
+  },
+  {
+    "app_name": "Backrooms 2D",
+    "app_url": "https://selenite.cc/semag/2d/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/backrooms-2d.webp"
+  },
+  {
+    "app_name": "Dreader",
+    "app_url": "https://bidoofery.github.io/nativegames/dreader/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/dreader.webp"
+  },
+  {
+    "app_name": "FNAF 1",
+    "app_url": "https://run3.io/popgame/fnaf/fnaf1/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fnaf-1.webp"
+  },
+  {
+    "app_name": "FNAF 2",
+    "app_url": "https://run3.io/popgame/fnaf/fnaf2.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fnaf-2.webp"
+  },
+  {
+    "app_name": "FNAF 4",
+    "app_url": "https://run3.io/popgame/fnaf/fnaf4.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fnaf-4.webp"
+  },
+  {
+    "app_name": "FNAF 3",
+    "app_url": "https://run3.io/popgame/fnaf/fnaf3.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fnaf-3.webp"
+  },
+  {
+    "app_name": "Keep Out",
+    "app_url": "https://www.playkeepout.com/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/keep-out.webp"
+  },
+  {
+    "app_name": "99 Nights In a Forest",
+    "app_url": "https://db.duck.quackprep.com/html/99_nights_in_the_forest/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/99-nights-in-a-forest.webp"
+  },
+  {
+    "app_name": "FNAF Pizzaria Simulator",
+    "app_url": "https://db.duck.quackprep.com/html/fnaf_pizzeria_simulator/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/fnaf-pizzaria-simulator.webp"
+  },
+  {
+    "app_name": "Granny",
+    "app_url": "https://1games.io/game/granny-horror/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/granny.webp"
+  },
+  {
+    "app_name": "Bad Parenting",
+    "app_url": "https://4texas4.github.io/files/games/Bad%20Parenting%201.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bad-parenting.webp"
+  },
+  {
+    "app_name": "Rainbow Friends Return",
+    "app_url": "https://db.duck.quackprep.com/html/rainbow_friends_return/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rainbow-friends-return.webp"
+  },
+  {
+    "app_name": "Squid Game",
+    "app_url": "https://www.yoosfuhl.com/game/squidgame/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/squid-game.webp"
+  },
+  {
+    "app_name": "Defly.io",
+    "app_url": "https://defly.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/defly-io.webp"
+  },
+  {
+    "app_name": "Florr.io",
+    "app_url": "https://florr.io",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/florr-io.webp"
+  },
+  {
+    "app_name": "Kirka.io",
+    "app_url": "https://kirka.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/kirka-io.webp"
+  },
+  {
+    "app_name": "Robostorm",
+    "app_url": "https://robostorm.io",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/robostorm.webp"
+  },
+  {
+    "app_name": "Rocket Bot Royale",
+    "app_url": "https://rocketbotroyale.winterpixel.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/rocket-bot-royale.webp"
+  },
+  {
+    "app_name": "Aquapark.io",
+    "app_url": "https://classroom6x.gitlab.io/aquaparkio/",
+    "type": "sport",
+    "app_img": "./assets/gapp-images-tridary/aquapark-io.webp"
+  },
+  {
+    "app_name": "Geometry Dash Lite",
+    "app_url": "https://geometrydashwave.io/game/gd/?v=5",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/geometry-dash-lite.webp"
+  },
+  {
+    "app_name": "Evowars.io",
+    "app_url": "https://evowars.io",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/evowars-io.webp"
+  },
+  {
+    "app_name": "Hole.io",
+    "app_url": "https://hole-io.com",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/hole-io.webp"
+  },
+  {
+    "app_name": "Paper.io",
+    "app_url": "https://paper-io.com",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/paper-io.webp"
+  },
+  {
+    "app_name": "Slither.io",
+    "app_url": "https://slither.io",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/slither-io.webp"
+  },
+  {
+    "app_name": "Snowbattle.io",
+    "app_url": "https://assets.hbmc.net/snowbattle/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/snowbattle-io.webp"
+  },
+  {
+    "app_name": "Territorial.io",
+    "app_url": "https://territorial.io",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/territorial-io.webp"
+  },
+  {
+    "app_name": "Yohoho.io",
+    "app_url": "https://rawcdn.githack.com/GameHub88/Yexex-Assets/main/yohoho/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/yohoho-io.webp"
+  },
+  {
+    "app_name": "Bonk.io",
+    "app_url": "https://bonk.io",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/bonk-io.webp"
+  },
+  {
+    "app_name": "Taming.io",
+    "app_url": "https://taming.io",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/taming-io.webp"
+  },
+  {
+    "app_name": "Paper.io 2",
+    "app_url": "https://assets.hbmc.net/paperio2/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/paper-io-2.webp"
+  },
+  {
+    "app_name": "Surviv.io",
+    "app_url": "https://assets.hbmc.net/surviv/index.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/surviv-io.webp"
+  },
+  {
+    "app_name": "Clash Royale",
+    "app_url": "https://www.friv.com/z/games/clashofvikings/index-x.html",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/clash-royale.webp"
+  },
+  {
+    "app_name": "lolbeans.io",
+    "app_url": "https://lolbeans.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/lolbeans-io.webp"
+  },
+  {
+    "app_name": "Stumble Guys",
+    "app_url": "https://www.stumbleguys.com/play",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/stumble-guys.webp"
+  },
+  {
+    "app_name": "Attack Hole",
+    "app_url": "https://html5.gamedistribution.com/fb2c54f5d26c4009ae5b5dafca416c99/?gdpr-targeting=1&gd_sdk_referrer_url=https://www.silvergames.com/en/black-hole-attack",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/attack-hole.webp"
+  },
+  {
+    "app_name": "Just Fall Lol",
+    "app_url": "https://just-fall-lol.github.io/file/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/just-fall-lol.webp"
+  },
+  {
+    "app_name": "Diep.io",
+    "app_url": "https://diep.io",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/diep-io.webp"
+  },
+  {
+    "app_name": "Skribbl",
+    "app_url": "https://skribbl.io/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/skribbl.webp"
+  },
+  {
+    "app_name": "Paper IO",
+    "app_url": "https://paperio-2.github.io/a9/paper-io-2/",
+    "type": "app",
+    "app_img": "./assets/gapp-images-tridary/paper-io.webp"
   }
 ]

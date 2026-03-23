@@ -7,7 +7,6 @@ fetch("./assets/" + jsonFile)
     allApps = jsonData;
     renderApps(allApps);
 
-    // Add search functionality
     const searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("input", (e) => {
         const searchTerm = e.target.value.toLowerCase();
@@ -18,6 +17,23 @@ fetch("./assets/" + jsonFile)
     });
 });
 
+if (window.location.href.includes('gapps.html')) {
+    fetch("./assets/gapps_2.json")
+.then(response => response.json())
+.then(jsonData => {
+    allApps = jsonData;
+    renderApps(allApps);
+
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("input", (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredApps = allApps.filter(app =>
+            app.app_name.toLowerCase().includes(searchTerm)
+        );
+        renderApps(filteredApps);
+    });
+});
+}
 function renderApps(apps) {
     let appsContainer = document.getElementById("apps");
     appsContainer.innerHTML = "";

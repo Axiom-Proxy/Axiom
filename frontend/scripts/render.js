@@ -1,6 +1,4 @@
-const search_engine_preference =
-
-search_engine = "../search/index.html?q=";
+const search_engine = "../search/index.html?q=";
 
 const premium = window.premium.check()
 let typing = 0;

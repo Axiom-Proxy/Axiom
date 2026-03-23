@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
         /^[\w-]+(\.[\w-]+)+$/.test(url)
       ) {
         // It's a URL, go to render.html
-        createTab("Home", "../render.html?url=" + url);
+        createTab("Home", "../render.html?url=" + btoa(url));
       } else {
         // It's a search query, go to search page
         createTab("Search", "../search/index.html?q=" + encodeURIComponent(url));

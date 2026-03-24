@@ -269,9 +269,76 @@
             background-color: rgba(180, 60, 60, 0.9) !important;
         }
 
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            padding: 10px 0;
+        }
+
+        .toggle-label {
+            font-weight: 500;
+            color: var(--text-color, white);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(100, 100, 100, 0.5);
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--theme-secondary, #3b82f6);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
     </style>
 </head>
 <body>
+    <div class="container">
+        <h4>Features</h4>
+        <div class="toggle-row">
+            <span class="toggle-label">Cloaking</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="axiomCloakToggle">
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+    </div>
     <div class="container">
         <h4>Themes</h4>
         <div class="theme-container">
@@ -304,5 +371,17 @@
     gtag('js', new Date());
 
     gtag('config', 'G-EP8214CHBW');
+
+    // Cloaking toggle functionality
+    const cloakToggle = document.getElementById('axiomCloakToggle');
+    
+    // Load saved state
+    const savedCloakState = localStorage.getItem('axiomCloak');
+    cloakToggle.checked = savedCloakState === 'true';
+    
+    // Save state on change
+    cloakToggle.addEventListener('change', function() {
+        localStorage.setItem('axiomCloak', this.checked);
+    });
 </script> </body>
 </html>

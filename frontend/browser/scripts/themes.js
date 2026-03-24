@@ -161,7 +161,7 @@ window.themeManager = {
             root.style.setProperty('--input-bg-alpha', this.hexToRgba(themeData.secondary, 0.6));
         }
 
-        if (location.pathname.includes('main.html') || sessionStorage.getItem('isMainPage') !== 'true') {
+        if (location.pathname.includes('index.html') || sessionStorage.getItem('isMainPage') !== 'true') {
             const hasCustomWallpaper = localStorage.getItem("axiomUseCustomWallpaper") === "true" &&
                                        localStorage.getItem("axiomCustomWallpaper") !== null;
 

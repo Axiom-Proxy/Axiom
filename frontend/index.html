@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IXL | Math, Language Arts, Science, Social Studies, and Spanish</title>
     <meta name="description" content="IXL is the world's most popular subscription-based learning site for K–12. Used by over 18 million students, IXL provides personalized learning in more than 17,000 topics, covering math, language arts, science, social studies, and Spanish. Interactive questions, awards, and certificates keep kids motivated as they master skills.">
     <meta name="keywords" content="School, Science, STEM">
@@ -16,70 +18,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="styles/main.css">
     <script src="https://pl28913684.effectivegatecpm.com/01/b1/c3/01b1c3d6225f346f875c89daba0e14a9.js"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="./os/winbox.bundle.min.js"></script>
+    <script src="https://pl28913684.profitablecpmratenetwork.com/01/b1/c3/01b1c3d6225f346f875c89daba0e14a9.js"></script>
 </head>
 
-<style>
-    .full-wh {
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-    }
-
-    .landing-content {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        gap: 12px;
-    }
-
-    .landing-content h2 {
-        font-size: 1.8rem;
-        font-weight: 600;
-        margin: 0 0 4px;
-        letter-spacing: 0.5px;
-    }
-
-    .landing-content p {
-        margin: 0 0 16px;
-        opacity: 0.7;
-        font-size: 0.95rem;
-    }
-
-    #options {
-        display: flex;
-        gap: 12px;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    #options div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        cursor: pointer;
-        border: 1px solid var(--theme-border);
-        padding: 14px 18px;
-        border-radius: 12px;
-        transition: background 0.2s, border-color 0.2s, transform 0.15s;
-        font-size: 0.85rem;
-        color: #fff;
-    }
-
-    #options div:hover {
-        transform: translateY(-2px);
-    }
-
-    #options div .material-symbols-outlined {
-        font-size: 28px;
-    }
-</style>
-
 <body>
+
+
+
     <div class="full-wh">
         <div class="bg-animation">
             <div id='stars'></div>
@@ -87,123 +36,135 @@
         </div>
     </div>
 
-    <div class="landing-content">
-        <h2>Welcome to Axiom!</h2>
-        <p>Use one of the following to make the link last longer!</p>
-        <div id="options">
-            <div id="window">
-                <span class="material-symbols-outlined">tab</span>
-                <span>Window A:B</span>
-            </div>
-            <div id="file">
-                <span class="material-symbols-outlined">file_copy</span>
-                <span>File Cloak</span>
-            </div>
-            <div id="blob">
-                <span class="material-symbols-outlined">link</span>
-                <span>Blob Cloak</span>
-            </div>
-            <div onclick="cloak()">
-                <span class="material-symbols-outlined">language</span>
-                <span>A:B Cloak</span>
-            </div>
+
+    <div id="loader">
+        <h2 class="loader-text">Axiom</h2>
+        <div class="loader"></div>
+    </div>
+
+    <div id="desktop">
+        <!-- yes the clas name is wrong, deal with it -->
+        <h2 class="logo" id="time"></h2>
+    </div>
+    
+    <div id="contextMenu" class="context-menu">
+        <div class="context-menu-item" data-app="browser">
+            <span class="material-symbols-outlined">language</span>
+            <span>Browser</span>
+        </div>
+        <div class="context-menu-item" data-app="games">
+            <span class="material-symbols-outlined">gamepad</span>
+            <span>Games</span>
+        </div>
+        <div class="context-menu-item" data-app="ai" style="display: none;">
+            <span class="material-symbols-outlined">article</span>
+            <span>AI Chat</span>
+        </div>
+        <div class="context-menu-item" data-app="settings">
+            <span class="material-symbols-outlined">settings</span>
+            <span>Settings</span>
         </div>
     </div>
 
+    <div class="startmenu" id="info">
+        <img src="./browser/assets/axiom.png" style="width: 30px">
+    </div>
 
-<script src="./browser/scripts/themes.js"></script>
-<script>
+    <div class="battery">
+        <span class="material-symbols-outlined" id="battery-icon">battery_full</span>
+    </div>
 
-    function cloak() {
-        tab = window.open("about:blank", target="_blank")
-        tab.document.write(`
-      <html>
-      <head>
-        <title>Google</title>
-        <link rel="icon" href="${window.location.origin}/os/google_favicon.ico" type="image/x-icon">
-      </head>
-      <body>
-        <iframe src="main.html" style="border:none; height: 100%; width: 100%; position: fixed; left: 0px; top: 0px;">
-      </body>
 
-`)
-        tab.document.close()
-    }
+    <div id="taskbar">
+        <span class="material-symbols-outlined start-btn" id="browser">language</span>
+        <span class="material-symbols-outlined start-btn" id="games">gamepad</span>
+        <span class="material-symbols-outlined start-btn" id="ai" style="display: none;">article</span>
+         <span class="material-symbols-outlined start-btn" id="terminal">terminal</span>
+        <span class="material-symbols-outlined start-btn" id="settings">settings</span>
+    </div>
+    <script src="./browser/scripts/premium.js"></script>
+    <script src="./browser/scripts/themes.js"></script>
+    <script src="./scripts/os/osEssensials.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EP8214CHBW"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-    
-    // check for mobile
-    if (navigator.userAgent.match(/Android/i) ||
-        navigator.userAgent.match(/webOS/i) ||
-        navigator.userAgent.match(/iPhone/i) ||
-        navigator.userAgent.match(/iPad/i) ||
-        navigator.userAgent.match(/iPod/i) ||
-        navigator.userAgent.match(/BlackBerry/i) ||
-        navigator.userAgent.match(/Windows Phone/i)) {
-        window.location.href = "mobile.html"
-    }
+        gtag('config', 'G-EP8214CHBW');
+    </script>
+    <script>
 
-    let windowab = document.getElementById("window")
-    windowab.addEventListener("click", () => {
-        const windowFeatures = 'width=1200,height=1200,resizable=yes,scrollbars=yes,status=yes';
-        const newWindow = window.open(window.location.origin + '/main.html', 'Google', windowFeatures);
-        
-        setTimeout(() => {
-            if (newWindow) {
-                try {
-                    newWindow.document.title = "Google";
-                    const link = newWindow.document.createElement('link');
-                    link.rel = 'icon';
-                    link.href = window.location.origin + '/os/google_favicon.ico';
-                    newWindow.document.head.appendChild(link);
-                } catch (e) {
-                    console.log("Could not modify window properties due to cross-origin restrictions");
-                }
+        window.addEventListener('load', () => {
+            sessionStorage.setItem('isMainPage', 'true');
+        });
+        window.addEventListener('unload', () => {
+            sessionStorage.removeItem('isMainPage');
+        });
+
+        function updateBattery(battery) {
+            const icon = document.getElementById('battery-icon');
+            const level = battery.level;
+            const charging = battery.charging;
+            let name;
+            if (charging) {
+                if (level >= 0.9) name = 'battery_charging_full';
+                else if (level >= 0.7) name = 'battery_charging_80';
+                else if (level >= 0.5) name = 'battery_charging_60';
+                else if (level >= 0.3) name = 'battery_charging_50';
+                else if (level >= 0.1) name = 'battery_charging_20';
+                else name = 'battery_charging_20';
+            } else {
+                if (level >= 0.95) name = 'battery_full';
+                else if (level >= 0.8) name = 'battery_5_bar';
+                else if (level >= 0.65) name = 'battery_4_bar';
+                else if (level >= 0.5) name = 'battery_3_bar';
+                else if (level >= 0.3) name = 'battery_2_bar';
+                else if (level >= 0.1) name = 'battery_1_bar';
+                else name = 'battery_0_bar';
             }
+            icon.textContent = name;
+            icon.title = `${Math.round(level * 100)}%${charging ? ' (charging)' : ''}`;
+        }
+
+        if (navigator.getBattery) {
+            navigator.getBattery().then(battery => {
+                updateBattery(battery);
+                battery.addEventListener('levelchange', () => updateBattery(battery));
+                battery.addEventListener('chargingchange', () => updateBattery(battery));
+            });
+        } else {
+            document.getElementById('battery-icon').textContent = 'battery_unknown';
+        }
+
+        setInterval(() => {
+            // get h;m
+            let time = new Date();
+            let hour = time.getHours();
+            let minute = time.getMinutes();
+            let ampm = hour >= 12 ? 'PM' : 'AM';
+            hour = hour % 12;
+            hour = hour ? hour : 12; // the hour '0' should be '12'
+            minute = minute < 10 ? '0' + minute : minute;
+            let strTime = hour + ':' + minute + ' ' + ampm;
+            document.getElementById('time').innerHTML = strTime;
         }, 100);
-    })
-    
-    let file = document.getElementById("file")
-    file.addEventListener("click", () => {
-        const htmlContent = `
-            <html>
-            <head>
-                <title>Google</title>
-                <link rel="icon" href="${window.location.origin}/os/google_favicon.ico" type="image/x-icon">
-            </head>
-            <body>
-                <iframe src="${window.location.origin}/main.html" style="border:none; height: 100%; width: 100%; position: fixed; left: 0px; top: 0px;"></iframe>
-            </body>
-            </html>
+    </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EP8214CHBW"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-        `;
-        const object_URL = URL.createObjectURL(new Blob([htmlContent], { type: 'text/html' }));
+    gtag('config', 'G-EP8214CHBW');
 
-        const a = document.createElement('a');
-        a.href = object_URL;
-        a.download = "axiom_launcher_" + window.location.origin + ".html"; 
-
-        document.body.appendChild(a);
-        a.click();
-    })
-
-    let blob = document.getElementById("blob")
-    blob.addEventListener("click", () => {
-        const htmlContent = `
-            <html>
-            <head>
-                <title>Google</title>
-                <link rel="icon" href="${window.location.origin}/os/google_favicon.ico" type="image/x-icon">
-            </head>
-            <body>
-                <iframe src="${window.location.origin}/main.html" style="border:none; height: 100%; width: 100%; position: fixed; left: 0px; top: 0px;"></iframe>
-            </body>
-            </html>
-
-        `;
-        const object_URL = URL.createObjectURL(new Blob([htmlContent], { type: 'text/html' }));
-
-        window.open(object_URL, '_blank');
-    })
-</script>
+    if (localStorage.getItem("axiomCloak") == 'true' && window == window.top){
+        window.location = "cloak.html"
+    }
+    else {
+        window.open("https://www.profitablecpmratenetwork.com/em4vjuaxr?key=03442a307d89d9816a78111c66d3044e", "_blank")
+    }
+</script> 
 </body>
+
 </html>

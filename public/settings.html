@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Roboto:wght@100;300;400;700&display=swap"
+        rel="stylesheet">
+    <script src="./scripts/theme.js"></script>
+    <script src="./scripts/premium.js"></script>
+    <link href="./styles/start.css" rel="stylesheet">
+    <style>
+        button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            padding: 0;
+            border-radius: 25px;
+            background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            color: var(--text, white);
+            font-size: 16px;
+            cursor: pointer;
+            outline: none;
+            transition:
+                border-color 0.3s ease,
+                background 0.3s ease;
+        }
+
+        button:hover {
+            border-color: var(--glass-border-focus, rgba(255, 255, 255, 0.5));
+            background: var(--glass-bg-focus, rgba(255, 255, 255, 0.08));
+        }
+
+        .messages {
+            position: absolute;
+            width: 50%;
+            left: calc(50% - 25%);
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: max-content;
+            height: max-content;
+            max-width: 50%;
+            padding: 15px;
+            border-radius: 25px;
+            background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            color: var(--text, white);
+            font-size: 16px;
+            outline: none;
+            transition:
+                border-color 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .message.user {
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.bot {
+            border-bottom-left-radius: 4px;
+        }
+
+        .dropdown {
+            position: relative;
+            width: 300px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 15px;
+            z-index: 1000;
+        }
+
+        .dropdown-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 12px 18px;
+            border-radius: 25px;
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            color: var(--text, white);
+            cursor: pointer;
+            user-select: none;
+            transition:
+                border-color 0.25s ease,
+                background 0.25s ease,
+                border-radius 0.25s ease;
+            box-sizing: border-box;
+        }
+
+        .dropdown-trigger:hover {
+            border-color: var(--glass-border-focus, rgba(255, 255, 255, 0.45));
+            background: var(--glass-bg-focus, rgba(255, 255, 255, 0.11));
+        }
+
+        .dropdown-trigger.open {
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .dropdown-chevron {
+            font-size: 18px;
+            line-height: 1;
+            transition: transform 0.25s ease;
+            opacity: 0.7;
+        }
+
+        .dropdown-trigger.open .dropdown-chevron {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-panel {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            width: 100%;
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+            border-radius: 16px;
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+            overflow: hidden;
+            transform-origin: top center;
+            transform: scaleY(0.85) translateY(-6px);
+            opacity: 0;
+            pointer-events: none;
+            transition:
+                opacity 0.2s ease,
+                transform 0.2s ease;
+            box-sizing: border-box;
+            background: var(--glass-panel-bg, rgba(0, 0, 0, 0.2));
+        }
+
+        .dropdown-panel.open {
+            transform: scaleY(1) translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .dropdown-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 18px;
+            color: var(--text-secondary, rgba(255, 255, 255, 0.85));
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .dropdown-option:first-child {
+            border-radius: 16px 16px 0 0;
+        }
+
+        .dropdown-option:last-child {
+            border-radius: 0 0 16px 16px;
+        }
+
+        .dropdown-option:only-child {
+            border-radius: 16px;
+        }
+
+        .dropdown-option:hover {
+            background: var(--glass-bg-focus, rgba(255, 255, 255, 0.1));
+            color: var(--text, white);
+        }
+
+        .dropdown-option.selected {
+            background: var(--glass-bg-focus, rgba(255, 255, 255, 0.08));
+            color: var(--text, white);
+            font-weight: 400;
+        }
+
+        .dropdown-option .material-symbols-outlined {
+            font-size: 16px;
+            opacity: 0.75;
+        }
+
+        .dropdown-option.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .dropdown-option.locked:hover {
+            background: transparent;
+            color: var(--text-secondary, rgba(255, 255, 255, 0.85));
+        }
+
+        .premium-badge {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            border-radius: 6px;
+            padding: 2px 6px;
+        }
+
+        .container {
+            margin: 20px;
+            padding: 20px;
+            border-radius: 25px;
+            width: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            color: var(--text, white);
+            font-size: 16px;
+            outline: none;
+            transition:
+                border-color 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+    </style>
+
+<body>
+    <center
+        style="position: absolute; top: 130px; width: 70%; left: 50%; transform: translateX(-50%); display: flex; justify-content: center; align-items: center; gap: 8px;">
+        <input placeholder="Search settings" class="search-bar" type="text">
+    </center>
+    <div class="main" style="margin-top: 120px; gap: 8px;">
+
+        <div class="container">
+            <h3>Cloaking</h3>
+            <p>Lets you Axiom from extensions like GoGuardian!</p>
+            <div class="row">
+                <button style="width: 100px;">
+                    A:B Cloak
+                </button>
+                <button style="width: 100px;">
+                    Blob Cloak
+                </button>
+                <button style="width: 100px;">
+                    File Cloak
+                </button>
+                <button style="width: 100px;">
+                    B64 Cloak
+                </button>
+            </div>
+        </div>
+        <div class="container" style="position: relative; z-index: 1;">
+            <h3>Theme</h3>
+            <p>Pick your theme!</p>
+
+            <div class="dropdown" id="themeDropdown">
+                <div class="dropdown-trigger" id="dropdownTrigger">
+                    <span id="dropdownLabel">Default</span>
+                    <span class="material-symbols-outlined dropdown-chevron">expand_more</span>
+                </div>
+                <div class="dropdown-panel" id="dropdownPanel"></div>
+            </div>
+        </div>
+
+        <div class="container" id="premium-container">
+            <h3>Premium</h3>
+            <p>Enter your premium key to unlock premium features.</p>
+            <div class="row" style="margin-bottom: 10px;">
+                <input id="premium-key-input" placeholder="Enter premium key" class="search-bar" type="password"
+                    style="width: 260px;">
+                <button id="premium-activate-btn" style="width: 100px;" title="Activate key">Activate</button>
+                <button id="premium-clear-btn" style="width: 80px;" title="Remove key">Remove</button>
+            </div>
+            <p id="premium-status" style="margin: 0; font-size: 14px; opacity: 0.75;">Checking status…</p>
+        </div>
+
+        <div class="container">
+            <h3>Credits</h3>
+            <p>sd_inf - everything</p>
+            <p>Seba - making links to feed the horde</p>
+            <p>slvrbrd - being based</p>
+            <p>apathy knight - also being based</p>
+            <p>Pipkin Pippa - supplying peak, allowing for any development to occur</p>
+        </div>
+    </div>
+
+    </div>
+
+    <script>
+        function getCloakContent() {
+            const currentUrl = window.location.origin + '/index.html';
+            return `<!DOCTYPE html>
+<html>
+<head>
+    <title>Google</title>
+    <link rel="icon" type="image/x-icon" href="https://www.google.com/favicon.ico">
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; }
+        iframe { width: 100vw; height: 100vh; border: none; }
+    </style>
+</head>
+<body>
+    <iframe src="${currentUrl}" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"></iframe>
+</body>
+</html>`;
+        }
+
+        function aboutBlankCloak() {
+            const newWindow = window.open('about:blank');
+            if (!newWindow) {
+                alert('Please allow popups for Axiom to use A:B Cloak!');
+                return;
+            }
+            newWindow.document.write(getCloakContent());
+            newWindow.document.close();
+        }
+
+        function blobCloak() {
+            const blob = new Blob([getCloakContent()], { type: 'text/html' });
+            const blobUrl = URL.createObjectURL(blob);
+            window.open(blobUrl);
+        }
+
+        function fileCloak() {
+            const content = getCloakContent();
+            const blob = new Blob([content], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Google.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function b64Cloak() {
+            const content = getCloakContent();
+            const b64Content = btoa(content);
+            const dataUri = 'data:text/html;base64,' + b64Content;
+            window.open(dataUri);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.container:first-child button');
+            if (buttons.length >= 4) {
+                buttons[0].addEventListener('click', aboutBlankCloak);
+                buttons[1].addEventListener('click', blobCloak);
+                buttons[2].addEventListener('click', fileCloak);
+                buttons[3].addEventListener('click', b64Cloak);
+            }
+        });
+
+        const trigger = document.getElementById('dropdownTrigger');
+        const panel = document.getElementById('dropdownPanel');
+        const label = document.getElementById('dropdownLabel');
+
+        trigger.addEventListener('click', () => {
+            const isOpen = panel.classList.contains('open');
+            panel.classList.toggle('open', !isOpen);
+            trigger.classList.toggle('open', !isOpen);
+        });
+
+        document.addEventListener('click', e => {
+            if (!document.getElementById('themeDropdown').contains(e.target)) {
+                panel.classList.remove('open');
+                trigger.classList.remove('open');
+            }
+        });
+
+        const premiumStatus = document.getElementById('premium-status');
+        const premiumInput  = document.getElementById('premium-key-input');
+        const activateBtn   = document.getElementById('premium-activate-btn');
+        const clearBtn      = document.getElementById('premium-clear-btn');
+
+        async function refreshPremiumStatus() {
+            const key = axiomPremium.getKey();
+            if (!key) {
+                premiumStatus.textContent = 'No key saved.';
+                premiumStatus.style.color = 'rgba(255,255,255,0.5)';
+                return;
+            }
+            premiumStatus.textContent = 'Verifying…';
+            premiumStatus.style.color = 'rgba(255,255,255,0.5)';
+            const valid = await axiomPremium.isPremium();
+            if (valid) {
+                premiumStatus.textContent = '✓ Premium active';
+                premiumStatus.style.color = '#4ade80';
+            } else {
+                premiumStatus.textContent = '✗ Invalid or expired key';
+                premiumStatus.style.color = '#f87171';
+            }
+        }
+
+        activateBtn.addEventListener('click', async () => {
+            const key = premiumInput.value.trim();
+            if (!key) return;
+            premiumStatus.textContent = 'Verifying…';
+            premiumStatus.style.color = 'rgba(255,255,255,0.5)';
+            const valid = await axiomPremium.verify(key);
+            if (valid) {
+                axiomPremium.setKey(key);
+                premiumInput.value = '';
+                premiumStatus.textContent = '✓ Premium activated!';
+                premiumStatus.style.color = '#4ade80';
+            } else {
+                premiumStatus.textContent = '✗ Invalid key';
+                premiumStatus.style.color = '#f87171';
+            }
+        });
+
+        premiumInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') activateBtn.click();
+        });
+
+        clearBtn.addEventListener('click', () => {
+            axiomPremium.clearKey();
+            premiumInput.value = '';
+            premiumStatus.textContent = 'Key removed.';
+            premiumStatus.style.color = 'rgba(255,255,255,0.5)';
+        });
+
+        const savedKey = axiomPremium.getKey();
+        if (savedKey) premiumInput.placeholder = '••••••••';
+        refreshPremiumStatus();
+
+        async function initThemes() {
+            const [themes, isPremium] = await Promise.all([
+                fetch('./assets/themes.json').then(r => r.json()),
+                axiomPremium.isPremium()
+            ]);
+
+            const savedId = window.axiomTheme ? window.axiomTheme.getSavedId() : 'default';
+
+            themes.forEach(theme => {
+                const locked = theme.premium && !isPremium;
+                const opt = document.createElement('div');
+                opt.className = 'dropdown-option' + (theme.id === savedId ? ' selected' : '') + (locked ? ' locked' : '');
+                opt.dataset.value = theme.id;
+                opt.dataset.locked = locked ? '1' : '0';
+
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = theme.name;
+                opt.appendChild(nameSpan);
+
+                if (theme.premium) {
+                    const badge = document.createElement('span');
+                    badge.className = 'premium-badge';
+                    badge.textContent = isPremium ? '★ Premium' : 'Premium';
+                    opt.appendChild(badge);
+                }
+
+                panel.appendChild(opt);
+            });
+
+            const saved = themes.find(t => t.id === savedId) || themes[0];
+            label.textContent = saved.name;
+
+            panel.querySelectorAll('.dropdown-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    if (opt.dataset.locked === '1') return;
+
+                    panel.querySelectorAll('.dropdown-option').forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
+                    label.textContent = opt.querySelector('span').textContent.trim();
+                    panel.classList.remove('open');
+                    trigger.classList.remove('open');
+
+                    const theme = themes.find(t => t.id === opt.dataset.value);
+                    if (theme && window.axiomTheme) {
+                        window.axiomTheme.setTheme(theme);
+                    }
+                });
+            });
+        }
+
+        initThemes();
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Roboto:wght@100;300;400;700&display=swap"
+        rel="stylesheet">
+    <script src="./scripts/theme.js"></script>
+    <script src="./scripts/premium.js"></script>
+    <link href="./styles/start.css" rel="stylesheet">
+    <style>
+        button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+button:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.messages {
+    position: absolute;
+    width: 50%;
+    left: calc(50% - 25%);
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: max-content;
+  height: max-content;
+  max-width: 50%;
+  padding: 15px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 16px;
+  outline: none;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.message.user {
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+}
+
+.message.bot {
+    border-bottom-left-radius: 4px;
+}
+
+.dropdown {
+    position: fixed;
+    top: 20px;
+    right: 50px;
+    width: 210px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    z-index: 1000;
+}
+
+.dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: 25px;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        border-radius 0.25s ease;
+    box-sizing: border-box;
+}
+
+.dropdown-trigger:hover {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.11);
+}
+
+.dropdown-trigger.open {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.dropdown-chevron {
+    font-size: 18px;
+    line-height: 1;
+    transition: transform 0.25s ease;
+    opacity: 0.7;
+}
+
+.dropdown-trigger.open .dropdown-chevron {
+    transform: rotate(180deg);
+}
+
+.dropdown-panel {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 100%;
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+    transform-origin: top center;
+    transform: scaleY(0.85) translateY(-6px);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+    box-sizing: border-box;
+}
+
+.dropdown-panel.open {
+    transform: scaleY(1) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.dropdown-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.dropdown-option:first-child {
+    border-radius: 16px 16px 0 0;
+}
+
+.dropdown-option:last-child {
+    border-radius: 0 0 16px 16px;
+}
+
+.dropdown-option:only-child {
+    border-radius: 16px;
+}
+
+.dropdown-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.dropdown-option.selected {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-weight: 400;
+}
+
+.dropdown-option .material-symbols-outlined {
+    font-size: 16px;
+    opacity: 0.75;
+}
+
+    </style>
+
+<body>
+
+    <div class="dropdown" id="modelDropdown">
+        <div class="dropdown-trigger" id="dropdownTrigger">
+            <span id="dropdownLabel">Llama 3.1 8B Instruct</span>
+            <span class="material-symbols-outlined dropdown-chevron">expand_more</span>
+        </div>
+        <div class="dropdown-panel" id="dropdownPanel">
+            <div class="dropdown-option selected" data-value="0" data-label="Llama 3.1 8B Instruct">Pumori S1 Nano</div>
+            <div class="dropdown-option" data-value="1" data-label="GPT-OSS-120B">GPT-OSS-120B
+                <span class="material-symbols-outlined">crown</span></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const trigger = document.getElementById('dropdownTrigger');
+        const panel = document.getElementById('dropdownPanel');
+        const label = document.getElementById('dropdownLabel');
+        const options = panel.querySelectorAll('.dropdown-option');
+
+        trigger.addEventListener('click', () => {
+            const isOpen = panel.classList.contains('open');
+            panel.classList.toggle('open', !isOpen);
+            trigger.classList.toggle('open', !isOpen);
+        });
+
+        options.forEach(opt => {
+            opt.addEventListener('click', () => {
+                options.forEach(o => o.classList.remove('selected'));
+                opt.classList.add('selected');
+                label.textContent = opt.dataset.label;
+                panel.classList.remove('open');
+                trigger.classList.remove('open');
+            });
+        });
+
+        document.addEventListener('click', e => {
+            if (!document.getElementById('modelDropdown').contains(e.target)) {
+                panel.classList.remove('open');
+                trigger.classList.remove('open');
+            }
+        });
+    </script>
+
+    <div class="messages">
+    </div>
+    <style>
+        #attach-menu {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 999;
+        }
+        #attach-menu.visible { display: flex; }
+        .attach-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: background 0.15s;
+        }
+        .attach-option:hover { background: rgba(255,255,255,0.14); }
+        #image-previews {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            max-width: 70%;
+            justify-content: center;
+        }
+        .preview-wrap {
+            position: relative;
+        }
+        .preview-wrap img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+        .preview-wrap .remove-img {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .message img {
+            max-width: 200px;
+            border-radius: 10px;
+            display: block;
+            margin-top: 6px;
+        }
+    </style>
+
+    <div id="image-previews"></div>
+    <div id="attach-menu">
+        <div class="attach-option" onclick="triggerFileUpload()">
+            <span class="material-symbols-outlined" style="font-size:16px">upload</span> Upload image
+        </div>
+        <div class="attach-option" onclick="captureTab()">
+            <span class="material-symbols-outlined" style="font-size:16px">screenshot_monitor</span> Capture tab / screen
+        </div>
+    </div>
+    <input type="file" id="file-input" accept="image/*" style="display:none" multiple>
+
+    <center style="position: fixed; bottom: 15px; width: 70%; left: 50%; transform: translateX(-50%); display: flex; justify-content: center; align-items: center; gap: 8px;">
+        <button onclick="toggleAttachMenu()" title="Attach image">
+            <span class="material-symbols-outlined" id="attach-icon">add</span>
+        </button>
+        <input placeholder="Send a message" class="search-bar" type="text">
+        <button id="send-btn">
+            <span class="material-symbols-outlined">send</span>
+        </button>
+    </center>
+
+    <script>
+
+        let genlock = false
+        let chatHistory = []
+        let pendingImages = [] // array of base64 data URLs
+
+        // --- attachment menu ---
+        function toggleAttachMenu() {
+            const menu = document.getElementById('attach-menu');
+            const previews = document.getElementById('image-previews');
+            // only show menu if no previews visible (to avoid overlap)
+            const showing = menu.classList.toggle('visible');
+            document.getElementById('attach-icon').textContent = showing ? 'close' : 'add';
+        }
+
+        function closeAttachMenu() {
+            document.getElementById('attach-menu').classList.remove('visible');
+            document.getElementById('attach-icon').textContent = 'add';
+        }
+
+        // --- file upload ---
+        function triggerFileUpload() {
+            closeAttachMenu();
+            document.getElementById('file-input').click();
+        }
+
+        document.getElementById('file-input').addEventListener('change', function() {
+            Array.from(this.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = e => addPreview(e.target.result);
+                reader.readAsDataURL(file);
+            });
+            this.value = '';
+        });
+
+        // --- tab / screen capture ---
+        async function captureTab() {
+            closeAttachMenu();
+            try {
+                const stream = await navigator.mediaDevices.getDisplayMedia({
+                    video: {
+                        displaySurface: 'browser', // prefer tab/window picker
+                        cursor: 'always'
+                    },
+                    audio: false,
+                    selfBrowserSurface: 'included',  // allow current tab as option
+                    surfaceSwitching: 'include',     // let user switch targets
+                    systemAudio: 'exclude'
+                });
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                await video.play();
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                stream.getTracks().forEach(t => t.stop());
+                addPreview(canvas.toDataURL('image/png'));
+            } catch (e) {
+                if (e.name !== 'AbortError') alert('Could not capture screen: ' + e.message);
+            }
+        }
+
+        // --- preview management ---
+        function addPreview(dataUrl) {
+            pendingImages.push(dataUrl);
+            renderPreviews();
+        }
+
+        function removePreview(idx) {
+            pendingImages.splice(idx, 1);
+            renderPreviews();
+        }
+
+        function renderPreviews() {
+            const container = document.getElementById('image-previews');
+            container.innerHTML = '';
+            pendingImages.forEach((url, i) => {
+                const wrap = document.createElement('div');
+                wrap.className = 'preview-wrap';
+                const img = document.createElement('img');
+                img.src = url;
+                const rm = document.createElement('div');
+                rm.className = 'remove-img';
+                rm.textContent = '×';
+                rm.onclick = () => removePreview(i);
+                wrap.appendChild(img);
+                wrap.appendChild(rm);
+                container.appendChild(wrap);
+            });
+        }
+
+        // --- messages ---
+        function addMessage(content, role, images, trackHistory = true) {
+            const message = document.createElement('div');
+            message.classList.add('message', role);
+
+            if (typeof content === 'string') {
+                message.textContent = content;
+            }
+
+            if (images && images.length > 0) {
+                images.forEach(url => {
+                    const img = document.createElement('img');
+                    img.src = url;
+                    message.appendChild(img);
+                });
+            }
+
+            document.querySelector('.messages').appendChild(message);
+
+            if (trackHistory) {
+                if (images && images.length > 0) {
+                    chatHistory.push({
+                        role: 'user',
+                        content: [
+                            { type: 'text', text: content || '' },
+                            ...images.map(u => ({ type: 'image_url', image_url: { url: u } }))
+                        ]
+                    });
+                } else {
+                    chatHistory.push({
+                        role: role === 'user' ? 'user' : 'assistant',
+                        content: content
+                    });
+                }
+            }
+
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        document.querySelector('.search-bar').addEventListener('keydown', e => {
+            if (e.key === 'Enter') send();
+        });
+
+        // Hook up the send button click event
+        document.getElementById('send-btn').addEventListener('click', send);
+
+        async function send() {
+            if (genlock) return;
+            const input = document.querySelector('.search-bar');
+            const message = input.value.trim();
+            const images = [...pendingImages];
+            if (!message && images.length === 0) return;
+
+            const selectedModel = document.querySelector('.dropdown-option.selected')?.dataset.value;
+            const model = selectedModel === '1' ? '1' : '0';
+
+            // Premium gate for GPT-OSS-120B
+            if (model === '1') {
+                const hasPremium = await axiomPremium.isPremium();
+                if (!hasPremium) {
+                    addMessage('GPT-OSS-120B requires a premium key. Go to Settings to activate premium.', 'bot', null, false);
+                    return;
+                }
+            }
+
+            genlock = true;
+            input.value = '';
+            pendingImages = [];
+            renderPreviews();
+            closeAttachMenu();
+
+            addMessage(message, 'user', images);
+
+            const chatHeaders = { 'Content-Type': 'application/json' };
+            const premiumKey = axiomPremium.getKey();
+            if (premiumKey) chatHeaders['key'] = premiumKey;
+
+            fetch('/chat', {
+                method: 'POST',
+                headers: chatHeaders,
+                body: JSON.stringify({ message, history: chatHistory.slice(0, -1), images, model })
+            }).then(res => res.json()).then(data => {
+                if (data.error) {
+                    addMessage('Error: ' + data.error, 'bot', null, false);
+                } else {
+                    addMessage(data.response, 'bot', null);
+                }
+                genlock = false;
+            }).catch(() => {
+                addMessage('Error: Failed to connect to AI service', 'bot', null, false);
+                genlock = false;
+            });
+        }
+
+        // help msg (don't track this in history)
+        addMessage("Hello! I'm the Axiom AI, press + to attach images or capture a tab to give me visual context!", "bot", null, false);
+    </script>
+</body>
+</html>

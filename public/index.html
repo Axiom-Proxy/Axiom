@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IXL | Math, Language Arts, Science, Social Studies, and Spanish</title>
+    <meta name="description" content="IXL is the world's most popular subscription-based learning site for K–12. Used by over 18 million students, IXL provides personalized learning in more than 17,000 topics, covering math, language arts, science, social studies, and Spanish. Interactive questions, awards, and certificates keep kids motivated as they master skills.">
+    <meta name="keywords" content="School, Science, STEM">
+    <meta property="og:title" content="IXL | Math, Language Arts, Science, Social Studies, and Spanish">
+    <meta property="og:description" content="IXL is the world's most popular subscription-based learning site for K–12. Used by over 18 million students, IXL provides personalized learning in more than 17,000 topics, covering math, language arts, science, social studies, and Spanish. Interactive questions, awards, and certificates keep kids motivated as they master skills.">
+    <meta property="og:image" content="https://www.ixl.com/dv3/powZqMuTE7du4asFrVyNGxxoqkw/yui3/opengraph/assets/general_us.png">
+    <meta property="og:site_name" content="IXL Learning">
+    <meta property="og:url" content="https://www.ixl.com/">
+    <link rel="icon" href="https://www.ixl.com/ixl-favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <script src="./scripts/theme.js"></script>
+    <link href="./styles/dust.css" rel="stylesheet">
+    <link href="./styles/main.css" rel="stylesheet">
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Stars sit above blobs but below content */
+        .bg-animation { z-index: 0; }
+
+        .landing {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .landing-header h2 {
+            font-size: 1.9rem;
+            font-weight: 300;
+            margin: 0 0 6px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .landing-header p {
+            margin: 0;
+            opacity: 0.5;
+            font-size: 0.88rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* ── Mode selector ── */
+        .mode-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .mode-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 14px 22px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            transition: background 0.2s, border-color 0.2s, transform 0.15s;
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.7);
+            user-select: none;
+            min-width: 100px;
+        }
+
+        .mode-card .material-symbols-outlined {
+            font-size: 26px;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0 !important;
+            border-radius: 0 !important;
+            transform: none !important;
+            background: transparent !important;
+            cursor: pointer !important;
+            transition: color 0.2s !important;
+        }
+
+        .mode-card:hover {
+            background: rgba(255, 255, 255, 0.09);
+            border-color: rgba(255, 255, 255, 0.22);
+            transform: translateY(-2px);
+        }
+
+        .mode-card.selected {
+            border-color: rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+
+        .mode-card.selected .material-symbols-outlined {
+            color: #fff !important;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            width: 260px;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ── Cloak options ── */
+        .cloak-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cloak-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            transition: background 0.2s, border-color 0.2s, transform 0.15s;
+            font-size: 0.80rem;
+            color: rgba(255, 255, 255, 0.65);
+            user-select: none;
+            min-width: 90px;
+        }
+
+        .cloak-card .material-symbols-outlined {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.65);
+            padding: 0 !important;
+            border-radius: 0 !important;
+            transform: none !important;
+            background: transparent !important;
+            cursor: pointer !important;
+            transition: color 0.2s !important;
+        }
+
+        .cloak-card:hover {
+            background: rgba(255, 255, 255, 0.09);
+            border-color: rgba(255, 255, 255, 0.22);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .cloak-card:hover .material-symbols-outlined {
+            color: #fff !important;
+        }
+
+        .cloak-card:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-blobs"></div>
+    <div class="bg-animation">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <div id="stars4"></div>
+    </div>
+
+    <div class="landing">
+        <div class="landing-header">
+            <h2>Welcome to Axiom</h2>
+            <p>Pick a mode, then choose how to open it.</p>
+        </div>
+
+        <!-- Mode selector -->
+        <div class="mode-row">
+            <div class="mode-card selected" id="mode-simple" onclick="selectMode('simple')">
+                <span class="material-symbols-outlined">view_quilt</span>
+                <span>Simple</span>
+            </div>
+            <div class="mode-card" id="mode-windows" onclick="selectMode('windows')">
+                <span class="material-symbols-outlined">desktop_windows</span>
+                <span>Windows</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Cloak options -->
+        <div class="cloak-row">
+            <div class="cloak-card" onclick="openWindowAB()">
+                <span class="material-symbols-outlined">tab</span>
+                <span>Window A:B</span>
+            </div>
+            <div class="cloak-card" onclick="openFileCloak()">
+                <span class="material-symbols-outlined">file_copy</span>
+                <span>File Cloak</span>
+            </div>
+            <div class="cloak-card" onclick="openBlobCloak()">
+                <span class="material-symbols-outlined">link</span>
+                <span>Blob Cloak</span>
+            </div>
+            <div class="cloak-card" onclick="openABCloak()">
+                <span class="material-symbols-outlined">language</span>
+                <span>A:B Cloak</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const LS_KEY = 'axiom_mode';
+        let selectedMode = localStorage.getItem(LS_KEY) || 'simple';
+
+        function selectMode(mode) {
+            selectedMode = mode;
+            localStorage.setItem(LS_KEY, mode);
+            document.getElementById('mode-simple').classList.toggle('selected', mode === 'simple');
+            document.getElementById('mode-windows').classList.toggle('selected', mode === 'windows');
+        }
+
+        selectMode(selectedMode);
+
+        function targetPage() {
+            return window.location.origin + '/' + selectedMode + '.html';
+        }
+
+        function cloakHTML(src) {
+            return `<html>
+<head>
+  <title>Google</title>
+  <link rel="icon" href="https://www.google.com/favicon.ico" type="image/x-icon">
+</head>
+<body style="margin:0">
+  <iframe src="${src}" style="border:none;height:100%;width:100%;position:fixed;left:0;top:0;"></iframe>
+</body>
+</html>`;
+        }
+
+        function openWindowAB() {
+                        window.open("https://eminentpercentvandalism.com/em4vjuaxr?key=03442a307d89d9816a78111c66d3044e", '_blank');
+            const features = 'width=1200,height=800,resizable=yes,scrollbars=yes,status=yes';
+            const w = window.open(targetPage(), 'Google', features);
+            setTimeout(() => {
+                try {
+                    w.document.title = 'Google';
+                    const link = w.document.createElement('link');
+                    link.rel = 'icon';
+                    link.href = 'https://www.google.com/favicon.ico';
+                    w.document.head.appendChild(link);
+                } catch (e) {}
+            }, 100);
+        }
+
+        function openFileCloak() {
+            const blob = new Blob([cloakHTML(targetPage())], { type: 'text/html' });
+            const url  = URL.createObjectURL(blob);
+            const a    = document.createElement('a');
+            a.href     = url;
+            a.download = 'axiom.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function openBlobCloak() {
+                        window.open("https://eminentpercentvandalism.com/em4vjuaxr?key=03442a307d89d9816a78111c66d3044e", '_blank');
+            const blob = new Blob([cloakHTML(targetPage())], { type: 'text/html' });
+            window.open(URL.createObjectURL(blob), '_blank');
+        }
+
+        function openABCloak() {
+            window.open("https://eminentpercentvandalism.com/em4vjuaxr?key=03442a307d89d9816a78111c66d3044e", '_blank');
+            const tab = window.open('about:blank', '_blank');
+            tab.document.write(cloakHTML(targetPage()));
+            tab.document.close();
+        }
+    </script>
+    <script src="https://eminentpercentvandalism.com/01/b1/c3/01b1c3d6225f346f875c89daba0e14a9.js"></script>
+
+</body>
+
+</html>

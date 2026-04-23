@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <script src="./scripts/theme.js"></script>
+    <link href="./styles/dust.css" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            background-attachment: fixed;
+            color: white;
+            font-family: "Roboto", sans-serif;
+            overflow: hidden;
+        }
+        
+        #browser {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        #tab-bar {
+            display: flex;
+            align-items: center;
+            height: 33px;
+            padding: 6px 8px;
+            gap: 4px;
+        }
+
+        #tab-list {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: none;
+            gap: 4px;
+        }
+        #tab-list::-webkit-scrollbar { display: none; }
+
+        .tab {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 90px;
+            max-width: 200px;
+            flex: 1;
+            height: 30px;
+            padding: 0 6px 0 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+            user-select: none;
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .tab.active {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.22);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .tab.dragging { opacity: 0.35; }
+
+        .tab.drag-over {
+            background: rgba(255, 255, 255, 0.18) !important;
+            border-color: rgba(255, 255, 255, 0.35) !important;
+        }
+
+        .tab-favicon {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tab-favicon .material-symbols-outlined {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 0 !important;
+            border-radius: 0 !important;
+            transform: none !important;
+            transition: none !important;
+            background: none !important;
+            cursor: pointer !important;
+        }
+        .tab-favicon .material-symbols-outlined:hover {
+            background: none !important;
+            transform: none !important;
+        }
+
+        .tab-title {
+            flex: 1;
+            min-width: 0;
+            font-size: 12px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.6);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            pointer-events: none;
+            letter-spacing: 0.3px;
+        }
+        .tab.active .tab-title { color: rgba(255, 255, 255, 0.95); font-weight: 400; }
+
+        .tab-close {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 0;
+            opacity: 0;
+            transition: opacity 0.15s ease, background 0.2s ease;
+        }
+        .tab:hover .tab-close,
+        .tab.active .tab-close { opacity: 1; }
+        .tab-close:hover { background: rgba(255, 255, 255, 0.2) !important; }
+        .tab-close .material-symbols-outlined {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0 !important;
+            border-radius: 0 !important;
+            transform: none !important;
+            transition: none !important;
+            background: none !important;
+            cursor: pointer !important;
+        }
+        .tab-close .material-symbols-outlined:hover {
+            background: none !important;
+            transform: none !important;
+        }
+
+        #new-tab-btn {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+        #new-tab-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.05);
+        }
+        #new-tab-btn .material-symbols-outlined {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0 !important;
+            border-radius: 0 !important;
+            transform: none !important;
+            transition: none !important;
+            background: none !important;
+            cursor: pointer !important;
+        }
+        #new-tab-btn .material-symbols-outlined:hover {
+            background: none !important;
+            transform: none !important;
+        }
+
+        #nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            height: 34px;
+            padding-right: 8px;
+        }
+
+        .nav-btn {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.05);
+        }
+        .nav-btn:active { transform: scale(0.97); }
+        .nav-btn .material-symbols-outlined {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0 !important;
+            border-radius: 0 !important;
+            transform: none !important;
+            transition: none !important;
+            background: none !important;
+            cursor: pointer !important;
+        }
+        .nav-btn .material-symbols-outlined:hover {
+            background: none !important;
+            transform: none !important;
+        }
+        #address-wrap {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 25px;
+            padding: 0 14px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+        #address-wrap:focus-within {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        #addr-icon {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.35);
+            flex-shrink: 0;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            transform: none !important;
+            transition: none !important;
+            background: none !important;
+            cursor: default !important;
+        }
+        #addr-icon:hover { background: none !important; transform: none !important; }
+
+        #address-bar {
+            flex: 1;
+            min-width: 0;
+            background: none;
+            border: none;
+            outline: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-family: "Roboto", sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            caret-color: white;
+        }
+        #address-bar::placeholder { color: rgba(255, 255, 255, 0.3); }
+
+        #content-area {
+            position: fixed;
+            top: 88px; 
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            z-index: 10;
+        }
+
+        #content-area iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+        #content-area iframe.active { display: block; }
+    </style>
+</head>
+
+<body>
+
+    <div id="browser">
+        <div id="tab-bar">
+            <div id="tab-list"></div>
+            <button id="new-tab-btn">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+        </div>
+
+        <div id="nav-bar">
+            <button class="nav-btn" id="btn-back" title="Back">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <button class="nav-btn" id="btn-forward" title="Forward">
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+            <button class="nav-btn" id="btn-refresh" title="Refresh">
+                <span class="material-symbols-outlined">refresh</span>
+            </button>
+            <div id="address-wrap">
+                <span class="material-symbols-outlined" id="addr-icon">lock</span>
+                <input id="address-bar" type="text" placeholder="Search or enter address" autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+    </div>
+
+    <div id="content-area"></div>
+
+    <script>
+        const tabs = [];
+        let activeTabId = null;
+        let idCounter = 0;
+        let dragSrcId = null;
+
+        function genId() { return ++idCounter; }
+
+        function escHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        const BASE_PATH = window.location.pathname.replace(/[^/]+$/, '');
+
+        function toDisplay(url) {
+            let full;
+            try { full = new URL(url, window.location.href).href; } catch(e) { return url; }
+            try {
+                const p = new URL(full);
+                if (p.origin === window.location.origin) {
+                    let path = p.pathname;
+                    if (path.startsWith(BASE_PATH)) path = path.slice(BASE_PATH.length);
+                    path = path.replace(/\.[^.]+$/, '');   // strip extension
+                    return 'axiom://' + path;
+                }
+            } catch(e) {}
+            return url;
+        }
+
+        function fromDisplay(input) {
+            input = input.trim();
+            if (input.startsWith('axiom://')) {
+                const name = input.slice('axiom://'.length);
+                return window.location.origin + BASE_PATH + name + '.html';
+            }
+            if (!input.startsWith('./') && !input.startsWith('/') && !/^[a-z][a-z\d+\-.]*:\/\//i.test(input)) {
+                return 'https://' + input;
+            }
+            return input;
+        }
+
+        function isProxyUrl(url) {
+            return url && url.includes('render.html');
+        }
+
+        function createTab(url = './start.html') {
+            const id = genId();
+
+            let displayUrl = null;
+            const renderMatch = url.match(/render\.html\?url=([^&]+)/);
+            if (renderMatch) {
+                try { displayUrl = atob(renderMatch[1]); } catch(e) {}
+            }
+
+            const iframe = document.createElement('iframe');
+            iframe.src = url;
+            iframe.addEventListener('load', () => {
+                const tab = tabs.find(t => t.id === id);
+                if (!tab) return;
+                try {
+                    const loc = iframe.contentWindow.location.href;
+                    if (loc && loc !== 'about:blank') tab.url = loc;
+                    const title = iframe.contentDocument?.title;
+                    if (title) tab.title = title;
+                } catch(e) {  }
+                renderTabs();
+            });
+
+            document.getElementById('content-area').appendChild(iframe);
+
+            const tab = { id, url, title: 'New Tab', iframe, displayUrl };
+            tabs.push(tab);
+            activateTab(id);
+            return tab;
+        }
+
+        function closeTab(id) {
+            const idx = tabs.findIndex(t => t.id === id);
+            if (idx === -1) return;
+            tabs[idx].iframe.remove();
+            tabs.splice(idx, 1);
+            if (tabs.length === 0) { createTab(); return; }
+            if (activeTabId === id) {
+                activateTab(tabs[Math.min(idx, tabs.length - 1)].id);
+            } else {
+                renderTabs();
+            }
+        }
+
+        function activateTab(id) {
+            const next = tabs.find(t => t.id === id);
+            if (!next) return;
+            tabs.forEach(t => t.iframe.classList.remove('active'));
+            next.iframe.classList.add('active');
+            activeTabId = id;
+            const addr = document.getElementById('address-bar');
+            if (document.activeElement !== addr) {
+                addr.value = next.displayUrl != null ? next.displayUrl : toDisplay(next.url);
+            }
+            renderTabs();
+        }
+
+        function navigateActive(raw) {
+            const tab = tabs.find(t => t.id === activeTabId);
+            if (!tab || !raw) return;
+            const input = raw.trim();
+
+            if (isProxyUrl(tab.url) && !input.startsWith('axiom://')) {
+                tab.iframe.contentWindow.postMessage({ type: 'navigate', url: input }, '*');
+                return;
+            }
+
+            const url = fromDisplay(input);
+            tab.url = url;
+            tab.displayUrl = null;
+            tab.title = 'Loading\u2026';
+            tab.iframe.src = url;
+            renderTabs();
+        }
+
+        function renderTabs() {
+            const list = document.getElementById('tab-list');
+            const prevScroll = list.scrollLeft;
+            list.innerHTML = '';
+
+            tabs.forEach(tab => {
+                const el = document.createElement('div');
+                el.className = 'tab' + (tab.id === activeTabId ? ' active' : '');
+                el.dataset.id = String(tab.id);
+                el.draggable = true;
+                el.innerHTML =
+                    `<div class="tab-favicon"><span class="material-symbols-outlined">language</span></div>` +
+                    `<span class="tab-title">${escHtml(tab.title)}</span>` +
+                    `<button class="tab-close" title="Close tab"><span class="material-symbols-outlined">close</span></button>`;
+
+                el.addEventListener('click', () => activateTab(tab.id));
+                el.querySelector('.tab-close').addEventListener('click', e => {
+                    e.stopPropagation();
+                    closeTab(tab.id);
+                });
+
+                el.addEventListener('dragstart', e => {
+                    dragSrcId = tab.id;
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/plain', String(tab.id));
+                    requestAnimationFrame(() => el.classList.add('dragging'));
+                });
+                el.addEventListener('dragend', () => {
+                    el.classList.remove('dragging');
+                    list.querySelectorAll('.drag-over').forEach(t => t.classList.remove('drag-over'));
+                });
+                el.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    if (dragSrcId === tab.id) return;
+                    list.querySelectorAll('.drag-over').forEach(t => t.classList.remove('drag-over'));
+                    el.classList.add('drag-over');
+                });
+                el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
+                el.addEventListener('drop', e => {
+                    e.preventDefault();
+                    el.classList.remove('drag-over');
+                    if (dragSrcId === tab.id) return;
+                    const srcIdx = tabs.findIndex(t => t.id === dragSrcId);
+                    const dstIdx = tabs.findIndex(t => t.id === tab.id);
+                    if (srcIdx === -1 || dstIdx === -1) return;
+                    const [removed] = tabs.splice(srcIdx, 1);
+                    tabs.splice(dstIdx, 0, removed);
+                    renderTabs();
+                });
+
+                list.appendChild(el);
+            });
+
+            list.scrollLeft = prevScroll;
+
+            const active = tabs.find(t => t.id === activeTabId);
+            const addr = document.getElementById('address-bar');
+            if (active && document.activeElement !== addr) {
+                addr.value = active.displayUrl != null ? active.displayUrl : toDisplay(active.url);
+            }
+        }
+
+        document.getElementById('btn-back').addEventListener('click', () => {
+            const tab = tabs.find(t => t.id === activeTabId);
+            if (!tab) return;
+            if (isProxyUrl(tab.url)) {
+                tab.iframe.contentWindow.postMessage({ type: 'back' }, '*');
+            } else {
+                try { tab.iframe.contentWindow.history.back(); } catch(e) {}
+            }
+        });
+        document.getElementById('btn-forward').addEventListener('click', () => {
+            const tab = tabs.find(t => t.id === activeTabId);
+            if (!tab) return;
+            if (isProxyUrl(tab.url)) {
+                tab.iframe.contentWindow.postMessage({ type: 'forward' }, '*');
+            } else {
+                try { tab.iframe.contentWindow.history.forward(); } catch(e) {}
+            }
+        });
+        document.getElementById('btn-refresh').addEventListener('click', () => {
+            const tab = tabs.find(t => t.id === activeTabId);
+            if (!tab) return;
+            if (isProxyUrl(tab.url)) {
+                tab.iframe.contentWindow.postMessage({ type: 'refresh' }, '*');
+            } else {
+                try { tab.iframe.contentWindow.location.reload(); } catch(e) { tab.iframe.src = tab.url; }
+            }
+        });
+
+        window.addEventListener('message', (e) => {
+            if (!e.data || e.data.type !== 'urlChange') return;
+            const tab = tabs.find(t => t.iframe.contentWindow === e.source);
+            if (!tab) return;
+            if (e.data.url) tab.displayUrl = e.data.url;
+            if (e.data.title) tab.title = e.data.title;
+            renderTabs();
+            if (tab.id === activeTabId) {
+                const addr = document.getElementById('address-bar');
+                if (document.activeElement !== addr) addr.value = tab.displayUrl || '';
+            }
+        });
+
+        const addressBar = document.getElementById('address-bar');
+        addressBar.addEventListener('keydown', e => {
+            if (e.key === 'Enter') navigateActive(addressBar.value);
+            if (e.key === 'Escape') { addressBar.blur(); }
+        });
+        addressBar.addEventListener('focus', () => addressBar.select());
+
+        document.getElementById('new-tab-btn').addEventListener('click', () => createTab());
+
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 't') { e.preventDefault(); createTab(); }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'w') { e.preventDefault(); if (activeTabId !== null) closeTab(activeTabId); }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'l') { e.preventDefault(); addressBar.focus(); }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'r') { e.preventDefault(); document.getElementById('btn-refresh').click(); }
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        const urlParam = params.get('url');
+        if (urlParam) {
+            createTab('./render.html?url=' + urlParam);
+        } else {
+            createTab();
+        }
+    </script>
+</body>
+
+</html>

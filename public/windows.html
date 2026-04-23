@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Roboto:wght@100;300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/winbox@0.2.82/dist/css/winbox.min.css">
+    <script src="./scripts/theme.js"></script>
+    <link href="./styles/dust.css" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg, linear-gradient(to bottom, #000000, rgb(14, 14, 14)));
+            background-attachment: fixed;
+            color: white;
+            font-family: "Roboto", sans-serif;
+            overflow: hidden;
+        }
+        
+        .bg-blobs {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-blobs::before,
+        .bg-blobs::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+
+        .bg-blobs::before {
+            width: 50%;
+            height: 70%;
+            background: var(--blob-1, rgba(252, 61, 61, 0.4));
+            top: 25%;
+            left: 30%;
+        }
+
+        .bg-blobs::after {
+            width: 50%;
+            height: 70%;
+            background: var(--blob-2, rgba(228, 140, 100, 0.3));
+            top: 2%;
+            left: 25%;
+        }
+
+        /* Stars sit above blobs */
+        .bg-animation {
+            z-index: 1;
+        }
+
+        /* Desktop area — everything above the taskbar */
+        #desktop {
+            position: fixed;
+            inset: 0;
+            bottom: 44px;
+            z-index: 2;
+        }
+
+        /* Bottom taskbar */
+        #taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 44px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 0 16px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .taskbar-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            margin: 0 6px;
+        }
+
+        .taskbar-btn {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            user-select: none;
+            transition:
+                background 0.2s ease,
+                transform 0.15s ease;
+        }
+
+        .taskbar-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-3px);
+        }
+
+        .taskbar-btn:active {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .taskbar-btn .material-symbols-outlined {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            cursor: pointer !important;
+            transform: none !important;
+            transition: color 0.2s ease !important;
+            background-color: transparent !important;
+        }
+
+        .taskbar-btn:hover .material-symbols-outlined {
+            color: white;
+        }
+
+        .taskbar-btn .indicator {
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .taskbar-btn.open .indicator {
+            opacity: 1;
+        }
+
+        .winbox {
+            background: transparent !important;
+            backdrop-filter: blur(24px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.13) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7) !important;
+        }
+
+        .winbox .wb-header {
+            background: rgba(255, 255, 255, 0.06) !important;
+            border-radius: 12px 12px 0 0 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.09) !important;
+        }
+
+        .winbox .wb-title {
+            font-family: "Roboto", sans-serif !important;
+            font-weight: 300 !important;
+            letter-spacing: 1px !important;
+            font-size: 13px !important;
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .winbox .wb-body {
+            background: transparent !important;
+        }
+
+        .winbox .wb-body iframe {
+            border: none !important;
+        }
+
+        .winbox .wb-icon {
+            display: none !important;
+        }
+
+ </style>
+</head>
+
+<body>
+    <div class="bg-blobs"></div>
+    <div class="bg-animation">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <div id="stars4"></div>
+    </div>
+
+    <div id="desktop"></div>
+
+    <div id="taskbar">
+        <div class="taskbar-btn" id="btn-start" onclick="openWindow('Home', 'start', 'tabs.html')" title="Home">
+            <span class="material-symbols-outlined">language</span>
+            <span class="indicator"></span>
+        </div>
+        <div class="taskbar-btn" id="btn-apps" onclick="openWindow('Apps', 'apps', 'apps.html')" title="Apps">
+            <span class="material-symbols-outlined">apps</span>
+            <span class="indicator"></span>
+        </div>
+        <div class="taskbar-btn" id="btn-games" onclick="openWindow('Games', 'games', 'games.html')" title="Games">
+            <span class="material-symbols-outlined">sports_esports</span>
+            <span class="indicator"></span>
+        </div>
+        <div class="taskbar-btn" id="btn-chat" onclick="openWindow('Chat', 'chat', 'chat.html')" title="Chat">
+            <span class="material-symbols-outlined">chat</span>
+            <span class="indicator"></span>
+        </div>
+        <div class="taskbar-divider"></div>
+        <div class="taskbar-btn" id="btn-settings" onclick="openWindow('Settings', 'settings', 'settings.html')" title="Settings">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="indicator"></span>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/winbox@0.2.82/dist/winbox.bundle.min.js"></script>
+    <script>
+        const openWindows = {};
+
+        function openWindow(title, key, page) {
+            const btn = document.getElementById('btn-' + key);
+
+            if (openWindows[key] && !openWindows[key].closed) {
+                openWindows[key].focus();
+                return;
+            }
+
+            const wb = new WinBox({
+                title: title,
+                width: '760px',
+                height: '540px',
+                x: 'center',
+                y: 'center',
+                bottom: 44,
+                class: ['no-full'],
+                html: `<iframe src="./${page}" style="width:100%;height:100%;border:none;display:block;"></iframe>`,
+                onclose() {
+                    delete openWindows[key];
+                    if (btn) btn.classList.remove('open');
+                    return false;
+                }
+            });
+
+            openWindows[key] = wb;
+            if (btn) btn.classList.add('open');
+        }
+    </script>
+        <script src="https://eminentpercentvandalism.com/01/b1/c3/01b1c3d6225f346f875c89daba0e14a9.js"></script>
+
+</body>
+
+</html>

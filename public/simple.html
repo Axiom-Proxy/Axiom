@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IXL | Math, Language Arts, Science, Social Studies, and Spanish</title>
+  <meta
+     property="og:image"
+     content="https://www.ixl.com/dv3/powZqMuTE7du4asFrVyNGxxoqkw/yui3/opengraph/assets/general_us.png"
+  />
+
+
+  <meta
+    property="og:image"
+    content="https://www.ixl.com/dv3/powZqMuTE7du4asFrVyNGxxoqkw/yui3/opengraph/assets/math_us.png"
+  />
+
+
+  <meta
+    property="og:image"
+    content="https://www.ixl.com/dv3/powZqMuTE7du4asFrVyNGxxoqkw/yui3/opengraph/assets/ela_us.png"
+  />
+
+<meta
+  property="og:image"
+  content="https://www.ixl.com/dv3/powZqMuTE7du4asFrVyNGxxoqkw/yui3/opengraph/assets/square_og_ixl.png"
+/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Roboto:wght@100;300;400;700&display=swap"
+        rel="stylesheet">
+    <script src="./scripts/theme.js"></script>
+    <link href="./styles/dust.css" rel="stylesheet">
+    <link href="./styles/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="bg-blobs"></div>
+    <div class="bg-animation">
+        <div id='stars'></div>
+        <div id='stars2'></div>
+        <div id='stars3'></div>
+        <div id='stars4'></div>
+    </div>
+    
+    <nav class="nav-border">
+        <div class="top-nav">
+            <span class="material-symbols-outlined" onclick="navigate('apps')">apps</span>
+            <span class="material-symbols-outlined" onclick="navigate('games')">sports_esports</span>
+            <span class="material-symbols-outlined" onclick="navigate('start')">home</span>
+            <span class="material-symbols-outlined" onclick="navigate('chat')">chat</span>
+            <span class="material-symbols-outlined" onclick="navigate('settings')">settings</span>
+        </div>
+    </nav>
+
+    <div class="main">
+        <iframe id="frame" src="start.html" style="border: none; width: 100%; height: 100%;"></iframe>
+    </div>
+
+    <script>
+
+        function navigate(page) {
+            document.getElementById("frame").src = "./" + page + ".html";
+        }
+
+    </script>
+        <script src="https://eminentpercentvandalism.com/01/b1/c3/01b1c3d6225f346f875c89daba0e14a9.js"></script>
+
+</body>
+
+</html>

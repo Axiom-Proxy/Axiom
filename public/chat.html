@@ -14,6 +14,11 @@
     <script src="./scripts/theme.js"></script>
     <script src="./scripts/premium.js"></script>
     <link href="./styles/start.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@13/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
     <style>
         button {
   display: inline-flex;
@@ -82,7 +87,63 @@ button:hover {
 
 .message.bot {
     border-bottom-left-radius: 4px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
+
+.message.bot p { margin: 4px 0; line-height: 1.5; }
+.message.bot p:first-child { margin-top: 0; }
+.message.bot p:last-child { margin-bottom: 0; }
+.message.bot code {
+    background: rgba(255,255,255,0.12);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+}
+.message.bot pre {
+    background: rgba(0,0,0,0.35);
+    padding: 12px 14px;
+    border-radius: 10px;
+    overflow-x: auto;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 6px 0;
+}
+.message.bot pre code {
+    background: none;
+    padding: 0;
+    font-size: 13px;
+}
+.message.bot ul, .message.bot ol {
+    padding-left: 20px;
+    margin: 4px 0;
+}
+.message.bot li { margin: 2px 0; }
+.message.bot h1, .message.bot h2, .message.bot h3,
+.message.bot h4, .message.bot h5, .message.bot h6 {
+    margin: 10px 0 4px;
+    font-weight: 600;
+}
+.message.bot h1 { font-size: 1.4em; }
+.message.bot h2 { font-size: 1.2em; }
+.message.bot h3 { font-size: 1.05em; }
+.message.bot a { color: rgba(140, 190, 255, 0.9); }
+.message.bot blockquote {
+    border-left: 3px solid rgba(255,255,255,0.3);
+    margin: 6px 0;
+    padding: 4px 12px;
+    color: rgba(255,255,255,0.7);
+}
+.message.bot table { border-collapse: collapse; width: 100%; margin: 6px 0; }
+.message.bot th, .message.bot td {
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 5px 10px;
+    text-align: left;
+}
+.message.bot th { background: rgba(255,255,255,0.07); }
+.message.bot hr { border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 8px 0; }
 
 .dropdown {
     position: fixed;
@@ -439,12 +500,35 @@ button:hover {
         }
 
         // --- messages ---
+        const katexOpts = {
+            delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '$', right: '$', display: false },
+                { left: '\\(', right: '\\)', display: false },
+                { left: '\\[', right: '\\]', display: true }
+            ],
+            throwOnError: false
+        };
+
+        function renderBot(el, text) {
+            el.innerHTML = DOMPurify.sanitize(marked.parse(text));
+            if (window.renderMathInElement) renderMathInElement(el, katexOpts);
+        }
+
+        function scrollToBottom(el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+
         function addMessage(content, role, images, trackHistory = true) {
             const message = document.createElement('div');
             message.classList.add('message', role);
 
             if (typeof content === 'string') {
-                message.textContent = content;
+                if (role === 'bot') {
+                    renderBot(message, content);
+                } else {
+                    message.textContent = content;
+                }
             }
 
             if (images && images.length > 0) {
@@ -456,6 +540,7 @@ button:hover {
             }
 
             document.querySelector('.messages').appendChild(message);
+            scrollToBottom(message);
 
             if (trackHistory) {
                 if (images && images.length > 0) {
@@ -473,8 +558,6 @@ button:hover {
                     });
                 }
             }
-
-            window.scrollTo(0, document.body.scrollHeight);
         }
 
         document.querySelector('.search-bar').addEventListener('keydown', e => {

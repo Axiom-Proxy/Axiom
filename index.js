@@ -23,29 +23,9 @@ server.addContentTypeParser('application/json', { parseAs: 'string', bodyLimit: 
     }
 });
 
-server.register(require("@fastify/static"), {
-    root: path.join(__dirname, "/public/"),
-    prefix: "/"
-})
-
+server.register(require("@fastify/static"), { root: baremuxPath, prefix: "/baremux/", decorateReply: false });
 server.register(require("@fastify/static"), { root: scramjetPath, prefix: "/educational_vr/", decorateReply: false });
 server.register(require("@fastify/static"), { root: epoxyPath, prefix: "/epoxy/", decorateReply: false });
-server.register(require("@fastify/static"), { root: baremuxPath, prefix: "/baremux/", decorateReply: false });
-
-
-server.register(require("@fastify/rate-limit"), {
-    max: 1000,
-    timeWindow: "1m"
-})
-
-server.register(require("@fastify/rate-limit"), {
-    max: 20,
-    timeWindow: "1m",
-    keyGenerator: (req) => req.ip,
-    onLimitReached: (req) => {
-        console.warn(`Rate limit exceeded for IP: ${req.ip}`);
-    }
-}, { routeSpecific: true });
 
 server.post("/chat", {
     config: {
@@ -246,6 +226,11 @@ try {
 server.get("/api/check-premium", async (req, res) => {
   res.send({ success: premium_keys.includes(req.headers.key) });
 });
+
+server.register(require("@fastify/static"), {
+    root: path.join(__dirname, "/public/"),
+    prefix: "/"
+})
 
 server.listen({port: 8080}).then(function(){
     console.log("Axiom started!")

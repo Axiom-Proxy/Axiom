@@ -11,8 +11,6 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-/* Blob ambient lighting — sits above the dark background (z-index: -1 > canvas)
-   but below all normal-flow content (step 3 in the stacking order). */
 body::before,
 body::after {
   content: "";

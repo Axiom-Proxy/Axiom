@@ -84,7 +84,6 @@ function updateDocumentTitle() {
   } catch (e) {}
 }
 
-// Listen for navigation commands from tabs.html
 window.addEventListener("message", (e) => {
   if (!e.data) return;
   switch (e.data.type) {
@@ -157,7 +156,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     scramjetFrame.go(finalUrl);
 
-    // Tell the parent tabs.html what URL we're loading right away
     window.parent.postMessage({ type: "urlChange", url: finalUrl, title: document.title }, "*");
 
     setInterval(updateDocumentTitle, 500);

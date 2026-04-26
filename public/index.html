@@ -30,7 +30,6 @@
             overflow: hidden;
         }
 
-        /* Stars sit above blobs but below content */
         .bg-animation { z-index: 0; }
 
         .landing {
@@ -59,7 +58,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* ── Mode selector ── */
         .mode-row {
             display: flex;
             gap: 10px;
@@ -111,14 +109,12 @@
             color: #fff !important;
         }
 
-        /* ── Divider ── */
         .divider {
             width: 260px;
             height: 1px;
             background: rgba(255, 255, 255, 0.1);
         }
 
-        /* ── Cloak options ── */
         .cloak-row {
             display: flex;
             gap: 10px;
@@ -188,7 +184,6 @@
             <p>Pick a mode, then choose how to open it.</p>
         </div>
 
-        <!-- Mode selector -->
         <div class="mode-row">
             <div class="mode-card selected" id="mode-simple" onclick="selectMode('simple')">
                 <span class="material-symbols-outlined">view_quilt</span>
@@ -202,7 +197,6 @@
 
         <div class="divider"></div>
 
-        <!-- Cloak options -->
         <div class="cloak-row">
             <div class="cloak-card" onclick="openWindowAB()">
                 <span class="material-symbols-outlined">tab</span>

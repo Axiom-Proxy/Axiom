@@ -13,6 +13,13 @@ const { createWorker } = require("tesseract.js")
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 https.globalAgent.options.rejectUnauthorized = false;
 
+process.on("uncaughtException", (err) => {
+    console.error("Uncaught exception:", err);
+});
+process.on("unhandledRejection", (reason) => {
+    console.error("Unhandled rejection:", reason);
+});
+
 server.addContentTypeParser('application/json', { parseAs: 'string', bodyLimit: 4 * 1024 * 1024 }, function (req, body, done) {
     try {
         var json = JSON.parse(body);
@@ -47,11 +54,12 @@ server.post("/chat", {
 
     let imageText = "";
     if (images.length > 0) {
+        let worker;
         try {
-            const worker = await createWorker("eng", 1, {
+            worker = await createWorker("eng", 1, {
                 logger: m => { if (m.status === "recognizing text") console.log(`OCR progress: ${Math.round(m.progress * 100)}%`); }
             });
-            
+
             const limitedImages = images.slice(0, 3);
             for (const imgData of limitedImages) {
                 const base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
@@ -61,10 +69,11 @@ server.post("/chat", {
                     imageText += `\n[Image text]: ${text.trim()}\n`;
                 }
             }
-            await worker.terminate();
         } catch (err) {
             console.error("OCR error:", err);
             imageText = "\n[Warning: Could not extract text from images]\n";
+        } finally {
+            if (worker) await worker.terminate().catch(() => {});
         }
     }
 

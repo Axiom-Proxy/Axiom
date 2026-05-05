@@ -131,16 +131,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const url = getURLParameter("url") || "";
 
-  await scramjet.init();
-
-  const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
-
   try {
     await registerSW();
     console.log("Registered!");
   } catch (err) {
     console.error("Failed to register service worker:", err);
   }
+
+  await scramjet.init();
+
+  const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
 
   const wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/edu/";
   await connection.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);

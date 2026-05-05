@@ -236,6 +236,10 @@ server.get("/api/check-premium", async (req, res) => {
   res.send({ success: premium_keys.includes(req.headers.key) });
 });
 
+server.get("/ask", async (req, res) => {
+  res.send(true);
+});
+
 server.register(require("@fastify/static"), {
     root: path.join(__dirname, "/public/"),
     prefix: "/"

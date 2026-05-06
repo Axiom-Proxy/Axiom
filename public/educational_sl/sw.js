@@ -4,9 +4,13 @@ const { ScramjetServiceWorker } = $scramjetLoadWorker();
 const scramjet = new ScramjetServiceWorker();
 
 async function handleRequest(event) {
-	await scramjet.loadConfig();
-	if (scramjet.route(event)) {
-		return scramjet.fetch(event);
+	try {
+		await scramjet.loadConfig();
+		if (scramjet.route(event)) {
+			return scramjet.fetch(event);
+		}
+	} catch (e) {
+		console.warn("[SW] scramjet not ready, falling back:", e.message);
 	}
 	return fetch(event.request);
 }

@@ -138,11 +138,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Failed to register service worker:", err);
   }
 
-  if (!navigator.serviceWorker.controller) {
-    await new Promise((resolve) => {
-      navigator.serviceWorker.addEventListener("controllerchange", resolve, { once: true });
-    });
-  }
+  await navigator.serviceWorker.ready;
+
+  await new Promise((resolve, reject) => {
+    const req = indexedDB.deleteDatabase("$scramjet");
+    req.onsuccess = resolve;
+    req.onerror = resolve;
+    req.onblocked = resolve;
+  });
 
   await scramjet.init();
 

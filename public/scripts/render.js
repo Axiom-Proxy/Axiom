@@ -138,6 +138,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Failed to register service worker:", err);
   }
 
+  if (!navigator.serviceWorker.controller) {
+    await new Promise((resolve) => {
+      navigator.serviceWorker.addEventListener("controllerchange", resolve, { once: true });
+    });
+  }
+
   await scramjet.init();
 
   const connection = new BareMux.BareMuxConnection("/baremux/worker.js");

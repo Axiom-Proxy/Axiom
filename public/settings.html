@@ -430,6 +430,8 @@
                 premiumInput.value = '';
                 premiumStatus.textContent = '✓ Premium activated!';
                 premiumStatus.style.color = '#4ade80';
+                panel.innerHTML = '';
+                initThemes();
             } else {
                 premiumStatus.textContent = '✗ Invalid key';
                 premiumStatus.style.color = '#f87171';

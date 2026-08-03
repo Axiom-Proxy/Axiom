@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 
+:root { --rainbow: linear-gradient(90deg, #f8b8d0 0%, #f8c9b6 17%, #f2deb4 34%, #bde7d5 52%, #99e3e8 68%, #8ed4f4 84%, #b8c9ff 100%); }
+
 html,
 body {
   margin: 0;
@@ -39,11 +41,17 @@ body {
   transform: scale(1.1);
 }
 
+.material-symbols-outlined { position: relative; }
+.material-symbols-outlined::before { content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit; background: var(--rainbow); pointer-events: none; opacity: 0; transition: opacity .3s ease; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.material-symbols-outlined:hover::before { opacity: 1; }
+
 #frames {
   flex: 1;
   overflow: hidden;
   border-radius: 12px;
-  margin: 0 16px 16px;
+  /* Even on all four sides - the top used to sit flush under a toolbar that
+   * this page no longer has, which left it touching the window header. */
+  margin: 16px;
 }
 
 #frame-container,
@@ -74,7 +82,7 @@ body {
   font-weight: 100;
   font-size: 24px;
   letter-spacing: 4px;
-  text-transform: uppercase;
+  
   color: rgba(255, 255, 255, 0.8);
   margin: 0;
 }
@@ -98,5 +106,28 @@ body {
 
 .fade-out {
   animation: fadeOut 0.4s ease forwards;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
 }
 

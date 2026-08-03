@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LM Studio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Roboto:wght@100;300;400;700&display=swap"
+        rel="stylesheet">
+    <script src="./scripts/theme.js"></script>
+    <link href="./styles/loader.css" rel="stylesheet">
+    <link href="./styles/lmstudio.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="axiom-loader" class="ao-loader">
+        <div class="ao-loader-logo">Axiom</div>
+        <div class="ao-loader-spinner"></div>
+    </div>
+
+    <main class="lm">
+
+        <aside class="lm-side">
+            <div class="lm-brand">
+                <span class="material-symbols-outlined">neurology</span>
+                <div>
+                    <p class="eyebrow">Axiom</p>
+                    <h1>LM Studio</h1>
+                </div>
+            </div>
+
+            <div class="lm-side-scroll">
+                <section class="lm-group">
+                    <h2>Models</h2>
+                    <div class="lm-catalog" id="lm-catalog"></div>
+                    <label class="lm-field">
+                        <span>Custom repo</span>
+                        <input id="lm-custom" type="text" spellcheck="false" autocomplete="off"
+                            placeholder="onnx-community/…">
+                    </label>
+                    <p class="lm-hint">Any Hugging Face repo with an <code>onnx/</code> folder works.</p>
+                </section>
+
+                <section class="lm-group">
+                    <h2>Runtime</h2>
+                    <label class="lm-field">
+                        <span>Device</span>
+                        <select id="lm-device">
+                            <option value="auto">Auto</option>
+                            <option value="webgpu">WebGPU</option>
+                            <option value="wasm">WASM (CPU)</option>
+                        </select>
+                    </label>
+                    <label class="lm-field">
+                        <span>Quantisation</span>
+                        <select id="lm-dtype">
+                            <option value="auto">Auto</option>
+                            <option value="q4f16">q4f16</option>
+                            <option value="q4">q4</option>
+                            <option value="int8">int8</option>
+                            <option value="fp16">fp16</option>
+                            <option value="fp32">fp32</option>
+                        </select>
+                    </label>
+                    <label class="lm-field">
+                        <span>Max tokens</span>
+                        <input id="lm-max-tokens" type="number" min="16" max="8192" step="16" value="1024">
+                    </label>
+                    <label class="lm-field">
+                        <span>Temperature</span>
+                        <input id="lm-temperature" type="number" min="0" max="2" step="0.05" value="0.7">
+                    </label>
+                </section>
+
+                <section class="lm-group">
+                    <h2>Local endpoint</h2>
+                    <div class="lm-endpoint">
+                        <code>os.lm</code>
+                        <span class="lm-dot" id="lm-endpoint-dot"></span>
+                    </div>
+                    <p class="lm-hint">
+                        Reachable from every Axiom window while this one stays open. In the terminal, run
+                        <code>claude</code> and then <code>/local</code>.
+                    </p>
+                    <div class="lm-log" id="lm-log"></div>
+                </section>
+            </div>
+
+            <div class="lm-side-foot">
+                <button id="lm-load" type="button" class="primary">
+                    <span class="material-symbols-outlined">download</span><span id="lm-load-label">Load model</span>
+                </button>
+                <button id="lm-unload" type="button" title="Unload the model and free its memory">
+                    <span class="material-symbols-outlined">eject</span>
+                </button>
+            </div>
+        </aside>
+
+        <section class="lm-main">
+            <header class="lm-bar">
+                <div class="lm-status">
+                    <span class="lm-dot" id="lm-status-dot"></span>
+                    <div>
+                        <strong id="lm-status-model">No model loaded</strong>
+                        <p id="lm-status-detail">Pick a model on the left and load it.</p>
+                    </div>
+                </div>
+                <button id="lm-clear" type="button" title="Clear the conversation">
+                    <span class="material-symbols-outlined">delete_sweep</span>
+                </button>
+            </header>
+
+            <div class="lm-progress" id="lm-progress" hidden>
+                <div class="lm-progress-track"><div class="lm-progress-fill" id="lm-progress-fill"></div></div>
+                <div class="lm-progress-files" id="lm-progress-files"></div>
+            </div>
+
+            <div class="lm-chat" id="lm-chat">
+                <div class="lm-empty" id="lm-empty">
+                    <span class="material-symbols-outlined">forum</span>
+                    <p>Everything runs in this tab. Nothing is sent anywhere.</p>
+                </div>
+            </div>
+
+            <form class="lm-compose" id="lm-compose">
+                <textarea id="lm-input" rows="1" placeholder="Send a message…" spellcheck="false"></textarea>
+                <button type="submit" id="lm-send" title="Send">
+                    <span class="material-symbols-outlined">arrow_upward</span>
+                </button>
+                <button type="button" id="lm-stop" title="Stop generating" hidden>
+                    <span class="material-symbols-outlined">stop</span>
+                </button>
+            </form>
+        </section>
+
+    </main>
+
+    <script src="./scripts/loader.js"></script>
+    <script type="module" src="./scripts/lmstudio.js"></script>
+</body>
+
+</html>

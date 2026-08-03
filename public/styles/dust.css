@@ -8,16 +8,6 @@
     z-index: 0;
 }
 
-.main {
-    position: relative;
-    z-index: 1;
-}
-
-.nav-border {
-    position: relative;
-    z-index: 1;
-}
-
 #stars {
   width: 1px;
   height: 1px;

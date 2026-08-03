@@ -1,14 +1,36 @@
 const dotenv = require("dotenv");
+const crypto = require("crypto");
 const https = require("https");
+const GuacamoleLite = require("guacamole-lite");
 const { server: wisp } = require("@mercuryworkshop/wisp-js/server");
 const { scramjetPath } = require("@mercuryworkshop/scramjet/path");
-const { epoxyPath } = require("@mercuryworkshop/epoxy-transport");
+console.log(scramjetPath);
 const { baremuxPath } = require("@mercuryworkshop/bare-mux/node");
 const cheerio = require("cheerio");
 const fastify = require("fastify")
 const path = require("path")
+const epoxyPath = path.dirname(require.resolve("@mercuryworkshop/epoxy-transport"));
+const libcurlPath = path.dirname(require.resolve("@mercuryworkshop/libcurl-transport"));
+const scramjetControllerPath = path.dirname(require.resolve("@mercuryworkshop/scramjet-controller"));
 const server = fastify()
 const { createWorker } = require("tesseract.js")
+
+dotenv.config();
+
+const rdpTokenKey = crypto.createHash("sha256")
+    .update(crypto.randomBytes(32))
+    .digest();
+const rdpTokens = new Map();
+
+function createRdpToken(payload) {
+    const iv = crypto.randomBytes(16);
+    const cipher = crypto.createCipheriv("aes-256-cbc", rdpTokenKey, iv);
+    const value = Buffer.concat([cipher.update(JSON.stringify(payload), "utf8"), cipher.final()]);
+    return Buffer.from(JSON.stringify({
+        iv: iv.toString("base64"),
+        value: value.toString("base64")
+    })).toString("base64");
+}
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 https.globalAgent.options.rejectUnauthorized = false;
@@ -32,7 +54,83 @@ server.addContentTypeParser('application/json', { parseAs: 'string', bodyLimit: 
 
 server.register(require("@fastify/static"), { root: baremuxPath, prefix: "/baremux/", decorateReply: false });
 server.register(require("@fastify/static"), { root: scramjetPath, prefix: "/educational_vr/", decorateReply: false });
+server.register(require("@fastify/static"), { root: scramjetControllerPath, prefix: "/educational_controller/", decorateReply: false });
 server.register(require("@fastify/static"), { root: epoxyPath, prefix: "/epoxy/", decorateReply: false });
+server.register(require("@fastify/static"), { root: libcurlPath, prefix: "/libcurl/", decorateReply: false });
+server.register(require("@fastify/static"), {
+    root: path.join(__dirname, "node_modules/guacamole-common-js/dist/esm"),
+    prefix: "/remote-desktop/vendor/",
+    decorateReply: false
+});
+
+const guacamoleServer = new GuacamoleLite({ server: undefined, noServer: true }, {
+    host: "127.0.0.1",
+    port: 4822
+}, {
+    maxInactivityTime: 0,
+    log: { level: 0 },
+    crypt: { cypher: "aes-256-cbc", key: rdpTokenKey }
+}, {
+    processConnectionSettings(settings, callback) {
+        const token = rdpTokens.get(settings.nonce);
+        rdpTokens.delete(settings.nonce);
+
+        if (!token || token.expiresAt < Date.now()) {
+            return callback(new Error("Invalid or expired remote desktop session"));
+        }
+
+        callback(undefined, settings);
+    }
+});
+
+setInterval(() => {
+    const now = Date.now();
+    for (const [nonce, token] of rdpTokens) {
+        if (token.expiresAt < now) rdpTokens.delete(nonce);
+    }
+}, 60_000).unref();
+
+server.post("/api/remote-desktop/session", {
+    config: { rateLimit: { max: 10, timeWindow: "1m" } }
+}, async (req, res) => {
+    const body = req.body || {};
+    const host = typeof body.host === "string" ? body.host.trim() : "";
+    const port = Number(body.port);
+    const username = typeof body.username === "string" ? body.username : "";
+    const accessToken = typeof body.accessToken === "string" ? body.accessToken : "";
+    const domain = typeof body.domain === "string" ? body.domain.trim() : "";
+
+    if (!host || !accessToken || !Number.isInteger(port) || port < 1 || port > 65535) {
+        return res.code(400).send({ error: "Invalid remote desktop connection." });
+    }
+
+    if (host.length > 253 || username.length > 512 || accessToken.length > 1024 || domain.length > 253) {
+        return res.code(400).send({ error: "Invalid remote desktop connection." });
+    }
+
+    const nonce = crypto.randomUUID();
+    const expiresAt = Date.now() + 30_000;
+    rdpTokens.set(nonce, { expiresAt });
+
+    return res.send({
+        token: createRdpToken({
+            nonce,
+            connection: {
+                type: "rdp",
+                settings: {
+                    hostname: host,
+                    port: String(port),
+                    username,
+                    password: accessToken,
+                    domain,
+                    security: "any",
+                    "ignore-cert": true,
+                    "enable-wallpaper": false
+                }
+            }
+        })
+    });
+});
 
 server.post("/chat", {
     config: {
@@ -150,13 +248,19 @@ server.get("/educational_sl/sw.js", (req, res) => {
 });
 
 server.server.on("upgrade", (req, socket, head) => {
-  socket.on("error", (err) => { try { socket.destroy(); } catch (e) {} });
-  if (req.url.startsWith("/edu/")) {
-    try { wisp.routeRequest(req, socket, head); } 
+  const pathname = new URL(req.url, "http://localhost").pathname;
+  if (pathname === "/edu/") {
+    try { wisp.routeRequest(req, socket, head); }
     catch (err) { socket.destroy(); }
-  } else {
-    socket.destroy();
+    return;
   }
+  if (pathname === "/remote-desktop/socket") {
+    guacamoleServer.webSocketServer.handleUpgrade(req, socket, head, (ws) => {
+      guacamoleServer.webSocketServer.emit("connection", ws, req);
+    });
+    return;
+  }
+  socket.destroy();
 });
 
 server.get("/api/search", async (request, res) => {
@@ -228,7 +332,7 @@ server.get('/search_complete/*', async (req, res) => {
 
 let premium_keys = ["stya"];
 try {
-  const keys = dotenv.config().parsed?.PREMIUM_KEYS;
+  const keys = process.env.PREMIUM_KEYS;
   if (keys) premium_keys = keys.split(",");
 } catch (e) { console.warn("Using default keys."); }
 
@@ -240,12 +344,51 @@ server.get("/ask", async (req, res) => {
   res.send(true);
 });
 
+// Lists public/default/ so the browser filesystem can seed itself on first run.
+// Anything dropped into that folder shows up for new users automatically.
+const defaultFsRoot = path.join(__dirname, "public", "default");
+
+function listDefaultFs(dir, prefix, entries) {
+    for (const item of require("fs").readdirSync(dir, { withFileTypes: true })) {
+        if (item.name === ".gitkeep") continue;
+        const route = prefix + "/" + item.name;
+        if (item.isDirectory()) {
+            entries.push({ path: route, dir: true });
+            listDefaultFs(path.join(dir, item.name), route, entries);
+        } else if (item.isFile()) {
+            entries.push({ path: route, dir: false });
+        }
+    }
+    return entries;
+}
+
+server.get("/api/default-fs", async (req, res) => {
+    try {
+        res.send({ entries: listDefaultFs(defaultFsRoot, "", []) });
+    } catch (e) {
+        res.send({ entries: [] });
+    }
+});
+
+// Lists the site's own source files so they can be mounted at /system inside
+// the browser filesystem, where the service worker serves any edited copy back
+// in place of the real thing. See tools/site-fs.js.
+const { listSiteFiles } = require("./tools/site-fs");
+
+server.get("/api/site-fs", async (req, res) => {
+    try {
+        res.send(listSiteFiles());
+    } catch (e) {
+        res.send({ version: 0, entries: [] });
+    }
+});
+
 server.register(require("@fastify/static"), {
     root: path.join(__dirname, "/public/"),
     prefix: "/"
 })
 
-server.listen({port: 8080}).then(function(){
+server.listen({port: 8081}).then(function(){
     console.log("Axiom started!")
     console.log("http://localhost:8080/")
     console.log('http://127.0.0.1:8080')

@@ -1,5 +1,11 @@
 [
     {
+        "app_name": "Stella",
+        "app_url": "https://stella.lucidity.sh",
+        "type": "misc",
+        "app_img": "./assets/app-images/stella.webp"
+    },
+    {
         "app_name": "ChatGPT",
         "app_url": "https://chatgpt.com",
         "type": "misc",

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom Defender</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Roboto:wght@100;300;400;700&display=swap"
+        rel="stylesheet">
+    <script src="./scripts/theme.js"></script>
+    <link href="./styles/loader.css" rel="stylesheet">
+    <link href="./styles/defender.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="axiom-loader" class="ao-loader">
+        <div class="ao-loader-logo">Axiom</div>
+        <div class="ao-loader-spinner"></div>
+    </div>
+    <main class="defender">
+        <section class="defender-hero">
+            <span class="material-symbols-outlined">verified_user</span>
+            <div><p class="eyebrow">Axiom Defender</p><h1 id="protection-status">Protection active</h1><p>Autorun scripts are checked before they run.</p></div>
+            <button id="scan-button" type="button"><span class="material-symbols-outlined">search</span>Scan now</button>
+        </section>
+        <section class="defender-card">
+            <div class="defender-card-heading"><div><h2>Recent activity</h2><p id="activity-summary">Loading activity…</p></div></div>
+            <div class="activity-list" id="activity-list"></div>
+        </section>
+        <section class="defender-card">
+            <div class="defender-card-heading"><div><h2>Quarantined items</h2><p id="quarantine-summary">No quarantined items</p></div></div>
+            <div class="quarantine-list" id="quarantine-list"></div>
+        </section>
+    </main>
+    <script src="./scripts/loader.js"></script>
+    <script src="./scripts/defender.js"></script>
+</body>
+
+</html>

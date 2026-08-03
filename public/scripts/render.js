@@ -2,20 +2,19 @@ const search_engine = "../search/index.html?q=";
 const premium = false;
 let scramjetFrame = null;
 let scramjet = null;
+let lastKnownUrl = "";
 
 function getURLParameter(name) {
   const regex = new RegExp(`[\\?&]${name}=([^&#]*)`);
   const results = regex.exec(location.search);
-  return results ? atob(results[1]) : "";
+  return results ? atob(decodeURIComponent(results[1])) : "";
 }
 
 function cleanContent(htmlString) {
   if (!htmlString) return "";
-  const nukeTags = /<(script|style|div)\b[^>]*>([\s\S]*?)<\/\1>/gim;
-  let cleaned = htmlString.replace(nukeTags, "");
-  const stripTags = /<[^>]+>/g;
-  cleaned = cleaned.replace(stripTags, "");
-  return cleaned
+  return htmlString
+    .replace(/<(script|style|div)\b[^>]*>([\s\S]*?)<\/\1>/gim, "")
+    .replace(/<[^>]+>/g, "")
     .replace(/&nbsp;/g, " ")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
@@ -25,154 +24,114 @@ function cleanContent(htmlString) {
 }
 
 function buildSearchUrl(input, searchEngine) {
-  try {
-    if (!input || input.trim() === "") {
-      return `${searchEngine}${encodeURIComponent("")}`;
-    }
-    if (input.startsWith("http://") || input.startsWith("https://")) {
-      try {
-        return new URL(input).toString();
-      } catch (e) {
-        return `${searchEngine}${encodeURIComponent(input)}`;
-      }
-    }
-    if (input.includes(".")) {
-      try {
-        return new URL("https://" + input).toString();
-      } catch (e) {
-        return `${searchEngine}${encodeURIComponent(input)}`;
-      }
-    }
-    return `${searchEngine}${encodeURIComponent(input)}`;
-  } catch (err) {
-    return `${searchEngine}${encodeURIComponent(input)}`;
+  if (!input || input.trim() === "") return `${searchEngine}${encodeURIComponent("")}`;
+  if (input.startsWith("http://") || input.startsWith("https://")) {
+    try { return new URL(input).toString(); } catch {}
   }
+  if (input.includes(".")) {
+    try { return new URL("https://" + input).toString(); } catch {}
+  }
+  return `${searchEngine}${encodeURIComponent(input)}`;
 }
-
-let lastKnownUrl = "";
 
 function updateDocumentTitle() {
-  if (!scramjetFrame || !scramjetFrame.frame) return;
+  if (!scramjetFrame) return;
   try {
-    const frameTitle = scramjetFrame.frame.contentDocument
-      ? scramjetFrame.frame.contentDocument.title
-      : "";
-    const currentUrl = scramjetFrame.url || "";
-    let changed = false;
+    const document_ = scramjetFrame.element.contentDocument;
+    const frameTitle = document_?.title || "";
+    if (!frameTitle || document.title === frameTitle) return;
 
-    if (currentUrl && currentUrl !== lastKnownUrl) {
-      lastKnownUrl = currentUrl;
-      changed = true;
+    if (premium) sessionStorage.setItem("axiomAICon", cleanContent(document_?.documentElement.innerHTML));
+    const loaderElement = document.getElementById("loader");
+    if (loaderElement) {
+      loaderElement.classList.add("fade-out");
+      loaderElement.addEventListener("animationend", () => loaderElement.remove(), { once: true });
     }
-
-    if (frameTitle && document.title !== frameTitle) {
-      if (premium) {
-        sessionStorage.setItem("axiomAICon", cleanContent(scramjetFrame.frame.contentDocument.innerHTML));
-      }
-      const loaderElement = document.getElementById("loader");
-      if (loaderElement) {
-        loaderElement.classList.add("fade-out");
-        loaderElement.addEventListener("animationend", () => loaderElement.remove(), { once: true });
-      }
-      document.title = frameTitle;
-      changed = true;
-    }
-
-    if (changed) {
-      window.parent.postMessage({ type: "urlChange", url: lastKnownUrl, title: document.title }, "*");
-    }
-  } catch (e) {}
+    document.title = frameTitle;
+    window.parent.postMessage({ type: "urlChange", url: lastKnownUrl, title: frameTitle }, "*");
+  } catch {}
 }
 
-window.addEventListener("message", (e) => {
-  if (!e.data) return;
-  switch (e.data.type) {
-    case "navigate":
-      if (scramjetFrame) {
-        const finalUrl = buildSearchUrl(e.data.url, search_engine);
-        scramjetFrame.go(finalUrl);
-      }
-      break;
-    case "back":
-      try { scramjetFrame?.frame.contentWindow.history.back(); } catch (err) {}
-      break;
-    case "forward":
-      try { scramjetFrame?.frame.contentWindow.history.forward(); } catch (err) {}
-      break;
-    case "refresh":
-      try {
-        scramjetFrame?.frame.contentWindow.location.reload();
-      } catch (err) {
-        if (scramjetFrame && lastKnownUrl) scramjetFrame.go(lastKnownUrl);
-      }
-      break;
+function navigate(url) {
+  const finalUrl = buildSearchUrl(url, search_engine);
+  lastKnownUrl = finalUrl;
+  scramjetFrame.go(finalUrl);
+  window.parent.postMessage({ type: "urlChange", url: finalUrl, title: document.title }, "*");
+}
+
+window.addEventListener("message", (event) => {
+  if (!event.data || !scramjetFrame) return;
+  switch (event.data.type) {
+    case "navigate": navigate(event.data.url); break;
+    case "back": scramjetFrame.back(); break;
+    case "forward": scramjetFrame.forward(); break;
+    case "refresh": scramjetFrame.reload(); break;
   }
 });
 
-const stockSW = "/educational_sl/sw.js";
-const swAllowedHostnames = ["localhost", "127.0.0.1"];
-
 async function registerSW() {
-  if (!navigator.serviceWorker) {
-    if (location.protocol !== "https:" && !swAllowedHostnames.includes(location.hostname))
-      throw new Error("Service workers cannot be registered without https.");
-    throw new Error("Your browser doesn't support service workers.");
+  if (!navigator.serviceWorker) throw new Error("Your browser doesn't support service workers.");
+  if (location.protocol !== "https:" && !["localhost", "127.0.0.1"].includes(location.hostname)) {
+    throw new Error("Service workers require HTTPS.");
   }
-  await navigator.serviceWorker.register(stockSW, { scope: "/" });
-}
+  const registration = await navigator.serviceWorker.register("/educational_sl/sw.js", { scope: "/" });
+  await registration.update();
 
-document.addEventListener("DOMContentLoaded", async () => {
-  while (typeof BareMux === "undefined") {
-    await new Promise((resolve) => setTimeout(resolve, 100));
-  }
-
-  const { ScramjetController } = $scramjetLoadController();
-  scramjet = new ScramjetController(__scramjet$config);
-
-  const url = getURLParameter("url") || "";
-
-  try {
-    await registerSW();
-    console.log("Registered!");
-  } catch (err) {
-    console.error("Failed to register service worker:", err);
-  }
-
-  await navigator.serviceWorker.ready;
-
-  if (!navigator.serviceWorker.controller) {
-    await new Promise((resolve) => {
-      navigator.serviceWorker.addEventListener("controllerchange", resolve, { once: true });
+  const updatingWorker = registration.installing ?? registration.waiting;
+  if (updatingWorker && updatingWorker.state !== "activated") {
+    await new Promise((resolve, reject) => {
+      const checkState = () => {
+        if (updatingWorker.state === "activated") resolve();
+        if (updatingWorker.state === "redundant") reject(new Error("Service worker update failed."));
+      };
+      updatingWorker.addEventListener("statechange", checkState);
+      checkState();
     });
   }
 
-  await new Promise((resolve, reject) => {
-    const req = indexedDB.deleteDatabase("$scramjet");
-    req.onsuccess = resolve;
-    req.onerror = resolve;
-    req.onblocked = resolve;
-  });
+  await navigator.serviceWorker.ready;
+  if (!registration.active) throw new Error("Service worker is not active yet.");
+  return registration;
+}
 
-  await scramjet.init();
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const registration = await registerSW();
+    if (!registration.active) throw new Error("Service worker is not active yet. Reload once after installation.");
 
-  const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
+    const { default: LibcurlClient } = await import("/libcurl/index.mjs");
+    const wisp = `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/edu/`;
+    const transport = new LibcurlClient({ wisp });
+    await transport.init();
 
-  const wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/edu/";
-  await connection.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
+    scramjet = new $scramjetController.Controller({
+      serviceworker: registration.active,
+      transport,
+      config: {
+        prefix: "/educational_apkn/",
+        scramjetPath: "/educational_vr/scramjet.js",
+        injectPath: "/educational_controller/controller.inject.js",
+        wasmPath: "/educational_vr/scramjet.wasm",
+      },
+    });
+    await scramjet.wait();
 
-  if (url) {
-    const finalUrl = buildSearchUrl(url, search_engine);
-    lastKnownUrl = finalUrl;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (!registration.active) return;
+      scramjet.serviceWorkerController = registration.active;
+      scramjet.setupMessagePort();
+    });
 
-    scramjetFrame = scramjet.createFrame();
-    scramjetFrame.frame.id = "frame";
-    scramjetFrame.frame.classList.add("active");
-    document.getElementById("frame-container").appendChild(scramjetFrame.frame);
+    const element = document.createElement("iframe");
+    element.id = "frame";
+    element.classList.add("active");
+    document.getElementById("frame-container").appendChild(element);
+    scramjetFrame = scramjet.createFrame(element);
 
-    scramjetFrame.go(finalUrl);
-
-    window.parent.postMessage({ type: "urlChange", url: finalUrl, title: document.title }, "*");
-
+    const url = getURLParameter("url");
+    if (url) navigate(url);
     setInterval(updateDocumentTitle, 500);
+  } catch (error) {
+    console.error("Failed to initialize browser:", error);
   }
 });

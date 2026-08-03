@@ -1,6 +1,8 @@
 const gamesContainer = document.getElementById("games");
+const featuredContainer = document.getElementById("featured");
 const searchBar = document.querySelector(".search-bar");
 const LS_KEY = "axiom_game_favorites";
+const FEATURED_COUNT = 5;
 let allGames = [];
 
 function getFavorites() {
@@ -28,9 +30,13 @@ function buildCard(game) {
   const card = document.createElement("div");
   card.className = "game";
   card.innerHTML = `
-                <img src="${game.app_img}" alt="${game.app_name}">
-                <div class="game-name">${game.app_name}</div>
                 <button class="fav-btn${isFav ? " active" : ""}" title="Favorite">star</button>
+                <div class="thumb">
+                    <img src="${game.app_img}" alt="${game.app_name}" loading="lazy">
+                </div>
+                <div class="overlay">
+                    <div class="game-name">${game.app_name}</div>
+                </div>
             `;
   card.querySelector(".fav-btn").addEventListener("click", (e) => {
     e.stopPropagation();
@@ -38,9 +44,20 @@ function buildCard(game) {
     renderAll(searchBar.value.toLowerCase());
   });
   card.addEventListener("click", () => {
-    window.location.href = "./render.html?url=" + btoa(game.app_url);
+    window.location.href =
+      "./game.html?url=" + encodeURIComponent(btoa(game.app_url)) + "&title=" + encodeURIComponent(game.app_name);
   });
   return card;
+}
+
+function renderFeatured() {
+  const pool = [...allGames];
+  const featured = [];
+  for (let i = 0; i < FEATURED_COUNT && pool.length; i++) {
+    featured.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+  }
+  featuredContainer.innerHTML = "";
+  featured.forEach((g) => featuredContainer.appendChild(buildCard(g)));
 }
 
 function renderAll(query) {
@@ -62,7 +79,11 @@ fetch("./assets/gapps.json")
   .then((res) => res.json())
   .then((data) => {
     allGames = data.filter((g) => g.type === "game");
+    renderFeatured();
     renderAll("");
+  })
+  .finally(() => {
+    if (window.AxiomPageReady) window.AxiomPageReady();
   });
 
 searchBar.addEventListener("input", () => {

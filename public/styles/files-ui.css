@@ -1,0 +1,229 @@
+/*
+ * Shared chrome for anything that manipulates AxiomFS: the context menu and
+ * the prompt/confirm dialog. Used by the Files app and the desktop.
+ * Everything here is namespaced so it can drop into any page.
+ */
+
+#axiom-menu {
+  position: fixed;
+  z-index: 10000;
+  min-width: 196px;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 11px;
+  background: rgba(24, 24, 27, 0.82);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.6);
+  font-family: "Roboto", sans-serif;
+}
+
+#axiom-menu.axiom-hidden,
+#axiom-overlay.axiom-hidden,
+.axiom-hidden {
+  display: none !important;
+}
+
+.axiom-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 30px;
+  padding: 0 9px;
+  border: none;
+  border-radius: 7px;
+  background: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 300;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.axiom-menu-item:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.axiom-menu-item:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.axiom-menu-item .material-symbols-outlined {
+  font-size: 17px;
+  font-variation-settings: "FILL" 1;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0 !important;
+  background: none !important;
+  transform: none !important;
+}
+
+.axiom-menu-item.danger,
+.axiom-menu-item.danger .material-symbols-outlined {
+  color: #ff9b9b;
+}
+
+.axiom-menu-item.danger:hover:not(:disabled) {
+  background: rgba(229, 72, 77, 0.22);
+}
+
+.axiom-menu-label {
+  flex: 1;
+}
+
+.axiom-menu-hint {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 11px;
+}
+
+.axiom-menu-divider {
+  height: 1px;
+  margin: 4px 8px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ------------------------------------------------------------- dialog */
+
+#axiom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  font-family: "Roboto", sans-serif;
+}
+
+#axiom-dialog {
+  display: flex;
+  flex-direction: column;
+  width: min(440px, 100%);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 13px;
+  background: rgba(22, 22, 25, 0.92);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.7);
+}
+
+.axiom-dlg-head {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+  height: 42px;
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.axiom-dlg-head .material-symbols-outlined {
+  font-size: 18px;
+  font-variation-settings: "FILL" 1;
+  color: #8ed4f4;
+  padding: 0 !important;
+  background: none !important;
+  transform: none !important;
+}
+
+#axiom-dlg-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.axiom-dlg-body {
+  padding: 16px;
+}
+
+#axiom-dlg-message {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+#axiom-dlg-message:not(.axiom-hidden) + #axiom-dlg-input:not(.axiom-hidden) {
+  margin-top: 12px;
+}
+
+#axiom-dlg-input {
+  width: 100%;
+  height: 34px;
+  padding: 0 11px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#axiom-dlg-input:focus {
+  border-color: rgba(142, 212, 244, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.axiom-dlg-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+
+.axiom-dlg-btn {
+  height: 32px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.85);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.axiom-dlg-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.axiom-dlg-btn.primary {
+  background: rgba(142, 212, 244, 0.22);
+  border-color: rgba(142, 212, 244, 0.45);
+  color: #fff;
+}
+
+.axiom-dlg-btn.primary:hover {
+  background: rgba(142, 212, 244, 0.34);
+}
+
+.axiom-dlg-btn.primary.danger {
+  background: rgba(229, 72, 77, 0.26);
+  border-color: rgba(229, 72, 77, 0.5);
+}
+
+.axiom-dlg-btn.primary.danger:hover {
+  background: rgba(229, 72, 77, 0.4);
+}

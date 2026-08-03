@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Files</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Roboto:wght@100;300;400;700&display=swap" rel="stylesheet">
+    <script src="./scripts/theme.js"></script>
+    <link href="./styles/loader.css" rel="stylesheet">
+    <link href="./styles/files-ui.css" rel="stylesheet">
+    <link href="./styles/explorer.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="axiom-loader" class="ao-loader">
+        <div class="ao-loader-logo">Axiom</div>
+        <div class="ao-loader-spinner"></div>
+    </div>
+
+    <div id="explorer">
+        <div id="toolbar">
+            <div class="tb-group">
+                <button class="tb-btn" id="nav-back" title="Back">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <button class="tb-btn" id="nav-forward" title="Forward">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+                <button class="tb-btn" id="nav-up" title="Up one level">
+                    <span class="material-symbols-outlined">arrow_upward</span>
+                </button>
+            </div>
+
+            <div id="breadcrumb"></div>
+
+            <div class="tb-search">
+                <span class="material-symbols-outlined">search</span>
+                <input id="search" type="text" placeholder="Search this folder" autocomplete="off" spellcheck="false">
+                <button class="tb-clear" id="search-clear" title="Clear search">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <div class="tb-group">
+                <button class="tb-btn" id="act-new-folder" title="New folder">
+                    <span class="material-symbols-outlined">create_new_folder</span>
+                </button>
+                <button class="tb-btn" id="act-new-file" title="New file">
+                    <span class="material-symbols-outlined">note_add</span>
+                </button>
+                <button class="tb-btn" id="act-upload" title="Import from your computer">
+                    <span class="material-symbols-outlined">upload</span>
+                </button>
+                <button class="tb-btn" id="act-sort" title="Sort">
+                    <span class="material-symbols-outlined">sort</span>
+                </button>
+                <button class="tb-btn" id="act-view" title="Switch to list view">
+                    <span class="material-symbols-outlined">view_list</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="body">
+            <aside id="sidebar"></aside>
+            <main id="files">
+                <div id="items"></div>
+                <div id="empty" class="hidden">
+                    <span class="material-symbols-outlined">folder_open</span>
+                    <p id="empty-text">This folder is empty</p>
+                </div>
+                <div id="drop-hint">
+                    <span class="material-symbols-outlined">download</span>
+                    <p>Drop files to import them here</p>
+                </div>
+            </main>
+        </div>
+
+        <div id="statusbar">
+            <span id="status-left"></span>
+            <span id="status-right"></span>
+        </div>
+    </div>
+
+    <div id="overlay" class="hidden">
+        <div id="editor" class="panel hidden">
+            <div class="panel-head">
+                <span class="material-symbols-outlined" id="editor-icon">description</span>
+                <span class="panel-title" id="editor-title"></span>
+                <span class="panel-dirty" id="editor-dirty">unsaved</span>
+                <button class="panel-btn" id="editor-save" title="Save (Ctrl+S)">
+                    <span class="material-symbols-outlined">save</span>
+                </button>
+                <button class="panel-btn" id="editor-close" title="Close">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <textarea id="editor-text" spellcheck="false" autocomplete="off"></textarea>
+        </div>
+
+        <div id="preview" class="panel hidden">
+            <div class="panel-head">
+                <span class="material-symbols-outlined" id="preview-icon">image</span>
+                <span class="panel-title" id="preview-title"></span>
+                <button class="panel-btn" id="preview-download" title="Download">
+                    <span class="material-symbols-outlined">download</span>
+                </button>
+                <button class="panel-btn" id="preview-close" title="Close">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div id="preview-body"></div>
+        </div>
+
+    </div>
+
+    <input type="file" id="file-input" multiple hidden>
+
+    <script src="./scripts/loader.js"></script>
+    <script src="./scripts/fs.js"></script>
+    <script src="./scripts/files-ui.js"></script>
+    <script src="./scripts/explorer.js"></script>
+</body>
+
+</html>

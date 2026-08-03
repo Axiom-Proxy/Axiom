@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom Recovery</title>
+
+    <!--
+      The way back when an edit under /system has broken the desktop.
+
+      This page is on the service worker's never-override list and loads
+      nothing from the site, so it keeps working no matter what has been done
+      to the filesystem. Everything it needs is inline on purpose.
+    -->
+    <style>
+        :root { color-scheme: dark; }
+        body {
+            margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: #0b0d10; color: #e8eaed; font-family: Roboto, system-ui, sans-serif;
+        }
+        main { width: min(560px, calc(100vw - 48px)); padding: 32px 0; }
+        h1 { font-size: 24px; font-weight: 400; margin: 0 0 8px; }
+        p { line-height: 1.6; color: rgba(232, 234, 237, 0.65); margin: 0 0 16px; }
+        .row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+        button {
+            font: inherit; padding: 10px 18px; border-radius: 8px; cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.16); background: rgba(255, 255, 255, 0.06);
+            color: #e8eaed; transition: background 0.15s ease;
+        }
+        button:hover:not(:disabled) { background: rgba(255, 255, 255, 0.12); }
+        button:disabled { opacity: 0.5; cursor: default; }
+        button.danger { border-color: rgba(248, 113, 113, 0.4); color: #f87171; }
+        #status { min-height: 24px; margin: 20px 0 0; font-size: 14px; }
+        code { background: rgba(255, 255, 255, 0.08); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Axiom Recovery</h1>
+        <p>Axiom lets you edit its own files, which means it lets you break them. This page is not
+            served from your filesystem, so it still works when the desktop does not.</p>
+        <p>Start with <b>Restore site files</b>: it throws away your edits to Axiom itself and leaves
+            everything in Home alone. <b>Wipe disk</b> is the bigger hammer — it deletes your files
+            too. You can also open any page with <code>?__axiom_raw=1</code> to load the shipped
+            version of it once.</p>
+
+        <div class="row">
+            <button id="restore">Restore site files</button>
+            <button id="wipe" class="danger">Wipe disk</button>
+            <button id="unregister">Unregister service worker</button>
+        </div>
+
+        <p id="status"></p>
+    </main>
+
+    <script>
+        (function () {
+            'use strict';
+
+            var DB = 'axiom-fs';
+            var TREE = 'tree';
+            var FILES = 'files';
+            var MOUNT = '/system';
+
+            var status = document.getElementById('status');
+            var buttons = Array.prototype.slice.call(document.querySelectorAll('button'));
+
+            function say(text, color) {
+                status.textContent = text;
+                status.style.color = color || 'rgba(232, 234, 237, 0.65)';
+            }
+
+            function busy(on) {
+                buttons.forEach(function (button) { button.disabled = on; });
+            }
+
+            function open() {
+                return new Promise(function (resolve, reject) {
+                    var request = indexedDB.open(DB);
+                    request.onsuccess = function () { resolve(request.result); };
+                    request.onerror = function () { reject(request.error); };
+                    request.onblocked = function () { reject(new Error('Close your other Axiom tabs first.')); };
+                });
+            }
+
+            /*
+             * Unmounts /system entirely - the directory in the stored tree, the
+             * mirrored contents, and the record of what shipped. The desktop
+             * mirrors the site again on its next load, so edits are gone and
+             * everything under Home is untouched.
+             */
+            function restore() {
+                busy(true);
+                say('Restoring…');
+                open().then(function (db) {
+                    return new Promise(function (resolve, reject) {
+                        var tx = db.transaction([TREE, FILES], 'readwrite');
+                        var tree = tx.objectStore(TREE);
+                        var files = tx.objectStore(FILES);
+
+                        tree.delete('site');
+
+                        var read = tree.get('root');
+                        read.onsuccess = function () {
+                            var root = read.result;
+                            if (!root || !root.c) return;
+                            delete root.c[MOUNT.slice(1)];
+                            tree.put(root, 'root');
+                        };
+
+                        var cursor = files.openCursor();
+                        cursor.onsuccess = function () {
+                            var at = cursor.result;
+                            if (!at) return;
+                            if (String(at.key).indexOf(MOUNT + '/') === 0) at.delete();
+                            at.continue();
+                        };
+
+                        tx.oncomplete = function () { db.close(); resolve(); };
+                        tx.onerror = function () { db.close(); reject(tx.error); };
+                    });
+                }).then(function () {
+                    try { localStorage.removeItem('axiom_site_sync'); } catch (e) {}
+                    say('Site files restored. Opening Axiom…', '#4ade80');
+                    setTimeout(function () { location.href = '/windows.html'; }, 800);
+                }).catch(function (err) {
+                    busy(false);
+                    say('Failed: ' + (err && err.message ? err.message : err), '#f87171');
+                });
+            }
+
+            function wipe() {
+                busy(true);
+                say('Wiping…');
+                new Promise(function (resolve, reject) {
+                    var request = indexedDB.deleteDatabase(DB);
+                    request.onsuccess = resolve;
+                    request.onerror = function () { reject(request.error); };
+                    request.onblocked = function () { reject(new Error('Close your other Axiom tabs first.')); };
+                }).then(function () {
+                    try { localStorage.removeItem('axiom_site_sync'); } catch (e) {}
+                    say('Disk wiped. Opening Axiom…', '#4ade80');
+                    setTimeout(function () { location.href = '/windows.html'; }, 800);
+                }).catch(function (err) {
+                    busy(false);
+                    say('Failed: ' + (err && err.message ? err.message : err), '#f87171');
+                });
+            }
+
+            // Also tears down the proxy, which shares this registration - the
+            // desktop puts both back on its next load.
+            function unregister() {
+                busy(true);
+                say('Unregistering…');
+                if (!navigator.serviceWorker) {
+                    busy(false);
+                    say('This browser has no service workers.', '#f87171');
+                    return;
+                }
+                navigator.serviceWorker.getRegistrations().then(function (registrations) {
+                    return Promise.all(registrations.map(function (r) { return r.unregister(); }));
+                }).then(function () {
+                    say('Service worker removed. Opening Axiom…', '#4ade80');
+                    setTimeout(function () { location.href = '/windows.html'; }, 800);
+                }).catch(function (err) {
+                    busy(false);
+                    say('Failed: ' + (err && err.message ? err.message : err), '#f87171');
+                });
+            }
+
+            var armed = null;
+
+            // Both destructive buttons need a second click to go through.
+            function confirmThen(button, run, warning) {
+                button.addEventListener('click', function () {
+                    if (armed === button) { armed = null; run(); return; }
+                    armed = button;
+                    say(warning, '#f87171');
+                    setTimeout(function () {
+                        if (armed !== button) return;
+                        armed = null;
+                        say('');
+                    }, 5000);
+                });
+            }
+
+            confirmThen(document.getElementById('restore'), restore,
+                'This discards your edits to Axiom itself. Click again to confirm.');
+            confirmThen(document.getElementById('wipe'), wipe,
+                'This erases everything, your files included. Click again to confirm.');
+            document.getElementById('unregister').addEventListener('click', unregister);
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,803 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --rainbow: linear-gradient(
+    90deg,
+    #f8b8d0 0%,
+    #f8c9b6 17%,
+    #f2deb4 34%,
+    #bde7d5 52%,
+    #99e3e8 68%,
+    #8ed4f4 84%,
+    #b8c9ff 100%
+  );
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg, linear-gradient(to bottom, #000000, rgb(14, 14, 14)));
+  background-attachment: fixed;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
+}
+
+        #desktop {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            background: center / cover no-repeat var(--wallpaper);
+        }
+
+/* ------------------------------------------------------- desktop icons */
+
+#desktop-icons {
+  position: absolute;
+  inset: 8px 8px 52px 8px;
+  display: grid;
+  /* Columns fill top to bottom, then wrap to the right, as a desktop does. */
+  grid-template-rows: repeat(auto-fill, 96px);
+  grid-auto-flow: column;
+  grid-auto-columns: 92px;
+  justify-content: start;
+  align-content: start;
+  gap: 2px;
+  overflow: hidden;
+}
+
+/* An empty desktop must not swallow clicks meant for the wallpaper. */
+#desktop-icons.empty {
+  pointer-events: none;
+}
+
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px 6px;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s ease;
+}
+
+.desktop-icon:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.desktop-icon.selected {
+  background: rgba(142, 212, 244, 0.24);
+  box-shadow: inset 0 0 0 1px rgba(142, 212, 244, 0.5);
+}
+
+.desktop-icon.cut {
+  opacity: 0.45;
+}
+
+.desktop-icon.drop-target {
+  background: rgba(142, 212, 244, 0.32);
+  box-shadow: inset 0 0 0 1px rgba(142, 212, 244, 0.7);
+}
+
+.desktop-icon-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  color: var(--accent, rgba(255, 255, 255, 0.7));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.desktop-icon-art .material-symbols-outlined {
+  font-size: 40px;
+  font-variation-settings: "FILL" 1;
+  color: inherit;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  transform: none !important;
+  cursor: pointer !important;
+}
+
+.desktop-icon-art img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+
+.desktop-icon-label {
+  width: 100%;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+#taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 0 16px;
+            background: rgba(16, 16, 18, 0.14);
+            backdrop-filter: blur(16px) saturate(150%);
+            -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.taskbar-left {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.taskbar-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.taskbar-tray {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.tray-time {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1px;
+  font-size: 11px;
+  line-height: 1.15;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.4px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.tray-time:hover,
+.tray-time.active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+#tray-date {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.tray-time:hover #tray-date,
+.tray-time.active #tray-date {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* --------------------------------------------------- inline taskbar search */
+
+.taskbar-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Fixed width: the dock is centre-anchored, so a growing box would shove
+   * every other taskbar button sideways on focus. */
+  width: 220px;
+  height: 30px;
+  padding: 0 12px;
+  margin-right: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.07);
+  cursor: text;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.taskbar-search:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.taskbar-search.active {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.taskbar-search .material-symbols-outlined {
+  flex: none;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0 !important;
+  background: none !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  cursor: text !important;
+  transition: color 0.2s ease !important;
+}
+
+.taskbar-search:hover .material-symbols-outlined,
+.taskbar-search.active .material-symbols-outlined {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+#sf-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+}
+
+#sf-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* The dock is a fixed row of round buttons; the box would crowd it out. */
+@media (max-width: 720px) {
+  .taskbar-search {
+    display: none;
+  }
+}
+
+.taskbar-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 6px;
+}
+
+.taskbar-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
+}
+
+.taskbar-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.taskbar-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--rainbow);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.taskbar-btn:hover::before,
+.taskbar-btn:focus-visible::before {
+  opacity: 1;
+}
+
+.taskbar-btn:active {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.taskbar-btn .material-symbols-outlined {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  transform: none !important;
+  transition: color 0.2s ease !important;
+  background-color: transparent !important;
+}
+
+.taskbar-btn:hover .material-symbols-outlined {
+  color: white;
+}
+
+.taskbar-btn .indicator {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.taskbar-btn.open .indicator {
+  opacity: 1;
+}
+
+.winbox {
+  background: transparent !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.13) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7) !important;
+}
+
+.winbox .wb-header {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-radius: 12px 12px 0 0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09) !important;
+}
+
+.winbox.max,
+.winbox.max .wb-header {
+  border-radius: 0 !important;
+}
+
+.winbox .wb-title {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 1px !important;
+  font-size: 13px !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.winbox .wb-body {
+  background: transparent !important;
+}
+
+.winbox .wb-body iframe {
+  border: none !important;
+}
+
+.winbox .wb-icon {
+  display: none !important;
+}
+
+.wb-custom-controls {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  z-index: 5;
+  display: flex;
+  gap: 4px;
+}
+
+.wb-cc-btn {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.wb-cc-btn .material-symbols-outlined {
+  font-size: 14px;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  transition: none !important;
+  background: none !important;
+  cursor: pointer !important;
+}
+
+.wb-cc-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.wb-cc-close:hover {
+  background: #e5484d;
+  color: #fff;
+}
+.window-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* ---------------------------------------------------------- taskbar flyouts */
+
+.flyout {
+  position: fixed;
+  bottom: 52px;
+  z-index: 10000;
+  background: rgba(20, 20, 24, 0.62);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease,
+    visibility 0.16s;
+}
+
+.flyout.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ------------------------------------------------------------ search panel */
+
+/* Centred on the viewport, not on the taskbar box it is driven by. */
+#search-flyout {
+  left: 50%;
+  width: min(680px, calc(100vw - 24px));
+  height: min(720px, calc(100vh - 76px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translate(-50%, 12px);
+}
+
+#search-flyout.open {
+  transform: translate(-50%, 0);
+}
+
+.sf-results {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 16px 16px;
+}
+
+.sf-group {
+  padding: 14px 8px 6px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.8px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* --------------------------------------------------------- pinned tiles */
+
+.sf-pinned {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  padding: 4px 0 8px;
+}
+
+.sf-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 6px 14px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.sf-tile:hover,
+.sf-tile.active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.sf-tile .material-symbols-outlined {
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.88);
+  padding: 0 !important;
+  background: none !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  cursor: pointer !important;
+}
+
+.sf-tile-name {
+  width: 100%;
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .sf-pinned {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.sf-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 9px 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.sf-item:hover,
+.sf-item.active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.sf-item-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+}
+
+.sf-item-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sf-item-art .material-symbols-outlined {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0 !important;
+  background: none !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  cursor: pointer !important;
+}
+
+.sf-item-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.sf-item-name {
+  font-size: 13px;
+  font-weight: 400;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sf-item-sub {
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sf-empty {
+  padding: 24px 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* --------------------------------------------------------------- calendar */
+
+#calendar-flyout {
+  right: 12px;
+  width: 316px;
+  padding: 16px;
+}
+
+.cal-head {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.cal-now-time {
+  font-size: 30px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+.cal-now-date {
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 2px 8px;
+}
+
+.cal-month {
+  font-size: 13px;
+  font-weight: 400;
+  color: #fff;
+}
+
+.cal-nav-btns {
+  display: flex;
+  gap: 2px;
+}
+
+.cal-nav-btns button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.cal-nav-btns button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.cal-nav-btns .material-symbols-outlined {
+  font-size: 18px;
+  padding: 0 !important;
+  background: none !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  cursor: pointer !important;
+}
+
+.cal-dow,
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-dow span {
+  padding: 4px 0;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.cal-day {
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.cal-day:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.cal-day.other-month {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.cal-day.selected {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.cal-day.today {
+  background: rgba(142, 212, 244, 0.9);
+  color: #101014;
+  font-weight: 500;
+}
+
+.cal-day.today:hover {
+  background: rgba(142, 212, 244, 1);
+  color: #101014;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}

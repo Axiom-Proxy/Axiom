@@ -977,7 +977,7 @@
  background-color: #2973da;
  /* background-color: #0d6efd; */
  color: #fff;
- text-transform: uppercase;
+ 
  width: 45px;
  height: 45px;
  line-height: 41px;

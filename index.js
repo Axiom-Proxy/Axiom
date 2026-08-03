@@ -388,7 +388,7 @@ server.register(require("@fastify/static"), {
     prefix: "/"
 })
 
-server.listen({port: 8081}).then(function(){
+server.listen({port: 8080}).then(function(){
     console.log("Axiom started!")
     console.log("http://localhost:8080/")
     console.log('http://127.0.0.1:8080')

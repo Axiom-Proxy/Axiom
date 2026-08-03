@@ -46,6 +46,20 @@ const tabs = [];
             return url && url.includes('render.html');
         }
 
+        // Same rules start.html uses: bare domains become https://, anything else is a search.
+        function toSearchUrl(query) {
+            const isUrl = /^(https?:\/\/|[a-zA-Z0-9-]+\.[a-zA-Z]{2,})/.test(query);
+            if (!isUrl) return `https://search.brave.com/search?q=${encodeURIComponent(query)}`;
+            return query.startsWith('http') ? query : 'https://' + query;
+        }
+
+        function proxyUrl(target) {
+            let encoded;
+            try { encoded = btoa(target); }
+            catch(e) { encoded = btoa(unescape(encodeURIComponent(target))); }
+            return BASE_PATH + 'render.html?url=' + encoded;
+        }
+
         const SESSION_KEY = 'axiom-tabs-session';
         let restoringSession = false;
 
@@ -170,16 +184,27 @@ const tabs = [];
             if (!tab || !raw) return;
             const input = raw.trim();
 
-            if (isProxyUrl(tab.url) && !input.startsWith('axiom://')) {
-                tab.iframe.contentWindow.postMessage({ type: 'navigate', url: input }, '*');
+            if (input.startsWith('axiom://')) {
+                const url = fromDisplay(input);
+                tab.url = url;
+                tab.displayUrl = null;
+                tab.title = 'Loading\u2026';
+                tab.iframe.src = url;
+                renderTabs();
                 return;
             }
 
-            const url = fromDisplay(input);
-            tab.url = url;
-            tab.displayUrl = null;
+            const target = toSearchUrl(input);
+
+            if (isProxyUrl(tab.url)) {
+                tab.iframe.contentWindow.postMessage({ type: 'navigate', url: target }, '*');
+                return;
+            }
+
+            tab.url = proxyUrl(target);
+            tab.displayUrl = target;
             tab.title = 'Loading\u2026';
-            tab.iframe.src = url;
+            tab.iframe.src = tab.url;
             renderTabs();
         }
 

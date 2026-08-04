@@ -33,7 +33,7 @@ function isAdmin(member) {
 
 const ADD_LINK_CMD = new SlashCommandBuilder()
     .setName("add-link")
-    .setDescription("Add a link (and the blockers that work with it) to links.txt")
+    .setDescription("Add a link alongside the blockers that work with it")
     .addStringOption(o =>
         o.setName("url")
             .setDescription("The http(s):// URL to add")
@@ -46,12 +46,16 @@ const ADD_LINK_CMD = new SlashCommandBuilder()
 
 const REMOVE_LINK_CMD = new SlashCommandBuilder()
     .setName("remove-link")
-    .setDescription("Remove a link from links.txt")
+    .setDescription("Remove a link")
     .addStringOption(o =>
         o.setName("url")
             .setDescription("The exact URL to remove")
             .setRequired(true)
             .setAutocomplete(true));
+
+const LIST_LINKS_CMD = new SlashCommandBuilder()
+    .setName("list-links")
+    .setDescription("List every stored link alongside the blockers it bypasses");
 
 if (!TOKEN) {
     console.error("Missing DISCORD_TOKEN in .env");
@@ -193,7 +197,7 @@ client.once("clientReady", async () => {
     console.log(`Posted dispenser in #${channel.name}`);
 
     try {
-        const cmds = [ADD_LINK_CMD, REMOVE_LINK_CMD];
+        const cmds = [ADD_LINK_CMD, REMOVE_LINK_CMD, LIST_LINKS_CMD];
         if (process.env.DISCORD_GUILD_ID) {
             await client.application.commands.set(cmds, process.env.DISCORD_GUILD_ID);
             console.log(`Registered ${cmds.length} slash command(s) to guild ${process.env.DISCORD_GUILD_ID}`);
@@ -246,6 +250,38 @@ client.on("interactionCreate", async (interaction) => {
                 content: `Removed **${url}** (${removed} entr${removed === 1 ? "y" : "ies"} deleted).`,
                 flags: MessageFlags.Ephemeral
             });
+        }
+
+        if (interaction.commandName === "list-links") {
+            if (entries.length === 0) {
+                return interaction.reply({ content: "No links are currently stored.", flags: MessageFlags.Ephemeral });
+            }
+            const embeds = [];
+            const perPage = 25;
+            for (let i = 0; i < entries.length; i += perPage) {
+                const slice = entries.slice(i, i + perPage);
+                const embed = new EmbedBuilder()
+                    .setTitle(`Stored links (${i + 1}-${i + slice.length} of ${entries.length})`)
+                    .setColor(0x5865f2);
+                for (const e of slice) {
+                    embed.addFields({
+                        name: e.url.length > 100 ? e.url.slice(0, 97) + "..." : e.url,
+                        value: e.blockers.length ? e.blockers.map(b => `\`${b}\``).join(", ") : "*none*"
+                    });
+                }
+                embeds.push(embed);
+            }
+            const messages = [];
+            for (let i = 0; i < embeds.length; i += 10) {
+                const chunk = embeds.slice(i, i + 10);
+                if (messages.length === 0) {
+                    messages.push(interaction.reply({ embeds: chunk, flags: MessageFlags.Ephemeral }));
+                } else {
+                    messages.push(interaction.followUp({ embeds: chunk, flags: MessageFlags.Ephemeral }));
+                }
+            }
+            await Promise.all(messages);
+            return;
         }
         return;
     }

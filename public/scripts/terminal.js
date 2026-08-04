@@ -5,7 +5,7 @@
 const termTabs = [];
 let activeTermId = null;
 let termIdCounter = 0;
-let termDragSrcId = null;
+let termRenderPending = false;
 
 const escHtml = AxiomShell.escHtml;
 
@@ -438,7 +438,21 @@ function activateTab(id) {
     else next.hiddenInput.focus();
 }
 
+function moveTab(from, to) {
+    if (from !== to && termTabs[from]) {
+        const [moved] = termTabs.splice(from, 1);
+        termTabs.splice(to, 0, moved);
+    } else if (!termRenderPending) {
+        return;   // nothing moved and nothing was deferred
+    }
+    renderTabs();
+}
+
 function renderTabs() {
+    // Rebuilding the strip mid-drag would tear out the tab being dragged.
+    if (window.AxiomTabDrag && AxiomTabDrag.isActive()) { termRenderPending = true; return; }
+    termRenderPending = false;
+
     const list = document.getElementById('tab-list');
     const prevScroll = list.scrollLeft;
     list.innerHTML = '';
@@ -447,46 +461,23 @@ function renderTabs() {
         const el = document.createElement('div');
         el.className = 'tab' + (tab.id === activeTermId ? ' active' : '');
         el.dataset.id = String(tab.id);
-        el.draggable = true;
         el.innerHTML =
             `<div class="tab-favicon"><span class="material-symbols-outlined">terminal</span></div>` +
             `<span class="tab-title">${escHtml(tab.title)}</span>` +
             `<button class="tab-close" title="Close tab"><span class="material-symbols-outlined">close</span></button>`;
 
-        el.addEventListener('click', () => activateTab(tab.id));
         el.querySelector('.tab-close').addEventListener('click', e => {
             e.stopPropagation();
             closeTab(tab.id);
         });
 
-        el.addEventListener('dragstart', e => {
-            termDragSrcId = tab.id;
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/plain', String(tab.id));
-            requestAnimationFrame(() => el.classList.add('dragging'));
-        });
-        el.addEventListener('dragend', () => {
-            el.classList.remove('dragging');
-            list.querySelectorAll('.drag-over').forEach(t => t.classList.remove('drag-over'));
-        });
-        el.addEventListener('dragover', e => {
+        // Browsers select a tab the instant you press it, then let the same
+        // press turn into a drag once the cursor actually moves.
+        el.addEventListener('pointerdown', e => {
+            if (e.button !== 0 || e.target.closest('.tab-close')) return;
             e.preventDefault();
-            e.dataTransfer.dropEffect = 'move';
-            if (termDragSrcId === tab.id) return;
-            list.querySelectorAll('.drag-over').forEach(t => t.classList.remove('drag-over'));
-            el.classList.add('drag-over');
-        });
-        el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
-        el.addEventListener('drop', e => {
-            e.preventDefault();
-            el.classList.remove('drag-over');
-            if (termDragSrcId === tab.id) return;
-            const srcIdx = termTabs.findIndex(t => t.id === termDragSrcId);
-            const dstIdx = termTabs.findIndex(t => t.id === tab.id);
-            if (srcIdx === -1 || dstIdx === -1) return;
-            const [removed] = termTabs.splice(srcIdx, 1);
-            termTabs.splice(dstIdx, 0, removed);
-            renderTabs();
+            if (activeTermId !== tab.id) activateTab(tab.id);
+            AxiomTabDrag.start(e, document.getElementById('tab-list'), tab.id, moveTab);
         });
 
         list.appendChild(el);

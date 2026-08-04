@@ -262,6 +262,13 @@ let genlock = false
 
             addMessage(message, 'user', images);
 
+            const typingEl = document.createElement('div');
+            typingEl.classList.add('message', 'bot', 'typing');
+            typingEl.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+            const stickTyping = isNearBottom(messagesEl);
+            messagesEl.appendChild(typingEl);
+            if (stickTyping) scrollToBottom();
+
             const chatHeaders = { 'Content-Type': 'application/json' };
             const premiumKey = axiomPremium.getKey();
             if (premiumKey) chatHeaders['key'] = premiumKey;
@@ -271,6 +278,7 @@ let genlock = false
                 headers: chatHeaders,
                 body: JSON.stringify({ message, history: chatHistory.slice(0, -1), images, model })
             }).then(res => res.json()).then(data => {
+                typingEl.remove();
                 if (data.error) {
                     addMessage('Error: ' + data.error, 'bot', null, false);
                 } else {
@@ -278,6 +286,7 @@ let genlock = false
                 }
                 genlock = false;
             }).catch(() => {
+                typingEl.remove();
                 addMessage('Error: Failed to connect to AI service', 'bot', null, false);
                 genlock = false;
             });

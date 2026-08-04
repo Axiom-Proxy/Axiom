@@ -1,7 +1,7 @@
 const tabs = [];
         let activeTabId = null;
         let idCounter = 0;
-        let dragSrcId = null;
+        let renderPending = false;
 
         function genId() { return ++idCounter; }
 
@@ -208,7 +208,21 @@ const tabs = [];
             renderTabs();
         }
 
+        function moveTab(from, to) {
+            if (from !== to && tabs[from]) {
+                const [moved] = tabs.splice(from, 1);
+                tabs.splice(to, 0, moved);
+            } else if (!renderPending) {
+                return;   // nothing moved and nothing was deferred
+            }
+            renderTabs();
+        }
+
         function renderTabs() {
+            // Rebuilding the strip mid-drag would tear out the tab being dragged.
+            if (window.AxiomTabDrag && AxiomTabDrag.isActive()) { renderPending = true; return; }
+            renderPending = false;
+
             const list = document.getElementById('tab-list');
             const prevScroll = list.scrollLeft;
             list.innerHTML = '';
@@ -217,7 +231,6 @@ const tabs = [];
                 const el = document.createElement('div');
                 el.className = 'tab' + (tab.id === activeTabId ? ' active' : '');
                 el.dataset.id = String(tab.id);
-                el.draggable = true;
                 el.innerHTML =
                     `<div class="tab-favicon"></div>` +
                     `<span class="tab-title">${escHtml(tab.title)}</span>` +
@@ -236,40 +249,18 @@ const tabs = [];
                     faviconBox.appendChild(defaultFaviconEl());
                 }
 
-                el.addEventListener('click', () => activateTab(tab.id));
                 el.querySelector('.tab-close').addEventListener('click', e => {
                     e.stopPropagation();
                     closeTab(tab.id);
                 });
 
-                el.addEventListener('dragstart', e => {
-                    dragSrcId = tab.id;
-                    e.dataTransfer.effectAllowed = 'move';
-                    e.dataTransfer.setData('text/plain', String(tab.id));
-                    requestAnimationFrame(() => el.classList.add('dragging'));
-                });
-                el.addEventListener('dragend', () => {
-                    el.classList.remove('dragging');
-                    list.querySelectorAll('.drag-over').forEach(t => t.classList.remove('drag-over'));
-                });
-                el.addEventListener('dragover', e => {
+                // Browsers select a tab the instant you press it, then let the
+                // same press turn into a drag once the cursor actually moves.
+                el.addEventListener('pointerdown', e => {
+                    if (e.button !== 0 || e.target.closest('.tab-close')) return;
                     e.preventDefault();
-                    e.dataTransfer.dropEffect = 'move';
-                    if (dragSrcId === tab.id) return;
-                    list.querySelectorAll('.drag-over').forEach(t => t.classList.remove('drag-over'));
-                    el.classList.add('drag-over');
-                });
-                el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
-                el.addEventListener('drop', e => {
-                    e.preventDefault();
-                    el.classList.remove('drag-over');
-                    if (dragSrcId === tab.id) return;
-                    const srcIdx = tabs.findIndex(t => t.id === dragSrcId);
-                    const dstIdx = tabs.findIndex(t => t.id === tab.id);
-                    if (srcIdx === -1 || dstIdx === -1) return;
-                    const [removed] = tabs.splice(srcIdx, 1);
-                    tabs.splice(dstIdx, 0, removed);
-                    renderTabs();
+                    if (activeTabId !== tab.id) activateTab(tab.id);
+                    AxiomTabDrag.start(e, document.getElementById('tab-list'), tab.id, moveTab);
                 });
 
                 list.appendChild(el);

@@ -19,6 +19,7 @@
     "@mercuryworkshop/scramjet": "https://github.com/MercuryWorkshop/scramjet/releases/download/v2.0.67-alpha.2/mercuryworkshop-scramjet-2.0.67-alpha.2.tgz",
     "@mercuryworkshop/scramjet-controller": "^0.0.14",
     "@mercuryworkshop/wisp-js": "^0.4.1",
+    "@xterm/xterm": "^6.0.0",
     "cheerio": "^1.1.2",
     "dotenv": "^17.2.3",
     "fastify": "^5.10.0",
@@ -28,6 +29,7 @@
     "jquery-ui-dist": "^1.13.3",
     "puppeteer": "^24.36.1",
     "regenerator-runtime": "^0.14.1",
+    "sshclient-wasm": "^0.1.5",
     "tesseract.js": "^7.0.0",
     "websocket": "^1.0.35"
   }

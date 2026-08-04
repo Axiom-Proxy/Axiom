@@ -108,7 +108,8 @@ function handleAction(tab, action) {
  * the prompt is whatever the program asked for.
  */
 const PROGRAMS = {
-    claude: options => window.AxiomClaude && window.AxiomClaude.createProgram(options)
+    claude: options => window.AxiomClaude && window.AxiomClaude.createProgram(options),
+    ssh: options => window.AxiomSSH && window.AxiomSSH.createProgram(options)
 };
 
 const SPINNER_FRAMES = ['✻', '✺', '✳', '✶', '✷', '✸'];
@@ -181,7 +182,36 @@ function createHost(tab) {
 
         clear() { clearScreen(tab); },
 
+        /*
+         * A program that draws its own UI rather than printing lines (an SSH
+         * session renders itself) gets a container covering the panel. It keeps
+         * its own focus, so the hidden input stands down until unmount().
+         *
+         * The panel is translucent, so the scrollback underneath would show
+         * through the program and make both unreadable. Marking the panel
+         * hides it for the duration; the lines are still there on unmount.
+         */
+        mount() {
+            if (!tab.mountEl) {
+                tab.mountEl = document.createElement('div');
+                tab.mountEl.className = 'term-mount';
+                tab.panel.appendChild(tab.mountEl);
+                tab.panel.classList.add('term-mounted');
+                tab.hiddenInput.blur();
+            }
+            return tab.mountEl;
+        },
+
+        unmount() {
+            if (!tab.mountEl) return;
+            tab.mountEl.remove();
+            tab.mountEl = null;
+            tab.panel.classList.remove('term-mounted');
+            if (tab.id === activeTermId) tab.hiddenInput.focus();
+        },
+
         exit() {
+            this.unmount();
             tab.program = null;
             tab.promptOverride = null;
             tab.busy = false;
@@ -347,6 +377,7 @@ function createTab() {
         program: null,
         promptOverride: null,
         busy: false,
+        mountEl: null,
         hiddenInput: panel.querySelector('.term-hidden-input')
     };
     tab.session = AxiomShell.createSession({
@@ -370,6 +401,7 @@ function createTab() {
 
     panel.addEventListener('mousedown', e => {
         if (e.target.closest('.tab, #new-tab-btn, button')) return;
+        if (tab.mountEl) return; // a mounted program owns its own focus
         if (window.getSelection().toString()) return;
         e.preventDefault();
         input.focus();
@@ -382,7 +414,10 @@ function createTab() {
 function closeTab(id) {
     const idx = termTabs.findIndex(t => t.id === id);
     if (idx === -1) return;
-    termTabs[idx].panel.remove();
+    // Let a running program drop its connection rather than leaking it.
+    const dying = termTabs[idx];
+    if (dying.program && dying.program.onClose) dying.program.onClose();
+    dying.panel.remove();
     termTabs.splice(idx, 1);
     if (termTabs.length === 0) { createTab(); return; }
     if (activeTermId === id) {
@@ -399,7 +434,8 @@ function activateTab(id) {
     next.panel.classList.add('active');
     activeTermId = id;
     renderTabs();
-    next.hiddenInput.focus();
+    if (next.mountEl) next.mountEl.querySelector('.term-mount-surface').focus();
+    else next.hiddenInput.focus();
 }
 
 function renderTabs() {

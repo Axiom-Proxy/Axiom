@@ -53,15 +53,15 @@
     "id": "pippa",
     "name": "Pippa",
     "vars": {
-      "--bg": "#000000",
-      "--text": "#4A4E69",
-      "--text-secondary": "#7D82A8",
-      "--glass-bg": "rgba(255, 255, 255, 0.3)",
-      "--glass-border": "rgba(74, 78, 105, 0.15)",
-      "--glass-bg-focus": "rgba(255, 255, 255, 0.5)",
-      "--glass-border-focus": "rgba(74, 78, 105, 0.3)",
-      "--glass-panel-bg": "rgba(255, 255, 255, 0.8)",
-      "--accent": "#4A4E69"
+      "--bg": "#120a0d",
+      "--text": "#fff1f3",
+      "--text-secondary": "#e9b9c0",
+      "--glass-bg": "rgba(254, 181, 191, 0.12)",
+      "--glass-border": "rgba(254, 181, 191, 0.28)",
+      "--glass-bg-focus": "rgba(254, 181, 191, 0.2)",
+      "--glass-border-focus": "rgba(254, 181, 191, 0.5)",
+      "--glass-panel-bg": "rgba(42, 20, 26, 0.82)",
+      "--accent": "#feb5bf"
     }
   }
 ]

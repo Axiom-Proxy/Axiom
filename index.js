@@ -17,14 +17,22 @@ const { createWorker } = require("tesseract.js")
 
 dotenv.config();
 
-const rdpTokenKey = crypto.createHash("sha256")
+// The in-browser SSH client reaches hosts through Wisp's TCP streams. Wisp
+// blocks private and loopback ranges by default, which would rule out LAN and
+// localhost boxes — the usual thing to SSH into. Opt in explicitly.
+wisp.options.allow_private_ips = true;
+wisp.options.allow_loopback_ips = true;
+
+// Shared by every guacd-backed protocol (RDP and SSH); guacamole-lite decrypts
+// tokens with this same key.
+const guacTokenKey = crypto.createHash("sha256")
     .update(crypto.randomBytes(32))
     .digest();
-const rdpTokens = new Map();
+const guacTokens = new Map();
 
-function createRdpToken(payload) {
+function createGuacToken(payload) {
     const iv = crypto.randomBytes(16);
-    const cipher = crypto.createCipheriv("aes-256-cbc", rdpTokenKey, iv);
+    const cipher = crypto.createCipheriv("aes-256-cbc", guacTokenKey, iv);
     const value = Buffer.concat([cipher.update(JSON.stringify(payload), "utf8"), cipher.final()]);
     return Buffer.from(JSON.stringify({
         iv: iv.toString("base64"),
@@ -63,17 +71,40 @@ server.register(require("@fastify/static"), {
     decorateReply: false
 });
 
+// The SSH terminal runs the protocol in the browser: a Go/WASM client plus
+// xterm.js. Nothing here decrypts the session, so these are plain assets.
+server.register(require("@fastify/static"), {
+    root: path.join(__dirname, "node_modules/sshclient-wasm/dist"),
+    prefix: "/ssh/vendor/",
+    decorateReply: false
+});
+server.register(require("@fastify/static"), {
+    root: path.join(__dirname, "node_modules/@xterm/xterm/lib"),
+    prefix: "/ssh/xterm/",
+    decorateReply: false
+});
+server.register(require("@fastify/static"), {
+    root: path.join(__dirname, "node_modules/@xterm/xterm/css"),
+    prefix: "/ssh/xterm-css/",
+    decorateReply: false
+});
+server.register(require("@fastify/static"), {
+    root: path.join(__dirname, "node_modules/@mercuryworkshop/wisp-js/dist"),
+    prefix: "/wisp/",
+    decorateReply: false
+});
+
 const guacamoleServer = new GuacamoleLite({ server: undefined, noServer: true }, {
     host: "127.0.0.1",
     port: 4822
 }, {
     maxInactivityTime: 0,
     log: { level: 0 },
-    crypt: { cypher: "aes-256-cbc", key: rdpTokenKey }
+    crypt: { cypher: "aes-256-cbc", key: guacTokenKey }
 }, {
     processConnectionSettings(settings, callback) {
-        const token = rdpTokens.get(settings.nonce);
-        rdpTokens.delete(settings.nonce);
+        const token = guacTokens.get(settings.nonce);
+        guacTokens.delete(settings.nonce);
 
         if (!token || token.expiresAt < Date.now()) {
             return callback(new Error("Invalid or expired remote desktop session"));
@@ -85,8 +116,8 @@ const guacamoleServer = new GuacamoleLite({ server: undefined, noServer: true },
 
 setInterval(() => {
     const now = Date.now();
-    for (const [nonce, token] of rdpTokens) {
-        if (token.expiresAt < now) rdpTokens.delete(nonce);
+    for (const [nonce, token] of guacTokens) {
+        if (token.expiresAt < now) guacTokens.delete(nonce);
     }
 }, 60_000).unref();
 
@@ -110,10 +141,10 @@ server.post("/api/remote-desktop/session", {
 
     const nonce = crypto.randomUUID();
     const expiresAt = Date.now() + 30_000;
-    rdpTokens.set(nonce, { expiresAt });
+    guacTokens.set(nonce, { expiresAt });
 
     return res.send({
-        token: createRdpToken({
+        token: createGuacToken({
             nonce,
             connection: {
                 type: "rdp",
@@ -388,10 +419,12 @@ server.register(require("@fastify/static"), {
     prefix: "/"
 })
 
-server.listen({port: 8080}).then(function(){
+const PORT = Number(process.env.PORT) || 8081;
+
+server.listen({port: PORT}).then(function(){
     console.log("Axiom started!")
-    console.log("http://localhost:8080/")
-    console.log('http://127.0.0.1:8080')
+    console.log(`http://localhost:${PORT}/`)
+    console.log(`http://127.0.0.1:${PORT}`)
 }).catch(function(e){
     console.log("Failed to start server with error: " + e)
 })

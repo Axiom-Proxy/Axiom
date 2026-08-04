@@ -249,6 +249,85 @@ body {
   line-height: 1.6;
 }
 
+/* A program rendering its own UI (an SSH session) covers the panel. The panel
+   itself supplies the backdrop, so this adds none of its own — stacking a
+   second translucent layer would only darken the tint. */
+.term-mount {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+/* Local scrollback would otherwise read through the translucent program. */
+.term-panel.term-mounted > .term-output {
+  visibility: hidden;
+}
+
+.term-mount-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.term-mount-close {
+  background: rgba(255, 255, 255, 0.08);
+  border: 0;
+  border-radius: 4px;
+  padding: 3px 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font: inherit;
+  cursor: pointer;
+}
+.term-mount-close:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.term-mount-surface {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  outline: none;
+  padding: 8px 10px; /* line up with .term-output's 12px 14px gutter */
+}
+
+/* xterm paints its own opaque layers even with allowTransparency, and its
+   scrollbar is styled for a dark-on-dark theme. Clear both so the panel
+   backdrop is what shows. */
+.term-mount-surface .xterm,
+.term-mount-surface .xterm-viewport,
+.term-mount-surface .xterm-screen {
+  background-color: transparent !important;
+}
+.term-mount-surface .xterm-viewport {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+.term-mount-surface .xterm-viewport::-webkit-scrollbar {
+  width: 8px;
+}
+.term-mount-surface .xterm-viewport::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+}
+.term-mount-surface .xterm-viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.term-mount-surface canvas {
+  display: block;
+}
+
 .term-line {
   white-space: pre-wrap;
   word-break: break-word;

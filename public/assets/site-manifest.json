@@ -1,5 +1,5 @@
 {
-  "version": 1785728782828,
+  "version": 1785796497868,
   "entries": [
     {
       "path": "/apps.html",
@@ -18,8 +18,8 @@
     },
     {
       "path": "/assets/themes.json",
-      "size": 1259,
-      "mtime": 1785611747991
+      "size": 1462,
+      "mtime": 1785789726296
     },
     {
       "path": "/chat.html",
@@ -57,11 +57,6 @@
       "mtime": 1785728664946
     },
     {
-      "path": "/os_docs.md",
-      "size": 14447,
-      "mtime": 1785728782828
-    },
-    {
       "path": "/remote-desktop.html",
       "size": 1913,
       "mtime": 1785626271022
@@ -79,7 +74,7 @@
     {
       "path": "/scripts/apps.js",
       "size": 2605,
-      "mtime": 1785626189845
+      "mtime": 1785768642361
     },
     {
       "path": "/scripts/axiom-guard.js",
@@ -103,8 +98,8 @@
     },
     {
       "path": "/scripts/desktop.js",
-      "size": 13476,
-      "mtime": 1785633243237
+      "size": 15330,
+      "mtime": 1785788808887
     },
     {
       "path": "/scripts/explorer.js",
@@ -129,7 +124,7 @@
     {
       "path": "/scripts/games.js",
       "size": 2712,
-      "mtime": 1785626201264
+      "mtime": 1785768638530
     },
     {
       "path": "/scripts/landing.js",
@@ -178,13 +173,18 @@
     },
     {
       "path": "/scripts/shell.js",
-      "size": 45179,
-      "mtime": 1785639720444
+      "size": 45206,
+      "mtime": 1785796419830
     },
     {
       "path": "/scripts/simple.js",
       "size": 94,
       "mtime": 1784987095649
+    },
+    {
+      "path": "/scripts/ssh.js",
+      "size": 9939,
+      "mtime": 1785796497868
     },
     {
       "path": "/scripts/start-menu.js",
@@ -198,13 +198,13 @@
     },
     {
       "path": "/scripts/tabs.js",
-      "size": 11876,
-      "mtime": 1785622469266
+      "size": 15963,
+      "mtime": 1785794181096
     },
     {
       "path": "/scripts/terminal.js",
-      "size": 17309,
-      "mtime": 1785639748337
+      "size": 18567,
+      "mtime": 1785796377609
     },
     {
       "path": "/scripts/theme.js",
@@ -223,13 +223,13 @@
     },
     {
       "path": "/simple.html",
-      "size": 2657,
-      "mtime": 1785628445751
+      "size": 2711,
+      "mtime": 1785788756052
     },
     {
       "path": "/start.html",
-      "size": 1384,
-      "mtime": 1785626233331
+      "size": 2501,
+      "mtime": 1785791153800
     },
     {
       "path": "/styles/chat.css",
@@ -245,6 +245,11 @@
       "path": "/styles/defender.css",
       "size": 2408,
       "mtime": 1785725552309
+    },
+    {
+      "path": "/styles/dust.css",
+      "size": 65954,
+      "mtime": 1785788747116
     },
     {
       "path": "/styles/explorer.css",
@@ -264,7 +269,7 @@
     {
       "path": "/styles/games.css",
       "size": 4015,
-      "mtime": 1785612418564
+      "mtime": 1785788760622
     },
     {
       "path": "/styles/landing.css",
@@ -283,8 +288,8 @@
     },
     {
       "path": "/styles/main.css",
-      "size": 3826,
-      "mtime": 1785612418567
+      "size": 3886,
+      "mtime": 1785788750813
     },
     {
       "path": "/styles/remote-desktop.css",
@@ -308,23 +313,23 @@
     },
     {
       "path": "/styles/start.css",
-      "size": 2193,
-      "mtime": 1785612435053
+      "size": 3016,
+      "mtime": 1785791159566
     },
     {
       "path": "/styles/tabs.css",
-      "size": 7446,
-      "mtime": 1785622957838
+      "size": 7567,
+      "mtime": 1785791699561
     },
     {
       "path": "/styles/terminal.css",
-      "size": 10275,
-      "mtime": 1785637017287
+      "size": 11248,
+      "mtime": 1785796436557
     },
     {
       "path": "/styles/windows.css",
-      "size": 16071,
-      "mtime": 1785635215087
+      "size": 15763,
+      "mtime": 1785789740150
     },
     {
       "path": "/tabs.html",
@@ -333,13 +338,13 @@
     },
     {
       "path": "/terminal.html",
-      "size": 1500,
-      "mtime": 1785647068243
+      "size": 1545,
+      "mtime": 1785796423080
     },
     {
       "path": "/windows.html",
-      "size": 6522,
-      "mtime": 1785728746150
+      "size": 5106,
+      "mtime": 1785788769131
     }
   ]
 }

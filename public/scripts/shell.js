@@ -784,6 +784,19 @@
     return 'Downloading ' + stat.name + '…';
   });
 
+  define('ssh', 'Open a real SSH session on a remote host',
+    'ssh [-p port] [-i identity] [user@]host', function (ctx, args) {
+      if (!global.AxiomSSH) throw shellError('ssh: not available in this window');
+      if (!args.length) throw shellError('ssh: usage: ssh [-p port] [-i identity] [user@]host');
+
+      ctx.action({
+        type: 'program',
+        name: 'ssh',
+        options: { argv: args, cwd: ctx.cwd }
+      });
+      return '';
+    });
+
   define('claude', 'Start Mini Claude Code, an agent that can read and edit your files',
     'claude [-p prompt] [--model name]', function (ctx, args) {
       if (!global.AxiomClaude) throw shellError('claude: the agent is not loaded in this window');

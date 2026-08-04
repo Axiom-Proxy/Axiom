@@ -10,13 +10,48 @@ const {
     ButtonBuilder,
     ButtonStyle,
     EmbedBuilder,
-    MessageFlags
+    MessageFlags,
+    PermissionFlagsBits,
+    SlashCommandBuilder,
+    Events
 } = require("discord.js");
 
 const TOKEN = process.env.DISCORD_TOKEN;
 const TARGET_CHANNEL = process.env.DISCORD_TARGET_CHANNEL;
 const LINKS_FILE = path.join(__dirname, "links.txt");
 const MAX_DAILY = 3;
+
+const ADMIN_PERMS = [
+    PermissionFlagsBits.ManageGuild,
+    PermissionFlagsBits.Administrator
+];
+
+function isAdmin(member) {
+    if (!member) return false;
+    return ADMIN_PERMS.some(p => member.permissions.has(p));
+}
+
+const ADD_LINK_CMD = new SlashCommandBuilder()
+    .setName("add-link")
+    .setDescription("Add a link (and the blockers that work with it) to links.txt")
+    .addStringOption(o =>
+        o.setName("url")
+            .setDescription("The http(s):// URL to add")
+            .setRequired(true))
+    .addStringOption(o =>
+        o.setName("blockers")
+            .setDescription("Comma-separated list of blockers this link bypasses")
+            .setRequired(true)
+            .setAutocomplete(true));
+
+const REMOVE_LINK_CMD = new SlashCommandBuilder()
+    .setName("remove-link")
+    .setDescription("Remove a link from links.txt")
+    .addStringOption(o =>
+        o.setName("url")
+            .setDescription("The exact URL to remove")
+            .setRequired(true)
+            .setAutocomplete(true));
 
 if (!TOKEN) {
     console.error("Missing DISCORD_TOKEN in .env");
@@ -49,6 +84,39 @@ function importLinks() {
     }
     blockers = [...new Set(entries.flatMap(e => e.blockers))].sort();
     console.log(`Imported ${entries.length} link(s) covering ${blockers.length} blocker(s).`);
+}
+
+function formatBlockerLine(blockerList) {
+    return blockerList.map(b => `:${b}:`).join(" ");
+}
+
+function writeLinksFile() {
+    const out = entries
+        .map(e => `${formatBlockerLine(e.blockers)}\n${e.url}`)
+        .join("\n") + "\n";
+    fs.writeFileSync(LINKS_FILE, out, "utf8");
+}
+
+function addLink(url, blockerList) {
+    url = url.trim();
+    blockerList = blockerList.map(b => b.trim()).filter(Boolean);
+    const existing = entries.find(e => e.url === url);
+    if (existing) {
+        existing.blockers = [...new Set([...existing.blockers, ...blockerList])];
+    } else {
+        entries.push({ blockers: [...new Set(blockerList)], url });
+    }
+    writeLinksFile();
+    importLinks();
+}
+
+function removeLink(url) {
+    url = url.trim();
+    const before = entries.length;
+    entries = entries.filter(e => e.url !== url);
+    writeLinksFile();
+    importLinks();
+    return before - entries.length;
 }
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -123,9 +191,85 @@ client.once("clientReady", async () => {
     }
     await publishDispenser(channel);
     console.log(`Posted dispenser in #${channel.name}`);
+
+    try {
+        const cmds = [ADD_LINK_CMD, REMOVE_LINK_CMD];
+        if (process.env.DISCORD_GUILD_ID) {
+            await client.application.commands.set(cmds, process.env.DISCORD_GUILD_ID);
+            console.log(`Registered ${cmds.length} slash command(s) to guild ${process.env.DISCORD_GUILD_ID}`);
+        } else {
+            await client.application.commands.set(cmds);
+            console.log(`Registered ${cmds.length} slash command(s) globally`);
+        }
+    } catch (err) {
+        console.error("Slash command registration failed:", err);
+    }
 });
 
 client.on("interactionCreate", async (interaction) => {
+    if (interaction.isChatInputCommand()) {
+        if (!interaction.inGuild()) {
+            return interaction.reply({ content: "Commands must be used in a server.", flags: MessageFlags.Ephemeral });
+        }
+        if (!isAdmin(interaction.member)) {
+            return interaction.reply({ content: "You need Manage Server permissions to do that.", flags: MessageFlags.Ephemeral });
+        }
+
+        if (interaction.commandName === "add-link") {
+            const url = interaction.options.getString("url", true).trim();
+            const rawBlockers = interaction.options.getString("blockers", true);
+            const blockerList = rawBlockers.split(/[,\s]+/).map(b => b.trim()).filter(Boolean);
+            if (!/^https?:\/\//i.test(url)) {
+                return interaction.reply({ content: "URL must start with `http://` or `https://`.", flags: MessageFlags.Ephemeral });
+            }
+            if (blockerList.length === 0) {
+                return interaction.reply({ content: "Provide at least one blocker.", flags: MessageFlags.Ephemeral });
+            }
+            addLink(url, blockerList);
+            const channel = await client.channels.fetch(TARGET_CHANNEL).catch(() => null);
+            if (channel) await publishDispenser(channel);
+            return interaction.reply({
+                content: `Added **${url}** for blockers: ${blockerList.map(b => `\`${b}\``).join(", ")}`,
+                flags: MessageFlags.Ephemeral
+            });
+        }
+
+        if (interaction.commandName === "remove-link") {
+            const url = interaction.options.getString("url", true).trim();
+            const removed = removeLink(url);
+            if (removed === 0) {
+                return interaction.reply({ content: `No entry matched **${url}**.`, flags: MessageFlags.Ephemeral });
+            }
+            const channel = await client.channels.fetch(TARGET_CHANNEL).catch(() => null);
+            if (channel) await publishDispenser(channel);
+            return interaction.reply({
+                content: `Removed **${url}** (${removed} entr${removed === 1 ? "y" : "ies"} deleted).`,
+                flags: MessageFlags.Ephemeral
+            });
+        }
+        return;
+    }
+
+    if (interaction.isAutocomplete()) {
+        if (interaction.commandName === "add-link" && interaction.options.getFocused(true).name === "blockers") {
+            const focused = interaction.options.getFocused().toLowerCase();
+            const choices = blockers
+                .filter(b => b.toLowerCase().includes(focused))
+                .slice(0, 25)
+                .map(b => ({ name: b, value: b }));
+            return interaction.respond(choices).catch(() => {});
+        }
+        if (interaction.commandName === "remove-link" && interaction.options.getFocused(true).name === "url") {
+            const focused = interaction.options.getFocused().toLowerCase();
+            const choices = [...new Set(entries.map(e => e.url))]
+                .filter(u => u.toLowerCase().includes(focused))
+                .slice(0, 25)
+                .map(u => ({ name: u.length > 100 ? u.slice(0, 97) + "..." : u, value: u }));
+            return interaction.respond(choices).catch(() => {});
+        }
+        return;
+    }
+
     if (!interaction.isButton()) return;
     if (!interaction.customId.startsWith("dispense:")) return;
 

@@ -1,22 +1,59 @@
 const trigger = document.getElementById('dropdownTrigger');
         const panel = document.getElementById('dropdownPanel');
         const label = document.getElementById('dropdownLabel');
-        const options = panel.querySelectorAll('.dropdown-option');
+
+        let selectedModelId = null;
+        let selectedModelPremium = false;
+
+        async function loadModels() {
+            try {
+                const res = await fetch('/api/models');
+                const data = await res.json();
+                panel.innerHTML = '';
+                data.models.forEach((m, i) => {
+                    const opt = document.createElement('div');
+                    opt.className = 'dropdown-option' + (m.id === data.default ? ' selected' : '');
+                    opt.dataset.value = m.id;
+                    opt.dataset.label = m.codename;
+                    opt.dataset.premium = m.premium ? '1' : '0';
+                    opt.textContent = m.codename;
+                    if (m.premium) {
+                        const crown = document.createElement('span');
+                        crown.className = 'material-symbols-outlined';
+                        crown.textContent = 'crown';
+                        opt.appendChild(crown);
+                    }
+                    if (m.id === data.default) {
+                        selectedModelId = m.id;
+                        selectedModelPremium = !!m.premium;
+                        label.textContent = m.codename;
+                    }
+                    opt.addEventListener('click', () => {
+                        panel.querySelectorAll('.dropdown-option').forEach(o => o.classList.remove('selected'));
+                        opt.classList.add('selected');
+                        selectedModelId = m.id;
+                        selectedModelPremium = !!m.premium;
+                        label.textContent = m.codename;
+                        panel.classList.remove('open');
+                        trigger.classList.remove('open');
+                    });
+                    panel.appendChild(opt);
+                });
+                if (!selectedModelId && data.models.length > 0) {
+                    selectedModelId = data.models[0].id;
+                    label.textContent = data.models[0].codename;
+                }
+            } catch (e) {
+                label.textContent = 'Model load failed';
+            }
+        }
+
+        loadModels();
 
         trigger.addEventListener('click', () => {
             const isOpen = panel.classList.contains('open');
             panel.classList.toggle('open', !isOpen);
             trigger.classList.toggle('open', !isOpen);
-        });
-
-        options.forEach(opt => {
-            opt.addEventListener('click', () => {
-                options.forEach(o => o.classList.remove('selected'));
-                opt.classList.add('selected');
-                label.textContent = opt.dataset.label;
-                panel.classList.remove('open');
-                trigger.classList.remove('open');
-            });
         });
 
         document.addEventListener('click', e => {
@@ -132,11 +169,19 @@ let genlock = false
             if (window.renderMathInElement) renderMathInElement(el, katexOpts);
         }
 
-        function scrollToBottom(el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        const messagesEl = document.querySelector('.messages');
+
+        function isNearBottom(el, slack = 80) {
+            return el.scrollHeight - el.scrollTop - el.clientHeight <= slack;
+        }
+
+        function scrollToBottom(el = messagesEl) {
+            el.scrollTop = el.scrollHeight;
         }
 
         function addMessage(content, role, images, trackHistory = true) {
+            // stick to the bottom unless the user has deliberately scrolled up
+            const stick = role === 'user' || isNearBottom(messagesEl);
             const message = document.createElement('div');
             message.classList.add('message', role);
 
@@ -156,8 +201,15 @@ let genlock = false
                 });
             }
 
-            document.querySelector('.messages').appendChild(message);
-            scrollToBottom(message);
+            messagesEl.appendChild(message);
+            if (stick) {
+                scrollToBottom();
+                // images (and KaTeX) change the height after layout — re-pin once they land
+                message.querySelectorAll('img').forEach(img => {
+                    img.addEventListener('load', () => { if (isNearBottom(messagesEl, 200)) scrollToBottom(); });
+                });
+                requestAnimationFrame(() => scrollToBottom());
+            }
 
             if (trackHistory) {
                 if (images && images.length > 0) {
@@ -191,14 +243,13 @@ let genlock = false
             const images = [...pendingImages];
             if (!message && images.length === 0) return;
 
-            const selectedModel = document.querySelector('.dropdown-option.selected')?.dataset.value;
-            const model = selectedModel === '1' ? '1' : '0';
+            const model = selectedModelId;
 
-            // Premium gate for GPT-OSS-120B
-            if (model === '1') {
+            // Premium gate for premium models
+            if (selectedModelPremium) {
                 const hasPremium = await axiomPremium.isPremium();
                 if (!hasPremium) {
-                    addMessage('GPT-OSS-120B requires a premium key. Go to Settings to activate premium.', 'bot', null, false);
+                    addMessage('This model requires a premium key. Go to Settings to activate premium.', 'bot', null, false);
                     return;
                 }
             }

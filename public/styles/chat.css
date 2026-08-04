@@ -27,13 +27,21 @@ button:focus-visible {
 }
 
 .messages {
-    position: absolute;
+    position: fixed;
     width: 50%;
-    left: calc(50% - 25%);
-    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 90px;
+    /* leave room for the fixed composer + image previews */
+    bottom: 90px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+    /* padding-bottom so the last message clears the composer's blur edge */
+    padding: 4px 4px 16px;
 }
 
 .message {
@@ -43,6 +51,8 @@ button:focus-visible {
   flex-direction: column;
   width: max-content;
   height: max-content;
+  /* never let the scroll container squash tall messages */
+  flex: 0 0 auto;
   max-width: 50%;
   padding: 15px;
   border-radius: 25px;
@@ -329,3 +339,9 @@ button:focus-visible::before,
 .attach-option-icon { font-size: 16px; }
 .file-input { display: none; }
 .chat-composer { position: fixed; bottom: 15px; width: 70%; left: 50%; transform: translateX(-50%); display: flex; justify-content: center; align-items: center; gap: 8px; }
+
+@media (max-width: 900px) {
+    .messages { width: 92%; }
+    .message { max-width: 85%; }
+    .chat-composer { width: 94%; }
+}

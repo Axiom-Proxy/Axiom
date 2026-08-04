@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "bot": "node bot.js",
     "site-manifest": "node tools/site-fs.js"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
     "@mercuryworkshop/wisp-js": "^0.4.1",
     "@xterm/xterm": "^6.0.0",
     "cheerio": "^1.1.2",
+    "discord.js": "^14.27.0",
     "dotenv": "^17.2.3",
     "fastify": "^5.10.0",
     "guacamole-common-js": "^1.5.0",

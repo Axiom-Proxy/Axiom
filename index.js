@@ -8,6 +8,7 @@ console.log(scramjetPath);
 const { baremuxPath } = require("@mercuryworkshop/bare-mux/node");
 const cheerio = require("cheerio");
 const fastify = require("fastify")
+const fs = require("fs");
 const path = require("path")
 const epoxyPath = path.dirname(require.resolve("@mercuryworkshop/epoxy-transport"));
 const libcurlPath = path.dirname(require.resolve("@mercuryworkshop/libcurl-transport"));
@@ -216,7 +217,7 @@ server.post("/chat", {
     const messages = [
         {
             "role": "system",
-            "content": "You are Axiom AI, a helpful assistant who's only job is to assist with homework/quizzes/etc for the user. You are powered by Groq models. When the user sends images, text has been extracted using OCR and is provided below in [Image text] tags. Use this extracted text along with the user's message to provide helpful responses."
+            "content": "You are Axiom AI, a helpful assistant who's only job is to assist with homework/quizzes/etc for the user. You are powered by Composite (https://composite.lucidity.sh) models. When the user sends images, text has been extracted using OCR and is provided below in [Image text] tags. Use this extracted text along with the user's message to provide helpful responses."
         },
         ...history,
         {
@@ -226,26 +227,20 @@ server.post("/chat", {
     ];
 
     try {
-        const modelMap = {
-            "0": "llama-3.1-8b-instant",
-            "1": "openai/gpt-oss-120b",
-            "default": "llama-3.1-8b-instant"
-        };
-
         const requestedModel = req.body.model;
 
         // Server-side premium enforcement — client-side checks can always be bypassed
-        if (requestedModel === "1" && !premium_keys.includes(req.headers.key)) {
-            return res.code(403).send({ error: "GPT-OSS-120B requires a valid premium key." });
+        if (PREMIUM_MODELS.has(requestedModel) && !premium_keys.includes(req.headers.key)) {
+            return res.code(403).send({ error: `${MODEL_CODENAMES[requestedModel] || requestedModel} requires a valid premium key.` });
         }
 
-        const modelToUse = modelMap[requestedModel] || modelMap.default;
+        const modelToUse = SUPPORTED_MODELS.includes(requestedModel) ? requestedModel : DEFAULT_MODEL;
 
-        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        const response = await fetch("https://composite.lucidity.sh/v1/chat/completions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${process.env.GROQ_API_KEY}`
+                "Authorization": `Bearer ${process.env.COMPOSITE_API_KEY}`
             },
             body: JSON.stringify({
                 model: modelToUse,
@@ -257,7 +252,7 @@ server.post("/chat", {
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.error?.message || `Groq API failed with status ${response.status}`);
+            throw new Error(errorData.error?.message || `Composite API failed with status ${response.status}`);
         }
 
         const data = await response.json();
@@ -361,6 +356,49 @@ server.get('/search_complete/*', async (req, res) => {
 });
 
 
+const MODEL_CODENAMES = {
+    "lucidityai/gemma-4-26b-a4b-it:free": "Lucidity Gemma 4 26B A4B IT",
+    "open/deepseek-ai/deepseek-v4-flash:free": "DeepSeek V4 Flash",
+    "open/deepseek-ai/deepseek-v4-pro:free": "DeepSeek V4 Pro",
+    "open/moonshotai/kimi-k2.6:free": "Moonshot Kimi K2.6",
+    "open/stepfun-ai/step-3.5-flash:free": "StepFun Step 3.5 Flash",
+    "open/stepfun-ai/step-3.7-flash:free": "StepFun Step 3.7 Flash",
+    "open/z-ai/glm-5.2:free": "Z-AI GLM 5.2",
+    "open/meta/llama-3.3-70b-instruct:free": "Meta Llama 3.3 70B Instruct",
+    "open/google/gemma-4-31b-it:free": "Google Gemma 4 31B IT",
+    "open/openai/gpt-oss-120b:free": "OpenAI GPT-OSS 120B",
+    "open/qwen/qwen3.5-397b-a17b:free": "Qwen 3.5 397B A17B",
+    "open/ibm/granite-34b-code-instruct:free": "IBM Granite 34B Code Instruct"
+};
+
+const SUPPORTED_MODELS = fs.readFileSync(path.join(__dirname, "models.txt"), "utf8")
+    .split("\n")
+    .map(s => s.trim())
+    .filter(Boolean);
+
+const PREMIUM_MODELS = new Set([
+    "open/deepseek-ai/deepseek-v4-pro:free",
+    "open/meta/llama-3.3-70b-instruct:free",
+    "open/openai/gpt-oss-120b:free",
+    "open/qwen/qwen3.5-397b-a17b:free",
+    "open/z-ai/glm-5.2:free",
+    "open/moonshotai/kimi-k2.6:free"
+]);
+
+const MODELS_LIST = SUPPORTED_MODELS
+    .map(id => ({
+        id,
+        codename: MODEL_CODENAMES[id] || id,
+        premium: PREMIUM_MODELS.has(id)
+    }))
+    .sort((a, b) => (a.premium ? 1 : 0) - (b.premium ? 1 : 0));
+
+const DEFAULT_MODEL = SUPPORTED_MODELS[0] || "lucidityai/gemma-4-26b-a4b-it:free";
+
+server.get("/api/models", async (req, res) => {
+    res.send({ models: MODELS_LIST, default: DEFAULT_MODEL });
+});
+
 let premium_keys = ["stya"];
 try {
   const keys = process.env.PREMIUM_KEYS;
@@ -419,7 +457,7 @@ server.register(require("@fastify/static"), {
     prefix: "/"
 })
 
-const PORT = Number(process.env.PORT) || 8081;
+const PORT = Number(process.env.PORT) || 8080;
 
 server.listen({port: PORT}).then(function(){
     console.log("Axiom started!")

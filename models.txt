@@ -1,0 +1,12 @@
+lucidityai/gemma-4-26b-a4b-it:free
+open/deepseek-ai/deepseek-v4-flash:free
+open/deepseek-ai/deepseek-v4-pro:free
+open/moonshotai/kimi-k2.6:free
+open/stepfun-ai/step-3.5-flash:free
+open/stepfun-ai/step-3.7-flash:free
+open/z-ai/glm-5.2:free
+open/meta/llama-3.3-70b-instruct:free
+open/google/gemma-4-31b-it:free
+open/openai/gpt-oss-120b:free
+open/qwen/qwen3.5-397b-a17b:free
+open/ibm/granite-34b-code-instruct:free

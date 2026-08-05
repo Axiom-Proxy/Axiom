@@ -18,11 +18,63 @@ const { createWorker } = require("tesseract.js")
 
 dotenv.config();
 
+const NSFW_BLOCKLIST_URL = "https://nsfw.oisd.nl/";
+const NSFW_BLOCKLIST_REFRESH_MS = 12 * 60 * 60 * 1000;
+const nsfwDomains = new Set();
+let nsfwBlocklistLoaded = false;
+
+function parseNsfwBlocklist(text) {
+    const domains = new Set();
+    for (const line of text.split(/\r?\n/)) {
+        const match = line.trim().match(/^\|\|([a-z0-9](?:[a-z0-9.-]*[a-z0-9])?)\^/i);
+        if (match) domains.add(match[1].toLowerCase());
+    }
+    return domains;
+}
+
+async function refreshNsfwBlocklist() {
+    const response = await fetch(NSFW_BLOCKLIST_URL, {
+        signal: AbortSignal.timeout(30_000)
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const domains = parseNsfwBlocklist(await response.text());
+    if (domains.size === 0) throw new Error("The blocklist contained no hostname rules");
+
+    nsfwDomains.clear();
+    for (const domain of domains) nsfwDomains.add(domain);
+    nsfwBlocklistLoaded = true;
+    console.log(`Loaded ${nsfwDomains.size} NSFW hostname blocks.`);
+}
+
+function isNsfwHostname(hostname) {
+    if (!nsfwBlocklistLoaded) return true;
+    const normalized = hostname.toLowerCase().replace(/\.$/, "");
+    const labels = normalized.split(".");
+    for (let index = 0; index < labels.length; index++) {
+        if (nsfwDomains.has(labels.slice(index).join("."))) return true;
+    }
+    return false;
+}
+
 // The in-browser SSH client reaches hosts through Wisp's TCP streams. Wisp
 // blocks private and loopback ranges by default, which would rule out LAN and
 // localhost boxes — the usual thing to SSH into. Opt in explicitly.
-wisp.options.allow_private_ips = true;
-wisp.options.allow_loopback_ips = true;
+Object.assign(wisp.options, {
+    allow_private_ips: true,
+    allow_loopback_ips: true,
+    hostname_blacklist: [{ test: isNsfwHostname }],
+    dns_servers: ["1.1.1.3", "1.0.0.3"]
+});
+
+refreshNsfwBlocklist().catch((error) => {
+    console.error(`Failed to load the NSFW hostname blocklist: ${error.message}`);
+});
+setInterval(() => {
+    refreshNsfwBlocklist().catch((error) => {
+        console.error(`Failed to refresh the NSFW hostname blocklist: ${error.message}`);
+    });
+}, NSFW_BLOCKLIST_REFRESH_MS).unref();
 
 // Shared by every guacd-backed protocol (RDP and SSH); guacamole-lite decrypts
 // tokens with this same key.

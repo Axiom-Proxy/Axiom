@@ -4,25 +4,28 @@
 
     var QUARANTINE_DIR = '/home/user/Quarantine';
     var LOG_FILE = QUARANTINE_DIR + '/defender.log';
+    var USER_HOME = '/home/user';
     var events = [];
     var suspicious = [
         [/window\.open\s*\(/, 'opens a popup or redirect'],
-        [/location\.(href|assign|replace)\s*=/, 'redirects the page'],
-        [/<iframe/i, 'injects a frame'],
+        [/location\.href\s*=|location\.(?:assign|replace|reload)\s*\(/, 'redirects the page'],
+        [/<(?:iframe|script)\b/i, 'injects active page content'],
+        [/\b(?:innerHTML|outerHTML|replaceChildren|remove)\s*\(/, 'changes the desktop page'],
         [/new\s+Image\s*\(\s*\)\s*[;.\s]*src\s*=/, 'uses an image beacon'],
         [/\bfetch\s*\(/, 'uses a network request'],
-        [/XMLHttpRequest|new\s+WebSocket|sendBeacon/, 'uses a network channel'],
+        [/XMLHttpRequest|new\s+(?:WebSocket|Worker|SharedWorker)|sendBeacon|EventSource|importScripts/, 'uses a network channel'],
         [/postMessage\s*\(/, 'uses cross-window messaging'],
-        [/\bos\.(eval|openWindow|focusWindow|closeWindow)\b/, 'controls the desktop'],
-        [/AxiomShell\b/, 'controls the shell'],
-        [/(localStorage|sessionStorage|document\.cookie)/, 'accesses stored data'],
+        [/\bAxiomShell\b/, 'accesses protected shell capabilities'],
+        [/(localStorage|sessionStorage|document\.cookie|indexedDB)/, 'accesses stored data'],
         [/(addEventListener|onkeydown|onkeyup|onkeypress)\s*\(?['"]?key/, 'uses keyboard input'],
         [/\.bashrc/, 'changes shell configuration'],
-        [/\/(bin|etc|usr|var)\//, 'targets system directories'],
-        [/axiom_(claude_key|claude_model|premium_key|theme)/, 'accesses Axiom settings'],
-        [/\beval\s*\(/, 'evaluates runtime code'],
+        [/\/(?:bin|etc|usr|var|system)\//, 'targets protected directories'],
+        [/axiom_(?:claude_key|claude_model|premium_key|theme)/, 'accesses Axiom settings'],
+        [/\b(?:eval|atob|btoa|decodeURIComponent)\s*\(/, 'decodes or evaluates hidden code'],
         [/\bnew\s+Function\s*\(/, 'constructs runtime code'],
-        [/document\.(write|execCommand)\s*\(/, 'writes directly to the page']
+        [/(?:window|globalThis|self)\s*(?:\.|\[)/, 'accesses page globals directly'],
+        [/\bthis\s*\./, 'accesses page globals directly'],
+        [/document\.(?:write|execCommand)\s*\(/, 'writes directly to the page']
     ];
 
     function notify() {
@@ -81,6 +84,54 @@
         return { allowed: false, hits: hits };
     }
 
+    function autoFs(path) {
+        var fs = global.AxiomFS;
+        var home = fs.HOME || USER_HOME;
+
+        function allow(target, cwd) {
+            var absolute = fs.normalize(target, cwd);
+            if (absolute === home || absolute.indexOf(home + '/') === 0) return absolute;
+            var entry = record('Blocked filesystem access', path, absolute);
+            appendLog(entry);
+            throw new Error('Autorun scripts may only access files in ' + home);
+        }
+
+        function method(name, paths, cwdIndex) {
+            return function () {
+                var args = Array.prototype.slice.call(arguments);
+                var cwd = cwdIndex === undefined ? undefined : args[cwdIndex];
+                paths.forEach(function (index) { allow(args[index], cwd); });
+                return fs[name].apply(fs, args);
+            };
+        }
+
+        return Object.freeze({
+            HOME: home,
+            basename: fs.basename,
+            dirname: fs.dirname,
+            join: fs.join,
+            normalize: function (target, cwd) { return allow(target, cwd); },
+            exists: method('exists', [0], 1),
+            stat: method('stat', [0], 1),
+            isDirectory: method('isDirectory', [0], 1),
+            readdir: method('readdir', [0], 1),
+            list: method('list', [0], 1),
+            readFile: method('readFile', [0], 1),
+            writeFile: method('writeFile', [0], 3),
+            appendFile: method('appendFile', [0], 2),
+            touch: method('touch', [0], 1),
+            mkdir: method('mkdir', [0], 2),
+            rm: method('rm', [0], 2),
+            rmdir: method('rmdir', [0], 1),
+            rename: method('rename', [0, 1], 2),
+            copy: method('copy', [0, 1], 3),
+            uniqueName: method('uniqueName', [0]),
+            size: method('size', [0], 1),
+            walk: method('walk', [0], 1),
+            glob: method('glob', [0], 1)
+        });
+    }
+
     function scan() {
         var checked = 0;
         var blocked = 0;
@@ -106,10 +157,20 @@
         function guardedRun(path, code) {
             var result = inspect(path, code);
             if (!result.allowed) return;
-            return original(path, code);
+            try {
+                // Autoruns receive a filesystem facade that enforces the user-space boundary after paths are resolved.
+                new Function('AxiomFS', code)(autoFs(path));
+                console.info('[autorun]', path);
+            } catch (e) {
+                console.error('[autorun] error in', path, e);
+            }
         }
         guardedRun.__axiomDefender = true;
-        global.runAutoScript = guardedRun;
+        Object.defineProperty(global, 'runAutoScript', {
+            value: guardedRun,
+            writable: false,
+            configurable: false
+        });
         record('Protection active', '', 'Autorun scripts are checked before they run');
     }
 

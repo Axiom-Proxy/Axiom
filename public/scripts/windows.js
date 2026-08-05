@@ -349,7 +349,7 @@ const openWindows = {};
                 autoRanPaths.add(entry.path);
                 try {
                     const code = AxiomFS.readFile(entry.path);
-                    runAutoScript(entry.path, code);
+                    window.runAutoScript(entry.path, code);
                 } catch (e) {
                     console.error('[autorun] could not read', entry.path, e);
                 }
@@ -366,7 +366,7 @@ const openWindows = {};
                     try {
                         const code = AxiomFS.readFile(path);
                         autoRanPaths.add(path);
-                        runAutoScript(path, code);
+                        window.runAutoScript(path, code);
                     } catch (e) {
                         console.error('[autorun] could not read', path, e);
                     }

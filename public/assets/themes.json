@@ -63,5 +63,21 @@
       "--glass-panel-bg": "rgba(42, 20, 26, 0.82)",
       "--accent": "#feb5bf"
     }
-  }
+  },
+{
+    "id": "lifeontheline",
+    "name": "Life on the Line",
+    "vars": {
+      "--bg": "#000000",
+      "--text": "#ffffff",
+      "--text-secondary": "#a0a0a0",
+      "--glass-bg": "rgba(255, 255, 255, 0.12)",
+      "--glass-border": "rgba(255, 255, 255, 0.28)",
+      "--glass-bg-focus": "rgba(255, 255, 255, 0.2)",
+      "--glass-border-focus": "rgba(255, 255, 255, 0.5)",
+      "--glass-panel-bg": "rgba(30, 30, 30, 0.82)",
+      "--accent": "#ffffff"
+    }
+}
+
 ]

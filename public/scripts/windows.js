@@ -1,6 +1,6 @@
 const openWindows = {};
 
-        const wallpaperThemes = new Set(['default', 'midnight', 'ocean', 'forest', 'ember', 'aurora']);
+        const wallpaperThemes = new Set(['default', 'midnight', 'ocean', 'forest', 'ember', 'aurora', "pippa"]);
 
         function applyWallpaper() {
             const themeId = window.axiomTheme ? window.axiomTheme.getSavedId() : 'default';

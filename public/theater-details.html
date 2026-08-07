@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" data-await-ready="1">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Roboto:wght@100;300;400;500;700&display=swap"
+        rel="stylesheet">
+    <script src="./scripts/theme.js"></script>
+    <link href="./styles/loader.css" rel="stylesheet">
+    <link href="./styles/start.css" rel="stylesheet">
+    <link href="./styles/theater-details.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EP8214CHBW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EP8214CHBW');
+    </script>
+</head>
+
+<body>
+    <div id="axiom-loader" class="ao-loader">
+        <div class="ao-loader-logo">Axiom</div>
+        <div class="ao-loader-spinner"></div>
+    </div>
+
+    <div class="details-backdrop" id="details-backdrop">
+        <div class="backdrop-gradient"></div>
+    </div>
+
+    <div class="details-container">
+        <button class="details-back" id="details-back">
+            <span class="material-symbols-outlined">arrow_back</span>
+            Back
+        </button>
+
+        <div class="details-hero">
+            <div class="details-poster" id="details-poster"></div>
+            <div class="details-info">
+                <h1 class="details-title" id="details-title"></h1>
+                <div class="details-meta" id="details-meta"></div>
+                <div class="details-actions">
+                    <button class="details-watch" id="details-watch">
+                        <span class="material-symbols-outlined">play_arrow</span>
+                        Watch
+                    </button>
+                </div>
+                <p class="details-overview" id="details-overview"></p>
+                <div class="details-cast" id="details-cast"></div>
+            </div>
+        </div>
+
+        <div class="details-section" id="details-similar-section">
+            <h2 class="details-section-title">More Like This</h2>
+            <div class="details-similar" id="details-similar"></div>
+        </div>
+    </div>
+
+    <div id="player-overlay" class="player-overlay">
+        <div class="player-header">
+            <button class="player-close" id="player-close">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div class="player-title" id="player-title"></div>
+        </div>
+        <div class="player-frame">
+            <iframe id="player-iframe" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script src="./scripts/loader.js"></script>
+    <script src="./scripts/theater-details.js"></script>
+</body>
+
+</html>

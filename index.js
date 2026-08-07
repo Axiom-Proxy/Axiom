@@ -341,6 +341,76 @@ server.server.on("upgrade", (req, socket, head) => {
   socket.destroy();
 });
 
+server.get("/api/theater/search", async (request, res) => {
+  const { q } = request.query;
+  if (!q) return res.code(400).send({ error: "Query required" });
+  try {
+    const response = await fetch(`https://db.speedracelight.com/3/search/multi?language=en&page=1&query=${encodeURIComponent(q)}`, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
+        "Accept": "*/*",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "cross-site",
+        "Priority": "u=4",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache"
+      }
+    });
+    const data = await response.json();
+    res.send(data);
+  } catch (error) {
+    res.code(500).send({ error: "Search failed: " + error.message });
+  }
+});
+
+server.get("/api/theater/tv/:id", async (request, res) => {
+  const { id } = request.params;
+  try {
+    const response = await fetch(`https://db.speedracelight.com/3/tv/${id}?append_to_response=credits,external_ids,similar,videos,recommendations,translations&language=en&include_video_language=en,null`, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
+        "Accept": "*/*",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "cross-site",
+        "Priority": "u=4",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache"
+      }
+    });
+    const data = await response.json();
+    res.send(data);
+  } catch (error) {
+    res.code(500).send({ error: "TV details failed: " + error.message });
+  }
+});
+
+server.get("/api/theater/movie/:id", async (request, res) => {
+  const { id } = request.params;
+  try {
+    const response = await fetch(`https://db.speedracelight.com/3/movie/${id}?append_to_response=credits,external_ids,videos,recommendations,translations,similar,release_dates&language=en&include_video_language=en,null`, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
+        "Accept": "*/*",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "cross-site",
+        "Priority": "u=4",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache"
+      }
+    });
+    const data = await response.json();
+    res.send(data);
+  } catch (error) {
+    res.code(500).send({ error: "Movie details failed: " + error.message });
+  }
+});
+
 server.get("/api/search", async (request, res) => {
   const { q } = request.query;
   if (!q) return res.code(400).send({ error: "Query required" });

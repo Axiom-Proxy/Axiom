@@ -156,6 +156,7 @@
         { name: 'Home', icon: 'language', run: () => openWindow('Home', 'start', 'tabs.html', { chromeless: true }) },
         { name: 'Apps', icon: 'apps', run: () => openWindow('Apps', 'apps', 'apps.html') },
         { name: 'Games', icon: 'sports_esports', run: () => openWindow('Games', 'games', 'games.html') },
+        { name: 'Theater', icon: 'movie', run: () => openWindow('Theater', 'theater', 'theater.html') },
         { name: 'Chat', icon: 'chat', run: () => openWindow('Chat', 'chat', 'chat.html') },
         { name: 'Files', icon: 'folder', run: () => openWindow('Files', 'files', 'explorer.html') },
         { name: 'Terminal', icon: 'terminal', run: () => openWindow('Terminal', 'terminal', 'terminal.html') },

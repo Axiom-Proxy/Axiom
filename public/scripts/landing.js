@@ -40,6 +40,7 @@ function openWindowAB() {
             w.document.head.appendChild(link);
         } catch (e) {}
     }, 100);
+    window.location = "https://www.effectivecpmnetwork.com/apcwya80vu?key=d11bdcac615d998ece47753baf97c298"
 }
 
 function openFileCloak() {
@@ -51,11 +52,13 @@ function openFileCloak() {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    window.location = "https://www.effectivecpmnetwork.com/apcwya80vu?key=d11bdcac615d998ece47753baf97c298"
 }
 
 function openBlobCloak() {
     const blob = new Blob([cloakHTML(targetPage())], { type: 'text/html' });
     window.open(URL.createObjectURL(blob), '_blank');
+    window.location = "https://www.effectivecpmnetwork.com/apcwya80vu?key=d11bdcac615d998ece47753baf97c298"
 }
 
 function openABCloak() {

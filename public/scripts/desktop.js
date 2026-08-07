@@ -18,6 +18,7 @@
         { title: 'Files', key: 'files', page: 'explorer.html', icon: 'folder' },
         { title: 'LM Studio', key: 'lmstudio', page: 'lmstudio.html', icon: 'neurology' },
         { title: 'Axiom Defender', key: 'defender', page: 'defender.html', icon: 'security' },
+        { title: 'Theater', key: 'theater', page: 'theater.html', icon: 'movie' },
         { title: 'Settings', key: 'settings', page: 'settings.html', icon: 'settings' }
     ];
 

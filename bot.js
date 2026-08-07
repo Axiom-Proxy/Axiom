@@ -312,37 +312,40 @@ client.on("interactionCreate", async (interaction) => {
     const blocker = interaction.customId.slice("dispense:".length);
     const user = interaction.user;
 
-    if (remainingFor(user.id) <= 0) {
-        return interaction.reply({
-            content: `You've used all **${MAX_DAILY}** link drops for today. Try again tomorrow!`,
-            flags: MessageFlags.Ephemeral
-        });
-    }
-
-    const links = [...new Set(
-        entries.filter(e => e.blockers.includes(blocker)).map(e => e.url)
-    )];
-
-    if (links.length === 0) {
-        return interaction.reply({
-            content: `No working links found for **${blocker}** right now.`,
-            flags: MessageFlags.Ephemeral
-        });
-    }
-
-    const used = usedLinks(user.id);
-    const available = links.filter(u => !used.includes(u));
-
-    if (available.length === 0) {
-        return interaction.reply({
-            content: `You've already received all available links for **${blocker}** today. Try again tomorrow!`,
-            flags: MessageFlags.Ephemeral
-        });
-    }
-
-    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
-
     try {
+        if (remainingFor(user.id) <= 0) {
+            return await interaction.reply({
+                content: `You've used all **${MAX_DAILY}** link drops for today. Try again tomorrow!`,
+                flags: MessageFlags.Ephemeral
+            }).catch(() => {});
+        }
+
+        const links = [...new Set(
+            entries.filter(e => e.blockers.includes(blocker)).map(e => e.url)
+        )];
+
+        if (links.length === 0) {
+            return await interaction.reply({
+                content: `No working links found for **${blocker}** right now.`,
+                flags: MessageFlags.Ephemeral
+            }).catch(() => {});
+        }
+
+        const used = usedLinks(user.id);
+        const available = links.filter(u => !used.includes(u));
+
+        if (available.length === 0) {
+            return await interaction.reply({
+                content: `You've already received all available links for **${blocker}** today. Try again tomorrow!`,
+                flags: MessageFlags.Ephemeral
+            }).catch(() => {});
+        }
+
+        await interaction.deferReply({ flags: MessageFlags.Ephemeral }).catch(() => {
+            // Unknown interaction or expired, ignore
+            return;
+        });
+
         const link = available[Math.floor(Math.random() * available.length)];
         recordDispense(user.id, link);
         const left = remainingFor(user.id);
@@ -355,14 +358,22 @@ client.on("interactionCreate", async (interaction) => {
 
         await user.send({ embeds: [dm] });
 
-        return interaction.editReply({
+        await interaction.editReply({
             content: `Check your DMs! **1** link sent. (${left} left today)`
-        });
+        }).catch(() => {});
     } catch (err) {
-        console.error("DM failed for", user.tag, err.message);
-        return interaction.editReply({
-            content: "I couldn't DM you, make sure your DMs are open."
-        });
+        if (err.code === 10062) { // Unknown Interaction
+            console.warn(`Unknown interaction for ${user.tag} on ${blocker}`);
+            return;
+        }
+        console.error("Button interaction error for", user.tag, err.message);
+        try {
+            if (interaction.deferred || interaction.replied) {
+                await interaction.editReply({ content: "Something went wrong." }).catch(() => {});
+            } else {
+                await interaction.reply({ content: "Something went wrong.", flags: MessageFlags.Ephemeral }).catch(() => {});
+            }
+        } catch {}
     }
 });
 

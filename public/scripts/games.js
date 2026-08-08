@@ -2,8 +2,15 @@ const gamesContainer = document.getElementById("games");
 const featuredContainer = document.getElementById("featured");
 const searchBar = document.querySelector(".search-bar");
 const LS_KEY = "axiom_game_favorites";
+const DS_KEY = "axiom_desktop_shortcuts";
+const DS_CHANNEL = "axiom-desktop";
 const FEATURED_COUNT = 5;
 let allGames = [];
+
+let desktopChannel = null;
+try {
+  if (window.BroadcastChannel) desktopChannel = new BroadcastChannel(DS_CHANNEL);
+} catch (e) { desktopChannel = null; }
 
 function getFavorites() {
   try {
@@ -25,11 +32,52 @@ function toggleFavorite(name) {
   setFavorites(favs);
 }
 
+function getDesktopShortcuts() {
+  try {
+    return JSON.parse(localStorage.getItem(DS_KEY)) || [];
+  } catch {
+    return [];
+  }
+}
+
+function isOnDesktop(name) {
+  return getDesktopShortcuts().some(s => s.name === name);
+}
+
+function addToDesktop(game) {
+  const shortcuts = getDesktopShortcuts();
+  if (!shortcuts.find(s => s.name === game.app_name && s.url === game.app_url)) {
+    shortcuts.push({
+      name: game.app_name,
+      url: game.app_url,
+      img: game.app_img,
+      type: "game"
+    });
+    localStorage.setItem(DS_KEY, JSON.stringify(shortcuts));
+    renderAll(searchBar.value.toLowerCase());
+    // Notify desktop via BroadcastChannel
+    if (desktopChannel) {
+      desktopChannel.postMessage({ type: 'refresh' });
+    }
+  }
+}
+
+function removeFromDesktop(name) {
+  const shortcuts = getDesktopShortcuts().filter(s => s.name !== name);
+  localStorage.setItem(DS_KEY, JSON.stringify(shortcuts));
+  renderAll(searchBar.value.toLowerCase());
+  if (desktopChannel) {
+    desktopChannel.postMessage({ type: 'refresh' });
+  }
+}
+
 function buildCard(game) {
   const isFav = getFavorites().includes(game.app_name);
+  const onDesktop = isOnDesktop(game.app_name);
   const card = document.createElement("div");
   card.className = "game";
   card.innerHTML = `
+                <button class="desktop-btn${onDesktop ? " on-desktop" : ""}" title="${onDesktop ? "On desktop" : "Add to desktop"}">desktop_windows</button>
                 <button class="fav-btn${isFav ? " active" : ""}" title="Favorite">star</button>
                 <div class="thumb">
                     <img src="${game.app_img}" alt="${game.app_name}" loading="lazy">
@@ -43,9 +91,20 @@ function buildCard(game) {
     toggleFavorite(game.app_name);
     renderAll(searchBar.value.toLowerCase());
   });
+  card.querySelector(".desktop-btn").addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (isOnDesktop(game.app_name)) {
+      removeFromDesktop(game.app_name);
+    } else {
+      addToDesktop(game);
+    }
+  });
   card.addEventListener("click", () => {
-    window.location.href =
-      "./game.html?url=" + encodeURIComponent(btoa(game.app_url)) + "&title=" + encodeURIComponent(game.app_name);
+    if (window.parent !== window && window.parent.openWindow) {
+      window.parent.openWindow(game.app_name, 'game-' + btoa(game.app_url).substring(0, 16), 'game.html?url=' + encodeURIComponent(btoa(game.app_url)) + '&title=' + encodeURIComponent(game.app_name));
+    } else {
+      window.location.href = "./game.html?url=" + encodeURIComponent(btoa(game.app_url)) + "&title=" + encodeURIComponent(game.app_name);
+    }
   });
   return card;
 }

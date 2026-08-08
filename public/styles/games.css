@@ -196,6 +196,49 @@
     "opsz" 20;
 }
 
+.desktop-btn {
+  position: absolute;
+  top: 8px;
+  right: 44px;
+  background: rgba(0, 0, 0, 0.45);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.65);
+  transition:
+    color 0.15s ease,
+    background 0.15s ease,
+    transform 0.15s ease;
+  z-index: 10;
+  font-family: "Material Symbols Outlined";
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 20;
+}
+
+.desktop-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+  color: rgba(142, 212, 244, 0.9);
+  transform: scale(1.1);
+}
+
+.desktop-btn.on-desktop {
+  color: rgb(142, 212, 244);
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 20;
+}
+
 @media (max-width: 600px) {
   .main {
     padding: 8px 16px 50px;

@@ -58,6 +58,7 @@ body {
 }
 
 .desktop-icon {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,6 +81,37 @@ body {
 
 .desktop-icon.cut {
   opacity: 0.45;
+}
+
+.desktop-icon.dragging {
+  opacity: 0.35;
+}
+
+/* Drop indicators for drag-to-reorder */
+.desktop-icon.drop-reorder-before::before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--rainbow);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.desktop-icon.drop-reorder-after::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--rainbow);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .desktop-icon.drop-target {

@@ -17,6 +17,8 @@
  *   - any page loaded with ?__axiom_raw=1 is served from the network, and so
  *     is everything that page requests
  *   - /recovery.html is never overridden
+ *   - /scripts/premium.js is never overridden either, so editing it in the
+ *     Files app can't be used to patch premium checks out of the client
  */
 (function (global) {
   'use strict';
@@ -34,7 +36,7 @@
   // out of a user-editable file.
   var SKIP_PREFIXES = ['/educational_', '/baremux/', '/epoxy/', '/libcurl/',
     '/remote-desktop/vendor/', '/api/', '/edu/', '/search_complete/', '/chat'];
-  var SKIP_PATHS = ['/recovery.html', '/scripts/axiom-sw.js'];
+  var SKIP_PATHS = ['/recovery.html', '/scripts/axiom-sw.js', '/scripts/premium.js'];
 
   // Ceilings on the two things that can stall: the filesystem lookup behind a
   // request, and opening the database it lives in.

@@ -66,3 +66,9 @@ function openABCloak() {
     tab.document.write(cloakHTML(targetPage()));
     tab.document.close();
 }
+
+function openB64Cloak() {
+    const html = cloakHTML(targetPage());
+    const b64 = btoa(unescape(encodeURIComponent(html)));
+    window.location = ('data:text/html;base64,' + b64, '_blank');
+}

@@ -30,15 +30,15 @@ def run_watcher(name, cmd):
 
 def main():
     cmds = {
-        "index.js": ["node", "index.js"],
-        "bot.js": ["node", "bot.js"],
+        "index.js": ["bun", "index.js"],
+        "bot.js": ["bun", "bot.js"],
     }
 
     print(f"Monitoring: {', '.join(' '.join(c) for c in cmds.values())}")
 
     procs = []
     for name, cmd in cmds.items():
-        procs.append(subprocess.Popen(["python", __file__, name]))
+        procs.append(subprocess.Popen(["python3", __file__, name]))
 
     try:
         for p in procs:
@@ -56,8 +56,8 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
         name = sys.argv[1]
         cmds = {
-            "index.js": ["node", "index.js"],
-            "bot.js": ["node", "bot.js"],
+            "index.js": ["bun", "index.js"],
+            "bot.js": ["bun", "bot.js"],
         }
         if name in cmds:
             run_watcher(name, cmds[name])

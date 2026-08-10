@@ -1,16 +1,32 @@
 const openWindows = {};
 
-        const wallpaperThemes = new Set(['default', 'midnight', 'ocean', 'forest', 'ember', 'aurora', "pippa", "lifeontheline"]);
+        const WP_KEY = 'axiom_wallpaper';
+        const WP_CUSTOM_KEY = 'axiom_custom_wallpaper';
+
+        function getSavedWallpaper() {
+            return localStorage.getItem(WP_KEY) || 'default';
+        }
+
+        function getCustomWallpaper() {
+            return localStorage.getItem(WP_CUSTOM_KEY);
+        }
 
         function applyWallpaper() {
-            const themeId = window.axiomTheme ? window.axiomTheme.getSavedId() : 'default';
-            const wallpaper = wallpaperThemes.has(themeId) ? themeId : 'default';
-            document.documentElement.style.setProperty('--wallpaper', `url("/assets/wallpapers/${wallpaper}.webp")`);
+            const customWp = getCustomWallpaper();
+            const savedWp = getSavedWallpaper();
+
+            if (customWp && savedWp === '_custom') {
+                document.documentElement.style.setProperty('--wallpaper', `url("${customWp}")`);
+            } else {
+                document.documentElement.style.setProperty('--wallpaper', `url("/assets/wallpapers/${savedWp}.webp")`);
+            }
         }
 
         applyWallpaper();
         window.addEventListener('storage', function (event) {
-            if (event.key === 'axiom_theme_id') applyWallpaper();
+            if (event.key === 'axiom_theme_id' || event.key === WP_KEY || event.key === WP_CUSTOM_KEY || event.key === 'axiom_wallpaper_broadcast') {
+                applyWallpaper();
+            }
         });
 
         function openWindow(title, key, page, opts = {}) {

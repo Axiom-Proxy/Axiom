@@ -68,6 +68,26 @@
             </div>
         </div>
 
+        <div class="container wallpaper-container">
+            <h3>Wallpaper</h3>
+            <p>Pick a wallpaper or upload your own!</p>
+
+            <div class="wallpaper-grid" id="wallpaperGrid">
+                <!-- Preset wallpapers rendered by JS -->
+            </div>
+
+            <div class="wallpaper-upload-row">
+                <label for="wallpaperUpload" class="wallpaper-upload-label">
+                    <span class="material-symbols-outlined">upload</span>
+                    Upload Image
+                </label>
+                <input type="file" id="wallpaperUpload" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" hidden>
+                <button id="wallpaperRemoveBtn" class="cloak-button" title="Remove custom wallpaper">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
+            </div>
+        </div>
+
         <div class="container" id="premium-container">
             <h3>Premium</h3>
             <p>Enter your premium key to unlock premium features.</p>
@@ -116,6 +136,7 @@
 
     <script src="./scripts/loader.js"></script>
     <script src="./scripts/fs.js"></script>
+    <script src="./scripts/windows.js"></script>
     <script src="./scripts/settings.js"></script>
 </body>
 

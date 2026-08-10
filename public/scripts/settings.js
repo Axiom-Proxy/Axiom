@@ -244,3 +244,116 @@ function getCloakContent() {
         }
 
         initThemes();
+
+        /* -------------------------------------------------------- wallpaper */
+
+        const WP_KEY = 'axiom_wallpaper';
+        const WP_CUSTOM_KEY = 'axiom_custom_wallpaper';
+        const WP_PRESETS = [
+            'default', 'midnight', 'ocean', 'forest', 'ember', 'aurora',
+            'pippa', 'lifeontheline', 'lowresaura', 'bonniebluejew', 'gayfurryfemboy'
+        ];
+
+        function getSavedWallpaper() {
+            return localStorage.getItem(WP_KEY) || 'default';
+        }
+
+        function setWallpaper(value) {
+            localStorage.setItem(WP_KEY, value);
+            // Broadcast to other windows
+            try { localStorage.setItem('axiom_wallpaper_broadcast', Date.now()); } catch (e) {}
+            // Also notify the parent window if settings is open in an iframe
+            if (window.top && window.top.applyWallpaper) {
+                window.top.applyWallpaper();
+            }
+            renderWallpaperGrid();
+        }
+
+        function getCustomWallpaper() {
+            return localStorage.getItem(WP_CUSTOM_KEY);
+        }
+
+        function setCustomWallpaper(dataUrl) {
+            if (dataUrl) {
+                localStorage.setItem(WP_CUSTOM_KEY, dataUrl);
+                setWallpaper('_custom');
+            } else {
+                localStorage.removeItem(WP_CUSTOM_KEY);
+                setWallpaper('default');
+            }
+        }
+
+        function renderWallpaperGrid() {
+            const grid = document.getElementById('wallpaperGrid');
+            if (!grid) return;
+
+            const current = getSavedWallpaper();
+            const customWp = getCustomWallpaper();
+
+            grid.innerHTML = '';
+
+            // If there's a custom wallpaper, show it first
+            if (customWp) {
+                const item = document.createElement('div');
+                item.className = 'wallpaper-item' + (current === '_custom' ? ' selected' : '');
+                item.dataset.value = '_custom';
+                item.innerHTML = `
+                    <div class="wallpaper-thumb" style="background-image: url('${customWp}')"></div>
+                    <span class="wallpaper-name">Custom</span>
+                `;
+                item.addEventListener('click', () => setWallpaper('_custom'));
+                grid.appendChild(item);
+            }
+
+            // Preset wallpapers
+            WP_PRESETS.forEach(id => {
+                const item = document.createElement('div');
+                item.className = 'wallpaper-item' + (current === id ? ' selected' : '');
+                item.dataset.value = id;
+                item.innerHTML = `
+                    <div class="wallpaper-thumb" style="background-image: url('/assets/wallpapers/${id}.webp')"></div>
+                    <span class="wallpaper-name">${id.charAt(0).toUpperCase() + id.slice(1)}</span>
+                `;
+                item.addEventListener('click', () => {
+                    // Switching to a preset removes any custom wallpaper
+                    localStorage.removeItem(WP_CUSTOM_KEY);
+                    setWallpaper(id);
+                });
+                grid.appendChild(item);
+            });
+        }
+
+        // Upload handler
+        const uploadInput = document.getElementById('wallpaperUpload');
+        if (uploadInput) {
+            uploadInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function (ev) {
+                    const dataUrl = ev.target.result;
+                    setCustomWallpaper(dataUrl);
+                };
+                reader.readAsDataURL(file);
+                // Reset so the same file can be re-selected
+                uploadInput.value = '';
+            });
+        }
+
+        // Remove custom wallpaper
+        const removeBtn = document.getElementById('wallpaperRemoveBtn');
+        if (removeBtn) {
+            removeBtn.addEventListener('click', () => {
+                setCustomWallpaper(null);
+            });
+        }
+
+        // Listen for wallpaper changes from other tabs
+        window.addEventListener('storage', function (e) {
+            if (e.key === 'axiom_wallpaper_broadcast' || e.key === WP_KEY || e.key === WP_CUSTOM_KEY) {
+                renderWallpaperGrid();
+            }
+        });
+
+        renderWallpaperGrid();

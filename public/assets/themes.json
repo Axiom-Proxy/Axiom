@@ -64,7 +64,7 @@
       "--accent": "#feb5bf"
     }
   },
-{
+  {
     "id": "lifeontheline",
     "name": "Life on the Line",
     "vars": {
@@ -78,6 +78,29 @@
       "--glass-panel-bg": "rgba(30, 30, 30, 0.82)",
       "--accent": "#ffffff"
     }
-}
-
+  },
+  {
+    "id": "lowresaura",
+    "name": "Lowresaura",
+    "vars": {
+      "--bg": "linear-gradient(to bottom, #0d0314, #160624)",
+      "--accent": "#b388ff"
+    }
+  },
+  {
+    "id": "bonniebluejew",
+    "name": "Bonnie Bluejew",
+    "vars": {
+      "--bg": "linear-gradient(to bottom, #01121f, #031e33)",
+      "--accent": "#4fc3f7"
+    }
+  },
+  {
+    "id": "gayfurryfemboy",
+    "name": "Gay Furry Femboy",
+    "vars": {
+      "--bg": "linear-gradient(to bottom, #030613, #070d24)",
+      "--accent": "#7c9cf5"
+    }
+  }
 ]

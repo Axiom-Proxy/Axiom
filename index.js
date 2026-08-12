@@ -216,6 +216,10 @@ server.post("/api/remote-desktop/session", {
     });
 });
 
+// Limit concurrent OCR workers to avoid memory exhaustion over time.
+let ocrActive = 0;
+const OCR_MAX_CONCURRENT = 2;
+
 server.post("/chat", {
     config: {
         rateLimit: {
@@ -236,7 +240,14 @@ server.post("/chat", {
 
     let imageText = "";
     if (images.length > 0) {
+        // Guard against unlimited concurrent OCR workers (each is ~100-300 MB).
+        if (ocrActive >= OCR_MAX_CONCURRENT) {
+            return res.code(503).send({ error: "OCR is busy, please try again shortly." });
+        }
+
+        ocrActive++;
         let worker;
+        let terminateTimer;
         try {
             worker = await createWorker("eng", 1, {
                 logger: m => { if (m.status === "recognizing text") console.log(`OCR progress: ${Math.round(m.progress * 100)}%`); }
@@ -255,7 +266,24 @@ server.post("/chat", {
             console.error("OCR error:", err);
             imageText = "\n[Warning: Could not extract text from images]\n";
         } finally {
-            if (worker) await worker.terminate().catch(() => {});
+            // Force-kill the worker after a grace period so a stuck terminate()
+            // doesn't leave a zombie child process consuming memory forever.
+            if (worker) {
+                terminateTimer = setTimeout(() => {
+                    console.warn("OCR worker terminate() timed out — force killing.");
+                    try { worker.terminate({ force: true }); } catch (_) {}
+                }, 10_000);
+                try {
+                    await worker.terminate();
+                } catch (e) {
+                    console.error("OCR worker terminate() threw:", e.message);
+                    // Still try to force-kill so we don't leak the process.
+                    try { worker.terminate({ force: true }); } catch (_) {}
+                } finally {
+                    clearTimeout(terminateTimer);
+                }
+            }
+            ocrActive--;
         }
     }
 
@@ -299,7 +327,8 @@ server.post("/chat", {
                 messages: messages,
                 max_tokens: 4096,
                 temperature: 0.7
-            })
+            }),
+            signal: AbortSignal.timeout(60_000)
         });
 
         if (!response.ok) {
@@ -346,6 +375,7 @@ server.get("/api/theater/search", async (request, res) => {
   if (!q) return res.code(400).send({ error: "Query required" });
   try {
     const response = await fetch(`https://db.speedracelight.com/3/search/multi?language=en&page=1&query=${encodeURIComponent(q)}`, {
+      signal: AbortSignal.timeout(15_000),
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
         "Accept": "*/*",
@@ -369,6 +399,7 @@ server.get("/api/theater/tv/:id", async (request, res) => {
   const { id } = request.params;
   try {
     const response = await fetch(`https://db.speedracelight.com/3/tv/${id}?append_to_response=credits,external_ids,similar,videos,recommendations,translations&language=en&include_video_language=en,null`, {
+      signal: AbortSignal.timeout(15_000),
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
         "Accept": "*/*",
@@ -392,6 +423,7 @@ server.get("/api/theater/movie/:id", async (request, res) => {
   const { id } = request.params;
   try {
     const response = await fetch(`https://db.speedracelight.com/3/movie/${id}?append_to_response=credits,external_ids,videos,recommendations,translations,similar,release_dates&language=en&include_video_language=en,null`, {
+      signal: AbortSignal.timeout(15_000),
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
         "Accept": "*/*",
@@ -415,13 +447,14 @@ server.get("/api/search", async (request, res) => {
   const { q } = request.query;
   if (!q) return res.code(400).send({ error: "Query required" });
   try {
-    const response = await safeFetch(`https://lite.duckduckgo.com/lite/search?q=${encodeURIComponent(q)}`, {
+    const response = await fetch(`https://lite.duckduckgo.com/lite/search?q=${encodeURIComponent(q)}`, {
+      signal: AbortSignal.timeout(15_000),
       headers: { "User-Agent": "Mozilla/5.0" }
     });
     const html = await response.text();
     res.send({ results: getDuckDuckGoLiteUrls(html) });
   } catch (error) {
-    res.code(500).send({ error: "Search failed because" + error.message });
+    res.code(500).send({ error: "Search failed: " + error.message });
   }
 });
 
@@ -472,7 +505,9 @@ server.get('/search_complete/*', async (req, res) => {
   const query = req.params['*'];
   if (!query) return res.code(400).send('Missing query');
   try {
-    const response = await safeFetch(`https://google.com/complete/search?client=firefox&hl=en&q=${encodeURIComponent(query)}`);
+    const response = await fetch(`https://google.com/complete/search?client=firefox&hl=en&q=${encodeURIComponent(query)}`, {
+      signal: AbortSignal.timeout(10_000)
+    });
     res.send(await response.json());
   } catch (e) { res.code(500).send('Error: ' + e); }
 });
@@ -580,6 +615,11 @@ server.register(require("@fastify/static"), {
 })
 
 const PORT = Number(process.env.PORT) || 8080;
+
+// Health-check endpoint so watch.py can detect a hung server and restart it.
+server.get("/health", async (req, res) => {
+    res.send({ status: "ok", uptime: process.uptime() });
+});
 
 server.listen({port: PORT}).then(function(){
     console.log("Axiom started!")

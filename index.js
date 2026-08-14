@@ -395,6 +395,75 @@ server.get("/api/theater/search", async (request, res) => {
   }
 });
 
+// Home page: auto-search a handful of popular terms, dedupe + shuffle the
+// results once, and cache them so the home page is ready before any search.
+const HOME_THEATER_QUERIES = ["action", "comedy", "drama", "animation", "sci-fi"];
+const HOME_THEATER_CACHE_TTL = 30 * 60 * 1000;
+let homeTheaterCache = null;
+let homeTheaterCacheAt = 0;
+
+function shuffleArray(array) {
+  const copy = [...array];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+async function fetchTheaterSearch(query) {
+  const response = await fetch(`https://db.speedracelight.com/3/search/multi?language=en&page=1&query=${encodeURIComponent(query)}`, {
+    signal: AbortSignal.timeout(15_000),
+    headers: {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
+      "Accept": "*/*",
+      "Accept-Language": "en-US,en;q=0.9",
+      "Sec-Fetch-Dest": "empty",
+      "Sec-Fetch-Mode": "cors",
+      "Sec-Fetch-Site": "cross-site",
+      "Priority": "u=4",
+      "Pragma": "no-cache",
+      "Cache-Control": "no-cache"
+    }
+  });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return response.json();
+}
+
+async function buildHomeTheater() {
+  const combined = [];
+  const seen = new Set();
+  for (const query of HOME_THEATER_QUERIES) {
+    try {
+      const data = await fetchTheaterSearch(query);
+      for (const item of data.results || []) {
+        if (item.media_type !== "movie" && item.media_type !== "tv") continue;
+        const key = `${item.media_type}:${item.id}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        combined.push(item);
+      }
+    } catch (error) {
+      console.error(`[theater] home query "${query}" failed:`, error.message);
+    }
+  }
+  return shuffleArray(combined);
+}
+
+server.get("/api/theater/home", async (request, res) => {
+  if (homeTheaterCache && Date.now() - homeTheaterCacheAt < HOME_THEATER_CACHE_TTL) {
+    return res.send({ results: homeTheaterCache });
+  }
+  try {
+    const results = await buildHomeTheater();
+    homeTheaterCache = results;
+    homeTheaterCacheAt = Date.now();
+    res.send({ results });
+  } catch (error) {
+    res.code(500).send({ error: "Home load failed: " + error.message });
+  }
+});
+
 server.get("/api/theater/tv/:id", async (request, res) => {
   const { id } = request.params;
   try {
@@ -625,6 +694,14 @@ server.listen({port: PORT}).then(function(){
     console.log("Axiom started!")
     console.log(`http://localhost:${PORT}/`)
     console.log(`http://127.0.0.1:${PORT}`)
+    // Pre-warm the cached, shuffled home page before anyone searches.
+    buildHomeTheater().then((results) => {
+        homeTheaterCache = results;
+        homeTheaterCacheAt = Date.now();
+        console.log(`Preloaded ${results.length} shuffled home theater titles.`);
+    }).catch((error) => {
+        console.error("Failed to preload home theater titles:", error.message);
+    });
 }).catch(function(e){
     console.log("Failed to start server with error: " + e)
 })

@@ -78,10 +78,22 @@ function renderResults(results) {
   });
 }
 
-async function search(query) {
-  if (!query.trim()) {
+async function loadHome() {
+  try {
+    const resp = await fetch("/api/theater/home");
+    const data = await resp.json();
+    renderResults(data.results || []);
+    renderFeatured();
+  } catch (e) {
+    console.error("[theater] home load failed:", e);
     renderResults([]);
     featuredContainer.innerHTML = "";
+  }
+}
+
+async function search(query) {
+  if (!query.trim()) {
+    loadHome();
     return;
   }
 
@@ -108,7 +120,7 @@ searchBar.addEventListener("input", () => {
   debounceTimer = setTimeout(() => search(query), 300);
 });
 
-// Initial empty state
-renderResults([]);
+// Initial home state: auto-searched + shuffled server-side (cached)
+loadHome();
 
 if (window.AxiomPageReady) window.AxiomPageReady();

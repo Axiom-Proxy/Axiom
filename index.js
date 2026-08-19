@@ -395,9 +395,7 @@ server.get("/api/theater/search", async (request, res) => {
   }
 });
 
-// Home page: auto-search a handful of popular terms, dedupe + shuffle the
-// results once, and cache them so the home page is ready before any search.
-const HOME_THEATER_QUERIES = ["action", "comedy", "drama", "animation", "umamusume"];
+const HOME_THEATER_QUERIES = ["comedy","umamusume"];
 const HOME_THEATER_CACHE_TTL = 30 * 60 * 1000;
 let homeTheaterCache = null;
 let homeTheaterCacheAt = 0;

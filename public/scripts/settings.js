@@ -1,3 +1,4 @@
+(function () {
 function getCloakContent() {
             const currentUrl = window.location.origin + '/index.html';
             return `<!DOCTYPE html>
@@ -357,3 +358,6 @@ function getCloakContent() {
         });
 
         renderWallpaperGrid();
+
+})();
+

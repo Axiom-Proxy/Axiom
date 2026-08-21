@@ -18,7 +18,7 @@ const {
 
 const TOKEN = process.env.DISCORD_TOKEN;
 const TARGET_CHANNEL = process.env.DISCORD_TARGET_CHANNEL;
-const LINKS_FILE = path.join(__dirname, "links.txt");
+const LINKS_FILE = path.join(__dirname, "freedns_links.json");
 const MAX_DAILY = 3;
 
 const ADMIN_PERMS = [
@@ -73,32 +73,18 @@ let blockers = [];
 
 function importLinks() {
     entries = [];
-    let pending = null;
-    const lines = fs.readFileSync(LINKS_FILE, "utf8").split(/\r?\n/);
-    for (const raw of lines) {
-        const line = raw.trim();
-        if (!line) continue;
-        if (line.startsWith(":")) {
-            const tokens = line.split(":").map(t => t.trim()).filter(Boolean);
-            pending = tokens.filter(t => !/^[\d/.]+$/.test(t));
-        } else if (pending && /^https?:\/\//i.test(line)) {
-            entries.push({ blockers: [...pending], url: line });
-            pending = null;
-        }
+    try {
+        const data = JSON.parse(fs.readFileSync(LINKS_FILE, "utf8"));
+        if (Array.isArray(data)) entries = data;
+    } catch (err) {
+        if (err.code !== "ENOENT") console.error("Failed to read links file:", err.message);
     }
-    blockers = [...new Set(entries.flatMap(e => e.blockers))].sort();
+    blockers = [...new Set(entries.flatMap(e => e.unblockedBy || []))].sort();
     console.log(`Imported ${entries.length} link(s) covering ${blockers.length} blocker(s).`);
 }
 
-function formatBlockerLine(blockerList) {
-    return blockerList.map(b => `:${b}:`).join(" ");
-}
-
 function writeLinksFile() {
-    const out = entries
-        .map(e => `${formatBlockerLine(e.blockers)}\n${e.url}`)
-        .join("\n") + "\n";
-    fs.writeFileSync(LINKS_FILE, out, "utf8");
+    fs.writeFileSync(LINKS_FILE, JSON.stringify(entries, null, 2) + "\n", "utf8");
 }
 
 function addLink(url, blockerList) {
@@ -106,9 +92,15 @@ function addLink(url, blockerList) {
     blockerList = blockerList.map(b => b.trim()).filter(Boolean);
     const existing = entries.find(e => e.url === url);
     if (existing) {
-        existing.blockers = [...new Set([...existing.blockers, ...blockerList])];
+        existing.unblockedBy = [...new Set([...(existing.unblockedBy || []), ...blockerList])];
     } else {
-        entries.push({ blockers: [...new Set(blockerList)], url });
+        entries.push({
+            url,
+            unblockedBy: [...new Set(blockerList)],
+            blockedBy: [],
+            filters: {},
+            verdict: "unknown"
+        });
     }
     writeLinksFile();
     importLinks();
@@ -162,7 +154,7 @@ function buildDispenserMessage() {
     for (let i = 0; i < blockers.length; i += 5) {
         const row = new ActionRowBuilder();
         for (const blocker of blockers.slice(i, i + 5)) {
-            const count = entries.filter(e => e.blockers.includes(blocker)).length;
+            const count = entries.filter(e => (e.unblockedBy || []).includes(blocker)).length;
             row.addComponents(
                 new ButtonBuilder()
                     .setCustomId(`dispense:${blocker}`)
@@ -266,7 +258,7 @@ client.on("interactionCreate", async (interaction) => {
                 for (const e of slice) {
                     embed.addFields({
                         name: e.url.length > 100 ? e.url.slice(0, 97) + "..." : e.url,
-                        value: e.blockers.length ? e.blockers.map(b => `\`${b}\``).join(", ") : "*none*"
+                        value: (e.unblockedBy || []).length ? (e.unblockedBy || []).map(b => `\`${b}\``).join(", ") : "*none*"
                     });
                 }
                 embeds.push(embed);
@@ -321,7 +313,7 @@ client.on("interactionCreate", async (interaction) => {
         }
 
         const links = [...new Set(
-            entries.filter(e => e.blockers.includes(blocker)).map(e => e.url)
+            entries.filter(e => (e.unblockedBy || []).includes(blocker)).map(e => e.url)
         )];
 
         if (links.length === 0) {

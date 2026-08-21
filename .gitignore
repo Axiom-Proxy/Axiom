@@ -3,3 +3,4 @@ node_modules
 *.jsonl
 *.traineddata*
 links.txt
+freedns_links.json

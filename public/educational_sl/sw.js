@@ -5,8 +5,8 @@ importScripts("/scripts/axiom-sw.js");
 // anything it does not want is offered to the Axiom filesystem overlay before
 // falling through to the network.
 addEventListener("fetch", (event) => {
-	if ($scramjetController.shouldRoute(event)) {
-		event.respondWith($scramjetController.route(event));
+	if ($engnxjetController.shouldRoute(event)) {
+		event.respondWith($engnxjetController.route(event));
 		return;
 	}
 

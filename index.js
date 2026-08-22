@@ -3,8 +3,6 @@ const crypto = require("crypto");
 const https = require("https");
 const GuacamoleLite = require("guacamole-lite");
 const { server: wisp } = require("@mercuryworkshop/wisp-js/server");
-const { scramjetPath } = require("@mercuryworkshop/scramjet/path");
-console.log(scramjetPath);
 const { baremuxPath } = require("@mercuryworkshop/bare-mux/node");
 const cheerio = require("cheerio");
 const fastify = require("fastify")
@@ -12,7 +10,6 @@ const fs = require("fs");
 const path = require("path")
 const epoxyPath = path.dirname(require.resolve("@mercuryworkshop/epoxy-transport"));
 const libcurlPath = path.dirname(require.resolve("@mercuryworkshop/libcurl-transport"));
-const scramjetControllerPath = path.dirname(require.resolve("@mercuryworkshop/scramjet-controller"));
 const server = fastify()
 const { createWorker } = require("tesseract.js")
 
@@ -48,7 +45,10 @@ async function refreshNsfwBlocklist() {
 }
 
 function isNsfwHostname(hostname) {
-    if (!nsfwBlocklistLoaded) return true;
+    // Fail open: if the blocklist hasn't loaded (endpoint down, rate-limited,
+    // or still pending), don't block everything — that would brick the whole
+    // proxy. The filter only applies once the list is actually available.
+    if (!nsfwBlocklistLoaded) return false;
     const normalized = hostname.toLowerCase().replace(/\.$/, "");
     const labels = normalized.split(".");
     for (let index = 0; index < labels.length; index++) {
@@ -114,8 +114,6 @@ server.addContentTypeParser('application/json', { parseAs: 'string', bodyLimit: 
 });
 
 server.register(require("@fastify/static"), { root: baremuxPath, prefix: "/baremux/", decorateReply: false });
-server.register(require("@fastify/static"), { root: scramjetPath, prefix: "/educational_vr/", decorateReply: false });
-server.register(require("@fastify/static"), { root: scramjetControllerPath, prefix: "/educational_controller/", decorateReply: false });
 server.register(require("@fastify/static"), { root: epoxyPath, prefix: "/epoxy/", decorateReply: false });
 server.register(require("@fastify/static"), { root: libcurlPath, prefix: "/libcurl/", decorateReply: false });
 server.register(require("@fastify/static"), {

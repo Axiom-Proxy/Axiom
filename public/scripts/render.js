@@ -1,7 +1,7 @@
 const search_engine = "../search/index.html?q=";
 const premium = false;
-let scramjetFrame = null;
-let scramjet = null;
+let engnxjetFrame = null;
+let engnxjet = null;
 let lastKnownUrl = "";
 
 function getURLParameter(name) {
@@ -35,9 +35,9 @@ function buildSearchUrl(input, searchEngine) {
 }
 
 function updateDocumentTitle() {
-  if (!scramjetFrame) return;
+  if (!engnxjetFrame) return;
   try {
-    const document_ = scramjetFrame.element.contentDocument;
+    const document_ = engnxjetFrame.element.contentDocument;
     const frameTitle = document_?.title || "";
     if (!frameTitle || document.title === frameTitle) return;
 
@@ -55,17 +55,17 @@ function updateDocumentTitle() {
 function navigate(url) {
   const finalUrl = buildSearchUrl(url, search_engine);
   lastKnownUrl = finalUrl;
-  scramjetFrame.go(finalUrl);
+  engnxjetFrame.go(finalUrl);
   window.parent.postMessage({ type: "urlChange", url: finalUrl, title: document.title }, "*");
 }
 
 window.addEventListener("message", (event) => {
-  if (!event.data || !scramjetFrame) return;
+  if (!event.data || !engnxjetFrame) return;
   switch (event.data.type) {
     case "navigate": navigate(event.data.url); break;
-    case "back": scramjetFrame.back(); break;
-    case "forward": scramjetFrame.forward(); break;
-    case "refresh": scramjetFrame.reload(); break;
+    case "back": engnxjetFrame.back(); break;
+    case "forward": engnxjetFrame.forward(); break;
+    case "refresh": engnxjetFrame.reload(); break;
   }
 });
 
@@ -104,29 +104,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     const transport = new LibcurlClient({ wisp });
     await transport.init();
 
-    scramjet = new $scramjetController.Controller({
+    engnxjet = new $engnxjetController.Controller({
       serviceworker: registration.active,
       transport,
       config: {
         prefix: "/educational_apkn/",
-        scramjetPath: "/educational_vr/scramjet.js",
+        engnxjetPath: "/educational_vr/engnxjet.js",
         injectPath: "/educational_controller/controller.inject.js",
-        wasmPath: "/educational_vr/scramjet.wasm",
+        wasmPath: "/educational_vr/engnxjet.wasm",
       },
     });
-    await scramjet.wait();
+    await engnxjet.wait();
 
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       if (!registration.active) return;
-      scramjet.serviceWorkerController = registration.active;
-      scramjet.setupMessagePort();
+      engnxjet.serviceWorkerController = registration.active;
+      engnxjet.setupMessagePort();
     });
 
     const element = document.createElement("iframe");
     element.id = "frame";
     element.classList.add("active");
     document.getElementById("frame-container").appendChild(element);
-    scramjetFrame = scramjet.createFrame(element);
+    engnxjetFrame = engnxjet.createFrame(element);
 
     const url = getURLParameter("url");
     if (url) navigate(url);

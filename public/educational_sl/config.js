@@ -1,9 +1,9 @@
-self.__scramjet$config = {
+self.__engnxjet$config = {
 	prefix: '/educational_apkn/',
 	files: {
-		wasm: '/educational_vr/scramjet.wasm.wasm',
-		all: '/educational_vr/scramjet.all.js',
-		sync: '/educational_vr/scramjet.sync.js'
+		wasm: '/educational_vr/engnxjet.wasm.wasm',
+		all: '/educational_vr/engnxjet.all.js',
+		sync: '/educational_vr/engnxjet.sync.js'
 	},
 	siteFlags: {
 		'https://discord.com/.*': {
@@ -15,7 +15,7 @@ self.__scramjet$config = {
 		cleanErrors: true,
 		naiiveRewriter: false,
 		rewriterLogs: false,
-		scramitize: false,
+		engnxitize: false,
 		serviceworkers: false,
 		sourcemaps: true,
 		strictRewrites: true,

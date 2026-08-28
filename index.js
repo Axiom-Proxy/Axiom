@@ -579,32 +579,18 @@ server.get('/search_complete/*', async (req, res) => {
 
 
 const MODEL_CODENAMES = {
-    "lucidityai/gemma-4-26b-a4b-it:free": "Lucidity Gemma 4 26B A4B IT",
-    "open/deepseek-ai/deepseek-v4-flash:free": "DeepSeek V4 Flash",
-    "open/deepseek-ai/deepseek-v4-pro:free": "DeepSeek V4 Pro",
-    "open/moonshotai/kimi-k2.6:free": "Moonshot Kimi K2.6",
-    "open/stepfun-ai/step-3.5-flash:free": "StepFun Step 3.5 Flash",
-    "open/stepfun-ai/step-3.7-flash:free": "StepFun Step 3.7 Flash",
-    "open/z-ai/glm-5.2:free": "Z-AI GLM 5.2",
-    "open/meta/llama-3.3-70b-instruct:free": "Meta Llama 3.3 70B Instruct",
-    "open/google/gemma-4-31b-it:free": "Google Gemma 4 31B IT",
-    "open/openai/gpt-oss-120b:free": "OpenAI GPT-OSS 120B",
-    "open/qwen/qwen3.5-397b-a17b:free": "Qwen 3.5 397B A17B",
-    "open/ibm/granite-34b-code-instruct:free": "IBM Granite 34B Code Instruct"
+    "lucidityai/synth-2.5-pro:free": "Synth 2.5 Pro",
+    "lucidityai/synth-2.5-flash:free": "Synth 2.5 Flash"
 };
 
 const SUPPORTED_MODELS = fs.readFileSync(path.join(__dirname, "models.txt"), "utf8")
     .split("\n")
     .map(s => s.trim())
-    .filter(Boolean);
+    .filter(Boolean)
+    .filter(s => !s.startsWith("#"));
 
 const PREMIUM_MODELS = new Set([
-    "open/deepseek-ai/deepseek-v4-pro:free",
-    "open/meta/llama-3.3-70b-instruct:free",
-    "open/openai/gpt-oss-120b:free",
-    "open/qwen/qwen3.5-397b-a17b:free",
-    "open/z-ai/glm-5.2:free",
-    "open/moonshotai/kimi-k2.6:free"
+    "lucidityai/synth-2.5-pro:free"
 ]);
 
 const MODELS_LIST = SUPPORTED_MODELS
@@ -615,7 +601,7 @@ const MODELS_LIST = SUPPORTED_MODELS
     }))
     .sort((a, b) => (a.premium ? 1 : 0) - (b.premium ? 1 : 0));
 
-const DEFAULT_MODEL = SUPPORTED_MODELS[0] || "lucidityai/gemma-4-26b-a4b-it:free";
+const DEFAULT_MODEL = SUPPORTED_MODELS.find(id => !PREMIUM_MODELS.has(id)) || SUPPORTED_MODELS[0] || "lucidityai/synth-2.5-flash:free";
 
 server.get("/api/models", async (req, res) => {
     res.send({ models: MODELS_LIST, default: DEFAULT_MODEL });

@@ -679,7 +679,7 @@ server.register(require("@fastify/static"), {
     prefix: "/"
 })
 
-const PORT = Number(process.env.PORT) || 8080;
+const PORT = Number(process.env.PORT) || 8085;
 
 // Health-check endpoint so watch.py can detect a hung server and restart it.
 server.get("/health", async (req, res) => {

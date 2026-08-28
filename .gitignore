@@ -4,3 +4,4 @@ node_modules
 *.traineddata*
 links.txt
 freedns_links.json
+scramble-mapping.txt

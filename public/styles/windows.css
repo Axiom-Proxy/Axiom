@@ -294,7 +294,9 @@ body {
   outline: none;
   background: transparent;
   color: #fff;
-  font-family: "Roboto", sans-serif;
+  /* Un-scrambled 'Roboto Plain' — inputs are skipped by font-scramble.js,
+   * so their literal text must render through the un-shifted font. */
+  font-family: "Roboto Plain", "Roboto", sans-serif;
   font-size: 12px;
   font-weight: 300;
   letter-spacing: 0.3px;

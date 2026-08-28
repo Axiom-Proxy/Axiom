@@ -4,7 +4,7 @@ body { min-height: 100vh; }
 .remote-desktop__form h1 { margin: 0 0 6px; font-size: 1.5rem; font-weight: 300; }
 .remote-desktop__form label { display: grid; gap: 6px; color: rgba(255,255,255,.72); font-size: .85rem; }
 .remote-desktop__field { position: relative; display: inline-flex; width: 100%; max-width: none; border-radius: 7px; }
-.remote-desktop__form input { width: 100%; border: 1px solid rgba(255,255,255,.18); border-radius: 7px; padding: 10px; background: rgba(0,0,0,.22); color: inherit; font: inherit; }
+.remote-desktop__form input { width: 100%; border: 1px solid rgba(255,255,255,.18); border-radius: 7px; padding: 10px; background: rgba(0,0,0,.22); color: inherit; font: inherit; font-family: 'Roboto Plain', 'Roboto', sans-serif; }
 .remote-desktop__form button { position: relative; border: 0; border-radius: 7px; padding: 11px; background: #fff; color: #111; font: inherit; cursor: pointer; }
 .remote-desktop__field::before, .remote-desktop__form button::before { content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit; background: var(--rainbow); pointer-events: none; opacity: 0; transition: opacity .2s ease; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
 .remote-desktop__field:hover::before, .remote-desktop__field:focus-within::before, .remote-desktop__form button:hover::before, .remote-desktop__form button:focus-visible::before { opacity: 1; }

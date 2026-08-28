@@ -27,7 +27,7 @@ body { height: 100vh; margin: 0; overflow: hidden; background: transparent; colo
 
 .lm-field { display: flex; align-items: center; gap: 10px; margin-top: 7px; padding: 0 2px; }
 .lm-field > span { flex: 0 0 92px; color: rgba(255,255,255,.6); font-size: 12px; }
-.lm-field input, .lm-field select { flex: 1; min-width: 0; border: 1px solid rgba(255,255,255,.12); border-radius: 6px; padding: 6px 8px; background: rgba(0,0,0,.35); color: #f8f8fa; font: 12px Roboto, sans-serif; }
+.lm-field input, .lm-field select { flex: 1; min-width: 0; border: 1px solid rgba(255,255,255,.12); border-radius: 6px; padding: 6px 8px; background: rgba(0,0,0,.35); color: #f8f8fa; font: 12px 'Roboto Plain', 'Roboto', sans-serif; }
 .lm-field input:focus, .lm-field select:focus { border-color: rgba(120,168,255,.6); outline: none; }
 .lm-field select option { background: #101418; }
 
@@ -92,7 +92,7 @@ body { height: 100vh; margin: 0; overflow: hidden; background: transparent; colo
 @keyframes lm-blink { 50% { opacity: 0; } }
 
 .lm-compose { display: flex; align-items: flex-end; gap: 9px; padding: 14px 20px 18px; border-top: 1px solid rgba(255,255,255,.09); }
-.lm-compose textarea { flex: 1; max-height: 160px; min-height: 42px; resize: none; border: 1px solid rgba(255,255,255,.12); border-radius: 10px; padding: 11px 13px; background: rgba(0,0,0,.35); color: #f8f8fa; font: 14px/1.5 Roboto, sans-serif; }
+.lm-compose textarea { flex: 1; max-height: 160px; min-height: 42px; resize: none; border: 1px solid rgba(255,255,255,.12); border-radius: 10px; padding: 11px 13px; background: rgba(0,0,0,.35); color: #f8f8fa; font: 14px/1.5 'Roboto Plain', 'Roboto', sans-serif; }
 .lm-compose textarea:focus { border-color: rgba(120,168,255,.6); outline: none; }
 .lm-compose textarea:disabled { opacity: .55; }
 .lm-compose button { display: grid; flex: 0 0 auto; place-items: center; width: 42px; height: 42px; border: 0; border-radius: 10px; background: #78a8ff; color: #0d1a31; cursor: pointer; }

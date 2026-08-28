@@ -40,16 +40,41 @@
 
         <aside class="ad-panel" aria-label="Advertisement">
             <span class="ad-label">Advertisement</span>
+            <div id="ad-frame-wrap" class="ad-frame-wrap"></div>
             <script>
-                atOptions = {
-                    'key': '15fbacc595e9f15699645f814d9477a3',
-                    'format': 'iframe',
-                    'height': 600,
-                    'width': 160,
-                    'params': {}
-                };
+                /*
+                 * The ad network's banner script is wrapped in a sandboxed iframe so
+                 * its creatives can never redirect/navigate this page (frame-busting).
+                 * "allow-scripts" lets the banner render; "allow-popups" keeps legit
+                 * click-through behavior. Deliberately NO "allow-top-navigation" and
+                 * NO "allow-same-origin": top-window redirects and parent access are
+                 * blocked by the browser itself.
+                 */
+                (function () {
+                    var wrap = document.getElementById("ad-frame-wrap");
+                    var adFrame = document.createElement("iframe");
+                    adFrame.setAttribute("sandbox",
+                        "allow-scripts allow-popups allow-popups-to-escape-sandbox");
+                    adFrame.setAttribute("title", "Advertisement");
+                    adFrame.setAttribute("loading", "lazy");
+                    adFrame.setAttribute("scrolling", "no");
+                    adFrame.style.border = "0";
+
+                    var atOptions = {
+                        'key': '15fbacc595e9f15699645f814d9477a3',
+                        'format': 'iframe',
+                        'height': 600,
+                        'width': 160,
+                        'params': {}
+                    };
+
+                    adFrame.srcdoc =
+                        '<scr' + 'ipt>window.atOptions = ' + JSON.stringify(atOptions) + '</scr' + 'ipt>' +
+                        '<scr' + 'ipt src="https://www.highperformanceformat.com/15fbacc595e9f15699645f814d9477a3/invoke.js"></scr' + 'ipt>';
+
+                    wrap.appendChild(adFrame);
+                })();
             </script>
-            <script src="https://www.highperformanceformat.com/15fbacc595e9f15699645f814d9477a3/invoke.js"></script>
         </aside>
     </main>
 

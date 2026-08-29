@@ -18,6 +18,15 @@
     <link href="./styles/loader.css" rel="stylesheet">
     <link href="./styles/start.css" rel="stylesheet">
     <link href="./styles/settings.css" rel="stylesheet">
+    <style>
+        /* Buttons don't inherit font-family from body (the UA stylesheet gives
+           them a system font), so the shifted text from font-scramble.js would
+           render garbled. Put them on the scrambled Roboto like the rest of
+           the page. Scoped here so it only affects the settings page. */
+        button {
+            font-family: "Roboto", sans-serif;
+        }
+    </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EP8214CHBW"></script>
     <script>

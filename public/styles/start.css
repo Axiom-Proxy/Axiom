@@ -56,6 +56,17 @@ body {
   max-width: none;
 }
 
+/* When the input is focused (i.e. suggestions may be open), square off its
+   bottom corners so it connects seamlessly with the suggestions dropdown. */
+.rainbow-input:focus-within {
+  border-radius: 25px 25px 0 0;
+}
+
+.rainbow-input:focus-within .search-bar {
+  border-radius: 25px 25px 0 0;
+  box-shadow: 0 -8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
 .rainbow-input::before {
   content: "";
   position: absolute;

@@ -14,6 +14,16 @@
     <script src="./scripts/theme.js"></script>
     <link href="./styles/loader.css" rel="stylesheet">
     <link href="./styles/tabs.css" rel="stylesheet">
+    <style>
+        /* tabs.css sets #address-bar to the scrambled 'Roboto' with an ID rule,
+           which beats the plain 'input' rule in fonts/fonts.css. Since
+           font-scramble.js skips <input> text, the typed URL would render
+           garbled — put the address bar back on the unscrambled font.
+           Scoped here so it only affects the tabs page. */
+        #address-bar {
+            font-family: 'Roboto Plain', 'Roboto', sans-serif;
+        }
+    </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EP8214CHBW"></script>
     <script>

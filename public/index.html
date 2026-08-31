@@ -89,6 +89,32 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="discord-modal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeDiscordModal()" aria-label="Close">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <span class="material-symbols-outlined">forum</span>
+            <h3>Join our Discord!</h3>
+            <p>For more links, updates, and support, join our Discord server:</p>
+            <a href="https://discord.gg/pnGGmHqjGj" target="_blank" rel="noopener">https://discord.gg/pnGGmHqjGj</a>
+            <button class="modal-ok" onclick="closeDiscordModal()">Okay</button>
+        </div>
+    </div>
+
+    <script>
+        function closeDiscordModal() {
+            document.getElementById('discord-modal').classList.remove('open');
+        }
+        window.addEventListener('load', () => {
+            const modal = document.getElementById('discord-modal');
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeDiscordModal();
+            });
+            modal.classList.add('open');
+        });
+    </script>
+
     <script src="./scripts/loader.js"></script>
     <script src="./scripts/landing.js"></script>
     <script src="./scripts/ad.js"></script>

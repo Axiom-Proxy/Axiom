@@ -20,3 +20,23 @@ body { display: flex; align-items: center; justify-content: center; min-height: 
 .cloak-card .material-symbols-outlined { font-size: 24px; color: rgba(255,255,255,.65); }
 .cloak-card:hover { color: #fff; }
 .cloak-card:active { transform: translateY(0); }
+
+/* Discord modal */
+.modal-overlay { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal-card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 380px; padding: 32px 28px 28px; text-align: center; border-radius: 16px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); box-shadow: 0 8px 32px 0 rgba(0,0,0,.3); transform: translateY(12px) scale(.97); transition: transform .25s ease; }
+.modal-overlay.open .modal-card { transform: translateY(0) scale(1); }
+.modal-card::before { content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit; background: var(--rainbow); pointer-events: none; opacity: .6; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.modal-card .material-symbols-outlined { font-size: 36px; color: rgba(255,255,255,.85); }
+.modal-card h3 { margin: 0; font-size: 1.25rem; font-weight: 400; letter-spacing: 1px; color: #fff; }
+.modal-card p { margin: 0; font-size: .88rem; line-height: 1.5; color: rgba(255,255,255,.65); }
+.modal-card a { color: rgba(255,255,255,.85); font-weight: 500; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; transition: text-decoration-color .2s, color .2s; }
+.modal-card a:hover { color: #fff; text-decoration-color: rgba(255,255,255,.7); }
+.modal-close { position: absolute; top: 10px; right: 10px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; border: none; background: transparent; color: rgba(255,255,255,.5); cursor: pointer; transition: background .2s, color .2s; }
+.modal-close:hover { background: rgba(255,255,255,.09); color: #fff; }
+.modal-close .material-symbols-outlined { font-size: 20px; color: inherit; }
+.modal-ok { margin-top: 6px; padding: 10px 34px; border-radius: 25px; border: 1px solid transparent; background: rgba(255,255,255,.1); color: #fff; font-family: inherit; font-size: .88rem; letter-spacing: .5px; cursor: pointer; position: relative; transition: background .2s, transform .15s; }
+.modal-ok:hover { background: rgba(255,255,255,.16); transform: translateY(-1px); }
+.modal-ok:active { transform: translateY(0); }
+.modal-ok::before { content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit; background: var(--rainbow); pointer-events: none; opacity: 0; transition: opacity .2s; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.modal-ok:hover::before { opacity: 1; }

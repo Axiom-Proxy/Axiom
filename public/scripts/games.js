@@ -77,8 +77,8 @@ function buildCard(game) {
   const card = document.createElement("div");
   card.className = "game";
   card.innerHTML = `
-                <button class="desktop-btn${onDesktop ? " on-desktop" : ""}" title="${onDesktop ? "On desktop" : "Add to desktop"}">desktop_windows</button>
-                <button class="fav-btn${isFav ? " active" : ""}" title="Favorite">star</button>
+                <button class="material-symbols-outlined desktop-btn${onDesktop ? " on-desktop" : ""}" title="${onDesktop ? "On desktop" : "Add to desktop"}">desktop_windows</button>
+                <button class="material-symbols-outlined fav-btn${isFav ? " active" : ""}" title="Favorite">star</button>
                 <div class="thumb">
                     <img src="${game.app_img}" alt="${game.app_name}" loading="lazy">
                 </div>

@@ -41,6 +41,33 @@
         <div class="ao-loader-spinner"></div>
     </div>
 
+    <!-- Conversation sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-head">
+            <button class="icon-btn" id="new-chat-btn" title="New chat">
+                <span class="material-symbols-outlined">add_comment</span>
+            </button>
+            <button class="icon-btn" id="collapse-btn" title="Hide sidebar">
+                <span class="material-symbols-outlined">left_panel_close</span>
+            </button>
+        </div>
+        <div class="sidebar-search">
+            <span class="material-symbols-outlined">search</span>
+            <input id="convo-search" type="text" placeholder="Search chats" autocomplete="off">
+        </div>
+        <div class="convo-list" id="convo-list"></div>
+        <div class="sidebar-foot">
+            <button class="text-btn" id="clear-all-btn">
+                <span class="material-symbols-outlined">delete_sweep</span> Clear all chats
+            </button>
+        </div>
+    </aside>
+
+    <button class="icon-btn sidebar-open" id="open-btn" title="Show sidebar">
+        <span class="material-symbols-outlined">left_panel_open</span>
+    </button>
+    <div class="sidebar-scrim" id="sidebar-scrim"></div>
+
     <div class="dropdown" id="modelDropdown">
         <div class="dropdown-trigger" id="dropdownTrigger">
             <span id="dropdownLabel">Loading models…</span>
@@ -50,29 +77,46 @@
         </div>
     </div>
 
-    <div class="messages">
-    </div>
+    <main class="chat-main" id="chat-main">
+        <div class="messages"></div>
 
-    <div id="image-previews"></div>
-    <div id="attach-menu">
-        <div class="attach-option" onclick="triggerFileUpload()">
-            <span class="material-symbols-outlined attach-option-icon">upload</span> Upload image
+        <div class="empty-state" id="empty-state">
+            <h1 class="empty-logo">Axiom AI</h1>
+            <p class="empty-sub">Intelligent assistance powered by our own models (https://huggingface.co/LucidityAI)</p>
+            <div class="suggestions" id="suggestions">
+                <button class="suggestion" data-prompt="Explain this step by step so I actually understand it: ">Explain a concept</button>
+                <button class="suggestion" data-prompt="Check my work and point out any mistakes: ">Check my work</button>
+                <button class="suggestion" data-prompt="Summarize the key points of this: ">Summarize notes</button>
+                <button class="suggestion" data-prompt="Quiz me on this topic, one question at a time: ">Quiz me</button>
+            </div>
         </div>
-        <div class="attach-option" onclick="captureTab()">
-            <span class="material-symbols-outlined attach-option-icon">screenshot_monitor</span> Capture tab / screen
-        </div>
-    </div>
-    <input type="file" id="file-input" class="file-input" accept="image/*" multiple>
 
-    <center class="chat-composer">
-        <button onclick="toggleAttachMenu()" title="Attach image">
-            <span class="material-symbols-outlined" id="attach-icon">add</span>
-        </button>
-        <span class="rainbow-input"><input placeholder="Send a message" class="search-bar" type="text"></span>
-        <button id="send-btn">
-            <span class="material-symbols-outlined">send</span>
-        </button>
-    </center>
+        <div id="image-previews"></div>
+        <div id="attach-menu">
+            <div class="attach-option" onclick="triggerFileUpload()">
+                <span class="material-symbols-outlined attach-option-icon">upload</span> Upload image
+            </div>
+            <div class="attach-option" onclick="captureTab()">
+                <span class="material-symbols-outlined attach-option-icon">screenshot_monitor</span> Capture tab / screen
+            </div>
+        </div>
+        <input type="file" id="file-input" class="file-input" accept="image/*" multiple>
+
+        <div class="chat-composer">
+            <button onclick="toggleAttachMenu()" title="Attach image">
+                <span class="material-symbols-outlined" id="attach-icon">add</span>
+            </button>
+            <span class="rainbow-input">
+                <textarea placeholder="Send a message" class="search-bar" rows="1"></textarea>
+            </span>
+            <button id="send-btn" title="Send">
+                <span class="material-symbols-outlined">send</span>
+            </button>
+        </div>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
     <script src="./scripts/loader.js"></script>
     <script src="./scripts/chat.js"></script>
 </body>

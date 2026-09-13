@@ -51,7 +51,7 @@ function getCloakContent() {
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const buttons = document.querySelectorAll('.container:first-child button');
+            const buttons = document.querySelectorAll('#cloak-row button');
             if (buttons.length >= 4) {
                 buttons[0].addEventListener('click', aboutBlankCloak);
                 buttons[1].addEventListener('click', blobCloak);
@@ -239,12 +239,90 @@ function getCloakContent() {
                     const theme = themes.find(t => t.id === opt.dataset.value);
                     if (theme && window.axiomTheme) {
                         window.axiomTheme.setTheme(theme);
+                        paintAccent();
                     }
                 });
             });
         }
 
         initThemes();
+
+        /* ----------------------------------------------------------- accent */
+
+        /*
+         * The accent used to be whatever the theme said it was. It is a
+         * separate choice now: pick one and it survives every theme change
+         * until you press Theme to hand the decision back.
+         */
+        // Colours picked at the depth Axiom actually fills with, so a swatch
+        // and the row it selects are the same blue.
+        const ACCENTS = [
+            '#0e8ec4', '#3f6fe0', '#8054e8', '#c33a9c', '#e0374f',
+            '#d2650f', '#a17c05', '#1d9a4e', '#158c81', '#68788f'
+        ];
+
+        const swatchBox = document.getElementById('accent-swatches');
+        const accentCustom = document.getElementById('accent-custom');
+        const accentReset = document.getElementById('accent-reset');
+        const accentSub = document.getElementById('accent-sub');
+
+        function currentAccent() {
+            return (window.axiomTheme ? window.axiomTheme.getAccent() : '#8ed4f4').toLowerCase();
+        }
+
+        function paintAccent() {
+            const now = currentAccent();
+            if (swatchBox) {
+                swatchBox.querySelectorAll('.swatch').forEach(sw => {
+                    sw.classList.toggle('selected', sw.dataset.value === now);
+                });
+            }
+            if (accentCustom) accentCustom.value = now;
+            const dot = document.querySelector('.swatch-custom');
+            if (dot && window.axiomTheme) {
+                // The custom chip previews the current colour once one is set,
+                // and goes back to the rainbow when the theme has it again.
+                dot.style.background = window.axiomTheme.isAccentCustom()
+                    ? window.axiomTheme.solidFor(now) : '';
+            }
+            if (accentReset) {
+                const custom = !!(window.axiomTheme && window.axiomTheme.isAccentCustom());
+                accentReset.disabled = !custom;
+                accentReset.title = custom
+                    ? 'Go back to the colour this theme ships with'
+                    : 'Already using the theme colour';
+            }
+        }
+
+        function setAccent(color) {
+            if (window.axiomTheme) window.axiomTheme.setAccent(color);
+            paintAccent();
+        }
+
+        if (swatchBox) {
+            ACCENTS.forEach(color => {
+                const sw = document.createElement('button');
+                sw.type = 'button';
+                sw.className = 'swatch';
+                sw.dataset.value = color;
+                // Painted with what the colour becomes as a fill: a swatch
+                // that shows a pastel and then selects a deep blue is a lie.
+                sw.style.background = (window.axiomTheme && window.axiomTheme.solidFor(color)) || color;
+                sw.title = color;
+                sw.addEventListener('click', () => setAccent(color));
+                swatchBox.appendChild(sw);
+            });
+        }
+
+        if (accentCustom) {
+            accentCustom.addEventListener('input', () => setAccent(accentCustom.value));
+        }
+
+        if (accentReset) {
+            accentReset.addEventListener('click', () => setAccent(''));
+        }
+
+        if (accentSub && window.axiomTheme) paintAccent();
 
         /* -------------------------------------------------------- wallpaper */
 
@@ -261,6 +339,8 @@ function getCloakContent() {
 
         function setWallpaper(value) {
             localStorage.setItem(WP_KEY, value);
+            // Choosing a picture is also choosing to be in still mode.
+            if (window.AxiomDesk) window.AxiomDesk.set('wpMode', 'still');
             // Broadcast to other windows
             try { localStorage.setItem('axiom_wallpaper_broadcast', Date.now()); } catch (e) {}
             // Also notify the parent window if settings is open in an iframe
@@ -288,7 +368,10 @@ function getCloakContent() {
             const grid = document.getElementById('wallpaperGrid');
             if (!grid) return;
 
-            const current = getSavedWallpaper();
+            // A live wallpaper is on the desktop instead of any of these, so
+            // none of them should read as the current one.
+            const live = !!(window.AxiomDesk && window.AxiomDesk.get('wpMode') === 'live');
+            const current = live ? null : getSavedWallpaper();
             const customWp = getCustomWallpaper();
 
             grid.innerHTML = '';
@@ -358,6 +441,14 @@ function getCloakContent() {
         });
 
         renderWallpaperGrid();
+
+        // Switching to or from a live wallpaper changes which still tile, if
+        // any, is shown as chosen.
+        if (window.AxiomDesk) {
+            window.AxiomDesk.on((p, changed) => {
+                if (changed.includes('wpMode')) renderWallpaperGrid();
+            });
+        }
 
 })();
 

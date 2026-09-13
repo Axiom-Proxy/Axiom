@@ -1,0 +1,493 @@
+/* =========================================================================
+ * Desktop finish
+ *
+ * The layer that makes the shell look lit rather than drawn: an ambient
+ * bloom under the wallpaper scrim, depth and focus state on the windows, a
+ * pointer-tracked specular on the dock, and the small motion the rest of the
+ * chrome answers hover with.
+ *
+ * Loaded after windows.css, so everything here is an override of a surface
+ * that already works — nothing in this file is load-bearing for layout, and
+ * dropping the <link> leaves the desktop functional and flat.
+ * ====================================================================== */
+
+:root {
+  /* One curve for every piece of chrome that moves, so the shell feels like
+   * one machine rather than a pile of independently-tuned animations. */
+  --ease-out-soft: cubic-bezier(0.22, 0.8, 0.3, 1);
+  --ease-spring: cubic-bezier(0.2, 0.9, 0.24, 1.02);
+}
+
+/* ------------------------------------------------------------ ambient bloom */
+
+/*
+ * Two slow accent-tinted clouds drifting behind the scrim. They sit ON the
+ * wallpaper, under the dim and the vignette, so a bright picture keeps its
+ * own colour and a dark one picks up a hint of the user's accent instead of
+ * going flat grey. Screen blend means it can only ever add light.
+ */
+#wp-bloom {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.5;
+  background:
+    radial-gradient(38% 44% at 22% 26%, color-mix(in srgb, var(--mac-accent) 46%, transparent), transparent 70%),
+    radial-gradient(34% 40% at 78% 72%, color-mix(in srgb, var(--mac-accent) 26%, #6a4cff 30%), transparent 72%);
+  /* No blur filter: the gradients are already soft, and blurring a layer
+   * this size is the one thing here that would cost a weak machine frames. */
+  animation: axm-bloom 48s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes axm-bloom {
+  0%   { transform: translate3d(-3%, -2%, 0) scale(1); }
+  50%  { transform: translate3d(3%, 2%, 0) scale(1.08); }
+  100% { transform: translate3d(-1%, 3%, 0) scale(1.03); }
+}
+
+/* A live clip is already moving; a second moving thing under it is noise. */
+body.wp-live #wp-bloom {
+  opacity: 0.22;
+}
+
+/* --------------------------------------------------------------- menu bar */
+
+/*
+ * The bar gets its own hairline instead of the flat inset shadow: brightest
+ * under the middle of the screen where the content is, falling off at the
+ * corners.
+ */
+#menubar {
+  box-shadow:
+    inset 0 -0.5px 0 rgba(255, 255, 255, 0.06),
+    0 1px 12px rgba(0, 0, 0, 0.28);
+}
+
+#menubar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.5px;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.22) 22%,
+    rgba(255, 255, 255, 0.22) 78%,
+    transparent
+  );
+}
+
+.mb-item,
+.mb-status {
+  transition:
+    background 0.14s ease,
+    color 0.14s ease,
+    box-shadow 0.14s ease;
+}
+
+/* An open menu keeps the accent on its title while its sheet is down, the
+ * way the menu bar marks which menu you are inside. Spotlight and the
+ * calendar mark their tray buttons with the same class, so they light up in
+ * the accent too. */
+.mb-item.active,
+.mb-status.active {
+  background: var(--mac-accent) !important;
+  color: var(--mac-on-accent);
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--mac-accent) 45%, transparent);
+}
+
+.mb-item.active .mb-mark,
+.mb-item.active .material-symbols-outlined,
+.mb-status.active .material-symbols-outlined {
+  color: var(--mac-on-accent);
+}
+
+.mb-mark {
+  transition: filter 0.18s ease;
+}
+
+.mb-logo:hover .mb-mark {
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.55));
+}
+
+/* ---------------------------------------------------------- menu-bar menus */
+
+/*
+ * Menus arrive from under the bar they belong to, not from nowhere. Slide
+ * only, no scale: menubar.js measures the panel's right edge the instant it
+ * opens to keep it on screen, and a scaled box would hand it the wrong width.
+ */
+.mb-menu {
+  transform: translateY(-6px);
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.55),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.14);
+  transition:
+    opacity 0.13s ease,
+    transform 0.17s var(--ease-spring),
+    visibility 0.17s;
+}
+
+.mb-menu.open {
+  transform: translateY(0);
+}
+
+.mb-menu-item {
+  transition: background 0.08s ease, color 0.08s ease;
+}
+
+.mb-menu-item:hover {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--mac-accent) 88%, white),
+    var(--mac-accent)
+  );
+}
+
+/* ----------------------------------------------------------- desktop icons */
+
+.desktop-icon {
+  transition:
+    background 0.14s ease,
+    transform 0.16s var(--ease-spring);
+}
+
+.desktop-icon:hover {
+  transform: translateY(-2px);
+}
+
+.desktop-icon:active {
+  transform: translateY(0) scale(0.96);
+  transition-duration: 0.06s;
+}
+
+.desktop-icon-art {
+  transition: filter 0.18s ease, transform 0.18s var(--ease-spring);
+}
+
+.desktop-icon:hover .desktop-icon-art {
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.5));
+}
+
+/* Selection reads as a lit chip rather than a grey one. */
+.desktop-icon.selected {
+  background: color-mix(in srgb, var(--mac-accent) 22%, rgba(255, 255, 255, 0.1));
+  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--mac-accent) 55%, transparent);
+}
+
+.desktop-icon.selected .desktop-icon-art {
+  filter:
+    drop-shadow(0 0 10px color-mix(in srgb, var(--mac-accent) 60%, transparent))
+    drop-shadow(0 3px 5px rgba(0, 0, 0, 0.45));
+}
+
+.desktop-icon-art img {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.42);
+}
+
+/* ------------------------------------------------------------------- dock */
+
+/*
+ * The tray is glass with a lit top edge and a shadow that reads as the dock
+ * floating a few millimetres off the wallpaper. The specular that tracks the
+ * pointer lives in .dock-specular (windows.css) rather than in this gradient:
+ * as a background position it repainted a backdrop-filtered element on every
+ * pointer move, which is the most expensive thing the dock could do.
+ */
+#taskbar {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03)),
+    rgba(30, 30, 34, var(--glass-alpha));
+  box-shadow:
+    0 22px 54px rgba(0, 0, 0, 0.46),
+    0 4px 14px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.22);
+}
+
+/* The bright arc across the top of a glass slab. Behind the tiles, and out
+ * of the way of the pointer. */
+#taskbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.16),
+    transparent 42%
+  );
+}
+
+.taskbar-btn {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.05));
+  transition:
+    transform 0.09s ease-out,
+    background 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.taskbar-btn:hover {
+  background:
+    linear-gradient(
+      color-mix(in srgb, var(--mac-accent) 26%, rgba(255, 255, 255, 0.22)),
+      color-mix(in srgb, var(--mac-accent) 10%, rgba(255, 255, 255, 0.08))
+    );
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    0 6px 18px color-mix(in srgb, var(--mac-accent) 32%, transparent);
+}
+
+/* The lit glyph, as a text-shadow: same look, and it does not put the icon
+ * behind a filter that has to be re-rasterised at each step of the scale. */
+.taskbar-btn .material-symbols-outlined {
+  transition: text-shadow 0.18s ease;
+}
+
+.taskbar-btn:hover .material-symbols-outlined {
+  text-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.35),
+    0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+/* Tooltips spring rather than fade flat. */
+.taskbar-btn::after {
+  transform: translateX(-50%) translateY(4px) scale(0.9);
+  transition:
+    opacity 0.13s ease,
+    transform 0.18s var(--ease-spring);
+}
+
+.taskbar-btn:hover::after {
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+/* The running dot grows into a pill and takes the accent, so a glance at the
+ * dock says which apps are up without reading the icons. */
+.taskbar-btn .indicator {
+  width: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.9);
+  transition:
+    opacity 0.2s ease,
+    width 0.24s var(--ease-spring),
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.taskbar-btn.open .indicator {
+  width: 15px;
+  background: color-mix(in srgb, var(--mac-accent) 65%, white);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--mac-accent) 80%, transparent);
+}
+
+/* ---------------------------------------------------------------- windows */
+
+/*
+ * Windows land instead of appearing: a short scale-and-lift on the curve the
+ * rest of the shell uses. WinBox positions with left/top and never touches
+ * transform, so borrowing it here cannot fight the drag or the resize.
+ */
+@keyframes axm-win-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.winbox {
+  animation: axm-win-in 0.26s var(--ease-spring) both;
+  transition:
+    width 0.3s cubic-bezier(0.3, 1, 0.3, 1),
+    height 0.3s cubic-bezier(0.3, 1, 0.3, 1),
+    left 0.3s cubic-bezier(0.3, 1, 0.3, 1),
+    top 0.3s cubic-bezier(0.3, 1, 0.3, 1),
+    box-shadow 0.25s ease;
+}
+
+/* The focused window is the one that is lit. Everything behind it flattens:
+ * a shallower shadow, a dimmer hairline, a quieter title. */
+.winbox.focus {
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.26),
+    0 36px 90px rgba(0, 0, 0, 0.62),
+    0 10px 26px rgba(0, 0, 0, 0.4) !important;
+}
+
+.winbox:not(.focus) {
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.12),
+    0 16px 40px rgba(0, 0, 0, 0.45) !important;
+}
+
+.winbox .wb-header {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.045)
+  ) !important;
+}
+
+.winbox:not(.focus) .wb-header {
+  background: rgba(255, 255, 255, 0.035) !important;
+}
+
+.winbox:not(.focus) .wb-title {
+  color: rgba(255, 255, 255, 0.48) !important;
+}
+
+/* Inactive traffic lights go grey and come back on hover, as they do on a
+ * real desktop — colour is how a window says it has the keyboard. */
+.winbox:not(.focus) .wb-min,
+.winbox:not(.focus) .wb-max,
+.winbox:not(.focus) .wb-close {
+  background-color: rgba(255, 255, 255, 0.26) !important;
+}
+
+.winbox:not(.focus) .wb-header:hover .wb-min   { background-color: #febc2e !important; }
+.winbox:not(.focus) .wb-header:hover .wb-max   { background-color: #28c840 !important; }
+.winbox:not(.focus) .wb-header:hover .wb-close { background-color: #ff5f57 !important; }
+
+.winbox .wb-control * {
+  transition: filter 0.12s ease, background-color 0.16s ease, transform 0.12s ease;
+}
+
+/* Chromeless windows draw their own cluster, so it needs the same rule. */
+.winbox:not(.focus) .wb-cc-btn {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.winbox:not(.focus) .wb-custom-controls:hover .wb-cc-min   { background: #febc2e; }
+.winbox:not(.focus) .wb-custom-controls:hover .wb-cc-max   { background: #28c840; }
+.winbox:not(.focus) .wb-custom-controls:hover .wb-cc-close { background: #ff5f57; }
+
+.wb-cc-btn {
+  transition: filter 0.12s ease, background 0.16s ease, transform 0.12s ease;
+}
+
+.wb-cc-btn:active,
+.winbox .wb-control *:active {
+  transform: scale(0.86);
+}
+
+/* --------------------------------------------------------------- flyouts */
+
+.flyout {
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.6),
+    0 6px 20px rgba(0, 0, 0, 0.35),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.16);
+  transition:
+    opacity 0.16s ease,
+    transform 0.24s var(--ease-spring),
+    visibility 0.24s;
+}
+
+/* Spotlight opens from its own centre and is the brightest thing on screen
+ * while it is up. */
+#search-flyout {
+  transform: translate(-50%, -10px) scale(0.96);
+}
+
+#search-flyout.open {
+  box-shadow:
+    0 40px 110px rgba(0, 0, 0, 0.68),
+    0 0 0 0.5px rgba(255, 255, 255, 0.16),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* The field lights up in the accent while it holds the caret. */
+.taskbar-search:focus-within {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--mac-accent) 12%, transparent),
+    transparent
+  );
+}
+
+#sf-input {
+  caret-color: var(--mac-accent);
+}
+
+.sf-item,
+.sf-tile {
+  transition:
+    background 0.11s ease,
+    transform 0.14s var(--ease-spring),
+    box-shadow 0.14s ease;
+}
+
+.sf-item.active {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--mac-accent) 88%, white),
+    var(--mac-accent)
+  );
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--mac-accent) 40%, transparent);
+}
+
+.sf-tile:hover {
+  transform: translateY(-2px);
+}
+
+.sf-tile:hover .material-symbols-outlined,
+.sf-tile.active .material-symbols-outlined {
+  background: linear-gradient(
+    color-mix(in srgb, var(--mac-accent) 34%, rgba(255, 255, 255, 0.2)),
+    color-mix(in srgb, var(--mac-accent) 14%, rgba(255, 255, 255, 0.08))
+  ) !important;
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.3),
+    0 5px 14px color-mix(in srgb, var(--mac-accent) 34%, transparent) !important;
+}
+
+/* --------------------------------------------------------- desktop clock */
+
+/*
+ * The big clock is lit from above rather than painted flat white, and casts
+ * enough shadow to stay readable over a bright frame of a live wallpaper.
+ */
+body[data-clock-widget="large"] .dc-time {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.98),
+    rgba(255, 255, 255, 0.72)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* text-shadow does not draw through a clipped background, so the depth
+   * has to come from a filter on the box instead. */
+  filter: drop-shadow(0 4px 26px rgba(0, 0, 0, 0.5));
+}
+
+/* ----------------------------------------------------------------- motion */
+
+/*
+ * A machine that asked for less motion keeps every surface above — the
+ * light, the depth, the focus states — and loses only what moves on its own.
+ */
+@media (prefers-reduced-motion: reduce) {
+  #wp-bloom,
+  .winbox {
+    animation: none;
+  }
+
+  .desktop-icon:hover,
+  .sf-tile:hover {
+    transform: none;
+  }
+}

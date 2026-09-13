@@ -15,9 +15,16 @@
     <link rel="stylesheet" href="./fonts/fonts.css">
     <link rel="stylesheet" href="https://unpkg.com/winbox@0.2.82/dist/css/winbox.min.css">
     <script src="./scripts/theme.js"></script>
+    <!-- Loaded here, not at the end: it writes the custom properties the
+         stylesheet sizes the dock and icons from, and doing that after first
+         paint is a visible jump. -->
+    <script src="./scripts/desktop-prefs.js"></script>
     <link href="./styles/loader.css" rel="stylesheet">
     <link href="./styles/files-ui.css" rel="stylesheet">
     <link href="./styles/windows.css" rel="stylesheet">
+    <!-- Last: the finish layer overrides the shell's surfaces, so it has to
+         win on source order rather than on specificity. -->
+    <link href="./styles/desktop-fx.css" rel="stylesheet">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EP8214CHBW"></script>
     <script>
@@ -36,54 +43,108 @@
         <div class="ao-loader-spinner"></div>
     </div>
 
+    <!-- Under everything: the still picture, the two video buffers that
+         crossfade between live wallpapers, and the scrim the dim/vignette
+         settings paint on top of whichever is showing. -->
+    <div id="wallpaper-layer">
+        <div id="wp-still"></div>
+        <video class="wp-video" muted loop playsinline autoplay preload="auto" disablepictureinpicture></video>
+        <video class="wp-video" muted loop playsinline autoplay preload="auto" disablepictureinpicture></video>
+        <!-- Above the picture, under the scrim: the accent-tinted bloom, so
+             the dim and the vignette still land on top of it. -->
+        <div id="wp-bloom"></div>
+        <div id="wp-scrim"></div>
+    </div>
+
+    <div id="menubar">
+        <div class="mb-left">
+            <div class="mb-item mb-logo" data-menu="system" title="Axiom">
+                <!-- Axiom's mark: nested triangles, flat white. -->
+                <svg class="mb-mark" viewBox="0 0 24 22" aria-hidden="true">
+                    <path d="M12 1.8 22.6 20.2H1.4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M12 8 17.4 17.6H6.6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path d="M12 12.6 14.1 16.2H9.9Z" fill="currentColor"/>
+                </svg>
+            </div>
+            <div class="mb-item mb-app" data-menu="axiom">Axiom</div>
+            <div class="mb-item" data-menu="file">File</div>
+            <div class="mb-item" data-menu="view">View</div>
+            <div class="mb-item" data-menu="go">Go</div>
+            <div class="mb-item" data-menu="window">Window</div>
+            <div class="mb-item" data-menu="help">Help</div>
+        </div>
+        <div class="mb-right">
+            <div class="mb-status mb-item mb-wallpaper" id="btn-wallpaper" data-menu="wallpaper" title="Live wallpaper">
+                <span class="material-symbols-outlined mb-wp-icon">motion_photos_on</span>
+                <span class="mb-wp-name" id="mb-wp-name"></span>
+            </div>
+            <div class="mb-status mb-item" id="btn-wifi" data-menu="wifi" title="Wi-Fi">
+                <span class="material-symbols-outlined">wifi</span>
+            </div>
+            <div class="mb-status" id="btn-battery" title="Battery">
+                <span class="material-symbols-outlined" id="battery-icon">battery_full</span>
+            </div>
+            <div class="mb-status" id="btn-search" title="Spotlight Search (Ctrl+K)">
+                <span class="material-symbols-outlined">search</span>
+            </div>
+            <div class="mb-status tray-time" id="tray-time" title="Date and time">
+                <span id="tray-date">--</span>
+                <span id="tray-clock">--:--</span>
+            </div>
+        </div>
+    </div>
+
     <div id="desktop">
+        <div id="desktop-clock" aria-hidden="true">
+            <div class="dc-time">--:--</div>
+            <div class="dc-date"></div>
+            <div class="dc-greeting" hidden></div>
+        </div>
         <div id="desktop-icons"></div>
     </div>
 
     <div id="taskbar">
-        <div class="taskbar-left">
-            <div class="taskbar-btn" id="btn-wifi" title="Wi-Fi">
-                <span class="material-symbols-outlined">wifi</span>
-            </div>
-        </div>
-        <div class="taskbar-center">
-            <div class="taskbar-search" id="taskbar-search" title="Search (Ctrl+K)">
-                <span class="material-symbols-outlined">search</span>
-                <input id="sf-input" type="text" placeholder="Search" autocomplete="off" spellcheck="false">
-            </div>
-            <div class="taskbar-btn" id="btn-start" onclick="openWindow('Home', 'start', 'tabs.html', { chromeless: true })" title="Home">
+        <!-- The pointer-tracked specular. It is its own clipped layer so the
+             highlight moves with a transform instead of repainting the tray's
+             gradient (and its backdrop blur) on every pointer move. -->
+        <div class="dock-specular" aria-hidden="true"><span></span></div>
+        <div class="dock-items">
+            <div class="taskbar-btn" id="btn-start" data-label="Home" onclick="openWindow('Home', 'start', 'tabs.html', { chromeless: true })" title="Home">
                 <span class="material-symbols-outlined">language</span>
                 <span class="indicator"></span>
             </div>
-            <div class="taskbar-btn" id="btn-apps" onclick="openWindow('Apps', 'apps', 'apps.html')" title="Apps">
+            <div class="taskbar-btn" id="btn-apps" data-label="Apps" onclick="openWindow('Apps', 'apps', 'apps.html')" title="Apps">
                 <span class="material-symbols-outlined">apps</span>
                 <span class="indicator"></span>
             </div>
-            <div class="taskbar-btn" id="btn-games" onclick="openWindow('Games', 'games', 'games.html')" title="Games">
+            <div class="taskbar-btn" id="btn-games" data-label="Games" onclick="openWindow('Games', 'games', 'games_norm.html')" title="Games">
                 <span class="material-symbols-outlined">sports_esports</span>
                 <span class="indicator"></span>
             </div>
-            <div class="taskbar-btn" id="btn-theater" onclick="openWindow('Theater', 'theater', 'theater.html')" title="Theater">
+            <div class="taskbar-btn" id="btn-theater" data-label="Theater" onclick="openWindow('Theater', 'theater', 'theater.html')" title="Theater">
                 <span class="material-symbols-outlined">movie</span>
                 <span class="indicator"></span>
             </div>
-            <div class="taskbar-btn" id="btn-terminal" onclick="openWindow('Terminal', 'terminal', 'terminal.html')" title="Terminal">
+            <div class="taskbar-btn" id="btn-terminal" data-label="Terminal" onclick="openWindow('Terminal', 'terminal', 'terminal.html')" title="Terminal">
                 <span class="material-symbols-outlined">terminal</span>
                 <span class="indicator"></span>
             </div>
-        </div>
-        <div class="taskbar-tray">
-            <div class="taskbar-btn" id="btn-battery" title="Battery">
-                <span class="material-symbols-outlined" id="battery-icon">battery_full</span>
+            <div class="taskbar-btn" id="btn-files" data-label="Files" onclick="openWindow('Files', 'files', 'explorer.html')" title="Files">
+                <span class="material-symbols-outlined">folder</span>
+                <span class="indicator"></span>
             </div>
-            <div class="tray-time" id="tray-time" title="Date and time">
-                <span id="tray-clock">--:--</span>
-                <span id="tray-date">--</span>
+            <div class="taskbar-btn" id="btn-settings" data-label="Settings" onclick="openWindow('Settings', 'settings', 'settings.html')" title="Settings">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="indicator"></span>
             </div>
         </div>
     </div>
 
     <div class="flyout" id="search-flyout">
+        <div class="taskbar-search" id="taskbar-search">
+            <span class="material-symbols-outlined">search</span>
+            <input id="sf-input" type="text" placeholder="Spotlight Search" autocomplete="off" spellcheck="false">
+        </div>
         <div class="sf-results" id="sf-results"></div>
     </div>
 
@@ -99,10 +160,10 @@
                     <span class="material-symbols-outlined">today</span>
                 </button>
                 <button type="button" id="cal-prev" title="Previous month">
-                    <span class="material-symbols-outlined">keyboard_arrow_up</span>
+                    <span class="material-symbols-outlined">chevron_left</span>
                 </button>
                 <button type="button" id="cal-next" title="Next month">
-                    <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                    <span class="material-symbols-outlined">chevron_right</span>
                 </button>
             </div>
         </div>
@@ -121,7 +182,12 @@
     <script src="./scripts/windows.js"></script>
     <script src="./scripts/axiom-guard.js"></script>
     <script src="./scripts/desktop.js"></script>
+    <!-- Before the menu bar: the bar's live-wallpaper control subscribes to
+         AxiomWallpaper as it is built. -->
+    <script src="./scripts/wallpaper.js"></script>
     <script src="./scripts/start-menu.js"></script>
+    <script src="./scripts/menubar.js"></script>
+    <script src="./scripts/desktop-fx.js"></script>
 </body>
 
 </html>

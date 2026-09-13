@@ -5,3 +5,6 @@ node_modules
 links.txt
 freedns_links.json
 scramble-mapping.txt
+animated_wallpapers_originals
+.cache
+./tools

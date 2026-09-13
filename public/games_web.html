@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-await-ready="1">
+
+<head>
+    <script src="./scripts/font-scramble.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom &mdash; Web Games</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./fonts/fonts.css">
+    <script src="./scripts/theme.js"></script>
+    <link href="./styles/loader.css" rel="stylesheet">
+    <link href="./styles/start.css" rel="stylesheet">
+    <link href="./styles/games.css" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EP8214CHBW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EP8214CHBW');
+    </script>
+</head>
+
+<body>
+    <div id="axiom-loader" class="ao-loader">
+        <div class="ao-loader-logo">Axiom</div>
+        <div class="ao-loader-spinner"></div>
+    </div>
+    <main class="main">
+        <div class="section-title" id="featured-title">Random Picks</div>
+        <div id="featured" class="featured-grid"></div>
+
+        <div class="section-title">All Web Games <span class="count-chip" id="games-count"></span></div>
+        <div id="games"></div>
+    </main>
+
+    <script>window.GAMES_CATEGORY = "web";</script>
+    <script src="./scripts/loader.js"></script>
+    <script src="./scripts/games.js"></script>
+</body>
+
+</html>

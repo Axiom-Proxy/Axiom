@@ -63,7 +63,32 @@
             <div id="address-wrap">
                 <span class="material-symbols-outlined" id="addr-icon">lock</span>
                 <input id="address-bar" type="text" placeholder="Search or enter address" autocomplete="off" spellcheck="false">
+                <!-- Inside the pill, at the end the text never reaches: what
+                     this page is being served through. -->
+                <span class="addr-chip" id="addr-chip" hidden></span>
             </div>
+
+            <!-- The right of the bar was empty space the window had no use
+                 for. It holds the things a browser is asked for most. -->
+            <div id="nav-right">
+                <button class="nav-btn" id="btn-star" title="Bookmark this page">
+                    <span class="material-symbols-outlined">star</span>
+                </button>
+                <button class="nav-btn" id="btn-bookmarks" title="Bookmarks">
+                    <span class="material-symbols-outlined">bookmarks</span>
+                </button>
+                <button class="nav-btn" id="btn-copy" title="Copy link">
+                    <span class="material-symbols-outlined">link</span>
+                </button>
+                <button class="nav-btn" id="btn-home" title="Home">
+                    <span class="material-symbols-outlined">home</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="bm-panel" id="bm-panel" hidden>
+            <div class="bm-empty" id="bm-empty">Nothing saved yet — the star keeps a page here.</div>
+            <div class="bm-list" id="bm-list"></div>
         </div>
     </div>
 

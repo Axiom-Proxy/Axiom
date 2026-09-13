@@ -445,6 +445,18 @@
             }
         });
 
+        /* The icon layer stops taking pointer events when the icons are
+         * hidden (or when there are none), which used to hand the wallpaper
+         * back to the browser's own context menu. The desktop underneath
+         * catches those, so the menu is the same either way. The layer's
+         * handler stops propagation, so this never fires twice. */
+        const desktop = document.getElementById('desktop') || document.body;
+        desktop.addEventListener('contextmenu', e => {
+            if (e.defaultPrevented) return;
+            e.preventDefault();
+            ui.showMenu(desktopMenu(), e.clientX, e.clientY);
+        });
+
         /* --------------------------------------------- mousedown on empty */
 
         layer.addEventListener('mousedown', e => {

@@ -1,9 +1,9 @@
 /*
- * Taskbar flyouts: the clock calendar and the search panel.
+ * Menu-bar panels: the clock calendar and the Spotlight search panel.
  *
- * Both hang off the taskbar and behave like their Windows counterparts - click
- * the tray clock for a month view, click search to launch apps, games, the
- * built-in windows, or anything in the Axiom filesystem.
+ * Both hang off the macOS-style menu bar - click the clock for a month view,
+ * click the magnifier (or press Cmd/Ctrl+K) for Spotlight, which launches
+ * apps, games, the built-in windows, or anything in the Axiom filesystem.
  */
 (function () {
     'use strict';
@@ -155,7 +155,8 @@
     const SHELL_ITEMS = [
         { name: 'Home', icon: 'language', run: () => openWindow('Home', 'start', 'tabs.html', { chromeless: true }) },
         { name: 'Apps', icon: 'apps', run: () => openWindow('Apps', 'apps', 'apps.html') },
-        { name: 'Games', icon: 'sports_esports', run: () => openWindow('Games', 'games', 'games.html') },
+        { name: 'Games', icon: 'sports_esports', run: () => openWindow('Games', 'games', 'games_norm.html') },
+        { name: 'Web Games', icon: 'stadia_controller', run: () => openWindow('Web Games', 'games-web', 'games_web.html') },
         { name: 'Theater', icon: 'movie', run: () => openWindow('Theater', 'theater', 'theater.html') },
         { name: 'Chat', icon: 'chat', run: () => openWindow('Chat', 'chat', 'chat.html') },
         { name: 'Files', icon: 'folder', run: () => openWindow('Files', 'files', 'explorer.html') },
@@ -374,7 +375,7 @@
         resetSearchBar();
     }
 
-    /** Dismissing always empties the box, the way the Windows one does. */
+    /** Dismissing always empties the field, the way Spotlight does. */
     function resetSearchBar() {
         if (searchBar) searchBar.classList.remove('active');
         if (!search.input) return;
@@ -396,13 +397,41 @@
             renderResults(search.input.value.trim().toLowerCase());
         }
 
-        // The box lives in the taskbar, so focusing it is what opens the panel.
+        /** Spotlight: bring the panel up and put the caret in the field. */
+        function showSpotlight() {
+            openSearch();
+            search.input.focus();
+            search.input.select();
+        }
+
         search.input.addEventListener('focus', openSearch);
         if (searchBar) {
-            // Clicking the pill's padding or icon should land in the field, but
+            // Clicking the row's padding or icon should land in the field, but
             // let clicks on the field itself place the caret normally.
             searchBar.addEventListener('mousedown', e => {
                 if (e.target !== search.input) search.input.focus();
+            });
+        }
+
+        // The menu bar drives both panels, so it needs a way in and a way to
+        // get them out of the way when one of its own menus drops down.
+        window.AxiomSpotlight = {
+            open: showSpotlight,
+            close: closeSearch,
+            toggle() {
+                if (search.el.classList.contains('open')) closeSearch();
+                else showSpotlight();
+            }
+        };
+
+        // The menu-bar magnifier is what opens Spotlight now that the field
+        // lives inside the panel rather than in the bar itself.
+        const searchBtn = document.getElementById('btn-search');
+        if (searchBtn) {
+            searchBtn.addEventListener('click', e => {
+                e.stopPropagation();
+                if (search.el.classList.contains('open')) closeSearch();
+                else showSpotlight();
             });
         }
 
@@ -429,12 +458,12 @@
             }
         });
 
-        // Ctrl+K anywhere on the desktop jumps to the box, as it does in the browser.
+        // Cmd/Ctrl+K anywhere on the desktop calls Spotlight up, the way
+        // Cmd+Space does on macOS.
         window.addEventListener('keydown', e => {
             if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
                 e.preventDefault();
-                search.input.focus();
-                search.input.select();
+                showSpotlight();
             }
         });
     }
@@ -448,9 +477,12 @@
 
     document.addEventListener('mousedown', e => {
         if (e.target.closest('.flyout')) return;
-        if (e.target.closest('#tray-time') || e.target.closest('#taskbar-search')) return;
+        if (e.target.closest('#tray-time') || e.target.closest('#btn-search')) return;
+        if (e.target.closest('.mb-menu')) return;
         dismiss();
     });
+
+    window.AxiomPanels = { closeAll: dismiss };
 
     window.addEventListener('keydown', e => {
         if (e.key === 'Escape') dismiss();

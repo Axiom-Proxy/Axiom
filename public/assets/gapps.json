@@ -3,1473 +3,1718 @@
     "app_name": "Amanda The Adventurer",
     "app_url": "https://cdn.axiomsontop.shop/amanda-the-adventurer",
     "type": "game",
-    "app_img": "./assets/gapp-images/amanda-the-adventurer.webp"
+    "app_img": "./assets/gapp-images/amanda-the-adventurer.webp",
+    "category": "norm"
   },
   {
     "app_name": "Precision Client",
     "app_url": "https://glcdn.githack.com/3kh0/3kh0-assets/-/raw/main/precision-client/index.html",
     "app_img": "./assets/gapp-images/precision.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Andy's Apple Farm",
     "app_url": "https://cdn.axiomsontop.shop/andys-apple-farm",
     "type": "game",
-    "app_img": "./assets/gapp-images/andys-apple-farm.webp"
+    "app_img": "./assets/gapp-images/andys-apple-farm.webp",
+    "category": "norm"
   },
   {
     "app_name": "Baldi's Basics Classic Remastered",
     "app_url": "https://cdn.axiomsontop.shop/baldi-remaster",
     "type": "game",
-    "app_img": "./assets/gapp-images/baldis-basics-classic-remastered.webp"
+    "app_img": "./assets/gapp-images/baldis-basics-classic-remastered.webp",
+    "category": "norm"
   },
   {
     "app_name": "Baldi's Basics Plus",
     "app_url": "https://cdn.axiomsontop.shop/baldi-plus",
     "type": "game",
-    "app_img": "./assets/gapp-images/baldis-basics-plus.webp"
+    "app_img": "./assets/gapp-images/baldis-basics-plus.webp",
+    "category": "norm"
   },
   {
     "app_name": "Bendy and The Ink Machine",
     "app_url": "https://cdn.axiomsontop.shop/bendy",
     "type": "game",
-    "app_img": "./assets/gapp-images/bendy-and-the-ink-machine.webp"
+    "app_img": "./assets/gapp-images/bendy-and-the-ink-machine.webp",
+    "category": "norm"
   },
   {
     "app_name": "BLOODMONEY!",
     "app_url": "https://cdn.axiomsontop.shop/bloodmoney",
     "type": "game",
-    "app_img": "./assets/gapp-images/bloodmoney.webp"
+    "app_img": "./assets/gapp-images/bloodmoney.webp",
+    "category": "norm"
   },
   {
     "app_name": "Buckshot Roulette",
     "app_url": "https://cdn.axiomsontop.shop/buckshot-roulette",
     "type": "game",
-    "app_img": "./assets/gapp-images/buckshot-roulette.webp"
+    "app_img": "./assets/gapp-images/buckshot-roulette.webp",
+    "category": "norm"
   },
   {
     "app_name": "Class of '09",
     "app_url": "https://cdn.axiomsontop.shop/class-of-09",
     "type": "game",
-    "app_img": "./assets/gapp-images/class-of-09.webp"
+    "app_img": "./assets/gapp-images/class-of-09.webp",
+    "category": "norm"
   },
   {
     "app_name": "Dead Plate",
     "app_url": "https://cdn.axiomsontop.shop/dead-plate",
     "type": "game",
-    "app_img": "./assets/gapp-images/dead-plate.webp"
+    "app_img": "./assets/gapp-images/dead-plate.webp",
+    "category": "norm"
   },
   {
     "app_name": "Do NOT Take This Cat Home",
     "app_url": "https://cdn.axiomsontop.shop/donottakethiscathome",
     "type": "game",
-    "app_img": "./assets/gapp-images/do-not-take-this-cat-home.webp"
+    "app_img": "./assets/gapp-images/do-not-take-this-cat-home.webp",
+    "category": "norm"
   },
   {
     "app_name": "FNAF",
     "app_url": "https://irv77.github.io/hd_fnaf/1/",
     "type": "game",
-    "app_img": "./assets/gapp-images/fnaf.webp"
+    "app_img": "./assets/gapp-images/fnaf.webp",
+    "category": "norm"
   },
   {
     "app_name": "FNAF2",
     "app_url": "https://irv77.github.io/hd_fnaf/2/",
     "type": "game",
-    "app_img": "./assets/gapp-images/fnaf2.webp"
+    "app_img": "./assets/gapp-images/fnaf2.webp",
+    "category": "norm"
   },
   {
     "app_name": "FNAF3",
     "app_url": "https://irv77.github.io/hd_fnaf/3/",
     "type": "game",
-    "app_img": "./assets/gapp-images/fnaf3.webp"
+    "app_img": "./assets/gapp-images/fnaf3.webp",
+    "category": "norm"
   },
   {
     "app_name": "FNAF4",
     "app_url": "https://irv77.github.io/hd_fnaf/4/",
     "type": "game",
-    "app_img": "./assets/gapp-images/fnaf4.webp"
+    "app_img": "./assets/gapp-images/fnaf4.webp",
+    "category": "norm"
   },
   {
     "app_name": "FNAF World",
     "app_url": "https://irv77.github.io/hd_fnaf/w/",
     "type": "game",
-    "app_img": "./assets/gapp-images/fnafworld.webp"
+    "app_img": "./assets/gapp-images/fnafworld.webp",
+    "category": "norm"
   },
   {
     "app_name": "FNAF Sister location",
     "app_url": "https://irv77.github.io/hd_fnaf/sl/",
     "type": "game",
-    "app_img": "./assets/gapp-images/fnaf5.webp"
+    "app_img": "./assets/gapp-images/fnaf5.webp",
+    "category": "norm"
   },
   {
     "app_name": "FNAF Pizzeria Simulator",
     "app_url": "https://irv77.github.io/hd_fnaf/ps/",
     "type": "game",
-    "app_img": "./assets/gapp-images/fnaf6.webp"
+    "app_img": "./assets/gapp-images/fnaf6.webp",
+    "category": "norm"
   },
   {
     "app_name": "FNAF Ultimate Custom Night",
     "app_url": "https://irv77.github.io/hd_fnaf/ucn/",
     "type": "game",
-    "app_img": "./assets/gapp-images/fnafucn.jpg"
+    "app_img": "./assets/gapp-images/fnafucn.jpg",
+    "category": "norm"
   },
   {
     "app_name": "People Playground",
     "app_url": "https://cdn.axiomsontop.shop/people-playground",
     "type": "game",
-    "app_img": "./assets/gapp-images/people-playground.webp"
+    "app_img": "./assets/gapp-images/people-playground.webp",
+    "category": "norm"
   },
   {
     "app_name": "Pizza Tower",
     "app_url": "https://cdn.axiomsontop.shop/pizza-tower",
     "type": "game",
-    "app_img": "./assets/gapp-images/pizza-tower.webp"
+    "app_img": "./assets/gapp-images/pizza-tower.webp",
+    "category": "norm"
   },
   {
     "app_name": "RAFT",
     "app_url": "https://cdn.axiomsontop.shop/raft",
     "type": "game",
-    "app_img": "./assets/gapp-images/raft.webp"
+    "app_img": "./assets/gapp-images/raft.webp",
+    "category": "norm"
   },
   {
     "app_name": "R.E.P.O",
     "app_url": "https://cdn.axiomsontop.shop/repo",
     "type": "game",
-    "app_img": "./assets/gapp-images/repo.webp"
+    "app_img": "./assets/gapp-images/repo.webp",
+    "category": "norm"
   },
   {
     "app_name": "Slender: The Eight Pages",
     "app_url": "https://cdn.axiomsontop.shop/slender",
     "type": "game",
-    "app_img": "./assets/gapp-images/slender.webp"
+    "app_img": "./assets/gapp-images/slender.webp",
+    "category": "norm"
   },
   {
     "app_name": "That's Not My Neighbor",
     "app_url": "https://cdn.axiomsontop.shop/thats-not-my-neighbor",
     "type": "game",
-    "app_img": "./assets/gapp-images/thats-not-my-neighbor.webp"
+    "app_img": "./assets/gapp-images/thats-not-my-neighbor.webp",
+    "category": "norm"
   },
   {
     "app_name": "The Man From the Window",
     "app_url": "https://cdn.axiomsontop.shop/the-man-in-the-window",
     "type": "game",
-    "app_img": "./assets/gapp-images/the-man-in-the-window.webp"
+    "app_img": "./assets/gapp-images/the-man-in-the-window.webp",
+    "category": "norm"
   },
   {
     "app_name": "Ultrakill",
     "app_url": "https://cdn.axiomsontop.shop/ultrakill",
     "type": "game",
-    "app_img": "./assets/gapp-images/ultrakill.jpg"
+    "app_img": "./assets/gapp-images/ultrakill.jpg",
+    "category": "norm"
   },
   {
     "app_name": "Undertale Yellow",
     "app_url": "https://cdn.axiomsontop.shop/undertale-yellow",
     "type": "game",
-    "app_img": "./assets/gapp-images/undertale-yellow.webp"
+    "app_img": "./assets/gapp-images/undertale-yellow.webp",
+    "category": "norm"
   },
   {
     "app_name": "Web Fishing",
     "app_url": "https://cdn.axiomsontop.shop/web-fishing",
     "type": "game",
-    "app_img": "./assets/gapp-images/web-fishing.webp"
+    "app_img": "./assets/gapp-images/web-fishing.webp",
+    "category": "norm"
   },
   {
     "app_name": "Yume Nikki",
     "app_url": "https://cdn.axiomsontop.shop/yume-nikki",
     "type": "game",
-    "app_img": "./assets/gapp-images/yume-nikki.webp"
+    "app_img": "./assets/gapp-images/yume-nikki.webp",
+    "category": "norm"
   },
   {
     "app_name": "Snowball.io",
     "app_url": "https://games.crazygames.com/en_US/snowball-io/index.html",
     "app_img": "./assets/gapp-images/snowball.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Golden Eye 007",
     "app_url": "https://f.kbhgames.com/r/n64/game.php?file=007-golden-eye.zip",
     "app_img": "./assets/gapp-images/golden-eye-007.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "FNAF 2",
     "app_url": "https://sussygamedeveloper.github.io/FNAF2/",
     "app_img": "./assets/gapp-images/FNAF2.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Dynast.io",
     "app_url": "https://dynast.io",
     "app_img": "./assets/gapp-images/dynast-io.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Goomy Clicker 2",
     "app_url": "https://idle-js-games.github.io/goomyClicker2/",
     "app_img": "./assets/gapp-images/gc2.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "mope.io",
     "app_url": "https://thelast.io",
     "app_img": "./assets/gapp-images/mope-io.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Diep.io",
     "app_url": "https://diep.io/",
     "app_img": "./assets/gapp-images/diep.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Kiomet",
     "app_url": "https://kiomet.com",
     "app_img": "./assets/gapp-images/kiomet.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Twisted Cooking Mama",
     "app_url": "https://twisted-cooking-mama.game-files.crazygames.com/ruffle/twisted-cooking-mama/1/twistedcookingmama.html?v=1.273",
     "app_img": "./assets/gapp-images/twistedcookingmama.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Duck Life 1",
     "app_url": "https://www.hoodamath.com/mobile/games/duck-life/game.html",
     "app_img": "./assets/gapp-images/ducklife.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "3D Dino Game",
     "app_url": "https://lagged.com/api/play2/t-rex-3d2/",
     "app_img": "./assets/gapp-images/trex-run-3D.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Slither.io",
     "app_url": "https://slither.io/",
     "app_img": "./assets/gapp-images/slither.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Jelly Mario",
     "app_url": "https://jellymar.io",
     "app_img": "./assets/gapp-images/jellymario.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Basketball Legends",
     "app_url": "https://www.basketballlegends.fun/gamedata/basketball-legends-2020",
     "app_img": "./assets/gapp-images/basketball-legends.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Getaway S.",
     "app_url": "https://www.twoplayergames.org/embed/getaway-shootout",
     "app_img": "./assets/gapp-images/getaway.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Narrow One",
     "app_url": "https://narrow.one",
     "app_img": "./assets/gapp-images/narrowone.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Minecraft Classic",
     "app_url": "https://classic.minecraft.net",
     "app_img": "./assets/gapp-images/mc.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "florr.io",
     "app_url": "https://florr.io",
     "app_img": "./assets/gapp-images/florr.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Rocket Bot Royale",
     "app_url": "https://rocketbotroyale2.winterpixel.io/",
     "app_img": "./assets/gapp-images/rocketbotroyale.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "mk48.io",
     "app_url": "https://mk48.io/",
     "app_img": "./assets/gapp-images/mk48io.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Venge",
     "app_url": "https://venge.io",
     "app_img": "./assets/gapp-images/venge.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Lordz.io",
     "app_url": "https://lordz.io/",
     "app_img": "./assets/gapp-images/lordz.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Supply Chain Idle",
     "app_url": "https://chat.kongregate.com/gamez/0027/1653/live/index.html?kongregate_game_version=1554392772",
     "app_img": "./assets/gapp-images/supplychainlogo.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Shapez.IO",
     "app_url": "https://shapez.io",
     "app_img": "./assets/gapp-images/shapezio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "digdig.io",
     "app_url": "https://digdig.io/",
     "app_img": "./assets/gapp-images/digdigio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Fancy Pants Adventure 2",
     "app_url": "https://games.crazygames.com/en_US/fancy-pants-adventure-world/index.html?v=1.273",
     "app_img": "./assets/gapp-images/fancypantsadventures2.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Fireboy And Watergirl 5: Elements",
     "app_url": "https://www.coolmathgames.com/sites/default/files/public_games/40218",
     "app_img": "./assets/gapp-images/fireboyandwatergirlelements.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "BTD 4",
     "app_url": "https://en.gameslol.net/data/bloons-td-4/index.html",
     "app_img": "./assets/gapp-images/btd4.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Learn To Fly Idle",
     "app_url": "https://www.gameslol.net/data/waflash/index.php?g=635",
     "app_img": "./assets/gapp-images/ltf_idle.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Madalin Stunt Cars 2",
     "app_url": "https://games.crazygames.com/en_US/madalin-stunt-cars-2/index.html",
     "app_img": "./assets/gapp-images/madalinstuntcars2.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Online Racing Game!",
     "app_url": "https://jchabin.github.io/cars/",
     "app_img": "./assets/gapp-images/OR.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Kirka",
     "app_url": "https://kirka.io",
     "app_img": "./assets/gapp-images/kirka.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Friday Night Funkin'",
     "app_url": "https://w8.snokido.com/games/html5/friday-night-funkin/0281/index.html",
     "app_img": "./assets/gapp-images/fnf.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Zombs.io",
     "app_url": "https://zombs.io/",
     "app_img": "./assets/gapp-images/zombs-io.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Bandit.RIP",
     "app_url": "https://bandit.rip/",
     "app_img": "./assets/gapp-images/banditrip.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Smash Karts",
     "app_url": "https://smashkarts.io/",
     "app_img": "./assets/gapp-images/smashkarts.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Adventure Capitalist",
     "app_url": "https://than1089.github.io/adventure-capitalist/",
     "app_img": "./assets/gapp-images/adventure-capitalist.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "AntWar.io",
     "app_url": "https://antwar.io/",
     "app_img": "./assets/gapp-images/antwario.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Survivor.io",
     "app_url": "https://html5.gamedistribution.com/rvvASMiM/f1c451e586c04b4c8cba01b0c50d9090/index.html",
     "app_img": "./assets/gapp-images/SVI.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Pokemon Showdown",
     "app_url": "https://play.pokemonshowdown.com",
     "app_img": "./assets/gapp-images/showdown.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Cookie Clicker",
     "app_url": "https://orteil.dashnet.org/cookieclicker/",
     "app_img": "./assets/gapp-images/cookieclicker.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Madalin Stunt Cars Multiplayer",
     "app_url": "https://games.crazygames.com/en_US/madalin-cars-multiplayer/index.html",
     "app_img": "./assets/gapp-images/madalinmultiplayer.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "HexArena",
     "app_url": "https://hexarena.io/",
     "app_img": "./assets/gapp-images/hexarena.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Evades",
     "app_url": "https://evades.io",
     "app_img": "./assets/gapp-images/evadesio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Tyran.io",
     "app_url": "https://tyran.io",
     "app_img": "./assets/gapp-images/tyranio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Fancy Pants Adventure",
     "app_url": "https://games.crazygames.com/en_US/fancy-pants-adventure-world/index.html?v=1.273",
     "app_img": "./assets/gapp-images/fancypantsadventures.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Isleward",
     "app_url": "https://play.isleward.com",
     "app_img": "./assets/gapp-images/isleward.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "FNF - Lofi Mod",
     "app_url": "https://fnf.kdata1.com/lofi-funkin/2/",
     "app_img": "./assets/gapp-images/lofi.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Taming.io",
     "app_url": "https://taming.io/",
     "app_img": "./assets/gapp-images/tamingio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "NGU Idle",
     "app_url": "https://cache.armorgames.com/files/games/ngu-idle-18444/index.html?v=1559319416",
     "app_img": "./assets/gapp-images/nguidle.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Stickman Archero Fight",
     "app_url": "https://html5.gamedistribution.com/rvvASMiM/3f4c166817ad4fd4b5b05d9adba22fcd/index.html",
     "app_img": "./assets/gapp-images/stickman-archero-fight.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Stabfish.io",
     "app_url": "https://stabfish.io/",
     "app_img": "./assets/gapp-images/stabfish.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Swordbattle.io",
     "app_url": "https://swordbattle.io/",
     "app_img": "./assets/gapp-images/swordbattle.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Johnny Upgrade",
     "app_url": "https://lagged.com/api/play2/johnny-upgrade3/",
     "app_img": "./assets/gapp-images/johnnyupgrade.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Haunted School 1",
     "app_url": "https://games.crazygames.com/en_US/haunted-school---horror-game/index.html",
     "app_img": "./assets/gapp-images/na.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Masked IO",
     "app_url": "https://unblocked-games.s3.amazonaws.com/games/masked-io/index.html",
     "app_img": "./assets/gapp-images/masked-forces.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Starblast",
     "app_url": "https://starblast.io",
     "app_img": "./assets/gapp-images/starblastio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Neal.Fun",
     "app_url": "https://neal.fun",
     "app_img": "./assets/gapp-images/nealfun.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Half-Life",
     "app_url": "https://x8bitrain.github.io/webXash/",
     "app_img": "./assets/gapp-images/half-life.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Basketball Bros",
     "app_url": "https://www.basketbros.io/",
     "app_img": "./assets/gapp-images/basket-bros.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Tiny Fishing",
     "app_url": "https://www.dob5.com/d/file/games/tiny-fishing/",
     "app_img": "./assets/gapp-images/tinyfishing.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Ninja Cat Exploit",
     "app_url": "https://html5.gamedistribution.com/rvvASMiM/903ba9346b9d437e9c7e81d672cead44/index.html",
     "app_img": "./assets/gapp-images/ninja-cat.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Tribals.io",
     "app_url": "https://tribals.io/",
     "app_img": "./assets/gapp-images/tribalsio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Territorial.io",
     "app_url": "https://territorial.io",
     "app_img": "./assets/gapp-images/territorialio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "N-Gon",
     "app_url": "https://landgreen.github.io/sidescroller/",
     "app_img": "./assets/gapp-images/NGON.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Mortal Kombat 4",
     "app_url": "https://f.kbhgames.com/r/n64/game.php?file=Mortal-Kombat-4-U.zip",
     "app_img": "./assets/gapp-images/mortal-kombat-4.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Powerline.IO",
     "app_url": "https://powerline.io",
     "app_img": "./assets/gapp-images/powerline.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Brain Test 2",
     "app_url": "https://games.poki.com/458768/df221093-aae9-4c0d-b458-efb16ae8e3ab",
     "app_img": "./assets/gapp-images/braintest2.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "FNF VS. Snorlax",
     "app_url": "https://fnf.kdata1.com/snorlax/1/",
     "app_img": "./assets/gapp-images/snorlax.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Super Smash Flash",
     "app_url": "https://f.kbhgames.com/RS/game.php?r=//f.kbhgames.com/2018/swf/smashflash.swf&w=1521&h=753",
     "app_img": "./assets/gapp-images/ssf1.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "A Dark Room",
     "app_url": "https://adarkroom.doublespeakgames.com",
     "app_img": "./assets/gapp-images/ADR.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Hordes",
     "app_url": "https://hordes.io",
     "app_img": "./assets/gapp-images/hordes.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "skribbl",
     "app_url": "https://skribbl.io/",
     "app_img": "./assets/gapp-images/skribblio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Basket Random",
     "app_url": "https://html5.gamedistribution.com/rvvASMiM/bf1268dccb5d43e7970bb3edaa54afc8/index.html",
     "app_img": "./assets/gapp-images/br.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Duck Life 3",
     "app_url": "https://www.hoodamath.com/mobile/games/duck-life-3-evolution/game.html",
     "app_img": "./assets/gapp-images/ducklife.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "ev.io",
     "app_url": "https://ev.io",
     "app_img": "./assets/gapp-images/evio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Wordle Unlimited",
     "app_url": "https://wordleunlimited.org/",
     "app_img": "./assets/gapp-images/w.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Earn to Die 2012 Part 2",
     "app_url": "https://games-online.io/game/EarnToDie/index.html",
     "app_img": "./assets/gapp-images/earntodie2012part2.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Candy Jump",
     "app_url": "https://candyjump.games235.com/",
     "app_img": "./assets/gapp-images/candyjump.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Five Nights at Winston's",
     "app_url": "https://g.deev.is/fnaw/",
     "app_img": "./assets/gapp-images/fnaw.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Candy Box",
     "app_url": "https://candybox2.net",
     "app_img": "./assets/gapp-images/candybox.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Clicker Heros",
     "app_url": "https://www.clickerheroes.com/play.html",
     "app_img": "./assets/gapp-images/clickerheros.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Bomb Party",
     "app_url": "https://jklm.fun",
     "app_img": "./assets/gapp-images/BP.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Google Snake Modded",
     "app_url": "https://googlesnakemods.com/v/current/",
     "app_img": "./assets/gapp-images/snake.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "YoHoHo.io",
     "app_url": "https://yohoho.io/",
     "app_img": "./assets/gapp-images/yohoho.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Nintendo 64 Emulator",
     "app_url": "https://www.neilb.net/n64wasm/",
     "app_img": "./assets/gapp-images/N64.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Duck Life 2",
     "app_url": "https://www.hoodamath.com/mobile/games/duck-life-2-world-champion/game.html",
     "app_img": "./assets/gapp-images/ducklife.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Super Mario 64",
     "app_url": "https://f.kbhgames.com/r/n64/game.php?file=32112_super-mario-64-usa.zip",
     "app_img": "./assets/gapp-images/sm64.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Deeeep.io",
     "app_url": "https://beta.deeeep.io",
     "app_img": "./assets/gapp-images/deeeepio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Bitlife",
     "app_url": "https://xlegends.github.io/bitlife/",
     "app_img": "./assets/gapp-images/bitlife.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Krunker",
     "app_url": "https://krunker.io",
     "app_img": "./assets/gapp-images/krunker.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "bloxd.io",
     "app_url": "https://bloxd.io",
     "app_img": "./assets/gapp-images/bloxd-io.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Google Feud",
     "app_url": "https://googlefeud.com/",
     "app_img": "./assets/gapp-images/googlefeud.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Madalin Stunt Cars 3",
     "app_url": "https://games.crazygames.com/en_US/madalin-stunt-cars-3/index.html",
     "app_img": "./assets/gapp-images/madalinstuntcars3.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Stumble Guys",
     "app_url": "https://www.stumbleguys.com/play",
     "app_img": "./assets/gapp-images/stumble-guys.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "MooMoo.io",
     "app_url": "https://moomoo.io",
     "app_img": "./assets/gapp-images/moo.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Sand Spiel",
     "app_url": "https://sandspiel.club/",
     "app_img": "./assets/gapp-images/sand.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "DOOM",
     "app_url": "https://archive.org/details/doom-play",
     "app_img": "./assets/gapp-images/DOOM.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Lostgamer",
     "app_url": "https://lostgamer.io",
     "app_img": "./assets/gapp-images/lostgamerio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Happy Wheels",
     "app_url": "https://games-online.io/game/HappyWheels/",
     "app_img": "./assets/gapp-images/hw.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Agar.io",
     "app_url": "https://agar.io",
     "app_img": "./assets/gapp-images/agario.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Arras.io",
     "app_url": "https://arras.io/",
     "app_img": "./assets/gapp-images/arrasio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Wordly",
     "app_url": "https://wordly.org/",
     "app_img": "./assets/gapp-images/w.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Stomped.io",
     "app_url": "https://stomped.io",
     "app_img": "./assets/gapp-images/stompedio.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Gunspin",
     "app_url": "https://html5.gamedistribution.com/rvvASMiM/917cce8c44c44638a8cdc2a1794b65c8/index.html",
     "app_img": "./assets/gapp-images/gunspin.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Snow Rider 3D",
     "app_url": "https://html5.gamedistribution.com/rvvASMiM/3b79a8537ebc414fb4f9672a9b8c68c8/index.html?gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3Nub3dyaWRlcjNkLmNvbS8iLCJwYXJlbnREb21haW4iOiJzbm93cmlkZXIzZC5jb20iLCJ0b3BEb21haW4iOiJzbm93cmlkZXIzZC5jb20iLCJoYXNJbXByZXNzaW9uIjpmYWxzZSwibG9hZGVyRW5hYmxlZCI6dHJ1ZSwiaG9zdCI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidmVyc2lvbiI6IjEuNS4xNiJ9",
     "app_img": "./assets/gapp-images/snowrider3d.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Parappa the Rapper",
     "app_url": "https://retrogamesonline.io/parappa-the-rapper.embed",
     "app_img": "./assets/gapp-images/ptr.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Thelast Royale",
     "app_url": "https://thelast.io",
     "app_img": "./assets/gapp-images/thelast-io.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Paper Mario 64",
     "app_url": "https://f.kbhgames.com/r/n64/game.php?file=Paper%20Mario%20(USA).zip",
     "app_img": "./assets/gapp-images/paper-mario-64.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Cryzen",
     "app_url": "https://cryzen.io",
     "app_img": "./assets/gapp-images/cryzen.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Fireboy And Watergirl In The Forest Temple",
     "app_url": "https://www.coolmathgames.com/sites/default/files/public_games/40034/",
     "app_img": "./assets/gapp-images/fireboyandwatergirlforesttemple.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Thisissand",
     "app_url": "https://thisissand.com/",
     "app_img": "./assets/gapp-images/thisissand.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Zombs Royale",
     "app_url": "https://zombsroyale.io",
     "app_img": "./assets/gapp-images/zombs-royale.webp",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Brain Test 3",
     "app_url": "https://games.poki.com/458768/1f3ae540-a95f-4f20-a000-29512612e341",
     "app_img": "./assets/gapp-images/braintest3.webp",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
-    {
+  {
     "app_name": "10 Minutes Till Dawn",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/10-minutes-till-dawn",
     "app_img": "./assets/gapp-images-secondary/10_Minutes_Till_Dawn.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "1V1 LOL",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/1v1-lol",
     "app_img": "./assets/gapp-images-secondary/1V1_LOL.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Abandoned 2",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/abandoned-2",
     "app_img": "./assets/gapp-images-secondary/Abandoned_2.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Ages of Conflict",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/ages-of-conflict",
     "app_img": "./assets/gapp-images-secondary/Ages_of_Conflict.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Amidst the Sky",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/amidst-the-sky",
     "app_img": "./assets/gapp-images-secondary/Amidst_the_Sky.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Among Us Single Player",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/among-us-single-player",
     "app_img": "./assets/gapp-images-secondary/Among_Us_Single_Player.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Another Gentleman's Adventure",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/another-gentlemans-adventure",
     "app_img": "./assets/gapp-images-secondary/Another_Gentlemans_Adventure.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Antiterrorist Rush 3",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/antiterroristrush3",
     "app_img": "./assets/gapp-images-secondary/Antiterrorist_Rush_3.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Arcade Wizard",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/arcadewizard",
     "app_img": "./assets/gapp-images-secondary/Arcade_Wizard.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Awesome Tanks 2",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/awesome-tanks-2",
     "app_img": "./assets/gapp-images-secondary/Awesome_Tanks_2.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Awesome Tanks",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/awesome-tanks",
     "app_img": "./assets/gapp-images-secondary/Awesome_Tanks.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Awesome Tanks 2",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/awesometanks2",
     "app_img": "./assets/gapp-images-secondary/Awesome_Tanks_2.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Babel Tower",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/babel-tower",
     "app_img": "./assets/gapp-images-secondary/Babel_Tower.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Back Flip Dive 3D",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/backflipdive3d",
     "app_img": "./assets/gapp-images-secondary/Back_Flip_Dive_3D.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "The Backrooms",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/backrooms",
     "app_img": "./assets/gapp-images-secondary/The_Backrooms.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Basket Random",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/basket-random",
     "app_img": "./assets/gapp-images-secondary/Basket_Random.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Basketball Stars",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/basketball-stars",
     "app_img": "./assets/gapp-images-secondary/Basketball_Stars.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Bit Life",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/bit-life",
     "app_img": "./assets/gapp-images-secondary/Bit_Life.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Boxing Random",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/boxing-random",
     "app_img": "./assets/gapp-images-secondary/Boxing_Random.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Brawl Stars Project Laser",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/brawl-stars-project-laser",
     "app_img": "./assets/gapp-images-secondary/Brawl_Stars_Project_Laser.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Breaklock",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/breaklock",
     "app_img": "./assets/gapp-images-secondary/Breaklock.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Chrome Dino",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/chrome-dino",
     "app_img": "./assets/gapp-images-secondary/Chrome_Dino.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Clicker Heroes",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/clicker-heroes",
     "app_img": "./assets/gapp-images-secondary/Clicker_Heroes.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Conway's Game of Life",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/conways-game-of-life",
     "app_img": "./assets/gapp-images-secondary/Conways_Game_of_Life.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Cookie Clicker",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/cookie-clicker",
     "app_img": "./assets/gapp-images-secondary/Cookie_Clicker.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Core Ball",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/core-ball",
     "app_img": "./assets/gapp-images-secondary/Core_Ball.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Crossy Road",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/crossy-road",
     "app_img": "./assets/gapp-images-secondary/Crossy_Road.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Cut the Rope",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/cut-the-rope",
     "app_img": "./assets/gapp-images-secondary/Cut_the_Rope.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Dadish 2",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/dadish-2",
     "app_img": "./assets/gapp-images-secondary/Dadish_2.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Dadish 3",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/dadish-3",
     "app_img": "./assets/gapp-images-secondary/Dadish_3.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Dadish",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/dadish",
     "app_img": "./assets/gapp-images-secondary/Dadish.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Doge Miner",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/doge-miner",
     "app_img": "./assets/gapp-images-secondary/Doge_Miner.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Doodle Jump",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/doodle-jump",
     "app_img": "./assets/gapp-images-secondary/Doodle_Jump.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Drift Boss",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/drift-boss",
     "app_img": "./assets/gapp-images-secondary/Drift_Boss.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Drive Mad",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/drive-mad",
     "app_img": "./assets/gapp-images-secondary/Drive_Mad.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Duck Life 4",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/duck-life-4",
     "app_img": "./assets/gapp-images-secondary/Duck_Life_4.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Dune",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/dune",
     "app_img": "./assets/gapp-images-secondary/Dune.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Eaglecraft",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/eaglercraft",
     "app_img": "./assets/gapp-images-secondary/Eaglecraft.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Eaglecraft X",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/eaglercraftx",
     "app_img": "./assets/gapp-images-secondary/Eaglecraft_X.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Evowars",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/evowars",
     "app_img": "./assets/gapp-images-secondary/Evowars.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Fire Boy and Water Girl 2",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/fireboy-and-watergirl-2",
     "app_img": "./assets/gapp-images-secondary/Fire_Boy_and_Water_Girl_2.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Fire Boy and Water Girl 3",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/fireboy-and-watergirl-3",
     "app_img": "./assets/gapp-images-secondary/Fire_Boy_and_Water_Girl_3.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Fire Boy and Water Girl 4",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/fireboy-and-watergirl-4",
     "app_img": "./assets/gapp-images-secondary/Fire_Boy_and_Water_Girl_4.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Fire Boy and Water Girl",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/fireboy-and-watergirl",
     "app_img": "./assets/gapp-images-secondary/Fire_Boy_and_Water_Girl.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Flappy Bird",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/flappy-bird",
     "app_img": "./assets/gapp-images-secondary/Flappy_Bird.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Flash",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/flash",
     "app_img": "./assets/gapp-images-secondary/Flash.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Friday Night Funkin",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/friday-night-funkin",
     "app_img": "./assets/gapp-images-secondary/Friday_Night_Funkin.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Geometry Dash Lite",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/geometry-dash-lite",
     "app_img": "./assets/gapp-images-secondary/Geometry_Dash_Lite.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Getaway Shootout",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/getaway-shootout",
     "app_img": "./assets/gapp-images-secondary/Getaway_Shootout.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Gons.io",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/gons-io",
     "app_img": "./assets/gapp-images-secondary/Gons.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Gunspin",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/gunspin",
     "app_img": "./assets/gapp-images-secondary/Gunspin.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Hextris",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/hextris",
     "app_img": "./assets/gapp-images-secondary/Hextris.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Idle Breakout",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/idle-breakout",
     "app_img": "./assets/gapp-images-secondary/Idle_Breakout.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Incremancer",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/incremancer",
     "app_img": "./assets/gapp-images-secondary/Incremancer.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Maptroid",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/maptroid",
     "app_img": "./assets/gapp-images-secondary/Maptroid.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Monkey Mart",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/monkey-mart",
     "app_img": "./assets/gapp-images-secondary/Monkey_Mart.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Motox3M",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/motox3m",
     "app_img": "./assets/gapp-images-secondary/Motox3M.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "N-Gon",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/n-gon",
     "app_img": "./assets/gapp-images-secondary/N-Gon.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "N Step Steve Part 1",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/n-step-steve-part-1",
     "app_img": "./assets/gapp-images-secondary/N_Step_Steve_Part_1.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "N Step Steve Part 2",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/n-step-steve-part-2",
     "app_img": "./assets/gapp-images-secondary/N_Step_Steve_Part_2.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "OVO",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/ovo",
     "app_img": "./assets/gapp-images-secondary/OVO.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Particle Clicker",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/particle-clicker",
     "app_img": "./assets/gapp-images-secondary/Particle_Clicker.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Pcraft Planet Life",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/pcraftplanet-life",
     "app_img": "./assets/gapp-images-secondary/Pcraft_Planet_Life.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Progress Knight Quest",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/progress-knight-quest",
     "app_img": "./assets/gapp-images-secondary/Progress_Knight_Quest.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Progress Knight Reborn",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/progress-knight-reborn",
     "app_img": "./assets/gapp-images-secondary/Progress_Knight_Reborn.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Pull of War",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/pull-of-war",
     "app_img": "./assets/gapp-images-secondary/Pull_of_War.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Reach the Core",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/reach-the-core",
     "app_img": "./assets/gapp-images-secondary/Reach_the_Core.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Restless Wing Syndrome",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/restless-wing-syndrome",
     "app_img": "./assets/gapp-images-secondary/Restless_Wing_Syndrome.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Retro Bowl Old",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/retro-bowl-old",
     "app_img": "./assets/gapp-images-secondary/Retro_Bowl_Old.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Retro Bowl",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/retro-bowl",
     "app_img": "./assets/gapp-images-secondary/Retro_Bowl.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Rift Shift",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/rift-shift",
     "app_img": "./assets/gapp-images-secondary/Rift_Shift.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Rooftop Snipers",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/rooftop-snipers",
     "app_img": "./assets/gapp-images-secondary/Rooftop_Snipers.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Rookie Bowman",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/rookie-bowman",
     "app_img": "./assets/gapp-images-secondary/Rookie_Bowman.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Run 3",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/run-3",
     "app_img": "./assets/gapp-images-secondary/Run_3.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Sand Spiel",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/sandspiel",
     "app_img": "./assets/gapp-images-secondary/Sand_Spiel.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Scuba Bear",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/scuba-bear",
     "app_img": "./assets/gapp-images-secondary/Scuba_Bear.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Slope",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/slope",
     "app_img": "./assets/gapp-images-secondary/Slope.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Smart Ball",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/smart-ball",
     "app_img": "./assets/gapp-images-secondary/Smart_Ball.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Smash Kart",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/smash-karts",
     "app_img": "./assets/gapp-images-secondary/Smash_Kart.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Stickman Hook",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/stickman-hook",
     "app_img": "./assets/gapp-images-secondary/Stickman_Hook.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Subway Surfers NY",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/subway-surfers-ny",
     "app_img": "./assets/gapp-images-secondary/Subway_Surfers_NY.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Subway Surfers",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/subway-surfers",
     "app_img": "./assets/gapp-images-secondary/Subway_Surfers.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Tanuki Sunset",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/tanuki-sunset",
     "app_img": "./assets/gapp-images-secondary/Tanuki_Sunset.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Temple Run 2",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/temple-run-2",
     "app_img": "./assets/gapp-images-secondary/Temple_Run_2.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "The Final Earth",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/the-final-earth",
     "app_img": "./assets/gapp-images-secondary/The_Final_Earth.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "The Treasure",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/the-treasure",
     "app_img": "./assets/gapp-images-secondary/The_Treasure.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "There Is No Game",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/there-is-no-game",
     "app_img": "./assets/gapp-images-secondary/There_Is_No_Game.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Time Shooter 3",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/time-shooter-3",
     "app_img": "./assets/gapp-images-secondary/Time_Shooter_3.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Time Shooter",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/time-shooter",
     "app_img": "./assets/gapp-images-secondary/Time_Shooter.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Tiny Fishing",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/tiny-fishing",
     "app_img": "./assets/gapp-images-secondary/Tiny_Fishing.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Tunnel Rush",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/tunnel-rush",
     "app_img": "./assets/gapp-images-secondary/Tunnel_Rush.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Two Ball 3D",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/two-ball-3d",
     "app_img": "./assets/gapp-images-secondary/Two_Ball_3D.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Vex 3",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/vex-3",
     "app_img": "./assets/gapp-images-secondary/Vex_3.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Vex 4",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/vex-4",
     "app_img": "./assets/gapp-images-secondary/Vex_4.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Vex 5",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/vex-5",
     "app_img": "./assets/gapp-images-secondary/Vex_5.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Vex 6",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/vex-6",
     "app_img": "./assets/gapp-images-secondary/Vex_6.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "W Flash",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/w-flash",
     "app_img": "./assets/gapp-images-secondary/W_Flash.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Web Osu",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/web-osu",
     "app_img": "./assets/gapp-images-secondary/Web_Osu.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "Where Is The Water",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/where-is-the-water",
     "app_img": "./assets/gapp-images-secondary/Where_Is_The_Water.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "norm"
   },
   {
     "app_name": "X Trench Run",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/x-trench-run",
     "app_img": "./assets/gapp-images-secondary/X_Trench_Run.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
   {
     "app_name": "Yohoho",
     "app_url": "https://axiom-proxy.github.io/glitch-assets/games/yohoho",
     "app_img": "./assets/gapp-images-secondary/Yohoho.jpg",
-    "type": "game"
+    "type": "game",
+    "category": "web"
   },
-    {
+  {
     "app_name": "Roblox",
     "app_url": "https://99.ip.nowgg.fun/apps/a/19900/b.html",
     "type": "app",

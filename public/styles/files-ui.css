@@ -2,6 +2,11 @@
  * Shared chrome for anything that manipulates AxiomFS: the context menu and
  * the prompt/confirm dialog. Used by the Files app and the desktop.
  * Everything here is namespaced so it can drop into any page.
+ *
+ * The panels read the same --glass-* properties desktop-prefs.js writes for
+ * the rest of the shell, so the Transparency slider moves them too. The
+ * fallbacks are the old fixed values, for any page that loads this file
+ * without the prefs script.
  */
 
 #axiom-menu {
@@ -9,11 +14,11 @@
   z-index: 10000;
   min-width: 196px;
   padding: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, calc(var(--glass-line, 0.14) + 0.04));
   border-radius: 11px;
-  background: rgba(24, 24, 27, 0.82);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  background: rgba(24, 24, 27, var(--glass-alpha, 0.82));
+  backdrop-filter: blur(var(--glass-blur, 24px)) saturate(var(--glass-sat, 180%));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 24px)) saturate(var(--glass-sat, 180%));
   box-shadow: 0 16px 44px rgba(0, 0, 0, 0.6);
   font-family: "Roboto", sans-serif;
 }
@@ -85,6 +90,16 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
+/* Tint washes these the same way it washes the menu bar and the dock. */
+body.glass-tint #axiom-menu,
+body.glass-tint #axiom-dialog {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--mac-accent, var(--accent, #3e8fb0)) 20%, transparent),
+    color-mix(in srgb, var(--mac-accent, var(--accent, #3e8fb0)) 8%, transparent)
+  );
+}
+
 /* ------------------------------------------------------------- dialog */
 
 #axiom-overlay {
@@ -106,11 +121,13 @@
   flex-direction: column;
   width: min(440px, 100%);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, calc(var(--glass-line, 0.14) + 0.04));
   border-radius: 13px;
-  background: rgba(22, 22, 25, 0.92);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  /* A dialog sits over its own dimmed backdrop, so it stays a touch more
+   * opaque than the menu at every setting. */
+  background: rgba(22, 22, 25, calc(var(--glass-alpha, 0.92) + 0.06));
+  backdrop-filter: blur(var(--glass-blur, 24px)) saturate(var(--glass-sat, 180%));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 24px)) saturate(var(--glass-sat, 180%));
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.7);
 }
 
@@ -127,7 +144,7 @@
 .axiom-dlg-head .material-symbols-outlined {
   font-size: 18px;
   font-variation-settings: "FILL" 1;
-  color: #8ed4f4;
+  color: var(--accent);
   padding: 0 !important;
   background: none !important;
   transform: none !important;
@@ -178,7 +195,7 @@
 }
 
 #axiom-dlg-input:focus {
-  border-color: rgba(142, 212, 244, 0.6);
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -210,13 +227,13 @@
 }
 
 .axiom-dlg-btn.primary {
-  background: rgba(142, 212, 244, 0.22);
-  border-color: rgba(142, 212, 244, 0.45);
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
   color: #fff;
 }
 
 .axiom-dlg-btn.primary:hover {
-  background: rgba(142, 212, 244, 0.34);
+  background: color-mix(in srgb, var(--accent) 34%, transparent);
 }
 
 .axiom-dlg-btn.primary.danger {

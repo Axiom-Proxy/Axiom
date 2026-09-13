@@ -347,6 +347,62 @@ server.post("/chat", {
     }
 })
 
+// Names a conversation from its first exchange. Kept separate from /chat so a
+// title never eats into the chat rate limit, and so it can stay short + cheap.
+server.post("/api/chat-title", {
+    config: {
+        rateLimit: {
+            max: 10,
+            timeWindow: "1m",
+            keyGenerator: (req) => req.ip
+        }
+    }
+}, async function (req, res) {
+    const { message, reply = "" } = req.body || {};
+    if (!message) return res.code(400).send({ error: "Message required" });
+
+    try {
+        const response = await fetch("https://composite.lucidity.sh/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${process.env.COMPOSITE_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: DEFAULT_MODEL,
+                messages: [
+                    {
+                        role: "system",
+                        content: "You name chat conversations. Reply with a title of at most 5 words that describes the topic. No quotes, no punctuation at the end, no preamble — just the title."
+                    },
+                    {
+                        role: "user",
+                        content: `User: ${String(message).slice(0, 1000)}
+
+Assistant: ${String(reply).slice(0, 1000)}
+
+Title:`
+                    }
+                ],
+                max_tokens: 24,
+                temperature: 0.3
+            }),
+            signal: AbortSignal.timeout(20_000)
+        });
+
+        if (!response.ok) throw new Error(`Composite API failed with status ${response.status}`);
+
+        const data = await response.json();
+        const raw = data?.choices?.[0]?.message?.content || "";
+        const title = raw.trim().replace(/^["'`]+|["'`.]+$/g, "").split("\n")[0].slice(0, 60);
+        if (!title) throw new Error("Empty title");
+        return res.send({ title });
+    } catch (error) {
+        console.error("Title error:", error.message);
+        return res.code(500).send({ error: "Failed to generate title" });
+    }
+});
+
 server.get("/educational_sl/sw.js", (req, res) => {
   res.header("Service-Worker-Allowed", "/");
   res.sendFile("educational_sl/sw.js");
@@ -658,6 +714,59 @@ server.get("/api/site-fs", async (req, res) => {
     } catch (e) {
         res.send({ version: 0, entries: [] });
     }
+});
+
+// Host the animated wallpaper MP4s and a JPEG of each one's first frame.
+// Frames are extracted once with ffmpeg and cached on disk; a stale frame
+// (missing or older than its source video) is regenerated on startup.
+const wallpapersDir = path.join(__dirname, "animated_wallpapers");
+const wallpaperFramesDir = path.join(__dirname, ".cache", "wallpaper-frames");
+
+function buildWallpaperFrames() {
+    if (!fs.existsSync(wallpapersDir)) return;
+    fs.mkdirSync(wallpaperFramesDir, { recursive: true });
+    for (const name of fs.readdirSync(wallpapersDir)) {
+        if (!/\.mp4$/i.test(name)) continue;
+        const video = path.join(wallpapersDir, name);
+        const frame = path.join(wallpaperFramesDir, name.replace(/\.mp4$/i, ".jpg"));
+        let fresh = false;
+        try { fresh = fs.statSync(frame).mtimeMs >= fs.statSync(video).mtimeMs; } catch (_) {}
+        if (fresh) continue;
+        try {
+            require("child_process").execFileSync(
+                "ffmpeg",
+                ["-i", video, "-vframes", "1", "-q:v", "3", "-y", frame],
+                { stdio: "ignore", timeout: 30000 }
+            );
+        } catch (e) { console.error(`Failed to extract first frame for ${name}: ${e.message}`); }
+    }
+}
+
+buildWallpaperFrames();
+
+server.register(require("@fastify/static"), {
+    root: wallpapersDir,
+    prefix: "/animated_wallpapers/",
+    decorateReply: false
+});
+server.register(require("@fastify/static"), {
+    root: wallpaperFramesDir,
+    prefix: "/wallpaper-frames/",
+    decorateReply: false
+});
+
+server.get("/api/wallpapers", async (req, res) => {
+    const videos = fs.existsSync(wallpapersDir)
+        ? fs.readdirSync(wallpapersDir).filter(n => /\.mp4$/i.test(n))
+        : [];
+    res.send({
+        wallpapers: videos.map(name => ({
+            name,
+            file: `animated_wallpapers/${name}`,
+            video: `/animated_wallpapers/${encodeURIComponent(name)}`,
+            frame: `/wallpaper-frames/${encodeURIComponent(name.replace(/\.mp4$/i, ".jpg"))}`
+        }))
+    });
 });
 
 server.register(require("@fastify/static"), {

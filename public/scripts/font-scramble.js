@@ -44,7 +44,10 @@
 
   var SKIP_TAGS = new Set([
     "SCRIPT", "STYLE", "HEAD", "TITLE", "NOSCRIPT", "TEMPLATE",
-    "PRE", "CODE", "KBD", "SAMP", "TT", "TEXTAREA", "INPUT", "SELECT"
+    "PRE", "CODE", "KBD", "SAMP", "TT", "TEXTAREA", "INPUT", "SELECT",
+    // DATALIST suggestions are drawn by the browser in a font of its own
+    // choosing, which is never the scrambled one.
+    "DATALIST"
   ]);
   // INPUT / SELECT / TEXTAREA render through the UNSCRAMBLED 'Roboto Plain'
   // font (see fonts/fonts.css), so their .value, placeholder AND option text
@@ -54,7 +57,18 @@
   var SKIP_TOKENS = new Set([
     "material-symbols-outlined",
     "term-output", "term-mount-bar", "term-prompt",
-    "lm-code", "axiom-dlg-message", "editor-text"
+    "lm-code", "axiom-dlg-message", "editor-text",
+    // Menu-bar keyboard hints: symbols plus one literal key, rendered in the
+    // UNSCRAMBLED face (see windows.css), so shifting turned ⌘K into ⌘L.
+    "mb-menu-key",
+    // KaTeX renders formulas with its own (unscrambled) math fonts, so a
+    // shifted "6CO2" came out as "7DP3". Everything under .katex stays literal.
+    "katex", "katex-display",
+    // The desktop clock is the one piece of chrome whose typeface the user
+    // picks, and any face they pick is an ordinary one — a Google family, or
+    // the un-shifted Roboto. Shifted text through those reads as gibberish
+    // ("MONDAY" as "NPOEBZ"), so the clock keeps its letters literal.
+    "desktop-clock"
   ]);
 
   function shiftChar(ch) {

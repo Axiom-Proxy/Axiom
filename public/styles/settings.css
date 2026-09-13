@@ -1,176 +1,504 @@
-button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
+/* macOS System Settings, as a window inside Axiom: a translucent sidebar of
+ * categories on the left, grouped rows of controls on the right. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  /* The highlight colour is the user's, from Desktop ▸ Accent Colour.
+   * theme.js derives --accent-solid from it: the same hue taken down to a
+   * lightness that white text reads against, so a selected row's label and
+   * its icon are white whatever colour is chosen. */
+  --mac-accent: var(--accent-solid, var(--accent, #3e8fb0));
+  --mac-on-accent: var(--on-accent, #ffffff);
+  --mac-text: rgba(255, 255, 255, 0.92);
+  --mac-text-dim: rgba(255, 255, 255, 0.55);
+  --mac-line: rgba(255, 255, 255, 0.1);
+  --mac-group: rgba(255, 255, 255, 0.07);
+  --mac-control: rgba(255, 255, 255, 0.12);
+  --mac-control-hover: rgba(255, 255, 255, 0.18);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
   padding: 0;
-  border-radius: 25px;
-  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  color: var(--text, white);
-  font-size: 16px;
-  cursor: pointer;
-  outline: none;
-  transition:
-    border-color 0.3s ease,
-    background 0.3s ease;
+  background: transparent;
+  color: var(--mac-text);
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
 }
 
-button:hover,
-button:focus-visible {
-  border-color: transparent;
-  background: var(--glass-bg-focus, rgba(255, 255, 255, 0.08));
+/* Buttons don't inherit font-family from body (the UA stylesheet gives them a
+ * system font), so text shifted by font-scramble.js would render garbled. */
+button,
+input {
+  font-family: "Roboto", sans-serif;
 }
 
-.messages {
-  position: absolute;
-  width: 50%;
-  left: calc(50% - 25%);
-  top: 100px;
+/* Form fields render through the UNSCRAMBLED face so their literal value and
+ * placeholder show up correctly — font-scramble.js skips them. */
+input {
+  font-family: "Roboto Plain", "Roboto", sans-serif;
+}
+
+/* The cloak pages reuse this stylesheet to make their iframe fill the tab. */
+iframe {
+  width: 100vw;
+  height: 100vh;
+  border: none;
+}
+
+.settings-window {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ----------------------------------------------------------------- sidebar */
+
+.sidebar {
+  flex: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  width: 214px;
+  padding: 12px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border-right: 0.5px solid var(--mac-line);
+  overflow-y: auto;
 }
 
-.message {
-  display: inline-flex;
-  justify-content: center;
+.sidebar-search {
+  display: flex;
   align-items: center;
-  width: max-content;
-  height: max-content;
-  max-width: 50%;
-  padding: 15px;
-  border-radius: 25px;
-  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  color: var(--text, white);
+  gap: 6px;
+  height: 28px;
+  margin-bottom: 12px;
+  padding: 0 8px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+  cursor: text;
+}
+
+.sidebar-search .material-symbols-outlined {
+  flex: none;
   font-size: 16px;
+  color: var(--mac-text-dim);
+}
+
+.sidebar-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
   outline: none;
-  transition:
-    border-color 0.3s ease,
-    background 0.3s ease;
+  background: transparent;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 300;
 }
 
-.message.user {
-  margin-left: auto;
-  border-bottom-right-radius: 4px;
+.sidebar-search input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
 }
 
-.message.bot {
-  border-bottom-left-radius: 4px;
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--mac-text);
+  font-size: 13px;
+  font-weight: 300;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.nav-item.selected {
+  background: var(--mac-accent);
+  color: var(--mac-on-accent);
+  font-weight: 400;
+}
+
+/* Glass icon chips, so a live wallpaper still reads through the sidebar. */
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.16);
+}
+
+.nav-item.selected .nav-icon {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: none;
+}
+
+.nav-icon .material-symbols-outlined {
+  font-size: 15px;
+  color: #fff;
+  font-variation-settings: "FILL" 1;
+}
+
+/* White, not the ink colour: the chip behind it is a light wash on the
+ * accent, and a dark glyph on that reads as a disabled row. */
+.nav-item.selected .nav-icon .material-symbols-outlined {
+  color: #fff;
+}
+
+/* ------------------------------------------------------------ content pane */
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 26px 40px;
+  overflow-y: auto;
+}
+
+/*
+ * The pane used to stop at 660px, so widening the window only added empty
+ * grey to the right of it. It fills what it is given now, up to the width
+ * past which a settings row is just a label stranded from its control.
+ */
+.pane {
+  display: none;
+  width: 100%;
+  max-width: 980px;
+}
+
+.pane.selected {
+  display: block;
+}
+
+.pane-title {
+  margin: 0 0 14px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  color: #fff;
+}
+
+.group-label {
+  margin: 20px 0 6px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--mac-text-dim);
+}
+
+/* A settings "box": rounded card, hairline-separated rows. */
+.group {
+  margin-bottom: 16px;
+  border-radius: 10px;
+  background: var(--mac-group);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+/*
+ * ...except the card holding a popup button. `overflow: hidden` was cutting
+ * the theme list off at the bottom edge of the pill, which left most of the
+ * themes unclickable. The card has nothing to clip anyway: its rows are
+ * square, and the radius still lands on its own background.
+ */
+.group.theme-container {
+  overflow: visible;
+  position: relative;
+  z-index: 5;
+}
+
+.grow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 11px 16px;
+}
+
+.grow + .grow {
+  border-top: 0.5px solid var(--mac-line);
+}
+
+/* A row whose control is too wide to sit beside its label. */
+.grow-stack {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.grow-text {
+  min-width: 0;
+  /* Takes the room the control does not: a label must not be squeezed into a
+   * one-word-per-line column by a wide control sitting next to it. */
+  flex: 1 1 auto;
+}
+
+.grow-label {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--mac-text);
+}
+
+.grow-sub {
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.45;
+  color: var(--mac-text-dim);
+}
+
+.grow-control,
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.grow-control {
+  flex: none;
+  justify-content: flex-end;
+}
+
+/* About: name on the left, what they did on the right. */
+.grow.credit .grow-sub {
+  margin-top: 0;
+  text-align: right;
+}
+
+.search-empty {
+  display: none;
+  padding: 40px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--mac-text-dim);
+}
+
+.search-empty.show {
+  display: block;
+}
+
+/* -------------------------------------------------------------- controls */
+
+.mac-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 64px;
+  height: 26px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 7px;
+  background: var(--mac-control);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.16),
+    0 1px 2px rgba(0, 0, 0, 0.25);
+  color: var(--mac-text);
+  font-size: 13px;
+  font-weight: 400;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.12s ease;
+}
+
+.mac-btn:hover,
+.mac-btn:focus-visible {
+  background: var(--mac-control-hover);
+}
+
+.mac-btn:active {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.mac-btn.primary {
+  background: var(--mac-accent);
+  color: var(--mac-on-accent);
+}
+
+.mac-btn.primary:hover {
+  background: var(--mac-accent);
+  filter: brightness(1.1);
+}
+
+.mac-btn.destructive {
+  color: #ff6961;
+}
+
+.mac-btn .material-symbols-outlined {
+  font-size: 15px;
+}
+
+.mac-input {
+  width: 200px;
+  height: 26px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 13px;
+  outline: none;
+  transition: box-shadow 0.12s ease;
+}
+
+.mac-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.mac-input:focus {
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.2),
+    0 0 0 3px color-mix(in srgb, var(--mac-accent) 45%, transparent);
+}
+
+/* macOS switch */
+.switch {
+  flex: none;
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+  transition: background 0.18s ease;
+}
+
+.switch-track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  transition: transform 0.18s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+.switch input:checked + .switch-track {
+  background: var(--mac-accent);
+}
+
+.switch input:checked + .switch-track::after {
+  transform: translateX(16px);
+}
+
+.switch input:focus-visible + .switch-track {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mac-accent) 45%, transparent);
+}
+
+/* ------------------------------------------------- popup button (theme) */
 
 .dropdown {
   position: relative;
-  width: 300px;
-  font-family: "Roboto", sans-serif;
-  font-size: 15px;
-  z-index: 1000;
+  flex: none;
+  width: 200px;
+  font-size: 13px;
+  z-index: 10;
 }
 
 .dropdown-trigger {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   width: 100%;
-  padding: 12px 18px;
-  border-radius: 25px;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  color: var(--text, white);
+  height: 26px;
+  padding: 0 8px 0 12px;
+  border-radius: 7px;
+  background: var(--mac-control);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.16),
+    0 1px 2px rgba(0, 0, 0, 0.25);
+  color: var(--mac-text);
   cursor: pointer;
   user-select: none;
-  transition:
-    border-color 0.25s ease,
-    background 0.25s ease,
-    border-radius 0.25s ease;
-  box-sizing: border-box;
+  transition: background 0.12s ease;
 }
 
 .dropdown-trigger:hover,
-.dropdown-trigger:focus-visible {
-  border-color: transparent;
-  background: var(--glass-bg-focus, rgba(255, 255, 255, 0.11));
-}
-
-button,
-.dropdown-trigger {
-  position: relative;
-}
-button::before,
-.dropdown-trigger::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-  background: var(--rainbow);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-button:hover::before,
-button:focus-visible::before,
-.dropdown-trigger:hover::before,
-.dropdown-trigger:focus-visible::before {
-  opacity: 1;
-}
-
 .dropdown-trigger.open {
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  background: var(--mac-control-hover);
 }
 
 .dropdown-chevron {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
-  transition: transform 0.25s ease;
   opacity: 0.7;
-}
-
-.dropdown-trigger.open .dropdown-chevron {
-  transform: rotate(180deg);
 }
 
 .dropdown-panel {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 4px);
   left: 0;
   width: 100%;
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
-  border-radius: 16px;
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
-  overflow: hidden;
-  transform-origin: top center;
-  transform: scaleY(0.85) translateY(-6px);
+  padding: 4px;
+  background: rgba(48, 48, 52, 0.86);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5);
   opacity: 0;
+  transform: translateY(-4px);
   pointer-events: none;
   transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
-  box-sizing: border-box;
-  background: var(--glass-panel-bg, rgba(0, 0, 0, 0.2));
+    opacity 0.1s ease,
+    transform 0.1s ease;
 }
 
 .dropdown-panel.open {
-  transform: scaleY(1) translateY(0);
   opacity: 1;
+  transform: translateY(0);
   pointer-events: all;
 }
 
@@ -178,191 +506,186 @@ button:focus-visible::before,
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 18px;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.85));
-  cursor: pointer;
-  transition:
-    background 0.15s ease,
-    color 0.15s ease;
-}
-
-.dropdown-option:first-child {
-  border-radius: 16px 16px 0 0;
-}
-
-.dropdown-option:last-child {
-  border-radius: 0 0 16px 16px;
-}
-
-.dropdown-option:only-child {
-  border-radius: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--mac-text);
+  font-weight: 300;
+  cursor: default;
+  transition: background 0.1s ease;
 }
 
 .dropdown-option:hover {
-  background: var(--glass-bg-focus, rgba(255, 255, 255, 0.1));
-  color: var(--text, white);
+  background: var(--mac-accent);
+  color: var(--mac-on-accent);
 }
 
 .dropdown-option.selected {
-  background: var(--glass-bg-focus, rgba(255, 255, 255, 0.08));
-  color: var(--text, white);
-  font-weight: 400;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.dropdown-option.selected:hover {
+  background: var(--mac-accent);
+  color: var(--mac-on-accent);
 }
 
 .dropdown-option .material-symbols-outlined {
-  font-size: 16px;
+  font-size: 15px;
   opacity: 0.75;
 }
 
 .dropdown-option.locked {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
 .dropdown-option.locked:hover {
   background: transparent;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.85));
+  color: var(--mac-text);
 }
 
 .premium-badge {
   margin-left: auto;
-  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 5px;
+  background: rgba(251, 191, 36, 0.16);
+  box-shadow: inset 0 0 0 0.5px rgba(251, 191, 36, 0.4);
+  color: #fbbf24;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #fbbf24;
-  background: rgba(251, 191, 36, 0.15);
-  border: 1px solid rgba(251, 191, 36, 0.35);
-  border-radius: 6px;
-  padding: 2px 6px;
 }
 
-.container {
-  margin: 20px;
-  padding: 20px;
-  border-radius: 25px;
-  width: 600px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  color: var(--text, white);
-  font-size: 16px;
-  outline: none;
-  transition:
-    border-color 0.3s ease,
-    background 0.3s ease;
-}
+/* ---------------------------------------------------------- accent picker */
 
-.row {
-  display: flex;
-  gap: 10px;
-  align-items: center;
+.accent-control {
   flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  max-width: 60%;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-}
-iframe {
-  width: 100vw;
-  height: 100vh;
-  border: none;
-}
-.settings-search {
-  width: 70%;
-  margin: 24px auto 0;
+.swatches {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.swatch {
+  position: relative;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.swatch:hover {
+  transform: scale(1.12);
+}
+
+/* The ring is drawn outside the dot, the way macOS marks the chosen one. */
+.swatch.selected {
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.35),
+    0 0 0 2px rgba(255, 255, 255, 0.9);
+}
+
+.swatch-custom {
+  background: conic-gradient(#f87171, #fbbf24, #4ade80, #22d3ee, #818cf8, #f472b6, #f87171);
+  overflow: hidden;
+}
+
+.swatch-custom input[type="color"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.swatch-custom .material-symbols-outlined {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.65);
+  pointer-events: none;
+}
+
+.mac-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ------------------------------------------------------------- font field */
+
+.font-control {
+  display: flex;
   align-items: center;
   gap: 8px;
 }
-.settings-main {
-  gap: 8px;
-  height: auto;
-}
-.cloak-button,
-.premium-activate-button {
-  width: 100px;
-}
-.theme-container {
-  position: relative;
-  z-index: 2; /* above .wallpaper-container so the open dropdown isn't covered */
-}
-.premium-row {
-  margin-bottom: 10px;
-}
-.premium-key-input {
-  width: 260px;
-}
-.premium-input-wrap {
-  width: 260px;
-}
-.premium-clear-button {
-  width: 80px;
-}
-.premium-status {
-  margin: 0;
-  font-size: 14px;
-  opacity: 0.75;
+
+.font-input {
+  width: 180px;
 }
 
-.wallpaper-container {
-  position: relative;
-  z-index: 1;
-}
+/* ------------------------------------------------------------- wallpaper */
 
 .wallpaper-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  justify-content: center;
-  max-width: 560px;
-  margin: 12px 0;
 }
 
 .wallpaper-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
+  padding: 4px;
+  border-radius: 10px;
   cursor: pointer;
-  padding: 6px;
-  border-radius: 12px;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition: background 0.15s ease;
 }
 
 .wallpaper-item:hover {
-  background: var(--glass-bg-focus, rgba(255, 255, 255, 0.1));
-  transform: scale(1.04);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .wallpaper-item.selected {
-  background: var(--glass-bg-focus, rgba(255, 255, 255, 0.15));
-  outline: 2px solid var(--accent, #8ed4f4);
-  outline-offset: -2px;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .wallpaper-thumb {
-  width: 80px;
-  height: 50px;
-  border-radius: 8px;
+  width: 88px;
+  height: 55px;
+  border-radius: 7px;
   background-size: cover;
   background-position: center;
   background-color: #111;
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.15));
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.18);
+}
+
+/* Selection reads as the blue ring macOS draws around the chosen picture. */
+.wallpaper-item.selected .wallpaper-thumb {
+  box-shadow:
+    0 0 0 2px var(--mac-accent),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.18);
 }
 
 .wallpaper-name {
+  max-width: 88px;
   font-size: 11px;
-  color: var(--text-secondary, rgba(255, 255, 255, 0.7));
-  max-width: 80px;
+  font-weight: 300;
+  color: var(--mac-text-dim);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -370,39 +693,304 @@ iframe {
 }
 
 .wallpaper-item.selected .wallpaper-name {
-  color: var(--accent, #8ed4f4);
-  font-weight: 500;
+  color: #fff;
 }
 
-.wallpaper-upload-row {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: 8px;
+/* ------------------------------------------------------------ scrollbars */
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
 }
 
-.wallpaper-upload-label {
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.26);
+  border: 2px solid transparent;
+  background-clip: content-box;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.42);
+  background-clip: content-box;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.26) transparent;
+}
+
+/*
+ * Everything below is about the window being resized, not the screen: this
+ * page runs in a WinBox iframe that the user drags to whatever width they
+ * like, and the rows have to survive all of it. Sliders and fields give up
+ * their fixed widths first; only when the row genuinely cannot hold both
+ * halves does the control drop under its label.
+ */
+@media (max-width: 760px) {
+  .slider-control {
+    width: min(232px, 42vw);
+  }
+
+  .mac-input,
+  .font-input {
+    width: min(200px, 40vw);
+  }
+
+  .dropdown {
+    width: min(200px, 44vw);
+  }
+}
+
+@media (max-width: 560px) {
+  .grow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .grow-control,
+  .accent-control,
+  .swatches {
+    justify-content: flex-start;
+  }
+
+  .accent-control {
+    max-width: none;
+  }
+
+  .grow.credit .grow-sub {
+    text-align: left;
+  }
+
+  .slider-control,
+  .mac-input,
+  .font-input,
+  .dropdown {
+    width: 100%;
+  }
+
+  .slider-control {
+    max-width: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .sidebar {
+    width: 64px;
+    padding: 12px 8px;
+  }
+
+  .sidebar-search,
+  .nav-item {
+    justify-content: center;
+  }
+
+  /* Only the icon chips fit; the labels and the search field drop out. */
+  .sidebar-search input,
+  .nav-item {
+    font-size: 0;
+  }
+
+  .content {
+    padding: 20px 16px 40px;
+  }
+}
+
+/* =========================================================================
+ * Desktop settings: the controls the Desktop pane and the live half of the
+ * Wallpaper pane are built from.
+ * ====================================================================== */
+
+/* ------------------------------------------------------ segmented control */
+
+.seg {
   display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 18px;
-  border-radius: 25px;
-  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  color: var(--text, white);
-  font-size: 14px;
+  flex: none;
+  padding: 2px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.14);
+}
+
+.seg-btn {
+  min-width: 58px;
+  height: 22px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--mac-text);
+  font-size: 12px;
+  font-weight: 400;
+  white-space: nowrap;
   cursor: pointer;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  transition: background 0.12s ease, color 0.12s ease;
 }
 
-.wallpaper-upload-label:hover {
-  border-color: transparent;
-  background: var(--glass-bg-focus, rgba(255, 255, 255, 0.08));
+.seg-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.wallpaper-upload-label .material-symbols-outlined {
-  font-size: 18px;
+.seg-btn.selected {
+  background: var(--mac-accent);
+  color: var(--mac-on-accent);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ------------------------------------------------------------------ slider */
+
+.slider-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  width: 232px;
+}
+
+.slider-value {
+  flex: none;
+  width: 54px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--mac-text-dim);
+  text-align: right;
+}
+
+.mac-slider {
+  flex: 1;
+  min-width: 0;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.mac-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.1);
+}
+
+.mac-slider::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.mac-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  margin-top: -5.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  transition: transform 0.1s ease;
+}
+
+.mac-slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.mac-slider:active::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+.mac-slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mac-accent) 45%, transparent);
+}
+
+/* --------------------------------------------------------- live wallpapers */
+
+.gallery-filter {
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+/*
+ * Sixty-odd clips: the gallery scrolls in place rather than pushing the rest
+ * of the pane off the bottom of the window.
+ */
+.live-grid {
+  max-height: 340px;
+  padding-right: 4px;
+  overflow-y: auto;
+}
+
+.wallpaper-item.live .wallpaper-thumb {
+  position: relative;
+  width: 132px;
+  height: 76px;
+  overflow: hidden;
+}
+
+.wallpaper-item.live .wallpaper-name {
+  max-width: 132px;
+}
+
+/* The preview only exists once the pointer has asked for it, and fades in
+ * over the first frame so the tile never goes blank. */
+.wallpaper-preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.wallpaper-preview.on {
+  opacity: 1;
+}
+
+.live-badge {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.28);
+  transition: opacity 0.2s ease;
+}
+
+.live-badge .material-symbols-outlined {
+  font-size: 14px;
+  color: #fff;
+  font-variation-settings: "FILL" 1;
+}
+
+/* Once the clip is actually playing the badge has nothing left to promise. */
+.wallpaper-item.live:hover .live-badge {
+  opacity: 0;
+}
+
+@media (max-width: 620px) {
+  .slider-value {
+    width: 44px;
+  }
 }

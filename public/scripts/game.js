@@ -19,7 +19,7 @@ document.querySelector(".game-controls").addEventListener("click", async (event)
 
   switch (button.dataset.action) {
     case "back":
-      window.location.href = "./games.html";
+      window.location.href = "./games_norm.html";
       break;
     case "fullscreen":
       await document.querySelector(".game-panel").requestFullscreen?.();

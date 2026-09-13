@@ -5,6 +5,8 @@ const LS_KEY = "axiom_game_favorites";
 const DS_KEY = "axiom_desktop_shortcuts";
 const DS_CHANNEL = "axiom-desktop";
 const FEATURED_COUNT = 5;
+// Set by the host page (games_norm.html / games_web.html). Falsy = show every game.
+const GAMES_CATEGORY = window.GAMES_CATEGORY || null;
 let allGames = [];
 
 let desktopChannel = null;
@@ -75,12 +77,13 @@ function buildCard(game) {
   const isFav = getFavorites().includes(game.app_name);
   const onDesktop = isOnDesktop(game.app_name);
   const card = document.createElement("div");
-  card.className = "game";
+  card.className = "game" + (isFav ? " is-fav" : "");
   card.innerHTML = `
                 <button class="material-symbols-outlined desktop-btn${onDesktop ? " on-desktop" : ""}" title="${onDesktop ? "On desktop" : "Add to desktop"}">desktop_windows</button>
                 <button class="material-symbols-outlined fav-btn${isFav ? " active" : ""}" title="Favorite">star</button>
                 <div class="thumb">
                     <img src="${game.app_img}" alt="${game.app_name}" loading="lazy">
+                    <div class="play-badge"><span>play_arrow</span></div>
                 </div>
                 <div class="overlay">
                     <div class="game-name">${game.app_name}</div>
@@ -116,7 +119,13 @@ function renderFeatured() {
     featured.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
   }
   featuredContainer.innerHTML = "";
-  featured.forEach((g) => featuredContainer.appendChild(buildCard(g)));
+  featured.forEach((g, i) => featuredContainer.appendChild(stagger(buildCard(g), i)));
+}
+
+// Cards fade in one after another; cap the delay so long lists don't crawl.
+function stagger(card, i) {
+  card.style.setProperty("--d", Math.min(i, 20) * 28 + "ms");
+  return card;
 }
 
 function renderAll(query) {
@@ -131,13 +140,24 @@ function renderAll(query) {
   ];
 
   gamesContainer.innerHTML = "";
-  sorted.forEach((g) => gamesContainer.appendChild(buildCard(g)));
+  if (!sorted.length) {
+    gamesContainer.innerHTML = `
+      <div class="empty-state">
+        <div class="material-symbols-outlined">search_off</div>
+        <p>No games match &ldquo;${String(query).replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]))}&rdquo;</p>
+      </div>`;
+  } else {
+    sorted.forEach((g, i) => gamesContainer.appendChild(stagger(buildCard(g), i)));
+  }
+
+  const count = document.getElementById("games-count");
+  if (count) count.textContent = sorted.length;
 }
 
 fetch("./assets/gapps.json")
   .then((res) => res.json())
   .then((data) => {
-    allGames = data.filter((g) => g.type === "game");
+    allGames = data.filter((g) => g.type === "game" && (!GAMES_CATEGORY || (g.category || "web") === GAMES_CATEGORY));
     renderFeatured();
     renderAll("");
   })

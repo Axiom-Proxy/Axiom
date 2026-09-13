@@ -46,7 +46,9 @@ const openWindows = {};
                 height: '540px',
                 x: 'center',
                 y: 'center',
-                bottom: 44,
+                // Keep windows clear of the menu bar and the floating dock.
+                top: 26,
+                bottom: 86,
                 class: classes,
                 html: `<iframe src="./${page}" class="window-frame"></iframe>`,
                 onclose() {
@@ -67,9 +69,11 @@ const openWindows = {};
             const root = wb.body.parentElement;
             const controls = document.createElement('div');
             controls.className = 'wb-custom-controls';
+            // Coloured pills, in the Windows order: minimise, zoom, close —
+            // close at the corner, matching the framed windows' cluster.
             controls.innerHTML = `
-                <button class="wb-cc-btn" data-action="min" title="Minimize"><span class="material-symbols-outlined">remove</span></button>
-                <button class="wb-cc-btn" data-action="max" title="Maximize"><span class="material-symbols-outlined">crop_square</span></button>
+                <button class="wb-cc-btn wb-cc-min" data-action="min" title="Minimize"><span class="material-symbols-outlined">remove</span></button>
+                <button class="wb-cc-btn wb-cc-max" data-action="max" title="Zoom"><span class="material-symbols-outlined">open_in_full</span></button>
                 <button class="wb-cc-btn wb-cc-close" data-action="close" title="Close"><span class="material-symbols-outlined">close</span></button>
             `;
             controls.addEventListener('mousedown', e => e.stopPropagation());
@@ -152,7 +156,7 @@ const openWindows = {};
                 lm.opening = false;
                 const waiting = lm.queued.splice(0);
                 waiting.forEach(item => lmFail(item.source, item.id,
-                    'LM Studio did not come up. Open it from the taskbar and try again.'));
+                    'LM Studio did not come up. Open it from the dock and try again.'));
             }, LM_READY_TIMEOUT);
         }
 
@@ -291,22 +295,30 @@ const openWindows = {};
         window.addEventListener('mouseup', endDrag);
         window.addEventListener('blur', endDrag);
 
+        // How the menu-bar clock is written is up to the user: 12- or 24-hour,
+        // with or without seconds, with or without the date beside it.
+        function trayPrefs() {
+            const desk = window.AxiomDesk;
+            return desk ? desk.all() : { bar24h: false, barSeconds: false, barDate: true, barBattPct: false };
+        }
+
         function updateTray() {
             const clockEl = document.getElementById('tray-clock');
             const dateEl = document.getElementById('tray-date');
             const now = new Date();
+            const p = trayPrefs();
 
             if (clockEl) {
-                let hours = now.getHours();
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                const ampm = hours >= 12 ? 'PM' : 'AM';
-                hours = hours % 12 || 12;
-                clockEl.textContent = hours + ':' + minutes + ' ' + ampm;
+                const opts = { hour: p.bar24h ? '2-digit' : 'numeric', minute: '2-digit', hour12: !p.bar24h };
+                if (p.barSeconds) opts.second = '2-digit';
+                clockEl.textContent = now.toLocaleTimeString(undefined, opts);
             }
             if (dateEl) {
+                // The macOS menu bar writes the date as 'Thu Sep 4'.
                 dateEl.textContent = now.toLocaleDateString(undefined, {
-                    month: 'numeric', day: 'numeric', year: 'numeric'
+                    weekday: 'short', month: 'short', day: 'numeric'
                 });
+                dateEl.hidden = !p.barDate;
             }
             updateBatteryIcon();
         }
@@ -321,6 +333,20 @@ const openWindows = {};
                     icon.textContent = charging ? 'battery_charging_full' : batteryIconFor(pct);
                     const btn = document.getElementById('btn-battery');
                     if (btn) btn.title = 'Battery: ' + pct + '%' + (charging ? ' (charging)' : '');
+
+                    // The percentage is opt-in, and rides next to the glyph.
+                    let label = document.getElementById('battery-pct');
+                    if (trayPrefs().barBattPct) {
+                        if (!label && btn) {
+                            label = document.createElement('span');
+                            label.id = 'battery-pct';
+                            label.className = 'mb-batt-pct';
+                            btn.appendChild(label);
+                        }
+                        if (label) label.textContent = pct + '%';
+                    } else if (label) {
+                        label.remove();
+                    }
                 });
             }
         }
@@ -340,6 +366,8 @@ const openWindows = {};
         if (document.getElementById('tray-time')) {
             updateTray();
             setInterval(updateTray, 1000);
+            // A change to the clock format should land now, not on the next tick.
+            if (window.AxiomDesk) window.AxiomDesk.on(updateTray);
         }
 
         /* -------------------------------------------------------- autorun */

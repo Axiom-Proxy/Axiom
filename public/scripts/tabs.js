@@ -275,6 +275,8 @@ const tabs = [];
             }
 
             saveSession();
+            paintStar();
+            paintChip();
         }
 
         document.getElementById('btn-back').addEventListener('click', () => {
@@ -326,6 +328,161 @@ const tabs = [];
         addressBar.addEventListener('focus', () => addressBar.select());
 
         document.getElementById('new-tab-btn').addEventListener('click', () => createTab());
+
+        /* ------------------------------------------------- the right-hand end
+         *
+         * Back, forward and refresh left the rest of the row empty. These are
+         * the things a browser is actually asked for next: somewhere to keep a
+         * page, a way to hand its address to something else, and a way home.
+         */
+
+        const BM_KEY = 'axiom_bookmarks';
+
+        function readBookmarks() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(BM_KEY) || '[]');
+                return Array.isArray(saved) ? saved : [];
+            } catch (e) { return []; }
+        }
+
+        function writeBookmarks(list) {
+            try { localStorage.setItem(BM_KEY, JSON.stringify(list)); } catch (e) { /* full */ }
+        }
+
+        /** What the address bar is showing for the active tab, normalised. */
+        function activeAddress() {
+            const tab = tabs.find(t => t.id === activeTabId);
+            if (!tab) return null;
+            const url = tab.displayUrl != null ? tab.displayUrl : toDisplay(tab.url);
+            return { url, title: (tab.title || url).replace(/…$/, '') };
+        }
+
+        const starBtn = document.getElementById('btn-star');
+        const bmBtn = document.getElementById('btn-bookmarks');
+        const bmPanel = document.getElementById('bm-panel');
+        const bmList = document.getElementById('bm-list');
+        const bmEmpty = document.getElementById('bm-empty');
+        const copyBtn = document.getElementById('btn-copy');
+        const homeBtn = document.getElementById('btn-home');
+        const addrChip = document.getElementById('addr-chip');
+
+        function paintStar() {
+            const here = activeAddress();
+            const saved = !!(here && readBookmarks().some(b => b.url === here.url));
+            starBtn.classList.toggle('on', saved);
+            starBtn.title = saved ? 'Remove bookmark' : 'Bookmark this page';
+        }
+
+        function renderBookmarks() {
+            const list = readBookmarks();
+            bmList.innerHTML = '';
+            bmEmpty.hidden = list.length > 0;
+
+            list.forEach(bm => {
+                const row = document.createElement('button');
+                row.type = 'button';
+                row.className = 'bm-item';
+                row.innerHTML =
+                    '<span class="material-symbols-outlined">public</span>' +
+                    '<span class="bm-text"><span class="bm-title">' + escHtml(bm.title) + '</span>' +
+                    '<span class="bm-url">' + escHtml(bm.url) + '</span></span>';
+
+                const drop = document.createElement('span');
+                drop.className = 'bm-drop';
+                drop.title = 'Remove';
+                drop.innerHTML = '<span class="material-symbols-outlined">close</span>';
+                drop.addEventListener('click', e => {
+                    e.stopPropagation();
+                    writeBookmarks(readBookmarks().filter(b => b.url !== bm.url));
+                    renderBookmarks();
+                    paintStar();
+                });
+
+                row.appendChild(drop);
+                row.addEventListener('click', () => {
+                    closeBookmarks();
+                    navigateActive(bm.url);
+                });
+                bmList.appendChild(row);
+            });
+        }
+
+        function closeBookmarks() { bmPanel.hidden = true; }
+
+        starBtn.addEventListener('click', () => {
+            const here = activeAddress();
+            if (!here || !here.url) return;
+            const list = readBookmarks();
+            const at = list.findIndex(b => b.url === here.url);
+            if (at === -1) list.unshift({ title: here.title, url: here.url });
+            else list.splice(at, 1);
+            writeBookmarks(list);
+            renderBookmarks();
+            paintStar();
+        });
+
+        bmBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const showing = !bmPanel.hidden;
+            if (!showing) renderBookmarks();
+            bmPanel.hidden = showing;
+        });
+
+        document.addEventListener('mousedown', e => {
+            if (bmPanel.hidden) return;
+            if (e.target.closest('#bm-panel') || e.target.closest('#btn-bookmarks')) return;
+            closeBookmarks();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const here = activeAddress();
+            if (!here || !here.url) return;
+            const done = () => {
+                copyBtn.classList.add('done');
+                const glyph = copyBtn.querySelector('.material-symbols-outlined');
+                glyph.textContent = 'check';
+                setTimeout(() => {
+                    copyBtn.classList.remove('done');
+                    glyph.textContent = 'link';
+                }, 1200);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(here.url).then(done).catch(() => {});
+            } else {
+                // Clipboard API needs a secure context; this works anywhere.
+                const pad = document.createElement('textarea');
+                pad.value = here.url;
+                document.body.appendChild(pad);
+                pad.select();
+                try { document.execCommand('copy'); done(); } catch (e) { /* denied */ }
+                pad.remove();
+            }
+        });
+
+        homeBtn.addEventListener('click', () => navigateActive('axiom://start'));
+
+        /* The chip inside the pill: a proxied page is worth saying out loud. */
+        function paintChip() {
+            const tab = tabs.find(t => t.id === activeTabId);
+            if (!tab) { addrChip.hidden = true; return; }
+            const proxied = isProxyUrl(tab.url);
+            addrChip.hidden = !proxied;
+            addrChip.textContent = proxied ? 'Proxied' : '';
+            addrChip.title = proxied
+                ? 'Fetched through Axiom rather than by the browser directly'
+                : '';
+        }
+
+        /* The bar's height is its padding's business, not a number typed into
+         * two files. #content-area starts wherever the bar actually ends. */
+        function syncChromeHeight() {
+            const bar = document.getElementById('browser');
+            if (!bar) return;
+            document.documentElement.style.setProperty('--browser-h', bar.offsetHeight + 'px');
+        }
+
+        window.addEventListener('resize', syncChromeHeight);
+        syncChromeHeight();
 
         document.addEventListener('keydown', e => {
             if ((e.ctrlKey || e.metaKey) && e.key === 't') { e.preventDefault(); createTab(); }

@@ -38,7 +38,14 @@
   /* No blur filter: the gradients are already soft, and blurring a layer
    * this size is the one thing here that would cost a weak machine frames. */
   animation: axm-bloom 48s ease-in-out infinite alternate;
-  will-change: transform;
+}
+
+/* A backgrounded tab, a covering window, or reduced motion: in every case the
+ * bloom is contributing nothing to a pixel anyone is looking at, so stop the
+ * animation (and with it the compositor work it drives) until it matters. */
+body.wp-hidden #wp-bloom,
+body.wp-covered #wp-bloom {
+  animation-play-state: paused;
 }
 
 @keyframes axm-bloom {

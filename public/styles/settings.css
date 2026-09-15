@@ -436,6 +436,15 @@ iframe {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--mac-accent) 45%, transparent);
 }
 
+/* Locked switch (e.g. premium-gated controls) */
+.switch:has(input:disabled) {
+  cursor: not-allowed;
+}
+
+.switch input:disabled + .switch-track {
+  opacity: 0.45;
+}
+
 /* ------------------------------------------------- popup button (theme) */
 
 .dropdown {

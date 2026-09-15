@@ -45,12 +45,15 @@
   --clock-font: "Roboto Plain", "Roboto", sans-serif;
 }
 
-/* One knob turns every frosted surface in the shell from clear to opaque. */
-#menubar,
-.mb-menu,
-.flyout,
-#taskbar,
-.winbox {
+/* One knob turns every frosted surface in the shell from clear to opaque.
+ * Gated on body.glass (transparency > 0): at 0 the filter would be a no-op
+ * blur, and even a no-op backdrop-filter costs a compositor backdrop pass per
+ * panel and window, so we drop the property entirely when it earns nothing. */
+body.glass #menubar,
+body.glass .mb-menu,
+body.glass .flyout,
+body.glass #taskbar,
+body.glass .winbox {
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
 }

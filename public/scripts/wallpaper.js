@@ -94,7 +94,12 @@
             }
         });
         if (document.body) {
-            document.body.classList.toggle('wp-paused', desk.get('wpMode') === 'live' && !go);
+            const b = document.body;
+            b.classList.toggle('wp-paused', desk.get('wpMode') === 'live' && !go);
+            // Drive the ambient bloom too: no point animating a full-screen
+            // layer while the tab is in the background or a window sits over it.
+            b.classList.toggle('wp-hidden', document.hidden);
+            b.classList.toggle('wp-covered', windowsCover());
         }
         emit();
     }
@@ -200,16 +205,28 @@
     /* ------------------------------------------------------------ parallax */
 
     let parallaxBound = false;
+    let parallaxRAF = 0;
+    let lastPX = 0, lastPY = 0;
+
+    function paintParallax() {
+        parallaxRAF = 0;
+        const dx = (lastPX / window.innerWidth - 0.5) * 2;
+        const dy = (lastPY / window.innerHeight - 0.5) * 2;
+        layer.style.setProperty('--wp-shift-x', (-dx * 14).toFixed(1) + 'px');
+        layer.style.setProperty('--wp-shift-y', (-dy * 10).toFixed(1) + 'px');
+    }
 
     function bindParallax() {
         if (parallaxBound) return;
         parallaxBound = true;
+        // A pointer can fire 1000 moves a second; the picture only repaints 60
+        // times. Stash the last position and let one rAF do the write, so a
+        // burst of moves collapses into a single style update per frame.
         window.addEventListener('pointermove', e => {
             if (!desk.get('wpParallax')) return;
-            const dx = (e.clientX / window.innerWidth - 0.5) * 2;
-            const dy = (e.clientY / window.innerHeight - 0.5) * 2;
-            layer.style.setProperty('--wp-shift-x', (-dx * 14).toFixed(1) + 'px');
-            layer.style.setProperty('--wp-shift-y', (-dy * 10).toFixed(1) + 'px');
+            lastPX = e.clientX;
+            lastPY = e.clientY;
+            if (!parallaxRAF) parallaxRAF = requestAnimationFrame(paintParallax);
         }, { passive: true });
     }
 
@@ -263,9 +280,18 @@
 
     document.addEventListener('visibilitychange', syncPlayback);
 
-    // Only worth watching the window list when the user asked us to.
+    // Windows open, close and minimise without telling us, so poll their
+    // cover state. It is a walk over a handful of open windows — cheap — and
+    // it keeps both the bloom's pause class and (when the user asked for it)
+    // the video's playback honest. Only touch the DOM when it actually flips.
+    let coveredWas = null;
     setInterval(() => {
-        if (desk.get('wpPauseWindows') && desk.get('wpMode') === 'live') syncPlayback();
+        const covered = windowsCover();
+        if (covered !== coveredWas) {
+            coveredWas = covered;
+            if (document.body) document.body.classList.toggle('wp-covered', covered);
+            if (desk.get('wpPauseWindows') && desk.get('wpMode') === 'live') syncPlayback();
+        }
     }, 2000);
 
     window.AxiomWallpaper = {

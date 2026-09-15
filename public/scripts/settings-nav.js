@@ -100,12 +100,42 @@
     /* ----------------------------------------------------------- ads switch */
 
     // ad.js treats a missing flag as "on", so the switch has to as well.
+    // Turning ads off is premium-gated: the switch only unlocks for verified
+    // premium users. Free users see it locked in the "on" position.
     const AD_KEY = 'axiom_ad';
     const adsToggle = document.getElementById('ads-toggle');
+    const adsSub    = document.getElementById('ads-toggle-sub');
+    const adsBadge  = document.getElementById('ads-premium-badge');
     if (adsToggle) {
-        adsToggle.checked = localStorage.getItem(AD_KEY) !== '0';
+        // Default to locked-on until premium is confirmed.
+        adsToggle.checked = true;
+        adsToggle.disabled = true;
+
         adsToggle.addEventListener('change', () => {
+            if (adsToggle.disabled) return;
             localStorage.setItem(AD_KEY, adsToggle.checked ? '1' : '0');
         });
+
+        const gate = (isPremium) => {
+            if (isPremium) {
+                adsToggle.disabled = false;
+                adsToggle.checked = localStorage.getItem(AD_KEY) !== '0';
+                if (adsBadge) adsBadge.textContent = '★ Premium';
+                if (adsSub) adsSub.textContent =
+                    'Turn ads off, or leave them on if ads ever get this page redirected.';
+            } else {
+                adsToggle.disabled = true;
+                adsToggle.checked = true;
+                if (adsBadge) adsBadge.textContent = 'Premium';
+                if (adsSub) adsSub.textContent =
+                    'Ad-free browsing is a premium perk. Activate a premium key to turn ads off.';
+            }
+        };
+
+        if (window.axiomPremium && typeof axiomPremium.isPremium === 'function') {
+            axiomPremium.isPremium().then(gate).catch(() => gate(false));
+        } else {
+            gate(false);
+        }
     }
 })();

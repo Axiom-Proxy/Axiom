@@ -15,7 +15,7 @@
 
     const DEFAULTS = {
         /* ------------------------------------------------------ wallpaper */
-        wpMode: 'live',         // 'still' | 'live'
+        wpMode: 'still',        // 'still' | 'live'
         wpLive: '',             // filename inside animated_wallpapers/
         wpShuffle: false,
         wpShuffleMins: 10,
@@ -24,7 +24,7 @@
         wpDim: 0,               // 0 - 80 (%)
         wpSat: 100,             // 50 - 200 (%)
         wpVignette: false,
-        wpParallax: true,
+        wpParallax: false,
         wpPauseHidden: true,    // stop decoding while the tab is in the back
         wpPauseWindows: false,  // stop decoding while a window covers it
 
@@ -162,6 +162,12 @@
         flag('bar-autohide', prefs.barAutohide || prefs.zen);
         flag('wp-vignette', prefs.wpVignette);
         flag('glass-tint', prefs.tint);
+        // At transparency 0 the panels are solid, so the backdrop-filter would
+        // only be blur(0) saturate(100%) — a no-op that still makes the
+        // compositor allocate a backdrop pass and re-read the pixels behind
+        // every panel and window each frame. Only carry the filter once it
+        // actually blurs something.
+        flag('glass', clear > 0);
         body.dataset.clockWidget = prefs.clockWidget;
         body.dataset.clockPos = prefs.clockPos;
         body.dataset.clockAlign = prefs.clockAlign;

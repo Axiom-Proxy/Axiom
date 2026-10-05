@@ -5,7 +5,7 @@ const LS_KEY = "axiom_game_favorites";
 const DS_KEY = "axiom_desktop_shortcuts";
 const DS_CHANNEL = "axiom-desktop";
 const FEATURED_COUNT = 5;
-// Set by the host page (games_norm.html / games_web.html). Falsy = show every game.
+// The main Games page shows every game; games_web.html optionally filters to web games.
 const GAMES_CATEGORY = window.GAMES_CATEGORY || null;
 let allGames = [];
 
@@ -56,7 +56,7 @@ function addToDesktop(game) {
       type: "game"
     });
     localStorage.setItem(DS_KEY, JSON.stringify(shortcuts));
-    renderAll(searchBar.value.toLowerCase());
+    renderAll(searchBar?.value.toLowerCase() || "");
     // Notify desktop via BroadcastChannel
     if (desktopChannel) {
       desktopChannel.postMessage({ type: 'refresh' });
@@ -67,7 +67,7 @@ function addToDesktop(game) {
 function removeFromDesktop(name) {
   const shortcuts = getDesktopShortcuts().filter(s => s.name !== name);
   localStorage.setItem(DS_KEY, JSON.stringify(shortcuts));
-  renderAll(searchBar.value.toLowerCase());
+  renderAll(searchBar?.value.toLowerCase() || "");
   if (desktopChannel) {
     desktopChannel.postMessage({ type: 'refresh' });
   }
@@ -92,7 +92,7 @@ function buildCard(game) {
   card.querySelector(".fav-btn").addEventListener("click", (e) => {
     e.stopPropagation();
     toggleFavorite(game.app_name);
-    renderAll(searchBar.value.toLowerCase());
+    renderAll(searchBar?.value.toLowerCase() || "");
   });
   card.querySelector(".desktop-btn").addEventListener("click", (e) => {
     e.stopPropagation();
@@ -165,6 +165,6 @@ fetch("./assets/gapps.json")
     if (window.AxiomPageReady) window.AxiomPageReady();
   });
 
-searchBar.addEventListener("input", () => {
+searchBar?.addEventListener("input", () => {
   renderAll(searchBar.value.toLowerCase());
 });

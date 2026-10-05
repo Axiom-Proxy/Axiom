@@ -1,7 +1,6 @@
 const dotenv = require("dotenv");
-const crypto = require("crypto");
 const https = require("https");
-const GuacamoleLite = require("guacamole-lite");
+const remoteRelay = require("./remote-relay");
 const { server: wisp } = require("@mercuryworkshop/wisp-js/server");
 const { baremuxPath } = require("@mercuryworkshop/bare-mux/node");
 const cheerio = require("cheerio");
@@ -76,23 +75,6 @@ setInterval(() => {
     });
 }, NSFW_BLOCKLIST_REFRESH_MS).unref();
 
-// Shared by every guacd-backed protocol (RDP and SSH); guacamole-lite decrypts
-// tokens with this same key.
-const guacTokenKey = crypto.createHash("sha256")
-    .update(crypto.randomBytes(32))
-    .digest();
-const guacTokens = new Map();
-
-function createGuacToken(payload) {
-    const iv = crypto.randomBytes(16);
-    const cipher = crypto.createCipheriv("aes-256-cbc", guacTokenKey, iv);
-    const value = Buffer.concat([cipher.update(JSON.stringify(payload), "utf8"), cipher.final()]);
-    return Buffer.from(JSON.stringify({
-        iv: iv.toString("base64"),
-        value: value.toString("base64")
-    })).toString("base64");
-}
-
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 https.globalAgent.options.rejectUnauthorized = false;
 
@@ -116,12 +98,6 @@ server.addContentTypeParser('application/json', { parseAs: 'string', bodyLimit: 
 server.register(require("@fastify/static"), { root: baremuxPath, prefix: "/baremux/", decorateReply: false });
 server.register(require("@fastify/static"), { root: epoxyPath, prefix: "/epoxy/", decorateReply: false });
 server.register(require("@fastify/static"), { root: libcurlPath, prefix: "/libcurl/", decorateReply: false });
-server.register(require("@fastify/static"), {
-    root: path.join(__dirname, "node_modules/guacamole-common-js/dist/esm"),
-    prefix: "/remote-desktop/vendor/",
-    decorateReply: false
-});
-
 // The SSH terminal runs the protocol in the browser: a Go/WASM client plus
 // xterm.js. Nothing here decrypts the session, so these are plain assets.
 server.register(require("@fastify/static"), {
@@ -143,75 +119,6 @@ server.register(require("@fastify/static"), {
     root: path.join(__dirname, "node_modules/@mercuryworkshop/wisp-js/dist"),
     prefix: "/wisp/",
     decorateReply: false
-});
-
-const guacamoleServer = new GuacamoleLite({ server: undefined, noServer: true }, {
-    host: "127.0.0.1",
-    port: 4822
-}, {
-    maxInactivityTime: 0,
-    log: { level: 0 },
-    crypt: { cypher: "aes-256-cbc", key: guacTokenKey }
-}, {
-    processConnectionSettings(settings, callback) {
-        const token = guacTokens.get(settings.nonce);
-        guacTokens.delete(settings.nonce);
-
-        if (!token || token.expiresAt < Date.now()) {
-            return callback(new Error("Invalid or expired remote desktop session"));
-        }
-
-        callback(undefined, settings);
-    }
-});
-
-setInterval(() => {
-    const now = Date.now();
-    for (const [nonce, token] of guacTokens) {
-        if (token.expiresAt < now) guacTokens.delete(nonce);
-    }
-}, 60_000).unref();
-
-server.post("/api/remote-desktop/session", {
-    config: { rateLimit: { max: 10, timeWindow: "1m" } }
-}, async (req, res) => {
-    const body = req.body || {};
-    const host = typeof body.host === "string" ? body.host.trim() : "";
-    const port = Number(body.port);
-    const username = typeof body.username === "string" ? body.username : "";
-    const accessToken = typeof body.accessToken === "string" ? body.accessToken : "";
-    const domain = typeof body.domain === "string" ? body.domain.trim() : "";
-
-    if (!host || !accessToken || !Number.isInteger(port) || port < 1 || port > 65535) {
-        return res.code(400).send({ error: "Invalid remote desktop connection." });
-    }
-
-    if (host.length > 253 || username.length > 512 || accessToken.length > 1024 || domain.length > 253) {
-        return res.code(400).send({ error: "Invalid remote desktop connection." });
-    }
-
-    const nonce = crypto.randomUUID();
-    const expiresAt = Date.now() + 30_000;
-    guacTokens.set(nonce, { expiresAt });
-
-    return res.send({
-        token: createGuacToken({
-            nonce,
-            connection: {
-                type: "rdp",
-                settings: {
-                    hostname: host,
-                    port: String(port),
-                    username,
-                    password: accessToken,
-                    domain,
-                    security: "any",
-                    "ignore-cert": true,
-                    "enable-wallpaper": false
-                }
-            }
-        })
-    });
 });
 
 // Limit concurrent OCR workers to avoid memory exhaustion over time.
@@ -415,9 +322,9 @@ server.server.on("upgrade", (req, socket, head) => {
     catch (err) { socket.destroy(); }
     return;
   }
-  if (pathname === "/remote-desktop/socket") {
-    guacamoleServer.webSocketServer.handleUpgrade(req, socket, head, (ws) => {
-      guacamoleServer.webSocketServer.emit("connection", ws, req);
+  if (pathname === "/remote-desktop/ws") {
+    remoteRelay.handleUpgrade(req, socket, head, (ws) => {
+      remoteRelay.emit("connection", ws, req);
     });
     return;
   }
@@ -767,6 +674,16 @@ server.get("/api/wallpapers", async (req, res) => {
             frame: `/wallpaper-frames/${encodeURIComponent(name.replace(/\.mp4$/i, ".jpg"))}`
         }))
     });
+});
+
+server.get("/remote-desktop/download", async (req, res) => {
+    const exe = path.join(__dirname, "remote-host", "dist", "Axiom-Remote-Desktop.exe");
+    if (!fs.existsSync(exe)) {
+        return res.code(503).send({ error: "Download unavailable." });
+    }
+    res.header("Content-Disposition", 'attachment; filename="Axiom-Remote-Desktop.exe"');
+    res.type("application/octet-stream");
+    return res.send(fs.createReadStream(exe));
 });
 
 server.register(require("@fastify/static"), {

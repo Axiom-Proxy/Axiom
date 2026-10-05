@@ -68,7 +68,11 @@
     // picks, and any face they pick is an ordinary one — a Google family, or
     // the un-shifted Roboto. Shifted text through those reads as gibberish
     // ("MONDAY" as "NPOEBZ"), so the clock keeps its letters literal.
-    "desktop-clock"
+    "desktop-clock",
+    // Remote Desktop draws device IDs, the fps/latency readout and the
+    // Ctrl+Shift+Esc hint in a system monospace face (there is no scrambled
+    // monospace), so those stay literal — the same reason terminal output does.
+    "mono", "rid"
   ]);
 
   function shiftChar(ch) {
@@ -85,16 +89,13 @@
     return out;
   }
 
-  function tokensOf(el) {
-    var t = new Set();
-    if (el.classList) for (var i = 0; i < el.classList.length; i++) t.add(el.classList[i]);
-    if (el.id) t.add(el.id);
-    return t;
-  }
-
-  function hasSkipToken(set) {
-    var it = set.values(), v;
-    while (!(v = it.next()).done) if (SKIP_TOKENS.has(v.value)) return true;
+  // Runs for every text node on every mutation, once per ancestor, so it
+  // reads classList in place rather than copying it into a fresh Set each
+  // step — the copy was most of the garbage this script generated.
+  function elementHasSkipToken(el) {
+    if (el.id && SKIP_TOKENS.has(el.id)) return true;
+    var cl = el.classList;
+    if (cl) for (var i = 0; i < cl.length; i++) if (SKIP_TOKENS.has(cl[i])) return true;
     return false;
   }
 
@@ -102,7 +103,7 @@
     var p = node.parentNode;
     while (p) {
       if (SKIP_TAGS.has(p.nodeName)) return true;
-      if (hasSkipToken(tokensOf(p))) return true;
+      if (p.nodeType === 1 && elementHasSkipToken(p)) return true;
       p = p.parentNode;
     }
     return false;

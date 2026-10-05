@@ -334,7 +334,7 @@ function getCloakContent() {
         ];
 
         function getSavedWallpaper() {
-            return localStorage.getItem(WP_KEY) || 'default';
+            return localStorage.getItem(WP_KEY) || window.AxiomDesk?.DEFAULT_WALLPAPER || 'forest';
         }
 
         function setWallpaper(value) {

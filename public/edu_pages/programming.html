@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khan Academy | Computer Programming: Code &amp; Create</title>
+    <meta name="description" content="Learn computer programming with free courses from Khan Academy. Master JavaScript, Python, HTML/CSS, algorithms, and data structures with interactive coding exercises.">
+    <meta name="keywords" content="computer programming, javascript, python, html, css, algorithms, coding, online learning, khan academy">
+    <meta property="og:title" content="Khan Academy | Computer Programming: Code &amp; Create">
+    <meta property="og:description" content="Free programming courses covering JavaScript, Python, web development, and computer science fundamentals. Interactive coding challenges and real projects.">
+    <meta property="og:image" content="https://cdn.kastatic.org/images/khan-logo-dark-background-2.png">
+    <meta property="og:site_name" content="Khan Academy">
+    <link rel="icon" href="https://cdn.kastatic.org/images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Lato, 'Helvetica Neue', Arial, sans-serif; background: #f6f7f9; color: #21242c; line-height: 1.6; }
+        .nav { background: #1a237e; padding: 0 24px; display: flex; align-items: center; height: 56px; gap: 32px; }
+        .nav-logo { color: #fff; font-size: 18px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .nav-logo svg { width: 28px; height: 28px; }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 14px; font-weight: 400; }
+        .nav-links a:hover { color: #fff; }
+        .nav-actions { margin-left: auto; display: flex; gap: 12px; }
+        .btn { padding: 8px 20px; border-radius: 4px; font-size: 14px; font-weight: 700; cursor: pointer; border: none; }
+        .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.5); }
+        .btn-fill { background: #ffb700; color: #1a237e; }
+        .hero { background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%); color: #fff; padding: 64px 24px 56px; text-align: center; }
+        .hero h1 { font-size: 36px; font-weight: 700; margin-bottom: 12px; }
+        .hero p { font-size: 18px; opacity: 0.9; max-width: 640px; margin: 0 auto 28px; }
+        .hero-search { display: flex; justify-content: center; gap: 8px; }
+        .hero-search input { width: 420px; padding: 12px 16px; border-radius: 4px; border: none; font-size: 16px; }
+        .hero-search .btn { padding: 12px 28px; }
+        .section { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+        .section h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; color: #1a237e; }
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .course-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.15s, box-shadow 0.15s; }
+        .course-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+        .course-card-img { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+        .course-card-body { padding: 16px 20px; }
+        .course-card-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .course-card-body .meta { font-size: 13px; color: #6c7180; }
+        .topic-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .topic-item { background: #fff; border-radius: 6px; padding: 16px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .topic-item:hover { background: #e8eaf6; }
+        .topic-icon { width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; flex-shrink: 0; }
+        .topic-item h4 { font-size: 15px; font-weight: 700; }
+        .topic-item span { font-size: 13px; color: #6c7180; display: block; }
+        .lang-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .lang-card { background: #fff; border-radius: 8px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .lang-card h3 { font-size: 17px; font-weight: 700; color: #1a237e; margin-bottom: 8px; }
+        .lang-card p { font-size: 14px; color: #555; line-height: 1.7; }
+        .lang-card .read-more { display: inline-block; margin-top: 12px; color: #3949ab; font-weight: 700; font-size: 14px; text-decoration: none; }
+        .footer { background: #1a237e; color: rgba(255,255,255,0.7); text-align: center; padding: 32px 24px; font-size: 14px; margin-top: 48px; }
+        .footer a { color: #fff; text-decoration: underline; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 700; }
+        .badge-new { background: #d4edda; color: #155724; }
+        .badge-popular { background: #fff3cd; color: #856404; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 26px; }
+            .hero-search { flex-direction: column; align-items: center; }
+            .hero-search input { width: 100%; max-width: 420px; }
+            .topic-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#" class="nav-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 19h6v3h8v-3h6L12 2zm0 3.5L18.5 17h-3.2l-1.3-2.5h-4l-1.3 2.5H5.5L12 5.5zm-1.5 6.7h3L12 8.5l-1.5 3.7z"/></svg>
+            Khan Academy
+        </a>
+        <ul class="nav-links">
+            <li><a href="#">Courses</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">Donate</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="btn btn-outline">Log in</button>
+            <button class="btn btn-fill">Sign up</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Computer Programming: Code &amp; Create</h1>
+        <p>Learn the languages and concepts that power the digital world. From your first "Hello, World!" to building full applications, start your coding journey for free.</p>
+        <div class="hero-search">
+            <input type="text" placeholder="Search for a programming topic...">
+            <button class="btn btn-fill">Search</button>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Featured Programming Courses</h2>
+        <div class="course-grid">
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #fff8e1, #ffecb3);">☕</div>
+                <div class="course-card-body">
+                    <h3>JavaScript <span class="badge badge-popular">Popular</span></h3>
+                    <p class="meta">Variables, functions, DOM, async &mdash; 20 units, 220+ exercises</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">🐍</div>
+                <div class="course-card-body">
+                    <h3>Python <span class="badge badge-new">New</span></h3>
+                    <p class="meta">Data types, loops, OOP, libraries &mdash; 18 units, 200+ exercises</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #f3e5f5, #e1bee7);">🌐</div>
+                <div class="course-card-body">
+                    <h3>HTML &amp; CSS</h3>
+                    <p class="meta">Semantic markup, layouts, responsive design &mdash; 16 units, 170+ challenges</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #e8f5e9, #a5d6a7);">🗄️</div>
+                <div class="course-card-body">
+                    <h3>SQL &amp; Databases</h3>
+                    <p class="meta">Queries, joins, normalization, PostgreSQL &mdash; 14 units, 150+ exercises</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #ffebee, #ef9a9a);">⚙️</div>
+                <div class="course-card-body">
+                    <h3>Algorithms</h3>
+                    <p class="meta">Sorting, searching, graphs, dynamic programming &mdash; 12 units, 130+ problems</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #e0f7fa, #80deea);">🖥️</div>
+                <div class="course-card-body">
+                    <h3>AP&reg; Computer Science</h3>
+                    <p class="meta">AP CSP &amp; AP CSA &mdash; Full exam review and practice</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Popular Programming Languages</h2>
+        <div class="lang-grid">
+            <div class="lang-card">
+                <h3>Why Learn JavaScript?</h3>
+                <p>The language of the web. JavaScript powers interactive websites, server-side applications with Node.js, and cross-platform mobile apps. It's the most in-demand programming language in the world today.</p>
+                <a href="#" class="read-more">Start learning &rarr;</a>
+            </div>
+            <div class="lang-card">
+                <h3>Why Learn Python?</h3>
+                <p>Known for its clean, readable syntax, Python is the go-to language for data science, machine learning, automation, and backend web development. Perfect for beginners and experts alike.</p>
+                <a href="#" class="read-more">Start learning &rarr;</a>
+            </div>
+            <div class="lang-card">
+                <h3>Why Learn HTML &amp; CSS?</h3>
+                <p>Every website you've ever visited uses HTML and CSS to structure and style its content. These are the foundational languages of the internet and the gateway to web development.</p>
+                <a href="#" class="read-more">Start learning &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Popular Programming Topics</h2>
+        <div class="topic-list">
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #283593;">🔤</div>
+                <div>
+                    <h4>Variables &amp; Data Types</h4>
+                    <span>Strings, numbers, booleans, arrays, objects</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #1565c0;">🔁</div>
+                <div>
+                    <h4>Loops &amp; Iteration</h4>
+                    <span>For, while, forEach, array methods</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #6a1b9a;">🧩</div>
+                <div>
+                    <h4>Functions &amp; Scope</h4>
+                    <span>Parameters, return values, closures, arrow functions</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #2e7d32;">🧠</div>
+                <div>
+                    <h4>Recursion</h4>
+                    <span>Base cases, call stack, tree traversal</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #c62828;">📦</div>
+                <div>
+                    <h4>Object-Oriented Programming</h4>
+                    <span>Classes, inheritance, polymorphism, encapsulation</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #00838f;">🔗</div>
+                <div>
+                    <h4>Data Structures</h4>
+                    <span>Arrays, linked lists, trees, hash maps, graphs</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #e65100;">🐛</div>
+                <div>
+                    <h4>Debugging &amp; Testing</h4>
+                    <span>Console tools, breakpoints, unit tests, TDD</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #4e342e;">🔒</div>
+                <div>
+                    <h4>Web Security Basics</h4>
+                    <span>XSS, CSRF, HTTPS, authentication best practices</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 Khan Academy. All rights reserved. | <a href="#">About</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        <p style="margin-top:8px;">Our mission is to provide a free, world-class education to anyone, anywhere.</p>
+    </footer>
+</body>
+</html>

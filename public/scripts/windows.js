@@ -1,10 +1,199 @@
 const openWindows = {};
 
+        /*
+         * Fold the dock away while a window is maximized, and let the window
+         * take the strip of height the dock normally reserves.
+         *
+         * WinBox sizes a maximized window as viewport minus its top/bottom
+         * margins, and we open windows with bottom: 86 to clear the floating
+         * dock. On maximize we drop that margin to the screen inset so the
+         * window runs to the bottom edge, and flag <body> so the dock folds
+         * down (revealable on hover, same as auto-hide). Every path back —
+         * restore, minimize, close — puts the margin and the dock back.
+         */
+        (function patchWinBoxMaximize() {
+            const proto = window.WinBox && window.WinBox.prototype;
+            if (!proto) return;
+
+            const MAX_BOTTOM = 8; // matches #taskbar's own bottom inset
+            const origMaximize = proto.maximize;
+            const origRestore = proto.restore;
+            const origMinimize = proto.minimize;
+            const origClose = proto.close;
+
+            function restoreBottom(wb) {
+                if (wb._axSavedBottom != null) {
+                    wb.bottom = wb._axSavedBottom;
+                    wb._axSavedBottom = null;
+                }
+            }
+
+            function anyMaximized() {
+                for (const key in openWindows) {
+                    const wb = openWindows[key];
+                    if (wb && !wb.closed && wb.max && !wb.min) return true;
+                }
+                return false;
+            }
+
+            function syncDock() {
+                document.body.classList.toggle('windows-maximized', anyMaximized());
+            }
+
+            proto.maximize = function (state) {
+                // maximize(false) is WinBox's own restore path.
+                if (state === false) {
+                    restoreBottom(this);
+                } else if (!this.max) {
+                    this._axSavedBottom = this.bottom;
+                    this.bottom = MAX_BOTTOM;
+                }
+                const r = origMaximize.call(this, state);
+                syncDock();
+                return r;
+            };
+
+            proto.restore = function () {
+                restoreBottom(this);
+                const r = origRestore.call(this);
+                syncDock();
+                return r;
+            };
+
+            proto.minimize = function (state) {
+                if (state === false || this.min || !this.window) {
+                    const r = origMinimize.call(this, state);
+                    syncDock();
+                    return r;
+                }
+                if (this.max) restoreBottom(this);
+
+                // WinBox collapses a minimized window into a title-bar stub at
+                // the foot of the screen. Keep it where and how big it was, so
+                // the genie can start from the window the user was looking at.
+                const st = this.window.style;
+                const was = { left: st.left, top: st.top, width: st.width, height: st.height };
+                const from = this.window.getBoundingClientRect();
+                this.addClass('no-animation');
+                const r = origMinimize.call(this, state);
+                Object.assign(st, was);
+                void this.window.offsetWidth;
+                this.removeClass('no-animation');
+                syncDock();
+                genie(this, from, false);
+                return r;
+            };
+
+            proto.restore = function () {
+                if (!this.min || !this.window) {
+                    restoreBottom(this);
+                    const r = origRestore.call(this);
+                    syncDock();
+                    return r;
+                }
+                // Jump straight back to the saved geometry (WinBox may have
+                // parked the hidden window in its minimized stack meanwhile)
+                // and let the genie, not a left/top transition, do the moving.
+                this.addClass('no-animation');
+                restoreBottom(this);
+                const r = origRestore.call(this);
+                void this.window.offsetWidth;
+                this.removeClass('no-animation');
+                syncDock();
+                genie(this, this.window.getBoundingClientRect(), true);
+                return r;
+            };
+
+            // Bringing a minimized window forward - from its dock icon, the
+            // Window menu, or another app - means taking it out of the dock.
+            const origFocus = proto.focus;
+            proto.focus = function (state) {
+                if (state !== false && this.min && this.window) this.restore();
+                return origFocus.call(this, state);
+            };
+
+            // A short fade on the way out, as macOS gives a closing window.
+            proto.close = function (force) {
+                // Already on its way out: a second close (Close All, say)
+                // would otherwise tear the window down twice.
+                if (this.closing) return;
+                if (!this.window || reduceMotion()) {
+                    const r = origClose.apply(this, arguments);
+                    if (!r) this.closed = true;
+                    syncDock();
+                    return r;
+                }
+                this.closing = true;
+                const fade = this.window.animate(
+                    [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(0.97)' }],
+                    { duration: 150, easing: 'ease-in', fill: 'forwards' }
+                );
+                fade.onfinish = () => {
+                    if (!this.window) return;
+                    const r = origClose.call(this, force);
+                    if (r) {
+                        // Something vetoed the close: bring the window back.
+                        this.closing = false;
+                        fade.cancel();
+                    } else {
+                        this.closed = true;
+                    }
+                    syncDock();
+                };
+            };
+        })();
+
+        function reduceMotion() {
+            return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+        }
+
+        /*
+         * The genie, approximately: the window is scaled about the centre of
+         * its dock icon, so it pours down into the icon rather than fading
+         * where it stood. It narrows faster than it shortens on the way, which
+         * is most of what makes the real effect read as a funnel.
+         */
+        function genie(wb, rect, reverse) {
+            const dom = wb.window;
+            if (!dom) return;
+            if (wb._genie) { wb._genie.cancel(); wb._genie = null; }
+
+            const tile = wb._axKey && document.getElementById('btn-' + wb._axKey);
+            const target = tile && tile.getBoundingClientRect();
+            const hasTile = !!(target && target.width);
+            const tx = hasTile ? target.left + target.width / 2 : innerWidth / 2;
+            const ty = hasTile ? target.top + target.height / 2 : innerHeight;
+
+            const done = () => {
+                wb._genie = null;
+                dom.style.transformOrigin = '';
+                if (!reverse && wb.min) wb.addClass('stowed');
+            };
+
+            if (reverse) wb.removeClass('stowed');
+            if (reduceMotion() || !rect.width) { done(); return; }
+
+            dom.style.transformOrigin = (tx - rect.left) + 'px ' + (ty - rect.top) + 'px';
+            const end = Math.max(0.02, (hasTile ? target.width : 48) / rect.width);
+            const frames = [
+                { transform: 'scale(1, 1)', opacity: 1, offset: 0 },
+                { transform: 'scale(0.42, 0.72)', opacity: 0.92, offset: 0.45 },
+                { transform: 'scale(' + end + ', ' + end + ')', opacity: 0, offset: 1 }
+            ];
+            if (reverse) frames.reverse().forEach(f => { f.offset = 1 - f.offset; });
+
+            wb._genie = dom.animate(frames, {
+                duration: reverse ? 360 : 420,
+                easing: reverse ? 'cubic-bezier(0.2, 0.8, 0.3, 1)' : 'cubic-bezier(0.5, 0, 0.75, 0.4)'
+            });
+            wb._genie.onfinish = done;
+        }
+
         const WP_KEY = 'axiom_wallpaper';
         const WP_CUSTOM_KEY = 'axiom_custom_wallpaper';
 
         function getSavedWallpaper() {
-            return localStorage.getItem(WP_KEY) || 'default';
+            return localStorage.getItem(WP_KEY) || window.AxiomDesk?.DEFAULT_WALLPAPER || 'forest';
         }
 
         function getCustomWallpaper() {
@@ -29,52 +218,148 @@ const openWindows = {};
             }
         });
 
-        function openWindow(title, key, page, opts = {}) {
-            const btn = document.getElementById('btn-' + key);
+        /* ------------------------------------------------- running apps */
 
-            if (openWindows[key] && !openWindows[key].closed) {
-                openWindows[key].focus();
+        // Glyphs for the apps that have no pinned dock icon of their own.
+        const APP_GLYPHS = {
+            chat: 'chat',
+            lmstudio: 'neurology',
+            defender: 'security',
+            'games-web': 'stadia_controller'
+        };
+
+        /*
+         * An app that is running but not pinned gets a dock icon for as long
+         * as it is open, to the right of a separator - which is also where
+         * its window minimizes to.
+         */
+        function addTransientTile(title, key, opts) {
+            const items = document.querySelector('#taskbar .dock-items');
+            if (!items) return null;
+
+            if (!items.querySelector('.dock-sep')) {
+                const sep = document.createElement('div');
+                sep.className = 'dock-sep';
+                items.appendChild(sep);
+            }
+
+            const tile = document.createElement('div');
+            tile.className = 'taskbar-btn transient';
+            tile.id = 'btn-' + key;
+            tile.dataset.label = title;
+            tile.dataset.app = key;
+
+            const art = document.createElement('span');
+            art.className = 'app-squircle';
+            if (opts.img) {
+                const img = document.createElement('img');
+                img.src = opts.img;
+                img.alt = '';
+                img.draggable = false;
+                art.appendChild(img);
+            } else {
+                const glyph = document.createElement('span');
+                glyph.className = 'material-symbols-outlined';
+                glyph.textContent = opts.icon || APP_GLYPHS[key] ||
+                    (key.indexOf('game:') === 0 ? 'sports_esports' : 'web_asset');
+                art.appendChild(glyph);
+            }
+            tile.appendChild(art);
+
+            const dot = document.createElement('span');
+            dot.className = 'indicator';
+            tile.appendChild(dot);
+
+            tile.addEventListener('click', () => {
+                const wb = openWindows[key];
+                if (wb && !wb.closed) wb.focus();
+            });
+            items.appendChild(tile);
+            return tile;
+        }
+
+        function removeTransientTile(tile) {
+            tile.classList.add('leaving');
+            tile.removeAttribute('id');
+            setTimeout(() => {
+                tile.remove();
+                const items = document.querySelector('#taskbar .dock-items');
+                const sep = items && items.querySelector('.dock-sep');
+                if (sep && !items.querySelector('.taskbar-btn.transient:not(.leaving)')) sep.remove();
+            }, 240);
+        }
+
+        function bounce(tile) {
+            if (!tile || reduceMotion()) return;
+            tile.classList.remove('bounce');
+            void tile.offsetWidth;
+            tile.classList.add('bounce');
+            tile.addEventListener('animationend', function done(e) {
+                if (e.animationName !== 'dock-bounce') return;
+                tile.classList.remove('bounce');
+                tile.removeEventListener('animationend', done);
+            });
+        }
+
+        function openWindow(title, key, page, opts = {}) {
+            const existing = openWindows[key];
+            if (existing && !existing.closed && !existing.closing) {
+                existing.focus();
                 return;
             }
+
+            let btn = document.getElementById('btn-' + key);
+            if (!btn) btn = addTransientTile(title, key, opts);
+            const transient = !!(btn && btn.classList.contains('transient'));
 
             const classes = ['no-full'];
             if (opts.chromeless) classes.push('no-header');
 
             const wb = new WinBox({
                 title: title,
-                width: '760px',
-                height: '540px',
+                width: Math.min(760, window.innerWidth - 24),
+                height: Math.min(540, window.innerHeight - 130),
                 x: 'center',
                 y: 'center',
                 // Keep windows clear of the menu bar and the floating dock.
-                top: 26,
+                top: parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--menubar-h')) || 34,
                 bottom: 86,
                 class: classes,
                 html: `<iframe src="./${page}" class="window-frame"></iframe>`,
                 onclose() {
+                    // The same app may already have been reopened while this
+                    // window was fading out; only clear what is still ours.
+                    if (openWindows[key] !== this) return false;
                     delete openWindows[key];
-                    if (btn) btn.classList.remove('open');
+                    if (btn) {
+                        if (transient) removeTransientTile(btn);
+                        else btn.classList.remove('open');
+                    }
                     if (key === 'lmstudio') lmProviderGone();
                     return false;
                 }
             });
 
+            wb._axKey = key;
             if (opts.chromeless) addCustomControls(wb);
 
             openWindows[key] = wb;
-            if (btn) btn.classList.add('open');
+            if (btn) {
+                btn.classList.add('open');
+                bounce(btn);
+            }
         }
 
         function addCustomControls(wb) {
             const root = wb.body.parentElement;
             const controls = document.createElement('div');
             controls.className = 'wb-custom-controls';
-            // Coloured pills, in the Windows order: minimise, zoom, close —
-            // close at the corner, matching the framed windows' cluster.
+            // The traffic lights, in the macOS order. Their glyphs are drawn
+            // by the stylesheet, matching the framed windows' cluster.
             controls.innerHTML = `
-                <button class="wb-cc-btn wb-cc-min" data-action="min" title="Minimize"><span class="material-symbols-outlined">remove</span></button>
-                <button class="wb-cc-btn wb-cc-max" data-action="max" title="Zoom"><span class="material-symbols-outlined">open_in_full</span></button>
-                <button class="wb-cc-btn wb-cc-close" data-action="close" title="Close"><span class="material-symbols-outlined">close</span></button>
+                <button class="wb-cc-btn wb-cc-close" data-action="close" title="Close"></button>
+                <button class="wb-cc-btn wb-cc-min" data-action="min" title="Minimize"></button>
+                <button class="wb-cc-btn wb-cc-max" data-action="max" title="Zoom"></button>
             `;
             controls.addEventListener('mousedown', e => e.stopPropagation());
             controls.addEventListener('click', e => {
@@ -314,10 +599,11 @@ const openWindows = {};
                 clockEl.textContent = now.toLocaleTimeString(undefined, opts);
             }
             if (dateEl) {
-                // The macOS menu bar writes the date as 'Thu Sep 4'.
+                // The macOS menu bar writes the date as 'Thu Sep 4', with no
+                // comma - which toLocaleDateString puts in for most locales.
                 dateEl.textContent = now.toLocaleDateString(undefined, {
                     weekday: 'short', month: 'short', day: 'numeric'
-                });
+                }).replace(/,/g, '');
                 dateEl.hidden = !p.barDate;
             }
             updateBatteryIcon();

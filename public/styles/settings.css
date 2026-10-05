@@ -194,6 +194,7 @@ iframe {
   display: none;
   width: 100%;
   max-width: 980px;
+  margin-inline: auto;
 }
 
 .pane.selected {

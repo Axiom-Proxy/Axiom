@@ -1,0 +1,38 @@
+{
+  "name": "axiom-remote-host",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Axiom Remote Desktop for Windows",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "node build.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "sh.axiom.remote",
+    "productName": "Axiom Remote Desktop",
+    "artifactName": "Axiom-Remote-Desktop.exe",
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**",
+      "client/**",
+      "node_modules/ws/**"
+    ],
+    "asarUnpack": [
+    "client/**",
+    "node_modules/ws/**"
+    ],
+    "win": {
+      "target": "portable",
+      "signAndEditExecutable": false
+    }
+  }
+}

@@ -7,4 +7,9 @@ freedns_links.json
 scramble-mapping.txt
 animated_wallpapers_originals
 .cache
+remote-host/dist/
+remote-host/client/bin/
+remote-host/client/device.json
+remote-host/client/config.json
 ./tools
+.tunnel-pid

@@ -5,41 +5,39 @@
 }
 
 :root {
-  --rainbow: linear-gradient(
-    90deg,
-    #f8b8d0 0%,
-    #f8c9b6 17%,
-    #f2deb4 34%,
-    #bde7d5 52%,
-    #99e3e8 68%,
-    #8ed4f4 84%,
-    #b8c9ff 100%
-  );
   /* The highlight colour is the user's: Settings writes --accent, and
    * theme.js derives from it the darker --accent-solid that every filled
    * control uses so white text on top of it is always readable. */
   --mac-accent: var(--accent-solid, var(--accent, #3e8fb0));
   --mac-on-accent: var(--on-accent, #ffffff);
-  --menubar-h: 26px;
+  --menubar-h: 34px;
   --dock-h: 78px;
-  --dock-radius: 22px;
-  --dock-pad: 6px;
+  --dock-radius: 16px;
+  --dock-pad: 8px;
   --mac-panel: rgba(38, 38, 42, var(--glass-alpha));
   --mac-panel-line: rgba(255, 255, 255, calc(var(--glass-line) + 0.04));
+  /* Menus, Spotlight and the calendar are always vibrant, whatever the
+   * transparency slider says: they are small, short-lived, and a solid sheet
+   * is the one thing that stops them reading as macOS. */
+  --mac-vibrant: rgba(30, 30, 34, 0.8);
+  --mac-vibrant-line: rgba(255, 255, 255, 0.14);
+  --mac-vibrant-filter: blur(30px) saturate(160%);
+  --win-radius: 12px;
+  --win-header-h: 36px;
 
   /* Everything below is written by desktop-prefs.js from the user's
    * settings; the values here are only what shows before it runs. */
   --wp-blur: 0px;
-  --wp-dim: 0;
+  --wp-dim: 0.15;
   --wp-sat: 100%;
   --icon-scale: 1;
-  --dock-scale: 1;
-  --glass-blur: 0px;
-  --glass-sat: 100%;
+  --dock-scale: 0.9;
+  --glass-blur: 16px;
+  --glass-sat: 132%;
   /* Transparency 0%: solid panels. Raising it in Settings thins these out
    * and turns the blur on at the same time. */
-  --glass-alpha: 0.96;
-  --glass-line: 0.1;
+  --glass-alpha: 0.72;
+  --glass-line: 0.148;
   /* The clock renders literal text (font-scramble.js skips it), so its
    * default face is the un-shifted one. */
   --clock-font: "Roboto Plain", "Roboto", sans-serif;
@@ -49,13 +47,20 @@
  * Gated on body.glass (transparency > 0): at 0 the filter would be a no-op
  * blur, and even a no-op backdrop-filter costs a compositor backdrop pass per
  * panel and window, so we drop the property entirely when it earns nothing. */
-body.glass #menubar,
-body.glass .mb-menu,
-body.glass .flyout,
-body.glass #taskbar,
 body.glass .winbox {
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+}
+
+/* The bar, the dock and the transient sheets are frosted unconditionally.
+ * Each is a small strip of screen, so the backdrop pass is cheap, and a menu
+ * bar you cannot see the wallpaper through is the most un-Mac thing there is. */
+#menubar,
+.mb-menu,
+.flyout,
+#taskbar {
+  backdrop-filter: var(--mac-vibrant-filter);
+  -webkit-backdrop-filter: var(--mac-vibrant-filter);
 }
 
 /* Optional: let the theme accent bleed through the glass. */
@@ -108,8 +113,13 @@ body {
   inset: -3%;
   width: 106%;
   height: 106%;
+}
+
+/* Only carry the filter when the user has actually asked for blur or a
+ * saturation change: see the wp-filtered flag in desktop-prefs.js. */
+body.wp-filtered #wp-still,
+body.wp-filtered .wp-video {
   filter: blur(var(--wp-blur)) saturate(var(--wp-sat));
-  transition: filter 0.25s ease;
 }
 
 #wp-still {
@@ -181,10 +191,10 @@ body.wp-vignette #wp-scrim {
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  padding: 0 8px;
-  background: rgba(22, 22, 24, var(--glass-alpha));
+  padding: 0 10px;
+  background: rgba(24, 26, 29, 0.86);
   box-shadow: inset 0 -0.5px 0 rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.94);
   font-size: 13px;
   user-select: none;
 }
@@ -201,19 +211,20 @@ body.wp-vignette #wp-scrim {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2px 0;
-  padding: 0 9px;
+  margin: 3px 0;
+  padding: 0 10px;
   border-radius: 5px;
-  font-weight: 300;
-  letter-spacing: 0.1px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.25);
   line-height: 1;
   cursor: default;
   transition: background 0.1s ease;
 }
 
 .mb-item.mb-app {
-  font-weight: 600;
-  letter-spacing: 0.2px;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
 .mb-logo {
@@ -228,10 +239,11 @@ body.wp-vignette #wp-scrim {
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
 }
 
-.mb-item:hover,
-.mb-status:hover,
+/* macOS lights the title of the menu you are in with a soft white pill, not
+ * the accent: the accent belongs to the item under the pointer. */
+.mb-item.active,
 .mb-status.active {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .mb-status {
@@ -240,7 +252,7 @@ body.wp-vignette #wp-scrim {
 }
 
 .mb-status .material-symbols-outlined {
-  font-size: 17px;
+  font-size: 16px;
   color: rgba(255, 255, 255, 0.95);
   font-variation-settings: "FILL" 1;
   padding: 0 !important;
@@ -252,10 +264,11 @@ body.wp-vignette #wp-scrim {
 
 /* The menu-bar clock is one horizontal line, the way macOS writes it. */
 .tray-time {
-  gap: 6px;
+  gap: 7px;
   font-size: 13px;
-  font-weight: 300;
-  letter-spacing: 0.1px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
   color: rgba(255, 255, 255, 0.95);
   white-space: nowrap;
 }
@@ -268,45 +281,50 @@ body.wp-vignette #wp-scrim {
 
 .mb-menu {
   position: fixed;
-  top: calc(var(--menubar-h) + 2px);
+  top: calc(var(--menubar-h) + 1px);
   z-index: 10001;
-  min-width: 200px;
+  min-width: 228px;
   padding: 5px;
-  background: var(--mac-panel);
-  border: 0.5px solid var(--mac-panel-line);
-  border-radius: 8px;
-  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5);
+  background: var(--mac-vibrant);
+  border-radius: 10px;
+  /* Two hairlines, the way AppKit draws a dark menu: a light one just inside
+   * the edge and a dark one just outside it, so the sheet separates from a
+   * dark window and a bright wallpaper alike. */
+  box-shadow:
+    inset 0 0 0 0.5px var(--mac-vibrant-line),
+    0 0 0 0.5px rgba(0, 0, 0, 0.6),
+    0 14px 40px rgba(0, 0, 0, 0.45);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(-4px);
+  /* A Mac menu appears at once and fades on the way out. */
   transition:
-    opacity 0.1s ease,
-    transform 0.1s ease,
-    visibility 0.1s;
+    opacity 0.2s ease,
+    visibility 0s linear 0.2s;
 }
 
 .mb-menu.open {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateY(0);
+  transition: none;
 }
 
 .mb-menu-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 28px;
   width: 100%;
-  padding: 5px 10px;
+  height: 22px;
+  padding: 0 10px 0 12px;
   border: none;
   border-radius: 5px;
   background: transparent;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.9);
   font-family: inherit;
   font-size: 13px;
-  font-weight: 300;
+  font-weight: 400;
   text-align: left;
   white-space: nowrap;
   cursor: default;
@@ -318,29 +336,30 @@ body.wp-vignette #wp-scrim {
 }
 
 .mb-menu-item.disabled {
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .mb-menu-item.disabled:hover {
   background: transparent;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .mb-menu-key {
   /* Un-scrambled face: these are symbols, not shifted text. */
   font-family: "Roboto Plain", "Roboto", sans-serif;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.45);
+  font-size: 12.5px;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .mb-menu-item:hover .mb-menu-key {
-  color: rgba(0, 0, 0, 0.55);
+  color: color-mix(in srgb, var(--mac-on-accent) 75%, transparent);
 }
 
 .mb-menu-sep {
-  height: 0.5px;
-  margin: 5px 8px;
-  background: rgba(255, 255, 255, 0.18);
+  height: 1px;
+  margin: 5px 10px;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 /* ---------------------------------------------------------- desktop icons */
@@ -377,18 +396,20 @@ body.wp-vignette #wp-scrim {
   transition: background 0.12s ease;
 }
 
-.desktop-icon:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-/* macOS puts the blue chip behind the label, not the whole cell. */
-.desktop-icon.selected {
-  background: rgba(255, 255, 255, 0.14);
+/* Finder draws no hover state on the desktop. Selection is two pieces: a
+ * dark rounded plate behind the picture and the accent chip behind the name,
+ * never a box around the whole cell. */
+.desktop-icon.selected .desktop-icon-art {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 7px;
+  box-shadow:
+    0 0 0 4px rgba(0, 0, 0, 0.3),
+    0 0 0 4.5px rgba(255, 255, 255, 0.22);
 }
 
 .desktop-icon.selected .desktop-icon-label {
   background: var(--mac-accent);
-  border-radius: 6px;
+  border-radius: 4px;
   color: var(--mac-on-accent);
   text-shadow: none;
 }
@@ -466,8 +487,8 @@ body.wp-vignette #wp-scrim {
   padding: 1px 5px;
   color: #fff;
   font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.1px;
+  font-weight: 500;
+  letter-spacing: 0;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
   overflow: hidden;
@@ -478,23 +499,85 @@ body.wp-vignette #wp-scrim {
   word-break: break-word;
 }
 
+/* -------------------------------------------------------------- app icons */
+
+/* One neutral icon treatment across the dock, desktop and search.
+ * The theme accent identifies selection and focus, rather than app identity. */
+[data-app] {
+  --app-bg: #2b2d31;
+  --app-fg: #e8eaed;
+}
+
+.app-squircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--app-bg);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.28),
+    inset 0 -0.5px 0 rgba(0, 0, 0, 0.18);
+  color: var(--app-fg);
+  overflow: hidden;
+}
+
+.app-squircle .material-symbols-outlined {
+  color: var(--app-fg) !important;
+  font-variation-settings: "FILL" 0, "wght" 400;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.18);
+}
+
+/* Keep the Home glyph at the same optical size as the other apps. */
+[data-app="start"] .app-squircle .material-symbols-outlined,
+.app-squircle[data-app="start"] .material-symbols-outlined {
+  scale: 1;
+  text-shadow: none;
+}
+
+.app-squircle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Desktop shortcuts to built-in apps get the squircle in place of the bare
+ * accent-coloured glyph. */
+.desktop-icon[data-app] .desktop-icon-art {
+  width: calc(50px * var(--icon-scale));
+  height: calc(50px * var(--icon-scale));
+  margin: calc(-2px * var(--icon-scale)) 0;
+}
+
+.desktop-icon[data-app] .desktop-icon-art .material-symbols-outlined {
+  font-size: calc(30px * var(--icon-scale));
+}
+
+/* An app icon keeps its colour when selected; it just dims, as Finder's do. */
+.desktop-icon[data-app].selected .desktop-icon-art {
+  border-radius: 12px;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)),
+    var(--app-bg);
+}
+
 /* ---------------------------------------------------------------- the dock */
 
 #taskbar {
   position: fixed;
-  bottom: 8px;
+  bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
-  padding: var(--dock-pad);
+  /* A little extra underneath for the running dots to sit in. */
+  padding: var(--dock-pad) var(--dock-pad) calc(var(--dock-pad) + 3px);
   border-radius: var(--dock-radius);
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
-    rgba(30, 30, 34, var(--glass-alpha));
-  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(24, 26, 29, 0.88);
+  border: none;
+  /* Same two-hairline edge as a menu: light inside, dark outside. */
   box-shadow:
-    0 16px 44px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.22),
+    0 0 0 0.5px rgba(0, 0, 0, 0.35),
+    0 10px 36px rgba(0, 0, 0, 0.3);
 }
 
 .dock-items {
@@ -502,7 +585,7 @@ body.wp-vignette #wp-scrim {
   z-index: 1;
   display: flex;
   align-items: flex-end;
-  gap: 6px;
+  gap: 4px;
   /* Icons lift out of the tray on hover; nothing here may clip them. */
   overflow: visible;
 }
@@ -547,7 +630,7 @@ body.wp-vignette #wp-scrim {
   border-radius: 50%;
   background: radial-gradient(
     closest-side,
-    rgba(255, 255, 255, 0.16),
+    rgba(255, 255, 255, 0.1),
     transparent 72%
   );
   opacity: 0;
@@ -562,48 +645,32 @@ body.wp-vignette #wp-scrim {
   will-change: transform;
 }
 
+/* Pinned apps on the left, apps that are only running on the right. */
 .dock-sep {
+  flex: none;
   width: 1px;
   align-self: stretch;
-  margin: 4px;
-  background: rgba(255, 255, 255, 0.28);
+  margin: 6px 5px;
+  background: rgba(255, 255, 255, 0.26);
 }
 
-/* Glass tiles, not painted icons: whatever is behind the dock — including a
- * live wallpaper — shows through and is what gives each tile its colour. */
+/* Dock tiles share a restrained neutral surface. */
 .taskbar-btn {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: none;
   width: 50px;
   height: 50px;
-  border-radius: 13px;
   cursor: pointer;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
   user-select: none;
   transform-origin: bottom center;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
   /* Short, because --mag is rewritten on every pointer move: a long curve
    * here would trail the cursor instead of following it. */
-  transition:
-    transform 0.09s ease-out,
-    background 0.18s ease;
-}
-
-/* The tiles at either end sit right in the dock's own corners, so their
- * outer side takes the dock's radius instead of the tile radius — otherwise
- * the two curves fight each other in that corner. */
-.dock-items > .taskbar-btn:first-child {
-  border-top-left-radius: var(--dock-radius);
-  border-bottom-left-radius: var(--dock-radius);
-}
-
-.dock-items > .taskbar-btn:last-child {
-  border-top-right-radius: var(--dock-radius);
-  border-bottom-right-radius: var(--dock-radius);
+  transition: transform 0.09s ease-out;
 }
 
 /*
@@ -617,30 +684,82 @@ body.wp-vignette #wp-scrim {
  */
 .taskbar-btn {
   --mag: 0;
-  transform: translateY(calc(-12px * var(--mag))) scale(calc(1 + 0.35 * var(--mag)));
+  transform: translateY(calc(-14px * var(--mag))) scale(calc(1 + 0.42 * var(--mag)));
 }
 
-.taskbar-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
+/* Pressing an icon darkens it, the only feedback the Dock gives a click. */
+.taskbar-btn:active .app-squircle {
+  filter: brightness(0.7);
 }
 
-.taskbar-btn:active {
-  filter: brightness(0.86);
+.taskbar-btn .app-squircle {
+  --app-fg: #ededee;
+  width: 100%;
+  height: 100%;
+  background: var(--app-bg);
+  /* The squircle's own small shadow onto the tray. A box-shadow rather than
+   * drop-shadow(): a filter would be re-rasterised at every magnify step. */
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.16),
+    inset 0 -0.5px 0 rgba(0, 0, 0, 0.18),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.taskbar-btn .app-squircle img {
+  filter: grayscale(1);
 }
 
 .taskbar-btn .material-symbols-outlined {
-  font-size: 27px;
+  font-size: 29px;
   line-height: 1;
-  color: #fff;
-  font-variation-settings: "FILL" 1;
-  /* text-shadow, not drop-shadow(): a filter forces the glyph to be
-   * re-rasterised at every step of the magnify scale. */
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
   padding: 0 !important;
   border-radius: 0 !important;
-  cursor: pointer !important;
+  cursor: default !important;
   transform: none !important;
   background-color: transparent !important;
+}
+
+/* A launch bounces the icon, the way the Dock says "starting". It runs on the
+ * standalone `translate` property so it stacks on top of the magnification
+ * transform instead of replacing it. */
+.taskbar-btn.bounce {
+  animation: dock-bounce 0.9s cubic-bezier(0.3, 0, 0.4, 1);
+}
+
+@keyframes dock-bounce {
+  0%   { translate: 0 0; }
+  18%  { translate: 0 -22px; }
+  36%  { translate: 0 0; }
+  52%  { translate: 0 -12px; }
+  68%  { translate: 0 0; }
+  82%  { translate: 0 -4px; }
+  100% { translate: 0 0; }
+}
+
+/* A running app the user did not pin slides into the dock rather than
+ * popping in. */
+.taskbar-btn.transient {
+  animation: dock-arrive 0.32s cubic-bezier(0.2, 0.9, 0.24, 1.02);
+}
+
+.taskbar-btn.transient.bounce {
+  animation:
+    dock-arrive 0.32s cubic-bezier(0.2, 0.9, 0.24, 1.02),
+    dock-bounce 0.9s cubic-bezier(0.3, 0, 0.4, 1) 0.2s;
+}
+
+@keyframes dock-arrive {
+  from { opacity: 0; scale: 0.4; }
+  to   { opacity: 1; scale: 1; }
+}
+
+.taskbar-btn.leaving {
+  pointer-events: none;
+  animation: dock-leave 0.24s ease forwards;
+}
+
+@keyframes dock-leave {
+  to { opacity: 0; scale: 0.4; }
 }
 
 /* Dock tooltip. Rendered in the UNSCRAMBLED face: CSS attr() text never passes
@@ -648,18 +767,19 @@ body.wp-vignette #wp-scrim {
 .taskbar-btn::after {
   content: attr(data-label);
   position: absolute;
-  bottom: calc(100% + 12px);
+  bottom: calc(100% + 14px);
   left: 50%;
-  transform: translateX(-50%) scale(0.75);
-  transform-origin: bottom center;
-  padding: 4px 9px;
-  border-radius: 7px;
-  background: rgba(58, 58, 62, 0.85);
-  border: 0.5px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-  color: #fff;
+  transform: translateX(-50%);
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(40, 40, 44, 0.86);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.16),
+    0 0 0 0.5px rgba(0, 0, 0, 0.5),
+    0 6px 18px rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.92);
   font-family: "Roboto Plain", "Roboto", sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
   white-space: nowrap;
   opacity: 0;
@@ -669,7 +789,7 @@ body.wp-vignette #wp-scrim {
    * to keep alive for something nobody is looking at. The blur is switched on
    * with the tooltip. */
   visibility: hidden;
-  transition: opacity 0.12s ease, visibility 0s linear 0.12s;
+  transition: opacity 0.1s ease, visibility 0s linear 0.1s;
 }
 
 .taskbar-btn:hover::after {
@@ -680,17 +800,16 @@ body.wp-vignette #wp-scrim {
   transition-delay: 0s;
 }
 
-/* Running indicator: a dot under the tray, macOS style. */
+/* Running indicator: one small dot under the icon, nothing more. */
 .taskbar-btn .indicator {
   position: absolute;
-  bottom: -5px;
+  bottom: -6px;
   left: 50%;
   transform: translateX(-50%);
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.78);
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -702,26 +821,50 @@ body.wp-vignette #wp-scrim {
 /* ----------------------------------------------------------------- windows */
 
 .winbox {
-  background: rgba(40, 40, 44, calc(var(--glass-alpha) + 0.02)) !important;
+  background: rgba(32, 32, 35, calc(var(--glass-alpha) + 0.02)) !important;
   border: none !important;
-  border-radius: 11px !important;
+  border-radius: var(--win-radius) !important;
+  /* Dark outer hairline; the light inner one is ::after below, since an
+   * inset shadow here would be painted under the header and the body. */
   box-shadow:
-    0 0 0 0.5px rgba(255, 255, 255, 0.22),
-    0 30px 70px rgba(0, 0, 0, 0.6),
-    0 8px 20px rgba(0, 0, 0, 0.35) !important;
+    0 0 0 0.5px rgba(0, 0, 0, 0.75),
+    0 22px 70px 4px rgba(0, 0, 0, 0.5),
+    0 8px 20px rgba(0, 0, 0, 0.3) !important;
   overflow: hidden !important;
+}
+
+.winbox::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.16);
+  pointer-events: none;
 }
 
 .winbox .wb-header {
   display: flex !important;
   align-items: center !important;
-  background: rgba(255, 255, 255, 0.07) !important;
-  border-radius: 11px 11px 0 0 !important;
-  box-shadow: inset 0 -0.5px 0 rgba(255, 255, 255, 0.1) !important;
+  height: var(--win-header-h) !important;
+  line-height: var(--win-header-h) !important;
+  background: rgba(255, 255, 255, 0.055) !important;
+  border-radius: var(--win-radius) var(--win-radius) 0 0 !important;
+  /* The title bar ends in a dark line, as a Mac title bar does in dark mode. */
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.42) !important;
+}
+
+.winbox .wb-body {
+  top: var(--win-header-h) !important;
+}
+
+.winbox.no-header .wb-body {
+  top: 0 !important;
 }
 
 .winbox.max,
-.winbox.max .wb-header {
+.winbox.max .wb-header,
+.winbox.max::after {
   border-radius: 0 !important;
 }
 
@@ -736,44 +879,64 @@ body.wp-vignette #wp-scrim {
   display: none !important;
 }
 
-/*
- * Window controls live on the RIGHT, in the Windows order — close last, at
- * the corner your hand already goes to — but keep the coloured macOS pills.
- * The left of a title bar belongs to the app: the browser's tab strip, an
- * app's own toolbar. Putting the cluster there fought all of them.
- */
+/* Neutral window controls keep their glyphs visible at rest. */
 .winbox .wb-control {
-  order: 2 !important;
+  order: 0 !important;
   float: none !important;
   display: flex !important;
   align-items: center !important;
   gap: 8px !important;
   height: 100% !important;
   max-width: none !important;
-  padding: 0 13px 0 0 !important;
+  padding: 0 0 0 13px !important;
 }
 
-.winbox .wb-control * {
-  width: 12px !important;
-  min-width: 12px !important;
-  height: 12px !important;
+.winbox .wb-control *,
+.wb-cc-btn {
+  display: block !important;
+  width: 20px !important;
+  min-width: 20px !important;
+  height: 20px !important;
   margin: 0 !important;
   padding: 0 !important;
-  border-radius: 50% !important;
+  border: none;
+  border-radius: 5px !important;
   background-image: none !important;
-  background-size: 0 !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 8px 8px !important;
   opacity: 1 !important;
-  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.22);
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.2);
+  cursor: default !important;
   transition: filter 0.12s ease;
 }
 
-.winbox .wb-min   { order: 1 !important; background-color: #febc2e !important; }
-.winbox .wb-max   { order: 2 !important; background-color: #28c840 !important; }
-.winbox .wb-close { order: 3 !important; background-color: #ff5f57 !important; }
+.winbox .wb-close,
+.wb-cc-close { order: 1 !important; background-color: rgba(255, 255, 255, 0.08) !important; }
+.winbox .wb-min,
+.wb-cc-min   { order: 2 !important; background-color: rgba(255, 255, 255, 0.08) !important; }
+.winbox .wb-max,
+.wb-cc-max   { order: 3 !important; background-color: rgba(255, 255, 255, 0.08) !important; }
 .winbox .wb-full  { display: none !important; }
 
-.winbox .wb-control *:hover {
-  filter: brightness(0.88);
+.winbox .wb-control .wb-close,
+.wb-custom-controls .wb-cc-close {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M1.6 1.6l4.8 4.8M6.4 1.6l-4.8 4.8' stroke='%23dfe3e8' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+}
+
+.winbox .wb-control .wb-min,
+.wb-custom-controls .wb-cc-min {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M1.2 4h5.6' stroke='%23dfe3e8' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+}
+
+.winbox .wb-control .wb-max,
+.wb-custom-controls .wb-cc-max {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M2.5 1.3h4.2v4.2zM5.5 6.7H1.3V2.5z' fill='%23dfe3e8'/%3E%3C/svg%3E") !important;
+}
+
+.winbox .wb-control *:active,
+.wb-cc-btn:active {
+  filter: brightness(0.75);
 }
 
 .winbox .wb-drag {
@@ -782,17 +945,21 @@ body.wp-vignette #wp-scrim {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  /* Balance the control cluster so the title lands optically centred. */
-  padding: 0 0 0 64px !important;
+  /* Mirror the light cluster so the title lands on the window's centre. */
+  padding: 0 105px 0 0 !important;
+  min-width: 0;
 }
 
 .winbox .wb-title {
   font-family: "Roboto", sans-serif !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.1px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
   font-size: 13px !important;
-  color: rgba(255, 255, 255, 0.82) !important;
+  color: rgba(255, 255, 255, 0.86) !important;
   text-align: center !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .winbox .wb-body {
@@ -808,55 +975,15 @@ body.wp-vignette #wp-scrim {
 }
 
 /* Chromeless windows draw their own cluster, in the same corner as the
- * framed ones. The browser reserves 90px at the right of its tab strip for
+ * framed ones. The browser reserves 90px at the left of its tab strip for
  * exactly this, and sits its tabs at the height that centres them on these. */
 .wb-custom-controls {
   position: absolute;
-  top: 18px;
-  right: 13px;
+  top: 14px;
+  left: 10px;
   z-index: 5;
   display: flex;
   gap: 8px;
-}
-
-.wb-cc-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 12px;
-  height: 12px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  color: rgba(0, 0, 0, 0.55);
-  cursor: pointer;
-  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.22);
-  transition: filter 0.12s ease;
-}
-
-.wb-cc-close { background: #ff5f57; }
-.wb-cc-min   { background: #febc2e; }
-.wb-cc-max   { background: #28c840; }
-
-.wb-cc-btn:hover {
-  filter: brightness(0.88);
-}
-
-/* The glyphs only show while the pointer is over the cluster, as on macOS. */
-.wb-cc-btn .material-symbols-outlined {
-  font-size: 10px;
-  opacity: 0;
-  color: rgba(0, 0, 0, 0.6);
-  padding: 0 !important;
-  border-radius: 0 !important;
-  transform: none !important;
-  background: none !important;
-  cursor: pointer !important;
-  transition: opacity 0.12s ease !important;
-}
-
-.wb-custom-controls:hover .material-symbols-outlined {
-  opacity: 1;
 }
 
 .window-frame {
@@ -866,15 +993,39 @@ body.wp-vignette #wp-scrim {
   display: block;
 }
 
+/* --------------------------------------------------- minimize to the dock */
+
+/*
+ * windows.js shrinks a minimized window into its dock icon itself, so the
+ * window has to stay painted, at full size, for the length of that motion.
+ * WinBox's own minimized state collapses it into a title-bar stub and hides
+ * the content, which is exactly the frame the animation must not start from.
+ */
+.winbox.min .wb-body > .window-frame {
+  display: block !important;
+}
+
+.winbox.min .wb-min {
+  display: block !important;
+}
+
+.winbox.stowed {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 /* --------------------------------------------------------- floating panels */
 
 .flyout {
   position: fixed;
   z-index: 10000;
-  background: var(--mac-panel);
-  border: 0.5px solid var(--mac-panel-line);
-  border-radius: 14px;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  background: var(--mac-vibrant);
+  border: none;
+  border-radius: 16px;
+  box-shadow:
+    inset 0 0 0 0.5px var(--mac-vibrant-line),
+    0 0 0 0.5px rgba(0, 0, 0, 0.6),
+    0 24px 70px rgba(0, 0, 0, 0.5);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -900,7 +1051,7 @@ body.wp-vignette #wp-scrim {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 14px;
   transform: translate(-50%, -8px) scale(0.97);
 }
 
@@ -913,9 +1064,9 @@ body.wp-vignette #wp-scrim {
   flex: none;
   display: flex;
   align-items: center;
-  gap: 14px;
-  height: 58px;
-  padding: 0 20px;
+  gap: 12px;
+  height: 54px;
+  padding: 0 18px;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
   background: transparent;
   cursor: text;
@@ -923,8 +1074,8 @@ body.wp-vignette #wp-scrim {
 
 .taskbar-search .material-symbols-outlined {
   flex: none;
-  font-size: 24px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.55);
   padding: 0 !important;
   background: none !important;
   border-radius: 0 !important;
@@ -997,18 +1148,21 @@ body.wp-vignette #wp-scrim {
   background: rgba(255, 255, 255, 0.14);
 }
 
+.sf-tile .app-squircle {
+  width: 44px;
+  height: 44px;
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.28),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
 .sf-tile .material-symbols-outlined {
   font-size: 26px;
-  color: #fff;
-  font-variation-settings: "FILL" 1;
-  padding: 8px !important;
-  border-radius: 11px !important;
-  background: rgba(255, 255, 255, 0.1) !important;
+  padding: 0 !important;
+  background: none !important;
+  border-radius: 0 !important;
   transform: none !important;
   cursor: pointer !important;
-  box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .sf-tile-name {
@@ -1046,7 +1200,7 @@ body.wp-vignette #wp-scrim {
 
 /* Spotlight highlights the keyboard row in the system accent. */
 .sf-item:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .sf-item.active {
@@ -1058,7 +1212,15 @@ body.wp-vignette #wp-scrim {
 }
 
 .sf-item.active .sf-item-sub {
-  color: rgba(0, 0, 0, 0.6);
+  color: color-mix(in srgb, var(--mac-on-accent) 72%, transparent);
+}
+
+.sf-item-art.app-squircle {
+  background: var(--app-bg);
+}
+
+.sf-item-art.app-squircle .material-symbols-outlined {
+  font-size: 20px;
 }
 
 .sf-item-art {
@@ -1127,6 +1289,7 @@ body.wp-vignette #wp-scrim {
   right: 8px;
   width: 320px;
   padding: 16px;
+  border-radius: 22px;
   transform: translateX(20px);
 }
 
@@ -1244,14 +1407,15 @@ body.wp-vignette #wp-scrim {
 
 /* Calendar red, the way the macOS date badge is drawn. */
 .cal-day.today {
-  background: #ff453a;
-  color: #fff;
+  background: var(--mac-accent);
+  color: var(--mac-on-accent);
   font-weight: 600;
 }
 
 .cal-day.today:hover {
-  background: #ff5c52;
-  color: #fff;
+  background: var(--mac-accent);
+  color: var(--mac-on-accent);
+  filter: brightness(1.1);
 }
 
 /* ------------------------------------------------------------- scrollbars */
@@ -1352,15 +1516,21 @@ body.bar-autohide.hold-bar #menubar {
     opacity 0.22s ease;
 }
 
-body.dock-autohide #taskbar {
+body.dock-autohide #taskbar,
+/* A maximized window claims the dock's strip of height too, so the dock
+ * folds away while one is up — and, like auto-hide, comes back on hover. */
+body.windows-maximized #taskbar {
   /* Past the bottom edge, and a touch further so the shadow clears too. */
   transform: translateX(-50%) translateY(calc(100% + 24px));
   opacity: 0;
+  pointer-events: none;
 }
 
-body.dock-autohide.reveal-dock #taskbar {
+body.dock-autohide.reveal-dock #taskbar,
+body.windows-maximized.reveal-dock #taskbar {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
+  pointer-events: auto;
 }
 
 /* --------------------------------------------------------- desktop icons */
@@ -1400,11 +1570,10 @@ body.hide-icons #desktop-icons {
 .taskbar-btn {
   width: calc(50px * var(--dock-scale));
   height: calc(50px * var(--dock-scale));
-  border-radius: calc(13px * var(--dock-scale));
 }
 
 .taskbar-btn .material-symbols-outlined {
-  font-size: calc(27px * var(--dock-scale));
+  font-size: calc(26px * var(--dock-scale));
 }
 
 /* Magnification off: the dock still answers the pointer, it just does not
@@ -1427,7 +1596,7 @@ body:not(.dock-magnify) .taskbar-btn {
   font-family: var(--clock-font, "Roboto Plain", "Roboto", sans-serif);
   display: none;
   flex-direction: column;
-  gap: 2px;
+  gap: 10px;
   pointer-events: none;
   user-select: none;
   color: #fff;
@@ -1487,7 +1656,7 @@ body[data-clock-pos="right"] #desktop-clock {
 
 .dc-time {
   font-size: 64px;
-  font-weight: 200;
+  font-weight: 300;
   letter-spacing: -2px;
   line-height: 1;
   font-variant-numeric: tabular-nums;
@@ -1582,4 +1751,47 @@ body[data-clock-align="top"][data-clock-widget="large"][data-clock-pos="left"] #
  * applies any more. */
 body.zen #desktop-icons {
   padding-top: 0;
+}
+/* Clear interaction states without assigning a color to every app. */
+.taskbar-btn:hover .app-squircle {
+  background: #383b40;
+}
+
+.taskbar-btn.open .app-squircle {
+  box-shadow: inset 0 0 0 1px var(--mac-accent);
+}
+
+.taskbar-btn:focus-visible {
+  outline: 2px solid var(--accent, #b9c8d8);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+.winbox .wb-control *:hover,
+.wb-cc-btn:hover {
+  background-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+.winbox .wb-close:hover,
+.wb-cc-close:hover {
+  background-color: #a93636 !important;
+}
+
+@media (max-width: 600px) {
+  #menubar { padding: 0 6px; }
+  .mb-item, .mb-status { padding: 0 6px; }
+  .mb-left > [data-menu="file"],
+  .mb-left > [data-menu="view"],
+  .mb-left > [data-menu="go"],
+  .mb-left > [data-menu="window"],
+  .mb-left > [data-menu="help"],
+  #tray-date, #mb-wp-name { display: none; }
+  #taskbar { max-width: calc(100vw - 24px); }
+  .dock-items { overflow-x: auto; overflow-y: hidden; }
+  .taskbar-btn {
+    width: clamp(32px, 9vw, 44px);
+    height: clamp(32px, 9vw, 44px);
+    transform: none;
+  }
+  .dc-time { font-size: 52px; }
 }

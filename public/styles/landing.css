@@ -1,42 +1,582 @@
-body { display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
-.bg-animation { z-index: 0; }
-.landing { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 28px; padding: 20px; text-align: center; }
-.landing-header h2 { font-size: 1.9rem; font-weight: 300; margin: 0 0 6px; letter-spacing: 2px; }
-.landing-header p { margin: 0; opacity: 0.5; font-size: 0.88rem; letter-spacing: 0.5px; }
-.mode-row, .cloak-row { display: flex; gap: 10px; }
-.mode-card, .cloak-card { display: flex; flex-direction: column; align-items: center; cursor: pointer; border-radius: 12px; backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); transition: background .2s, border-color .2s, transform .15s; user-select: none; }
-.mode-card { gap: 8px; padding: 14px 22px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05); font-size: .82rem; color: rgba(255,255,255,.7); min-width: 100px; }
-.mode-card .material-symbols-outlined, .cloak-card .material-symbols-outlined { padding: 0 !important; border-radius: 0 !important; transform: none !important; background: transparent !important; cursor: pointer !important; transition: color .2s !important; }
-.mode-card .material-symbols-outlined { font-size: 26px; color: rgba(255,255,255,.7); }
-.mode-card:hover, .cloak-card:hover { background: rgba(255,255,255,.09); border-color: transparent; transform: translateY(-2px); }
-.mode-card.selected { border-color: transparent; background: rgba(255,255,255,.12); color: #fff; }
-.mode-card.selected .material-symbols-outlined, .cloak-card:hover .material-symbols-outlined { color: #fff !important; }
-.mode-card, .cloak-card { position: relative; }
-.mode-card::before, .cloak-card::before { content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit; background: var(--rainbow); pointer-events: none; opacity: 0; transition: opacity .2s; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
-.mode-card:hover::before, .mode-card.selected::before, .cloak-card:hover::before { opacity: 1; }
-.divider { width: 260px; height: 1px; background: rgba(255,255,255,.1); }
-.cloak-row { flex-wrap: wrap; justify-content: center; }
-.cloak-card { gap: 6px; padding: 12px 16px; border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.04); font-size: .8rem; color: rgba(255,255,255,.65); min-width: 90px; }
-.cloak-card .material-symbols-outlined { font-size: 24px; color: rgba(255,255,255,.65); }
-.cloak-card:hover { color: #fff; }
-.cloak-card:active { transform: translateY(0); }
+/* =========================================================================
+ * Landing
+ *
+ * The front door uses the same theme, surfaces, accent fills and hairlines as
+ * the Simple and Windows shells on a clean theme background.
+ * ====================================================================== */
 
-/* Discord modal */
-.modal-overlay { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity .25s ease; }
-.modal-overlay.open { opacity: 1; pointer-events: auto; }
-.modal-card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; max-width: 380px; padding: 32px 28px 28px; text-align: center; border-radius: 16px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); box-shadow: 0 8px 32px 0 rgba(0,0,0,.3); transform: translateY(12px) scale(.97); transition: transform .25s ease; }
-.modal-overlay.open .modal-card { transform: translateY(0) scale(1); }
-.modal-card::before { content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit; background: var(--rainbow); pointer-events: none; opacity: .6; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
-.modal-card .material-symbols-outlined { font-size: 36px; color: rgba(255,255,255,.85); }
-.modal-card h3 { margin: 0; font-size: 1.25rem; font-weight: 400; letter-spacing: 1px; color: #fff; }
-.modal-card p { margin: 0; font-size: .88rem; line-height: 1.5; color: rgba(255,255,255,.65); }
-.modal-card a { color: rgba(255,255,255,.85); font-weight: 500; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; transition: text-decoration-color .2s, color .2s; }
-.modal-card a:hover { color: #fff; text-decoration-color: rgba(255,255,255,.7); }
-.modal-close { position: absolute; top: 10px; right: 10px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; border: none; background: transparent; color: rgba(255,255,255,.5); cursor: pointer; transition: background .2s, color .2s; }
-.modal-close:hover { background: rgba(255,255,255,.09); color: #fff; }
-.modal-close .material-symbols-outlined { font-size: 20px; color: inherit; }
-.modal-ok { margin-top: 6px; padding: 10px 34px; border-radius: 25px; border: 1px solid transparent; background: rgba(255,255,255,.1); color: #fff; font-family: inherit; font-size: .88rem; letter-spacing: .5px; cursor: pointer; position: relative; transition: background .2s, transform .15s; }
-.modal-ok:hover { background: rgba(255,255,255,.16); transform: translateY(-1px); }
-.modal-ok:active { transform: translateY(0); }
-.modal-ok::before { content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit; background: var(--rainbow); pointer-events: none; opacity: 0; transition: opacity .2s; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
-.modal-ok:hover::before { opacity: 1; }
+:root {
+  --rainbow: linear-gradient(90deg, #f8b8d0 0%, #f8c9b6 17%, #f2deb4 34%, #bde7d5 52%, #99e3e8 68%, #8ed4f4 84%, #b8c9ff 100%);
+}
+
+html,
+body {
+  min-height: 100%;
+  height: auto;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.speciale {
+  color: transparent;
+  background: var(--rainbow);
+  -webkit-background-clip: text;
+          background-clip: text;
+}
+
+/* ------------------------------------------------------------ corner pills */
+
+.corner {
+  position: fixed;
+  z-index: 3;
+  top: 12px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  user-select: none;
+  animation: land-fade 0.5s var(--ease-out-soft) 0.1s backwards;
+}
+
+.corner-brand {
+  left: 12px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+}
+
+.corner-brand svg {
+  position: relative;
+  width: 18px;
+  height: 16px;
+}
+
+.corner-clock {
+  right: 12px;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.corner-clock .cc-date {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@keyframes land-fade {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ------------------------------------------------------------------ panel */
+
+.landing {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 72px 16px 32px;
+}
+
+@keyframes land-in {
+  from { opacity: 0; transform: scale(0.96) translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.panel {
+  width: 100%;
+  max-width: 640px;
+  padding: 34px 32px 30px;
+  border-radius: 22px;
+  text-align: center;
+  animation: land-in 0.5s var(--ease-spring) backwards;
+}
+
+.panel > * {
+  position: relative;
+}
+
+/* ------------------------------------------------------------------- hero */
+
+.hero-mark {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  border-radius: 18px;
+  color: #fff;
+  background:
+    linear-gradient(
+      color-mix(in srgb, var(--mac-accent) 92%, white 8%),
+      var(--mac-accent)
+    );
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 10px 30px color-mix(in srgb, var(--mac-accent) 50%, transparent);
+  animation: land-in 0.6s var(--ease-spring) 0.08s backwards;
+}
+
+.hero-mark svg {
+  width: 32px;
+  height: 29px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.hero h1 {
+  margin: 0 0 6px;
+  font-size: 1.9rem;
+  font-weight: 300;
+  letter-spacing: 1.5px;
+}
+
+.hero p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ------------------------------------------------------------------ steps */
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 28px 0 12px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.step::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.14), transparent);
+}
+
+.step-num {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  font-size: 11px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.16);
+}
+
+/* ------------------------------------------------------------------ tiles */
+
+/* Mode cards and cloak tiles share one tile: glass that lifts and picks up
+ * the accent on hover, like the dock's. */
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  user-select: none;
+  background: linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  transition:
+    transform 0.2s var(--ease-spring),
+    background 0.18s ease,
+    box-shadow 0.18s ease,
+    color 0.18s ease;
+}
+
+.tile:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  background:
+    linear-gradient(
+      color-mix(in srgb, var(--mac-accent) 22%, rgba(255, 255, 255, 0.16)),
+      color-mix(in srgb, var(--mac-accent) 8%, rgba(255, 255, 255, 0.05))
+    );
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    0 8px 22px color-mix(in srgb, var(--mac-accent) 26%, transparent);
+}
+
+.tile:active {
+  transform: translateY(0) scale(0.97);
+  filter: brightness(0.9);
+}
+
+.tile .material-symbols-outlined {
+  font-size: 24px;
+  font-variation-settings: "FILL" 1;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.tile-name {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.tile-hint {
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.18s ease;
+}
+
+.tile:hover .tile-hint {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* -------------------------------------------------------------- mode cards */
+
+.mode-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.mode-card {
+  gap: 4px;
+  padding: 10px 10px 14px;
+  border-radius: 16px;
+}
+
+/* A thumbnail of the layout the mode opens into. */
+.mode-preview {
+  width: 100%;
+  aspect-ratio: 5 / 3;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  overflow: hidden;
+  background:
+    radial-gradient(80% 90% at 20% 20%, color-mix(in srgb, var(--accent, #8ed4f4) 22%, transparent), transparent),
+    rgba(0, 0, 0, 0.32);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.1);
+}
+
+.mode-preview svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.mode-preview .pv {
+  fill: rgba(255, 255, 255, 0.2);
+}
+
+.mode-preview .pv-dim {
+  fill: rgba(255, 255, 255, 0.1);
+}
+
+.mode-preview .pv-accent {
+  fill: var(--accent, #8ed4f4);
+}
+
+.mode-preview .pv-line {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.45);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Selected: lit in the accent, with a check in the corner. */
+.mode-card[aria-checked="true"] {
+  color: var(--mac-on-accent);
+  background: linear-gradient(
+    color-mix(in srgb, var(--mac-accent) 92%, white 8%),
+    var(--mac-accent)
+  );
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 10px 28px color-mix(in srgb, var(--mac-accent) 45%, transparent);
+}
+
+.mode-card[aria-checked="true"] .tile-hint {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.mode-card[aria-checked="true"] .mode-preview {
+  background: rgba(0, 0, 0, 0.26);
+}
+
+.mode-card[aria-checked="true"] .mode-preview .pv-accent {
+  fill: #fff;
+}
+
+.mode-check {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--mac-accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.16s ease, transform 0.26s var(--ease-spring);
+}
+
+.mode-check .material-symbols-outlined {
+  font-size: 16px;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.mode-card[aria-checked="true"] .mode-check {
+  opacity: 1;
+  transform: none;
+}
+
+/* ------------------------------------------------------------ cloak tiles */
+
+.cloak-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.cloak-card {
+  gap: 6px;
+  padding: 14px 8px 12px;
+  border-radius: 14px;
+}
+
+/* ----------------------------------------------------------------- footer */
+
+.landing-foot {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.55);
+  animation: land-fade 0.5s var(--ease-out-soft) 0.25s backwards;
+}
+
+.foot-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease;
+}
+
+.foot-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.foot-link .material-symbols-outlined {
+  font-size: 16px;
+}
+
+/* ---------------------------------------------------------- discord modal */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.25s ease;
+}
+
+.modal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 380px;
+  padding: 30px 26px 24px;
+  border-radius: 20px;
+  text-align: center;
+  transform: scale(0.94) translateY(12px);
+  transition: transform 0.32s var(--ease-spring);
+}
+
+.modal-card > * {
+  position: relative;
+}
+
+.modal-overlay.open .modal-card {
+  transform: none;
+}
+
+.modal-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  color: #fff;
+  background: linear-gradient(#6d7cff, #4f5de8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 8px 24px rgba(88, 101, 242, 0.45);
+}
+
+.modal-icon .material-symbols-outlined {
+  font-size: 28px;
+  font-variation-settings: "FILL" 1;
+}
+
+.modal-card h3 {
+  margin: 4px 0 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.modal-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.modal-link {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 11px;
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.86rem;
+  text-decoration: none;
+  transition: background 0.16s ease, color 0.16s ease;
+}
+
+.modal-link:hover {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modal-close {
+  position: absolute !important;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease;
+}
+
+.modal-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-close .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.modal-ok {
+  width: 100%;
+  margin-top: 4px;
+  padding: 11px 0;
+  border: 0;
+  border-radius: 12px;
+  color: var(--mac-on-accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: linear-gradient(
+    color-mix(in srgb, var(--mac-accent) 92%, white 8%),
+    var(--mac-accent)
+  );
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 6px 18px color-mix(in srgb, var(--mac-accent) 40%, transparent);
+  transition: transform 0.18s var(--ease-spring), filter 0.16s ease;
+}
+
+.modal-ok:hover {
+  filter: brightness(1.1);
+}
+
+.modal-ok:active {
+  transform: scale(0.97);
+}
+
+/* ----------------------------------------------------------------- motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .corner,
+  .panel,
+  .hero-mark,
+  .landing-foot {
+    animation: none;
+  }
+}
+
+/* ----------------------------------------------------------------- narrow */
+
+@media (max-width: 640px) {
+  .panel {
+    padding: 26px 16px 20px;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .cloak-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tile-hint {
+    display: none;
+  }
+
+  .corner-clock .cc-date {
+    display: none;
+  }
+}

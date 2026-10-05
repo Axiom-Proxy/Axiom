@@ -1,15 +1,57 @@
 const LS_KEY = 'axiom_mode';
 let selectedMode = localStorage.getItem(LS_KEY) || 'simple';
 
+const modeCards = Array.from(document.querySelectorAll('.mode-card'));
+
 function selectMode(mode) {
+    if (!modeCards.some(card => card.dataset.mode === mode)) mode = 'simple';
     selectedMode = mode;
     localStorage.setItem(LS_KEY, mode);
-    document.getElementById('simple-mde').classList.toggle('selected', mode === 'simple');
-    document.getElementById('mode-windows').classList.toggle('selected', mode === 'windows');
-    document.getElementById('mode-remote-desktop').classList.toggle('selected', mode === 'remote-desktop');
+    modeCards.forEach(card => {
+        const on = card.dataset.mode === mode;
+        card.setAttribute('aria-checked', String(on));
+        // Radio group: only the chosen card is in the tab order.
+        card.tabIndex = on ? 0 : -1;
+    });
 }
 
 selectMode(selectedMode);
+
+// Arrow keys move the choice along the row, as in any radio group.
+modeCards.forEach((card, index) => {
+    card.addEventListener('keydown', event => {
+        const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+        if (!step) return;
+        event.preventDefault();
+        const next = modeCards[(index + step + modeCards.length) % modeCards.length];
+        selectMode(next.dataset.mode);
+        next.focus();
+    });
+});
+
+/* The same date and clock the desktop's menu bar keeps. */
+let shownClock = '';
+
+function tickClock() {
+    const now = new Date();
+    const prefs = window.AxiomDesk ? window.AxiomDesk.all() : {};
+    const date = prefs.barDate === false ? '' :
+        now.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+    const time = now.toLocaleTimeString(undefined, {
+        hour: 'numeric',
+        minute: '2-digit',
+        second: prefs.barSeconds ? '2-digit' : undefined,
+        hour12: !prefs.bar24h
+    });
+    // font-scramble.js re-shifts every write; skip the ticks that change nothing.
+    if (date + '|' + time === shownClock) return;
+    shownClock = date + '|' + time;
+    document.getElementById('cc-date').textContent = date;
+    document.getElementById('cc-time').textContent = time;
+}
+
+tickClock();
+setInterval(tickClock, 1000);
 
 function targetPage() {
     return window.location.origin + '/' + selectedMode + '.html';
@@ -30,7 +72,7 @@ function cloakHTML(src) {
 
 function openWindowAB() {
     const features = 'width=1200,height=800,resizable=yes,scrollbars=yes,status=yes';
-    const w = window.open(targetPage(), 'Google', features);
+    const w = (window.axiomOpen || window.open)(targetPage(), 'Google', features);
     setTimeout(() => {
         try {
             w.document.title = 'Google';
@@ -57,12 +99,12 @@ function openFileCloak() {
 
 function openBlobCloak() {
     const blob = new Blob([cloakHTML(targetPage())], { type: 'text/html' });
-    window.open(URL.createObjectURL(blob), '_blank');
+    (window.axiomOpen || window.open)(URL.createObjectURL(blob), '_blank');
     window.location = "https://www.effectivecpmnetwork.com/apcwya80vu?key=d11bdcac615d998ece47753baf97c298"
 }
 
 function openABCloak() {
-    const tab = window.open('about:blank', '_blank');
+    const tab = (window.axiomOpen || window.open)('about:blank', '_blank');
     tab.document.write(cloakHTML(targetPage()));
     tab.document.close();
 }

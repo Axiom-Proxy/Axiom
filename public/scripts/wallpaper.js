@@ -54,10 +54,6 @@
 
     /* ------------------------------------------------------------ playback */
 
-    function reducedMotion() {
-        return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    }
-
     function windowsCover() {
         // windows.js declares openWindows with `const`, so it lives in the
         // script-global lexical scope and never lands on `window`.
@@ -75,7 +71,8 @@
         const p = desk.all();
         if (p.wpMode !== 'live' || !currentName) return false;
         if (manualPause) return false;
-        if (reducedMotion()) return false;
+        // First-launch defaults respect reduced motion in desktop-prefs.js.
+        // An explicit saved live choice can still play on those machines.
         if (p.wpPauseHidden && document.hidden) return false;
         if (p.wpPauseWindows && windowsCover()) return false;
         return true;
@@ -88,7 +85,12 @@
             v.playbackRate = rate;
             if (go && i === active) {
                 const started = v.play();
-                if (started && started.catch) started.catch(() => { /* autoplay blocked */ });
+                if (started && started.catch) started.catch(e => {
+                    // Autoplay refused (Safari Low Power Mode, Brave, strict
+                    // Firefox, Chrome's saver modes): try again on the first
+                    // click or key, which always counts as a user gesture.
+                    if (e && e.name === 'NotAllowedError') retryOnGesture();
+                });
             } else {
                 v.pause();
             }
@@ -104,6 +106,20 @@
         emit();
     }
 
+    let gestureArmed = false;
+
+    function retryOnGesture() {
+        if (gestureArmed) return;
+        gestureArmed = true;
+        const events = ['pointerdown', 'keydown', 'touchstart'];
+        const retry = () => {
+            events.forEach(t => window.removeEventListener(t, retry, true));
+            gestureArmed = false;
+            syncPlayback();
+        };
+        events.forEach(t => window.addEventListener(t, retry, { capture: true, passive: true }));
+    }
+
     /* ------------------------------------------------------------ swapping */
 
     function showBuffer(index) {
@@ -111,30 +127,39 @@
         active = index;
     }
 
+    // Bumped on every load, so callbacks from a load that has since been
+    // superseded (a fast second pick in the gallery, a shuffle mid-load)
+    // recognise themselves as stale and do nothing.
+    let loadSeq = 0;
+
     /** Loads `name` into the spare buffer and crossfades to it. */
     function loadClip(name) {
         if (!name) return;
         if (name === currentName) { syncPlayback(); return; }
 
+        const seq = ++loadSeq;
         const nextIndex = (active + 1) % videos.length;
         const el = videos[nextIndex];
         const previous = videos[active];
 
+        el.muted = true;
         el.poster = frameFor(name);
         el.src = urlFor(name);
         el.load();
 
         let settled = false;
         const commit = () => {
-            if (settled) return;
+            if (settled || seq !== loadSeq) return;
             settled = true;
             currentName = name;
             showBuffer(nextIndex);
             syncPlayback();
             // Free the buffer that just left: a paused clip still holds its
-            // decoded frames, and at 4K that is real memory.
+            // decoded frames, and at 4K that is real memory. Only if nothing
+            // has been loaded into it since — otherwise this would unload the
+            // clip the user just picked and leave its poster frozen on screen.
             setTimeout(() => {
-                if (videos[active] === previous) return;
+                if (seq !== loadSeq || videos[active] === previous) return;
                 previous.pause();
                 previous.removeAttribute('src');
                 previous.load();
@@ -142,7 +167,13 @@
         };
 
         el.addEventListener('loadeddata', commit, { once: true });
-        el.addEventListener('error', () => { settled = true; console.warn('[wallpaper] could not load', name); }, { once: true });
+        el.addEventListener('error', () => {
+            if (seq !== loadSeq) return;
+            settled = true;
+            console.warn('[wallpaper] could not load', name);
+            // Keep the desktop visible if the selected video is unavailable.
+            desk.set('wpMode', 'still');
+        }, { once: true });
         // A cold clip over a slow link should still get its first frame up.
         setTimeout(commit, 2500);
     }
@@ -155,6 +186,7 @@
         if (document.body) document.body.classList.toggle('wp-live', live);
 
         if (!live) {
+            loadSeq++; // a clip still loading must not fade in over the still
             videos.forEach(v => { v.pause(); v.classList.remove('on'); });
             currentName = '';
             stopShuffle();
@@ -168,8 +200,8 @@
         if (p.wpLive) {
             loadClip(p.wpLive);
         } else {
-            // Live mode with nothing chosen yet — which is how Axiom ships —
-            // takes the first clip there is. An install with no clips at all
+            // Live mode with nothing chosen yet takes the first clip there is.
+            // An install with no clips at all
             // falls back to the still picture rather than to a black screen.
             list().then(all => {
                 if (all.length) desk.set('wpLive', all[0].name);

@@ -153,17 +153,17 @@
 
     /** The windows the shell itself provides, searchable alongside everything else. */
     const SHELL_ITEMS = [
-        { name: 'Home', icon: 'language', run: () => openWindow('Home', 'start', 'tabs.html', { chromeless: true }) },
-        { name: 'Apps', icon: 'apps', run: () => openWindow('Apps', 'apps', 'apps.html') },
-        { name: 'Games', icon: 'sports_esports', run: () => openWindow('Games', 'games', 'games_norm.html') },
-        { name: 'Web Games', icon: 'stadia_controller', run: () => openWindow('Web Games', 'games-web', 'games_web.html') },
-        { name: 'Theater', icon: 'movie', run: () => openWindow('Theater', 'theater', 'theater.html') },
-        { name: 'Chat', icon: 'chat', run: () => openWindow('Chat', 'chat', 'chat.html') },
-        { name: 'Files', icon: 'folder', run: () => openWindow('Files', 'files', 'explorer.html') },
-        { name: 'Terminal', icon: 'terminal', run: () => openWindow('Terminal', 'terminal', 'terminal.html') },
-        { name: 'LM Studio', icon: 'neurology', run: () => openWindow('LM Studio', 'lmstudio', 'lmstudio.html') },
-        { name: 'Axiom Defender', icon: 'security', run: () => openWindow('Axiom Defender', 'defender', 'defender.html') },
-        { name: 'Settings', icon: 'settings', run: () => openWindow('Settings', 'settings', 'settings.html') }
+        { name: 'Home', app: 'start', icon: 'explore', run: () => openWindow('Home', 'start', 'tabs.html', { chromeless: true }) },
+        { name: 'Apps', app: 'apps', icon: 'apps', run: () => openWindow('Apps', 'apps', 'apps.html') },
+        { name: 'Games', app: 'games', icon: 'sports_esports', run: () => openWindow('Games', 'games', 'games_norm.html') },
+        { name: 'Web Games', app: 'games-web', icon: 'stadia_controller', run: () => openWindow('Web Games', 'games-web', 'games_web.html') },
+        { name: 'Theater', app: 'theater', icon: 'movie', run: () => openWindow('Theater', 'theater', 'theater.html') },
+        { name: 'Chat', app: 'chat', icon: 'chat', run: () => openWindow('Chat', 'chat', 'chat.html') },
+        { name: 'Files', app: 'files', icon: 'folder', run: () => openWindow('Files', 'files', 'explorer.html') },
+        { name: 'Terminal', app: 'terminal', icon: 'terminal', run: () => openWindow('Terminal', 'terminal', 'terminal.html') },
+        { name: 'LM Studio', app: 'lmstudio', icon: 'neurology', run: () => openWindow('LM Studio', 'lmstudio', 'lmstudio.html') },
+        { name: 'Axiom Defender', app: 'defender', icon: 'security', run: () => openWindow('Axiom Defender', 'defender', 'defender.html') },
+        { name: 'Settings', app: 'settings', icon: 'settings', run: () => openWindow('Settings', 'settings', 'settings.html') }
     ];
 
     let catalogs = null;
@@ -209,13 +209,13 @@
 
     function openApp(app) {
         openWindow(app.app_name, 'app:' + app.app_name,
-            'render.html?url=' + encodeURIComponent(btoa(app.app_url)));
+            'render.html?url=' + encodeURIComponent(btoa(app.app_url)), { img: app.app_img });
     }
 
     function openGame(game) {
         openWindow(game.app_name, 'game:' + game.app_name,
             'game.html?url=' + encodeURIComponent(btoa(game.app_url)) +
-            '&title=' + encodeURIComponent(game.app_name));
+            '&title=' + encodeURIComponent(game.app_name), { img: game.app_img });
     }
 
     function esc(text) {
@@ -229,7 +229,9 @@
         row.type = 'button';
         row.className = 'sf-item';
         row.innerHTML =
-            '<div class="sf-item-art">' +
+            (opts.app
+                ? '<div class="sf-item-art app-squircle" data-app="' + esc(opts.app) + '">'
+                : '<div class="sf-item-art">') +
             (opts.img
                 ? '<img src="' + esc(opts.img) + '" alt="" loading="lazy">'
                 : '<span class="material-symbols-outlined">' + esc(opts.icon) + '</span>') +
@@ -264,7 +266,8 @@
         tile.type = 'button';
         tile.className = 'sf-tile';
         tile.innerHTML =
-            '<span class="material-symbols-outlined">' + esc(item.icon) + '</span>' +
+            '<span class="app-squircle" data-app="' + esc(item.app) + '">' +
+            '<span class="material-symbols-outlined">' + esc(item.icon) + '</span></span>' +
             '<span class="sf-tile-name">' + esc(item.name) + '</span>';
         tile.addEventListener('click', () => {
             closeSearch();
@@ -332,7 +335,7 @@
             search.active = -1;
 
             addGroup('System', rank(SHELL_ITEMS, query, i => i.name).slice(0, LIMIT).map(item =>
-                buildRow({ name: item.name, sub: 'System', icon: item.icon, run: item.run })));
+                buildRow({ name: item.name, sub: 'System', app: item.app, icon: item.icon, run: item.run })));
 
             addGroup('Apps', rank(data.apps, query, a => a.app_name).slice(0, LIMIT).map(app =>
                 buildRow({ name: app.app_name, sub: 'App', img: app.app_img, run: () => openApp(app) })));

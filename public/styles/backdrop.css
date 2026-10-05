@@ -1,0 +1,197 @@
+/* =========================================================================
+ * Backdrop
+ *
+ * What every Axiom page outside the desktop stands on: the desktop's own
+ * wallpaper layer (still picture, live-wallpaper buffers, accent bloom,
+ * scrim) and the one glass slab recipe its panels are cut from.
+ *
+ * Every surface reads the knobs desktop-prefs.js writes (--glass-alpha,
+ * --glass-blur, body.glass, body.glass-tint), so Transparency and Tint in
+ * Settings land here exactly as they do on the desktop. Pair it with
+ * scripts/backdrop.js, which points --wallpaper at the chosen picture.
+ * ====================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --mac-accent: var(--accent-solid, var(--accent, #3e8fb0));
+  --mac-on-accent: var(--on-accent, #ffffff);
+  --ease-out-soft: cubic-bezier(0.22, 0.8, 0.3, 1);
+  --ease-spring: cubic-bezier(0.2, 0.9, 0.24, 1.02);
+
+  /* Written by desktop-prefs.js; these are only what shows before it runs. */
+  --wp-blur: 0px;
+  --wp-dim: 0;
+  --wp-sat: 100%;
+  --glass-blur: 0px;
+  --glass-sat: 100%;
+  --glass-alpha: 0.96;
+  --glass-line: 0.1;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg, linear-gradient(to bottom, #000000, rgb(14, 14, 14)));
+  background-attachment: fixed;
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent, #8ed4f4) 80%, white);
+  outline-offset: 2px;
+}
+
+.material-symbols-outlined {
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* ------------------------------------------------------- wallpaper layer */
+
+#wallpaper-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #05050a;
+  --wp-shift-x: 0px;
+  --wp-shift-y: 0px;
+}
+
+#wp-still,
+.wp-video {
+  position: absolute;
+  inset: -3%;
+  width: 106%;
+  height: 106%;
+}
+
+body.wp-filtered #wp-still,
+body.wp-filtered .wp-video {
+  filter: blur(var(--wp-blur)) saturate(var(--wp-sat));
+}
+
+#wp-still {
+  background: center / cover no-repeat var(--wallpaper);
+  transition: opacity 0.6s ease, filter 0.25s ease;
+}
+
+.wp-video {
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.7s ease, filter 0.25s ease;
+}
+
+.wp-video.on {
+  opacity: 1;
+}
+
+body.wp-live #wp-still {
+  opacity: 0;
+}
+
+#wallpaper-layer.parallax #wp-still,
+#wallpaper-layer.parallax .wp-video {
+  transform: translate3d(var(--wp-shift-x), var(--wp-shift-y), 0) scale(1.04);
+  transition:
+    transform 0.5s var(--ease-out-soft),
+    opacity 0.7s ease,
+    filter 0.25s ease;
+}
+
+#wp-bloom {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.5;
+  background:
+    radial-gradient(38% 44% at 22% 26%, color-mix(in srgb, var(--mac-accent) 46%, transparent), transparent 70%),
+    radial-gradient(34% 40% at 78% 72%, color-mix(in srgb, var(--mac-accent) 26%, #6a4cff 30%), transparent 72%);
+  animation: axm-bloom 48s ease-in-out infinite alternate;
+}
+
+body.wp-hidden #wp-bloom {
+  animation-play-state: paused;
+}
+
+body.wp-live #wp-bloom {
+  display: none;
+}
+
+@keyframes axm-bloom {
+  0%   { transform: translate3d(-3%, -2%, 0) scale(1); }
+  50%  { transform: translate3d(3%, 2%, 0) scale(1.08); }
+  100% { transform: translate3d(-1%, 3%, 0) scale(1.03); }
+}
+
+#wp-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: rgba(0, 0, 0, var(--wp-dim));
+  transition: background 0.25s ease;
+}
+
+body.wp-vignette #wp-scrim {
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.45), transparent 18%, transparent 76%, rgba(0, 0, 0, 0.5)),
+    radial-gradient(ellipse at center, transparent 42%, rgba(0, 0, 0, 0.42) 100%),
+    rgba(0, 0, 0, var(--wp-dim));
+}
+
+/* ------------------------------------------------------------------ glass */
+
+/* One slab recipe for every panel: a lit top edge, a hairline, and a shadow
+ * that floats it a few millimetres off the wallpaper. */
+.glass {
+  position: relative;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03)),
+    rgba(30, 30, 34, var(--glass-alpha));
+  border: 0.5px solid rgba(255, 255, 255, calc(var(--glass-line) + 0.1));
+  box-shadow:
+    0 22px 54px rgba(0, 0, 0, 0.46),
+    0 4px 14px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.22);
+}
+
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.12), transparent 42%);
+}
+
+body.glass .glass {
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+}
+
+body.glass-tint .glass {
+  background:
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--mac-accent) 20%, transparent),
+      color-mix(in srgb, var(--mac-accent) 8%, transparent)
+    ),
+    rgba(30, 30, 34, var(--glass-alpha));
+}

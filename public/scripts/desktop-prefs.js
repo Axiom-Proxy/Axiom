@@ -12,18 +12,20 @@
 
     const KEY = 'axiom_desktop_prefs';
     const CHANNEL = 'axiom-desktop-prefs';
+    const DEFAULT_WALLPAPER = 'forest';
 
     const DEFAULTS = {
         /* ------------------------------------------------------ wallpaper */
-        wpMode: 'still',        // 'still' | 'live'
-        wpLive: '',             // filename inside animated_wallpapers/
+        // Respect reduced motion on first launch; saved choices still win.
+        wpMode: window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'still' : 'live',
+        wpLive: 'ff43a2b538_aurora-forest-night-live-wallpaper-wallsflow-com.mp4',
         wpShuffle: false,
         wpShuffleMins: 10,
         wpRate: 1,              // playback speed, 0.25 - 2
         wpBlur: 0,              // px
-        wpDim: 0,               // 0 - 80 (%)
+        wpDim: 15,              // 0 - 80 (%)
         wpSat: 100,             // 50 - 200 (%)
-        wpVignette: false,
+        wpVignette: true,
         wpParallax: false,
         wpPauseHidden: true,    // stop decoding while the tab is in the back
         wpPauseWindows: false,  // stop decoding while a window covers it
@@ -33,7 +35,7 @@
         // icons are one keystroke (Ctrl+Shift+D) away when they are wanted.
         showIcons: false,
         iconSize: 1,            // 0.75 - 1.5
-        clockWidget: 'large',   // 'off' | 'small' | 'large'
+        clockWidget: 'small',   // 'off' | 'small' | 'large'
         clockPos: 'center',     // 'left' | 'center' | 'right'
         clockAlign: 'middle',   // 'top' | 'middle' | 'bottom'
         clockFont: '',          // a Google Fonts family; '' is Axiom's own
@@ -42,7 +44,7 @@
         zen: false,
 
         /* ----------------------------------------------------------- dock */
-        dockSize: 1,            // 0.7 - 1.4
+        dockSize: 0.9,          // 0.7 - 1.4
         dockMagnify: true,
         dockAutohide: false,
 
@@ -55,7 +57,7 @@
         barWallpaper: true,     // the live-wallpaper control in the menu bar
 
         /* ---------------------------------------------------------- glass */
-        transparency: 0,        // 0 = solid panels, 100 = fully frosted glass
+        transparency: 40,       // 0 = solid panels, 100 = fully frosted glass
         tint: false             // wash the panels with the accent colour
     };
 
@@ -168,6 +170,10 @@
         // every panel and window each frame. Only carry the filter once it
         // actually blurs something.
         flag('glass', clear > 0);
+        // Same reasoning for the wallpaper: blur(0) saturate(100%) is still a
+        // filter, and on a playing <video> it knocks the clip off the GPU's
+        // overlay path and re-runs a full-screen filter pass on every frame.
+        flag('wp-filtered', clamp(prefs.wpBlur, 0, 60) > 0 || clamp(prefs.wpSat, 40, 220) !== 100);
         body.dataset.clockWidget = prefs.clockWidget;
         body.dataset.clockPos = prefs.clockPos;
         body.dataset.clockAlign = prefs.clockAlign;
@@ -236,6 +242,7 @@
 
     window.AxiomDesk = {
         DEFAULTS,
+        DEFAULT_WALLPAPER,
         wallpaperTitle,
         loadFont,
         CLOCK_FONTS,

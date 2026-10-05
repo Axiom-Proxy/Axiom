@@ -62,7 +62,10 @@
      * given can never change the number that decided it.
      */
     const dock = document.getElementById('taskbar');
-    const dockItems = dock ? Array.from(dock.querySelectorAll('.taskbar-btn')) : [];
+    // Re-collected on each measure: apps that are running but not pinned
+    // come and go from the dock (windows.js).
+    let dockItems = [];
+    let lastMag = [];
 
     // How far either side of the pointer the lift reaches, in tile widths.
     const MAG_REACH = 2.1;
@@ -78,10 +81,11 @@
     let geo = null;         // [{ centre, reach }] in client coords, per tile
     let pending = 0;        // rAF handle, so bursts of moves paint once
     let pendingX = 0;
-    const lastMag = dockItems.map(() => -1);
 
     function measure() {
         if (!dock) return;
+        dockItems = Array.from(dock.querySelectorAll('.taskbar-btn:not(.leaving)'));
+        lastMag = dockItems.map(() => -1);
         const rect = dock.getBoundingClientRect();
         // The dock is transformed (translateX(-50%)), so scale layout offsets
         // by the ratio the transform is drawing them at.
@@ -142,6 +146,9 @@
         dock.addEventListener('click', () => setTimeout(unmagnify, 250));
         window.addEventListener('blur', unmagnify);
         window.addEventListener('resize', () => { geo = null; }, { passive: true });
+        // A tile arriving or leaving moves every tile after it.
+        const items = dock.querySelector('.dock-items');
+        if (items) new MutationObserver(() => { geo = null; }).observe(items, { childList: true });
     }
 
     if (clock) {
@@ -182,6 +189,9 @@
     }
 
     function hiding(which) {
+        // A maximized window folds the dock away too, so let the same
+        // edge-reveal bring it back even when auto-hide is off.
+        if (which === 'dock' && body.classList.contains('windows-maximized')) return true;
         return which === 'bar' ? hideBar : hideDock;
     }
 

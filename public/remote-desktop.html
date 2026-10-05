@@ -1,44 +1,219 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <script src="./scripts/font-scramble.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remote Desktop</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="./fonts/fonts.css">
-    <link href="./styles/loader.css" rel="stylesheet">
-    <link href="./styles/main.css" rel="stylesheet">
-    <link href="./styles/remote-desktop.css" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EP8214CHBW"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-EP8214CHBW');
-    </script>
+<script src="/scripts/font-scramble.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Remote Desktop | Axiom</title>
+<link rel="icon" href="/assets/axiom.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<script src="/scripts/theme.js"></script>
+<!-- Apply the user's shared surface preferences before first paint. -->
+<script src="/scripts/desktop-prefs.js"></script>
+<link rel="stylesheet" href="/styles/loader.css">
+<link rel="stylesheet" href="/styles/backdrop.css">
+<link rel="stylesheet" href="/styles/remote-desktop.css">
 </head>
 <body>
-    <div id="axiom-loader" class="ao-loader">
-        <div class="ao-loader-logo">Axiom</div>
-        <div class="ao-loader-spinner"></div>
-    </div>
-    <main class="remote-desktop" id="remoteDesktop">
-        <form class="remote-desktop__form" id="connectionForm">
-            <h1>Remote Desktop</h1>
-            <label>Server<span class="remote-desktop__field"><input name="host" autocomplete="url" required></span></label>
-            <label>Port<span class="remote-desktop__field"><input name="port" type="number" min="1" max="65535" value="3389" required></span></label>
-            <label>Domain<span class="remote-desktop__field"><input name="domain" autocomplete="organization"></span></label>
-            <label>Username<span class="remote-desktop__field"><input name="username" autocomplete="username"></span></label>
-            <label>Access token<span class="remote-desktop__field"><input name="accessToken" type="password" autocomplete="current-password" required></span></label>
-            <p class="remote-desktop__status" id="connectionStatus" aria-live="polite"></p>
-            <button type="submit">Connect</button>
+
+<div id="axiom-loader" class="ao-loader">
+  <div class="ao-loader-logo">Axiom</div>
+  <div class="ao-loader-spinner"></div>
+</div>
+
+<!-- ────────────────────────────  CONNECT SCREEN  ──────────────────────────── -->
+<main id="connect-screen" class="screen connect-shell">
+  <header class="appbar">
+    <a class="app-brand" href="/" aria-label="Axiom home">
+      <svg viewBox="0 0 24 22" aria-hidden="true">
+        <path d="M12 1.8 22.6 20.2H1.4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M12 8 17.4 17.6H6.6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M12 12.6 14.1 16.2H9.9Z" fill="currentColor"/>
+      </svg>
+      <span>Axiom</span>
+    </a>
+    <span class="appbar-divider" aria-hidden="true"></span>
+    <span class="app-name">Remote Desktop</span>
+    <span id="server-status" class="dot-status"><i class="dot"></i> connecting…</span>
+  </header>
+
+  <div class="connect-main">
+    <header class="connect-hero">
+      <div class="hero-icon" aria-hidden="true">
+        <span class="material-symbols-outlined">desktop_windows</span>
+      </div>
+      <div>
+        <p class="eyebrow">Remote Desktop</p>
+        <h1>Connect to your PC</h1>
+        <p>Enter the ID and password shown on the computer you want to use.</p>
+      </div>
+    </header>
+
+    <div class="connect-grid">
+      <section class="surface connect-card" aria-labelledby="connect-heading">
+        <div class="section-heading">
+          <span class="material-symbols-outlined" aria-hidden="true">link</span>
+          <div>
+            <h2 id="connect-heading">Connect</h2>
+            <p>Use the details from Axiom Remote Desktop.</p>
+          </div>
+        </div>
+
+        <form id="connect-form" autocomplete="off">
+          <label class="field">
+            <span class="label">Device ID</span>
+            <input id="id-input" inputmode="numeric" placeholder="123 456 789"
+                   maxlength="11" spellcheck="false" autocomplete="off" required>
+          </label>
+
+          <label class="field">
+            <span class="label">Password</span>
+            <div class="pw-wrap">
+              <input id="pass-input" type="password" placeholder="••••••••"
+                     spellcheck="false" autocomplete="off" required>
+              <button type="button" id="pw-toggle" class="pw-toggle" title="Show password" aria-label="Show password">
+                <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+              </button>
+            </div>
+          </label>
+
+          <button type="submit" id="connect-btn" class="primary">
+            <span class="btn-label">Connect</span>
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+          </button>
+
+          <p id="connect-error" class="error" hidden></p>
         </form>
-    </main>
-    <script src="./scripts/loader.js"></script>
-    <script type="module" src="./scripts/remote-desktop.js"></script>
+
+        <section id="recent-wrap" class="recent" hidden>
+          <h3>Recent</h3>
+          <ul id="recent-list"></ul>
+        </section>
+      </section>
+
+      <aside class="surface setup-card" aria-labelledby="setup-heading">
+        <div class="section-heading">
+          <span class="material-symbols-outlined" aria-hidden="true">download</span>
+          <div>
+            <h2 id="setup-heading">Set up your PC</h2>
+            <p>Install the app on the Windows PC you want to access.</p>
+          </div>
+        </div>
+
+        <ol class="setup-steps">
+          <li><span>1</span><p>Download and open Axiom Remote Desktop.</p></li>
+          <li><span>2</span><p>Keep the app running on that PC.</p></li>
+          <li><span>3</span><p>Enter its ID and password here.</p></li>
+        </ol>
+
+        <a class="download" id="download-app" href="/remote-desktop/download">
+          <span class="material-symbols-outlined" aria-hidden="true">download</span>
+          Download for Windows
+        </a>
+        <p id="download-unavailable" class="download-unavailable" hidden>Download unavailable.</p>
+      </aside>
+    </div>
+
+    <footer class="privacy-note">
+      <span class="material-symbols-outlined" aria-hidden="true">lock</span>
+      Only connect to computers you trust.
+    </footer>
+  </div>
+</main>
+
+<!-- ────────────────────────────  SESSION SCREEN  ──────────────────────────── -->
+<div id="session-screen" class="screen session" hidden>
+
+  <div id="toolbar" class="toolbar">
+    <div class="tb-group">
+      <button id="btn-disconnect" class="tb-btn danger" title="Disconnect">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18.36 6.64A9 9 0 1 1 5.64 6.64M12 2v10"/>
+        </svg>
+        <span>Disconnect</span>
+      </button>
+      <span class="tb-title" id="tb-title">—</span>
+    </div>
+
+    <div class="tb-group">
+      <button id="btn-keyboard" class="tb-btn" title="Send text to the remote PC">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/>
+        </svg>
+        <span>Type</span>
+      </button>
+      <button id="btn-audio" class="tb-btn" title="Play the remote PC's sound" aria-pressed="false">
+        <svg class="ico-audio-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/>
+        </svg>
+        <svg class="ico-audio-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" hidden>
+          <path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>
+        </svg>
+        <span>Sound</span>
+      </button>
+      <button id="btn-taskmgr" class="tb-btn" title="Send Ctrl + Shift + Esc">
+        <span class="mono">Ctrl⇧Esc</span>
+      </button>
+      <button id="btn-settings" class="tb-btn" title="Quality settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09A1.65 1.65 0 0 0 15 4.6a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.35.42.63.77.77H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+      <button id="btn-fullscreen" class="tb-btn" title="Fullscreen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/>
+        </svg>
+      </button>
+      <div class="stats mono" id="stats">— fps · — ms</div>
+    </div>
+  </div>
+
+  <div id="stage" class="stage" tabindex="0">
+    <canvas id="screen-canvas"></canvas>
+    <div id="stage-overlay" class="stage-overlay">
+      <div class="spinner"></div>
+      <p id="overlay-text">Waiting for the first frame…</p>
+    </div>
+  </div>
+
+  <!-- Quality popover -->
+  <div id="settings-panel" class="panel glass" hidden>
+    <h3>Stream quality</h3>
+    <label class="slider">
+      <span>Frame rate <b id="fps-val">30</b> fps</span>
+      <input type="range" id="fps-range" min="1" max="60" step="1" value="30">
+    </label>
+    <label class="slider">
+      <span>Image quality <b id="q-val">55</b></span>
+      <input type="range" id="q-range" min="10" max="95" step="5" value="55">
+    </label>
+    <label class="slider">
+      <span>Resolution <b id="s-val">100</b>%</span>
+      <input type="range" id="s-range" min="25" max="100" step="5" value="100">
+    </label>
+    <div class="presets">
+      <button data-preset="smooth" class="chip">Smooth</button>
+      <button data-preset="balanced" class="chip">Balanced</button>
+      <button data-preset="sharp" class="chip">Sharp</button>
+    </div>
+  </div>
+
+  <!-- Type-text popover -->
+  <div id="text-panel" class="panel glass" hidden>
+    <h3>Send text</h3>
+    <p class="panel-hint">Typed on the remote PC as unicode — useful for passwords and pasting.</p>
+    <textarea id="text-input" rows="3" placeholder="Type or paste here…"></textarea>
+    <button id="text-send" class="primary small">Send</button>
+  </div>
+
+  <div id="toast" class="toast glass" hidden></div>
+</div>
+
+<script src="/scripts/loader.js"></script>
+<script src="/scripts/remote-desktop.js"></script>
 </body>
 </html>

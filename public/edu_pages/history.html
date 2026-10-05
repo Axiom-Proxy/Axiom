@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khan Academy | World History: Civilizations &amp; Eras</title>
+    <meta name="description" content="Explore world history with free courses from Khan Academy. Study ancient civilizations, the Renaissance, world wars, and modern history with interactive lessons.">
+    <meta name="keywords" content="world history, ancient civilizations, renaissance, world wars, us history, online learning, khan academy">
+    <meta property="og:title" content="Khan Academy | World History: Civilizations &amp; Eras">
+    <meta property="og:description" content="Free world history courses covering ancient civilizations through the modern era. Video lessons, interactive timelines, and primary source analysis.">
+    <meta property="og:image" content="https://cdn.kastatic.org/images/khan-logo-dark-background-2.png">
+    <meta property="og:site_name" content="Khan Academy">
+    <link rel="icon" href="https://cdn.kastatic.org/images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Lato, 'Helvetica Neue', Arial, sans-serif; background: #f6f7f9; color: #21242c; line-height: 1.6; }
+        .nav { background: #3e2723; padding: 0 24px; display: flex; align-items: center; height: 56px; gap: 32px; }
+        .nav-logo { color: #fff; font-size: 18px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .nav-logo svg { width: 28px; height: 28px; }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 14px; font-weight: 400; }
+        .nav-links a:hover { color: #fff; }
+        .nav-actions { margin-left: auto; display: flex; gap: 12px; }
+        .btn { padding: 8px 20px; border-radius: 4px; font-size: 14px; font-weight: 700; cursor: pointer; border: none; }
+        .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.5); }
+        .btn-fill { background: #ffb700; color: #3e2723; }
+        .hero { background: linear-gradient(135deg, #3e2723 0%, #5d4037 50%, #795548 100%); color: #fff; padding: 64px 24px 56px; text-align: center; }
+        .hero h1 { font-size: 36px; font-weight: 700; margin-bottom: 12px; }
+        .hero p { font-size: 18px; opacity: 0.9; max-width: 640px; margin: 0 auto 28px; }
+        .hero-search { display: flex; justify-content: center; gap: 8px; }
+        .hero-search input { width: 420px; padding: 12px 16px; border-radius: 4px; border: none; font-size: 16px; }
+        .hero-search .btn { padding: 12px 28px; }
+        .section { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+        .section h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; color: #3e2723; }
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .course-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.15s, box-shadow 0.15s; }
+        .course-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+        .course-card-img { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+        .course-card-body { padding: 16px 20px; }
+        .course-card-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .course-card-body .meta { font-size: 13px; color: #6c7180; }
+        .topic-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .topic-item { background: #fff; border-radius: 6px; padding: 16px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .topic-item:hover { background: #efebe9; }
+        .topic-icon { width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; flex-shrink: 0; }
+        .topic-item h4 { font-size: 15px; font-weight: 700; }
+        .topic-item span { font-size: 13px; color: #6c7180; display: block; }
+        .timeline-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .timeline-card { background: #fff; border-radius: 8px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border-left: 4px solid #795548; }
+        .timeline-card h3 { font-size: 17px; font-weight: 700; color: #3e2723; margin-bottom: 4px; }
+        .timeline-card .era { font-size: 13px; color: #795548; font-weight: 700; margin-bottom: 8px; }
+        .timeline-card p { font-size: 14px; color: #555; line-height: 1.7; }
+        .footer { background: #3e2723; color: rgba(255,255,255,0.7); text-align: center; padding: 32px 24px; font-size: 14px; margin-top: 48px; }
+        .footer a { color: #fff; text-decoration: underline; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 700; }
+        .badge-new { background: #d4edda; color: #155724; }
+        .badge-popular { background: #fff3cd; color: #856404; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 26px; }
+            .hero-search { flex-direction: column; align-items: center; }
+            .hero-search input { width: 100%; max-width: 420px; }
+            .topic-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#" class="nav-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 19h6v3h8v-3h6L12 2zm0 3.5L18.5 17h-3.2l-1.3-2.5h-4l-1.3 2.5H5.5L12 5.5zm-1.5 6.7h3L12 8.5l-1.5 3.7z"/></svg>
+            Khan Academy
+        </a>
+        <ul class="nav-links">
+            <li><a href="#">Courses</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">Donate</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="btn btn-outline">Log in</button>
+            <button class="btn btn-fill">Sign up</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>World History: Civilizations &amp; Eras</h1>
+        <p>Journey through thousands of years of human history. From ancient Mesopotamia to the modern world, explore the people, events, and ideas that shaped civilization.</p>
+        <div class="hero-search">
+            <input type="text" placeholder="Search for a history topic...">
+            <button class="btn btn-fill">Search</button>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Featured History Courses</h2>
+        <div class="course-grid">
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #efebe9, #d7ccc8);">🏛️</div>
+                <div class="course-card-body">
+                    <h3>World History <span class="badge badge-popular">Popular</span></h3>
+                    <p class="meta">From 600 BCE to present &mdash; 24 units, 260+ skills</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #e8eaf6, #c5cae9);">🗽</div>
+                <div class="course-card-body">
+                    <h3>US History <span class="badge badge-new">Updated</span></h3>
+                    <p class="meta">Colonial era through the 21st century &mdash; 22 units, 240+ skills</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #fff3e0, #ffe0b2);">🏺</div>
+                <div class="course-card-body">
+                    <h3>Ancient Civilizations</h3>
+                    <p class="meta">Mesopotamia, Egypt, Greece, Rome &mdash; 16 units, 170+ skills</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #fce4ec, #f8bbd0);">⚔️</div>
+                <div class="course-card-body">
+                    <h3>European History</h3>
+                    <p class="meta">Middle Ages through the Cold War &mdash; 18 units, 190+ skills</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #e0f2f1, #b2dfdb);">🌏</div>
+                <div class="course-card-body">
+                    <h3>Asian History</h3>
+                    <p class="meta">China, Japan, India, Southeast Asia &mdash; 14 units, 150+ skills</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #f3e5f5, #ce93d8);">🏴</div>
+                <div class="course-card-body">
+                    <h3>AP&reg; History Prep</h3>
+                    <p class="meta">AP World, US, European History &mdash; Full exam review</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Key Historical Eras</h2>
+        <div class="timeline-grid">
+            <div class="timeline-card">
+                <h3>The Renaissance &amp; Reformation</h3>
+                <p class="era">1300 &ndash; 1650 CE</p>
+                <p>A rebirth of art, science, and humanism swept across Europe. Explore the works of da Vinci, Michelangelo, and the cultural transformations that reshaped Western thought.</p>
+            </div>
+            <div class="timeline-card">
+                <h3>The Age of Revolutions</h3>
+                <p class="era">1750 &ndash; 1850 CE</p>
+                <p>The American, French, and Industrial Revolutions redefined governance, economics, and society. Understand how Enlightenment ideas fueled political upheaval worldwide.</p>
+            </div>
+            <div class="timeline-card">
+                <h3>The World Wars</h3>
+                <p class="era">1914 &ndash; 1945 CE</p>
+                <p>Two global conflicts reshaped borders, ideologies, and the international order. Analyze the causes, major battles, and lasting consequences of WWI and WWII.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Popular History Topics</h2>
+        <div class="topic-list">
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #4e342e;">🏛️</div>
+                <div>
+                    <h4>Ancient Rome</h4>
+                    <span>Republic, Empire, law, architecture, fall</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #6d4c41;">📜</div>
+                <div>
+                    <h4>The Silk Road</h4>
+                    <span>Trade routes, cultural exchange, empires</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #5d4037;">🏰</div>
+                <div>
+                    <h4>The Middle Ages</h4>
+                    <span>Feudalism, Crusades, Black Death, cathedrals</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #8d6e63;">🌍</div>
+                <div>
+                    <h4>Age of Exploration</h4>
+                    <span>Columbian Exchange, colonization, trade empires</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #3e2723;">🔬</div>
+                <div>
+                    <h4>The Enlightenment</h4>
+                    <span>Scientific Revolution, philosophers, democratic ideals</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #795548;">🗳️</div>
+                <div>
+                    <h4>The Cold War</h4>
+                    <span>Superpowers, proxy wars, nuclear era, space race</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #a1887f;">🏭</div>
+                <div>
+                    <h4>Industrial Revolution</h4>
+                    <span>Factories, urbanization, labor movements</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #4e342e;">📖</div>
+                <div>
+                    <h4>World Religions</h4>
+                    <span>Origins, spread, influence on civilizations</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 Khan Academy. All rights reserved. | <a href="#">About</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        <p style="margin-top:8px;">Our mission is to provide a free, world-class education to anyone, anywhere.</p>
+    </footer>
+</body>
+</html>

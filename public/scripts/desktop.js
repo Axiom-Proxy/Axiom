@@ -167,11 +167,11 @@
             allIcons.push({
                 id: 'builtin:' + shortcut.key,
                 class: 'desktop-icon app-shortcut',
-                dataset: { key: shortcut.key, page: shortcut.page, title: shortcut.title },
+                dataset: { key: shortcut.key, page: shortcut.page, title: shortcut.title, app: shortcut.key },
                 draggable: true,
                 title: shortcut.title,
                 html:
-                    `<div class="desktop-icon-art app">` +
+                    `<div class="desktop-icon-art app app-squircle">` +
                     `<span class="material-symbols-outlined">${shortcut.icon}</span>` +
                     `</div>` +
                     `<div class="desktop-icon-label">${ui.escHtml(shortcut.title)}</div>`

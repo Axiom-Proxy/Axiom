@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khan Academy | Science: Biology, Chemistry &amp; Physics</title>
+    <meta name="description" content="Explore free science courses from Khan Academy. Learn biology, chemistry, physics, and environmental science with interactive lessons and practice exercises.">
+    <meta name="keywords" content="science, biology, chemistry, physics, earth science, online learning, khan academy">
+    <meta property="og:title" content="Khan Academy | Science: Biology, Chemistry &amp; Physics">
+    <meta property="og:description" content="Free science courses covering biology, chemistry, physics, and more. Video lessons, interactive exercises, and real-world applications.">
+    <meta property="og:image" content="https://cdn.kastatic.org/images/khan-logo-dark-background-2.png">
+    <meta property="og:site_name" content="Khan Academy">
+    <link rel="icon" href="https://cdn.kastatic.org/images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Lato, 'Helvetica Neue', Arial, sans-serif; background: #f6f7f9; color: #21242c; line-height: 1.6; }
+        .nav { background: #0a2a5e; padding: 0 24px; display: flex; align-items: center; height: 56px; gap: 32px; }
+        .nav-logo { color: #fff; font-size: 18px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .nav-logo svg { width: 28px; height: 28px; }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 14px; font-weight: 400; }
+        .nav-links a:hover { color: #fff; }
+        .nav-actions { margin-left: auto; display: flex; gap: 12px; }
+        .btn { padding: 8px 20px; border-radius: 4px; font-size: 14px; font-weight: 700; cursor: pointer; border: none; }
+        .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.5); }
+        .btn-fill { background: #ffb700; color: #0a2a5e; }
+        .hero { background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 50%, #388e3c 100%); color: #fff; padding: 64px 24px 56px; text-align: center; }
+        .hero h1 { font-size: 36px; font-weight: 700; margin-bottom: 12px; }
+        .hero p { font-size: 18px; opacity: 0.9; max-width: 640px; margin: 0 auto 28px; }
+        .hero-search { display: flex; justify-content: center; gap: 8px; }
+        .hero-search input { width: 420px; padding: 12px 16px; border-radius: 4px; border: none; font-size: 16px; }
+        .hero-search .btn { padding: 12px 28px; }
+        .section { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+        .section h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; color: #1b5e20; }
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .course-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.15s, box-shadow 0.15s; }
+        .course-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+        .course-card-img { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+        .course-card-body { padding: 16px 20px; }
+        .course-card-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .course-card-body .meta { font-size: 13px; color: #6c7180; }
+        .topic-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .topic-item { background: #fff; border-radius: 6px; padding: 16px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .topic-item:hover { background: #e8f5e9; }
+        .topic-icon { width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; flex-shrink: 0; }
+        .topic-item h4 { font-size: 15px; font-weight: 700; }
+        .topic-item span { font-size: 13px; color: #6c7180; display: block; }
+        .article-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .article-card { background: #fff; border-radius: 8px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .article-card h3 { font-size: 17px; font-weight: 700; color: #1b5e20; margin-bottom: 8px; }
+        .article-card p { font-size: 14px; color: #555; line-height: 1.7; }
+        .article-card .read-more { display: inline-block; margin-top: 12px; color: #1565c0; font-weight: 700; font-size: 14px; text-decoration: none; }
+        .footer { background: #0a2a5e; color: rgba(255,255,255,0.7); text-align: center; padding: 32px 24px; font-size: 14px; margin-top: 48px; }
+        .footer a { color: #fff; text-decoration: underline; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 700; }
+        .badge-new { background: #d4edda; color: #155724; }
+        .badge-popular { background: #fff3cd; color: #856404; }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 26px; }
+            .hero-search { flex-direction: column; align-items: center; }
+            .hero-search input { width: 100%; max-width: 420px; }
+            .topic-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#" class="nav-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 19h6v3h8v-3h6L12 2zm0 3.5L18.5 17h-3.2l-1.3-2.5h-4l-1.3 2.5H5.5L12 5.5zm-1.5 6.7h3L12 8.5l-1.5 3.7z"/></svg>
+            Khan Academy
+        </a>
+        <ul class="nav-links">
+            <li><a href="#">Courses</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">Donate</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="btn btn-outline">Log in</button>
+            <button class="btn btn-fill">Sign up</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Science: Biology, Chemistry &amp; Physics</h1>
+        <p>Explore the natural world with free science courses. Understand life at the molecular level, master the periodic table, and unravel the laws of the universe.</p>
+        <div class="hero-search">
+            <input type="text" placeholder="Search for a science topic...">
+            <button class="btn btn-fill">Search</button>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Featured Science Courses</h2>
+        <div class="course-grid">
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #e8f5e9, #a5d6a7);">🧬</div>
+                <div class="course-card-body">
+                    <h3>Biology <span class="badge badge-popular">Popular</span></h3>
+                    <p class="meta">Cells, genetics, evolution, ecology &mdash; 22 units, 240+ skills</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #e3f2fd, #90caf9);">⚗️</div>
+                <div class="course-card-body">
+                    <h3>Chemistry <span class="badge badge-new">Updated</span></h3>
+                    <p class="meta">Atoms, bonding, reactions, stoichiometry &mdash; 20 units, 210+ skills</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #fff3e0, #ffcc80);">⚡</div>
+                <div class="course-card-body">
+                    <h3>Physics</h3>
+                    <p class="meta">Motion, forces, energy, waves &mdash; 19 units, 200+ skills</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #e0f7fa, #80deea);">🌍</div>
+                <div class="course-card-body">
+                    <h3>Environmental Science</h3>
+                    <p class="meta">Ecosystems, climate, sustainability &mdash; 14 units, 150+ skills</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #fce4ec, #f48fb1);">🔬</div>
+                <div class="course-card-body">
+                    <h3>Organic Chemistry</h3>
+                    <p class="meta">Functional groups, mechanisms, synthesis &mdash; 12 units, 130+ skills</p>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-card-img" style="background: linear-gradient(135deg, #ede7f6, #b39ddb);">🧪</div>
+                <div class="course-card-body">
+                    <h3>AP&reg; Science Prep</h3>
+                    <p class="meta">AP Biology, Chemistry, Physics 1 &amp; 2 &mdash; Full exam review</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Featured Science Articles</h2>
+        <div class="article-grid">
+            <div class="article-card">
+                <h3>The Central Dogma of Molecular Biology</h3>
+                <p>DNA makes RNA makes protein. Understand how genetic information flows from replication through transcription and translation, and why this framework underpins all of modern biology.</p>
+                <a href="#" class="read-more">Read article &rarr;</a>
+            </div>
+            <div class="article-card">
+                <h3>Understanding the Periodic Table</h3>
+                <p>More than just a chart on the wall &mdash; the periodic table encodes patterns in atomic structure, electronegativity, and reactivity that predict chemical behavior across all known elements.</p>
+                <a href="#" class="read-more">Read article &rarr;</a>
+            </div>
+            <div class="article-card">
+                <h3>Newton's Laws of Motion</h3>
+                <p>From inertia to action-reaction pairs, Newton's three laws form the foundation of classical mechanics. See how they explain everything from a rolling ball to planetary orbits.</p>
+                <a href="#" class="read-more">Read article &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Popular Science Topics</h2>
+        <div class="topic-list">
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #2e7d32;">🧫</div>
+                <div>
+                    <h4>Cell Structure &amp; Function</h4>
+                    <span>Organelles, membranes, transport mechanisms</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #1565c0;">⚛️</div>
+                <div>
+                    <h4>Atomic Structure</h4>
+                    <span>Protons, neutrons, electrons, isotopes</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #e65100;">🔋</div>
+                <div>
+                    <h4>Electricity &amp; Magnetism</h4>
+                    <span>Circuits, fields, electromagnetic induction</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #6a1b9a;">🧬</div>
+                <div>
+                    <h4>DNA &amp; RNA</h4>
+                    <span>Structure, replication, transcription, translation</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #c62828;">🔥</div>
+                <div>
+                    <h4>Thermodynamics</h4>
+                    <span>Heat, entropy, laws of thermodynamics</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #00838f;">🌱</div>
+                <div>
+                    <h4>Photosynthesis</h4>
+                    <span>Light reactions, Calvin cycle, C3/C4/CAM plants</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #4a148c;">🌌</div>
+                <div>
+                    <h4>Astronomy &amp; Cosmology</h4>
+                    <span>Stars, galaxies, Big Bang, dark matter</span>
+                </div>
+            </div>
+            <div class="topic-item">
+                <div class="topic-icon" style="background: #bf360c;">🧪</div>
+                <div>
+                    <h4>Chemical Reactions</h4>
+                    <span>Balancing, stoichiometry, reaction types</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2024 Khan Academy. All rights reserved. | <a href="#">About</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        <p style="margin-top:8px;">Our mission is to provide a free, world-class education to anyone, anywhere.</p>
+    </footer>
+</body>
+</html>

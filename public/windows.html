@@ -109,34 +109,34 @@
              gradient (and its backdrop blur) on every pointer move. -->
         <div class="dock-specular" aria-hidden="true"><span></span></div>
         <div class="dock-items">
-            <div class="taskbar-btn" id="btn-start" data-label="Home" onclick="openWindow('Home', 'start', 'tabs.html', { chromeless: true })" title="Home">
-                <span class="material-symbols-outlined">language</span>
+            <button type="button" class="taskbar-btn" aria-label="Home" id="btn-start" data-label="Home" onclick="openWindow('Home', 'start', 'tabs.html', { chromeless: true })" data-app="start">
+                <span class="app-squircle"><span class="material-symbols-outlined">explore</span></span>
                 <span class="indicator"></span>
-            </div>
-            <div class="taskbar-btn" id="btn-apps" data-label="Apps" onclick="openWindow('Apps', 'apps', 'apps.html')" title="Apps">
-                <span class="material-symbols-outlined">apps</span>
+            </button>
+            <button type="button" class="taskbar-btn" aria-label="Apps" id="btn-apps" data-label="Apps" onclick="openWindow('Apps', 'apps', 'apps.html')" data-app="apps">
+                <span class="app-squircle"><span class="material-symbols-outlined">apps</span></span>
                 <span class="indicator"></span>
-            </div>
-            <div class="taskbar-btn" id="btn-games" data-label="Games" onclick="openWindow('Games', 'games', 'games_norm.html')" title="Games">
-                <span class="material-symbols-outlined">sports_esports</span>
+            </button>
+            <button type="button" class="taskbar-btn" aria-label="Games" id="btn-games" data-label="Games" onclick="openWindow('Games', 'games', 'games_norm.html')" data-app="games">
+                <span class="app-squircle"><span class="material-symbols-outlined">sports_esports</span></span>
                 <span class="indicator"></span>
-            </div>
-            <div class="taskbar-btn" id="btn-theater" data-label="Theater" onclick="openWindow('Theater', 'theater', 'theater.html')" title="Theater">
-                <span class="material-symbols-outlined">movie</span>
+            </button>
+            <button type="button" class="taskbar-btn" aria-label="Theater" id="btn-theater" data-label="Theater" onclick="openWindow('Theater', 'theater', 'theater.html')" data-app="theater">
+                <span class="app-squircle"><span class="material-symbols-outlined">movie</span></span>
                 <span class="indicator"></span>
-            </div>
-            <div class="taskbar-btn" id="btn-terminal" data-label="Terminal" onclick="openWindow('Terminal', 'terminal', 'terminal.html')" title="Terminal">
-                <span class="material-symbols-outlined">terminal</span>
+            </button>
+            <button type="button" class="taskbar-btn" aria-label="Terminal" id="btn-terminal" data-label="Terminal" onclick="openWindow('Terminal', 'terminal', 'terminal.html')" data-app="terminal">
+                <span class="app-squircle"><span class="material-symbols-outlined">terminal</span></span>
                 <span class="indicator"></span>
-            </div>
-            <div class="taskbar-btn" id="btn-files" data-label="Files" onclick="openWindow('Files', 'files', 'explorer.html')" title="Files">
-                <span class="material-symbols-outlined">folder</span>
+            </button>
+            <button type="button" class="taskbar-btn" aria-label="Files" id="btn-files" data-label="Files" onclick="openWindow('Files', 'files', 'explorer.html')" data-app="files">
+                <span class="app-squircle"><span class="material-symbols-outlined">folder</span></span>
                 <span class="indicator"></span>
-            </div>
-            <div class="taskbar-btn" id="btn-settings" data-label="Settings" onclick="openWindow('Settings', 'settings', 'settings.html')" title="Settings">
-                <span class="material-symbols-outlined">settings</span>
+            </button>
+            <button type="button" class="taskbar-btn" aria-label="Settings" id="btn-settings" data-label="Settings" onclick="openWindow('Settings', 'settings', 'settings.html')" data-app="settings">
+                <span class="app-squircle"><span class="material-symbols-outlined">settings</span></span>
                 <span class="indicator"></span>
-            </div>
+            </button>
         </div>
     </div>
 

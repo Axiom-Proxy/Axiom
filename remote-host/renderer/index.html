@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self' data:">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Axiom Remote Desktop</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="appbar">
+  <div class="app-brand">
+    <svg viewBox="0 0 24 22" aria-hidden="true">
+      <path d="M12 1.8 22.6 20.2H1.4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M12 8 17.4 17.6H6.6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M12 12.6 14.1 16.2H9.9Z" fill="currentColor"/>
+    </svg>
+    <span>Axiom</span>
+  </div>
+  <span class="appbar-divider" aria-hidden="true"></span>
+  <span class="app-name">Remote Desktop</span>
+  <div class="status" role="status">
+    <span id="status-dot" class="dot"></span>
+    <span id="status-line">Starting…</span>
+  </div>
+</header>
+
+<main class="workspace">
+  <header class="hero">
+    <div class="hero-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2.5" y="3.5" width="19" height="13" rx="2"/>
+        <path d="M8 20.5h8M12 16.5v4"/>
+      </svg>
+    </div>
+    <div>
+      <p class="eyebrow">Remote Desktop</p>
+      <h1>Share this PC</h1>
+      <p>Keep this app open while you connect from Axiom.</p>
+    </div>
+  </header>
+
+  <div class="content-grid">
+    <section class="surface access-card" aria-labelledby="access-heading">
+      <header class="section-heading">
+        <div>
+          <h2 id="access-heading">Access details</h2>
+          <p>Share these only with someone you trust.</p>
+        </div>
+        <span class="section-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+          </svg>
+        </span>
+      </header>
+
+      <div class="credential">
+        <span class="credential-label">Device ID</span>
+        <div class="credential-row">
+          <b id="id-value" class="mono credential-value">— — —</b>
+          <button id="copy-id" class="quiet-btn" type="button" title="Copy ID">Copy</button>
+        </div>
+      </div>
+
+      <div class="credential">
+        <span class="credential-label">Password</span>
+        <div class="credential-row">
+          <b id="pass-value" class="mono credential-value">••••••••</b>
+          <button id="toggle-pass" class="quiet-btn" type="button" title="Show password">Show</button>
+          <button id="copy-pass" class="quiet-btn" type="button" title="Copy password">Copy</button>
+          <button id="new-pass" class="quiet-btn" type="button" title="Generate a new password">New</button>
+        </div>
+      </div>
+
+      <button id="share-btn" class="primary" type="button">Stop sharing</button>
+    </section>
+
+    <div class="side-stack">
+      <section class="surface" aria-labelledby="address-heading">
+        <header class="section-heading compact">
+          <div>
+            <h2 id="address-heading">Axiom address</h2>
+            <p>Where you use Axiom.</p>
+          </div>
+        </header>
+        <div class="server-row">
+          <input id="server-input" type="url" inputmode="url" autocomplete="url" placeholder="https://axiom.example.com" spellcheck="false" aria-label="Axiom address">
+          <button id="save-server" class="secondary" type="button">Save</button>
+        </div>
+        <p id="server-msg" class="msg" hidden></p>
+      </section>
+
+      <section class="surface" aria-labelledby="session-heading">
+        <header class="section-heading compact">
+          <div>
+            <h2 id="session-heading">Session</h2>
+            <p>Current sharing activity.</p>
+          </div>
+        </header>
+        <div class="stats">
+          <div class="stat"><b id="stat-viewers">0</b><span>Viewers</span></div>
+          <div class="stat"><b id="stat-screen">—</b><span>Screen</span></div>
+          <div class="stat"><b id="stat-rate">Idle</b><span>Stream</span></div>
+          <div class="stat"><b id="stat-audio">Off</b><span>Audio</span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <p class="foot">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Close the window to keep sharing in the tray.
+  </p>
+</main>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>

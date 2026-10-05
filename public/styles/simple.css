@@ -1,0 +1,679 @@
+/* =========================================================================
+ * Simple mode
+ *
+ * The same machine as the desktop, folded into a browser shape: the desktop's
+ * wallpaper (backdrop.css) underneath, a flush browser bar across the top and
+ * a slim shortcut rail down the left, framing one rounded "window" that holds
+ * whichever tab is open.
+ * ====================================================================== */
+
+:root {
+  --top-h: 48px;
+  --rail-w: 60px;
+  --stage-radius: 14px;
+
+  /* The chrome wears the user's theme (theme.js): its --bg underneath, lifted
+   * a touch and tinted with the accent so it reads as a surface above the
+   * page, and its --text / --glass-border where a theme defines them. */
+  --chrome-ink: var(--text, #fff);
+  --chrome-ink-dim: var(--text-secondary, color-mix(in srgb, var(--chrome-ink) 55%, transparent));
+  --chrome-tint: color-mix(in srgb, var(--mac-accent) 7%, color-mix(in srgb, var(--chrome-ink) 4%, transparent));
+  --chrome-bg:
+    linear-gradient(var(--chrome-tint), var(--chrome-tint)),
+    linear-gradient(var(--glass-panel-bg, transparent), var(--glass-panel-bg, transparent)),
+    var(--bg, #0b0b0e);
+  --chrome-line: color-mix(in srgb, var(--glass-border, color-mix(in srgb, var(--chrome-ink) 28%, transparent)) 40%, transparent);
+  --chrome-hover: color-mix(in srgb, var(--chrome-ink) 8%, transparent);
+}
+
+html,
+body {
+  overflow: hidden;
+}
+
+/* ----------------------------------------------------------------- chrome */
+
+/* One shared surface connects the topbar and rail all the way to the viewport
+ * edges. The inset stage cuts the rounded inner corner out of that surface. */
+.browser-shell {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  background: var(--chrome-bg);
+  background-attachment: fixed;
+}
+
+.topbar,
+.rail {
+  position: fixed;
+  z-index: 10;
+  color: var(--chrome-ink);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* ----------------------------------------------------------------- topbar */
+
+.topbar {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--top-h);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 10px;
+}
+
+.brand {
+  flex: none;
+  width: var(--rail-w);
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: color-mix(in srgb, var(--mac-accent) 55%, white);
+  cursor: pointer;
+  transition: transform 0.18s var(--ease-spring);
+}
+
+.brand svg {
+  width: 24px;
+  height: 22px;
+  transition: filter 0.18s ease, transform 0.24s var(--ease-spring);
+}
+
+.brand:hover svg {
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--mac-accent) 70%, transparent));
+  transform: scale(1.08);
+}
+
+.brand:active {
+  transform: scale(0.94);
+}
+
+.bar-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: none;
+}
+
+.bar-btn {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: color-mix(in srgb, var(--chrome-ink) 82%, transparent);
+  cursor: pointer;
+  transition: background 0.14s ease, color 0.14s ease, transform 0.14s ease;
+}
+
+.bar-btn:hover {
+  color: var(--chrome-ink);
+  background: var(--chrome-hover);
+}
+
+.bar-btn:active {
+  transform: scale(0.9);
+}
+
+.bar-btn .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.bar-sep {
+  flex: none;
+  width: 1px;
+  height: 28px;
+  margin: 0 4px;
+  background: var(--chrome-line);
+}
+
+/* ---------------------------------------------------------------- address */
+
+.address {
+  flex: 1 1 320px;
+  min-width: 180px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0 14px 0 12px;
+  border: 1px solid color-mix(in srgb, var(--chrome-ink) 16%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--chrome-ink) 2%, transparent);
+  transition: border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+}
+
+.address:hover {
+  border-color: color-mix(in srgb, var(--chrome-ink) 26%, transparent);
+}
+
+.address:focus-within {
+  border-color: color-mix(in srgb, var(--accent, var(--mac-accent)) 80%, transparent);
+  background: color-mix(in srgb, var(--chrome-ink) 5%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mac-accent) 22%, transparent);
+}
+
+.address .material-symbols-outlined {
+  flex: none;
+  font-size: 18px;
+  color: var(--chrome-ink-dim);
+}
+
+.address input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--chrome-ink);
+  /* Form fields draw through the un-scrambled face (font-scramble.js). */
+  font-family: "Roboto Plain", "Roboto", sans-serif;
+  font-size: 14px;
+}
+
+.address input::placeholder {
+  color: var(--chrome-ink-dim);
+}
+
+/* -------------------------------------------------------------- tab strip */
+
+.tab-strip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 45%;
+  height: 34px;
+}
+
+.tabs {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 0 1 auto;
+  min-width: 0;
+  height: 100%;
+  gap: 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes tab-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.92); }
+  to   { opacity: 1; transform: none; }
+}
+
+.tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 0 0 160px;
+  min-width: 0;
+  height: 100%;
+  border-radius: 8px;
+  color: var(--chrome-ink-dim);
+  background: color-mix(in srgb, var(--chrome-ink) 4%, transparent);
+  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--chrome-ink) 6%, transparent);
+  touch-action: none;
+  user-select: none;
+  /* backwards, not both: a fill that outlived the animation would pin
+   * transform to none and override the inline offsets tab dragging writes. */
+  animation: tab-in 0.26s var(--ease-spring) backwards;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease,
+    flex-basis 0.22s var(--ease-out-soft),
+    opacity 0.18s ease,
+    transform 0.2s var(--ease-out-soft);
+}
+
+/* ------------------------------------------------------------ tab dragging */
+
+/* The tab under the pointer follows it 1:1; everything else slides. */
+.tab.dragging {
+  z-index: 2;
+  cursor: grabbing;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 8px 22px rgba(0, 0, 0, 0.45),
+    0 4px 14px color-mix(in srgb, var(--mac-accent) 45%, transparent);
+}
+
+.tab.dragging .tab-select {
+  cursor: grabbing;
+}
+
+/* Released: glide into the slot it was dropped over. */
+.tab.settling {
+  z-index: 2;
+}
+
+/* The instant the DOM is reordered and the offsets are cleared, nothing may
+ * animate, or every tab would slide back from where it just was. */
+.tabs.no-anim .tab {
+  transition: none !important;
+}
+
+/* Iframes would swallow the pointer the moment it crossed into the stage. */
+body.tab-dragging,
+body.tab-dragging * {
+  cursor: grabbing !important;
+}
+
+body.tab-dragging .app-frame {
+  pointer-events: none;
+}
+
+.tab.closing {
+  flex-basis: 0;
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+.tab:not(.active):hover {
+  color: var(--chrome-ink);
+  background: color-mix(in srgb, var(--chrome-ink) 10%, transparent);
+  box-shadow: inset 0 0 0 0.5px color-mix(in srgb, var(--chrome-ink) 14%, transparent);
+}
+
+/* The lit tab is marked the way the rail marks its page: an accent edge. */
+.tab.active {
+  color: var(--chrome-ink);
+  background: color-mix(in srgb, var(--mac-accent) 14%, color-mix(in srgb, var(--chrome-ink) 9%, transparent));
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--chrome-ink) 10%, transparent),
+    inset 0 -2px 0 var(--accent, var(--mac-accent));
+}
+
+.tab-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 4px 0 10px;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tab-select:focus-visible {
+  outline-offset: -2px;
+}
+
+.tab-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tab .material-symbols-outlined {
+  flex: none;
+  font-size: 18px;
+  font-variation-settings: "FILL" 0;
+  transition: font-variation-settings 0.2s ease;
+}
+
+.tab.active .tab-select .material-symbols-outlined {
+  font-variation-settings: "FILL" 1;
+}
+
+.tab-close,
+.new-tab {
+  flex: none;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.tab-close {
+  width: 22px;
+  height: 22px;
+  margin-right: 5px;
+  border-radius: 6px;
+  opacity: 0.55;
+  transition: opacity 0.14s ease, background 0.14s ease, transform 0.14s ease;
+}
+
+.tab:hover .tab-close,
+.tab.active .tab-close {
+  opacity: 0.9;
+}
+
+.tab-close:hover {
+  opacity: 1;
+  background: color-mix(in srgb, var(--chrome-ink) 18%, transparent);
+}
+
+.tab-close:active {
+  transform: scale(0.88);
+}
+
+.tab-close .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.new-tab {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  color: color-mix(in srgb, var(--chrome-ink) 72%, transparent);
+  transition: background 0.16s ease, color 0.16s ease, transform 0.18s var(--ease-spring);
+}
+
+.new-tab:hover {
+  color: var(--chrome-ink);
+  background: var(--chrome-hover);
+}
+
+.new-tab .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.new-tab:active {
+  transform: scale(0.9);
+}
+
+/* ------------------------------------------------------------------- rail */
+
+.rail {
+  top: var(--top-h);
+  bottom: 0;
+  left: 0;
+  width: var(--rail-w);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 0;
+}
+
+.rail-sep {
+  width: 30px;
+  height: 1px;
+  margin: 3px 0;
+  flex: none;
+  background: var(--chrome-line);
+}
+
+.shortcut {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  color: color-mix(in srgb, var(--chrome-ink) 86%, transparent);
+  cursor: pointer;
+  background: transparent;
+  transition:
+    transform 0.2s var(--ease-spring),
+    background 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.shortcut .material-symbols-outlined {
+  font-size: 22px;
+  font-variation-settings: "FILL" 0;
+  transition: font-variation-settings 0.2s ease;
+}
+
+.shortcut:hover {
+  color: var(--chrome-ink);
+  background: var(--chrome-hover);
+}
+
+.shortcut:active {
+  transform: scale(0.92);
+}
+
+.shortcut.active {
+  color: var(--mac-on-accent);
+  background: var(--mac-accent);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--accent, var(--mac-accent)) 70%, transparent),
+    0 4px 14px color-mix(in srgb, var(--mac-accent) 35%, transparent);
+}
+
+.shortcut.active .material-symbols-outlined {
+  font-variation-settings: "FILL" 1;
+}
+
+/* Running indicator: a pill on the rail's edge for pages that have a tab
+ * open; the lit tile shows which one is in front. */
+.shortcut .indicator {
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  width: 3px;
+  height: 4px;
+  border-radius: 2px;
+  transform: translateY(-50%);
+  background: color-mix(in srgb, var(--chrome-ink) 90%, transparent);
+  opacity: 0;
+  transition:
+    opacity 0.2s ease,
+    height 0.24s var(--ease-spring),
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.shortcut.open .indicator {
+  opacity: 1;
+}
+
+.shortcut.active .indicator {
+  height: 18px;
+  background: color-mix(in srgb, var(--mac-accent) 65%, white);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--mac-accent) 80%, transparent);
+}
+
+/* Tooltip, springing out to the right. attr() text never passes through
+ * font-scramble.js, so it is drawn in the un-shifted face. */
+.shortcut::after {
+  content: attr(data-label);
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-4px) scale(0.9);
+  transform-origin: left center;
+  padding: 5px 10px;
+  border-radius: 7px;
+  background: var(--glass-panel-bg, rgba(58, 58, 62, 0.92));
+  border: 0.5px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  color: var(--chrome-ink);
+  font-family: "Roboto Plain", "Roboto", sans-serif;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.13s ease,
+    transform 0.18s var(--ease-spring),
+    visibility 0s linear 0.13s;
+}
+
+.shortcut:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0) scale(1);
+  transition-delay: 0s;
+}
+
+/* ------------------------------------------------------------------ stage */
+
+/*
+ * The open tab fills the corner the chrome leaves, rounded only where it
+ * meets the bar and the rail. Its frames are stacked inside and swapped with
+ * a short fade-and-settle.
+ */
+#frames {
+  position: fixed;
+  z-index: 5;
+  top: var(--top-h);
+  left: var(--rail-w);
+  right: 0;
+  bottom: 0;
+  border-top-left-radius: var(--stage-radius);
+  overflow: hidden;
+  background: rgba(20, 20, 24, calc(var(--glass-alpha) + 0.02));
+  animation: axm-win-in 0.36s var(--ease-spring) both;
+}
+
+/* A hairline along the edges the stage shares with the chrome, drawn above
+ * the frames so a page's own background never covers it. */
+#frames::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border-top-left-radius: inherit;
+  border-top: 1px solid var(--chrome-line);
+  border-left: 1px solid var(--chrome-line);
+  pointer-events: none;
+}
+
+@keyframes axm-win-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.app-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: var(--bg, #000);
+}
+
+.app-frame[hidden] {
+  display: none;
+}
+
+@keyframes frame-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.995); }
+  to   { opacity: 1; transform: none; }
+}
+
+.app-frame.entering {
+  animation: frame-in 0.22s var(--ease-out-soft) both;
+}
+
+/* A thin accent bar across the top of the stage while a tab is loading. */
+.stage-progress {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  pointer-events: none;
+  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--accent, #8ed4f4) 90%, white));
+  box-shadow: 0 0 10px var(--accent, #8ed4f4);
+  opacity: 0;
+}
+
+.stage-progress.loading {
+  opacity: 1;
+  animation: stage-load 2.4s var(--ease-out-soft) forwards;
+}
+
+.stage-progress.done {
+  width: 100%;
+  opacity: 0;
+  transition: width 0.18s ease, opacity 0.3s ease 0.18s;
+}
+
+@keyframes stage-load {
+  from { width: 0; }
+  to   { width: 82%; }
+}
+
+/* --------------------------------------------------------------- motion */
+
+@media (prefers-reduced-motion: reduce) {
+  #wp-bloom,
+  .tab,
+  #frames,
+  .app-frame.entering {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------- narrow */
+
+@media (max-width: 720px) {
+  :root {
+    --rail-w: 46px;
+  }
+
+  .topbar {
+    gap: 2px;
+    padding-right: 6px;
+  }
+
+  /* The address bar keeps the room; tabs stay reachable with Alt+1-9. */
+  .tab-strip,
+  .bar-sep,
+  .bar-btn.optional {
+    display: none;
+  }
+
+  .bar-btn {
+    width: 30px;
+  }
+
+  .address {
+    flex-basis: 0;
+    min-width: 0;
+  }
+
+  .shortcut {
+    width: 36px;
+    height: 36px;
+  }
+}

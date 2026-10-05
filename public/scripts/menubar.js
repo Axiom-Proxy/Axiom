@@ -211,7 +211,7 @@
             { label: 'Axiom Home Page', run: app('Home', 'start', 'tabs.html', { chromeless: true }) },
             { label: 'Open Terminal', run: app('Terminal', 'terminal', 'terminal.html') },
             SEP,
-            { label: 'Discord Community', run: () => window.open(DISCORD, '_blank', 'noopener') }
+            { label: 'Discord Community', run: () => (window.axiomOpen || window.open)(DISCORD, '_blank', 'noopener') }
         ]
     };
 

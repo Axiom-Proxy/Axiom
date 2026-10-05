@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
+const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 const {
@@ -20,6 +21,40 @@ const TOKEN = process.env.DISCORD_TOKEN;
 const TARGET_CHANNEL = process.env.DISCORD_TARGET_CHANNEL;
 const LINKS_FILE = path.join(__dirname, "freedns_links.json");
 const MAX_DAILY = 3;
+
+// --- Tunnel management ---
+const TUNNEL_CHANNEL = "1556664186333958204";
+const TUNNEL_PORT = Number(process.env.PORT) || 8085;
+const CHICAGO_TZ = "America/Chicago";
+const TUNNEL_PID_FILE = path.join(__dirname, ".tunnel-pid");
+
+let tunnelProcess = null;
+let tunnelUrl = null;
+let tunnelTimer = null;
+let tunnelMessageId = null;
+
+function nukePid(pid) {
+    const isWin = process.platform === "win32";
+    if (isWin) {
+        try { spawn("taskkill", ["/PID", String(pid), "/F"], { stdio: "ignore" }); } catch (_) {}
+    } else {
+        try { process.kill(pid, "SIGKILL"); } catch (_) {}
+    }
+}
+
+// Reap any cloudflared process left behind by a previous ungraceful death.
+(function reapStaleTunnel() {
+    try {
+        const raw = fs.readFileSync(TUNNEL_PID_FILE, "utf8");
+        const { pid, ts } = JSON.parse(raw);
+        if (pid && typeof pid === "number") {
+            console.log(`Reaping stale tunnel process PID ${pid} (from ${new Date(ts).toISOString()})`);
+            nukePid(pid);
+        }
+    } catch (_) { /* no stale file, or unreadable */ }
+    try { fs.unlinkSync(TUNNEL_PID_FILE); } catch (_) {}
+})();
+// ------------------------
 
 const ADMIN_PERMS = [
     PermissionFlagsBits.ManageGuild,
@@ -56,6 +91,10 @@ const REMOVE_LINK_CMD = new SlashCommandBuilder()
 const LIST_LINKS_CMD = new SlashCommandBuilder()
     .setName("list-links")
     .setDescription("List every stored link alongside the blockers it bypasses");
+
+const TUNNEL_CMD = new SlashCommandBuilder()
+    .setName("generate-tunnel")
+    .setDescription("Generate a new TryCloudflare tunnel link");
 
 if (!TOKEN) {
     console.error("Missing DISCORD_TOKEN in .env");
@@ -114,6 +153,120 @@ function removeLink(url) {
     importLinks();
     return before - entries.length;
 }
+
+// ---- Tunnel helpers ----
+function killTunnel() {
+    if (tunnelProcess) {
+        try { tunnelProcess.kill("SIGTERM"); } catch (e) { /* ignore */ }
+        tunnelProcess = null;
+    }
+    tunnelUrl = null;
+    try { fs.unlinkSync(TUNNEL_PID_FILE); } catch (_) {}
+}
+
+function writePidFile(pid) {
+    try {
+        fs.writeFileSync(TUNNEL_PID_FILE, JSON.stringify({ pid, ts: Date.now() }), "utf8");
+    } catch (_) {}
+}
+
+function startTunnel() {
+    killTunnel();
+    return new Promise((resolve, reject) => {
+        const proc = spawn("cloudflared", ["tunnel", "--url", `http://localhost:${TUNNEL_PORT}`], {
+            stdio: ["ignore", "pipe", "pipe"]
+        });
+        tunnelProcess = proc;
+        if (proc.pid) writePidFile(proc.pid);
+        let output = "";
+        const timeout = setTimeout(() => {
+            killTunnel();
+            reject(new Error("Tunnel creation timed out after 30 s"));
+        }, 30_000);
+
+        const onData = (data) => {
+            output += data.toString();
+            const match = output.match(/https:\/\/[a-zA-Z0-9.-]+\.trycloudflare\.com/);
+            if (match) {
+                clearTimeout(timeout);
+                tunnelUrl = match[0];
+                resolve(tunnelUrl);
+            }
+        };
+        proc.stdout.on("data", onData);
+        proc.stderr.on("data", onData);
+
+        proc.on("error", (err) => {
+            clearTimeout(timeout);
+            tunnelProcess = null;
+            reject(err);
+        });
+        proc.on("exit", (code) => {
+            clearTimeout(timeout);
+            if (!tunnelUrl) {
+                tunnelProcess = null;
+                reject(new Error(`cloudflared exited with code ${code}`));
+            }
+        });
+    });
+}
+
+function msUntilNextChicagoNoon() {
+    // Determine how far ahead or behind Chicago is relative to UTC right now.
+    const fmt = new Intl.DateTimeFormat("en-US", {
+        timeZone: CHICAGO_TZ,
+        year: "numeric", month: "2-digit", day: "2-digit",
+        hour: "2-digit", minute: "2-digit", second: "2-digit",
+        hour12: false
+    });
+    const parts = fmt.formatToParts(new Date());
+    const get = (type) => Number(parts.find(p => p.type === type)?.value ?? 0);
+    const chicagoNowMs = Date.UTC(get("year"), get("month") - 1, get("day"), get("hour"), get("minute"), get("second"));
+    const offsetMs = chicagoNowMs - Date.now();
+
+    // Noon *today* in Chicago, expressed as UTC milliseconds.
+    const noonChicagoToday = new Date(Date.now() + offsetMs);
+    noonChicagoToday.setHours(12, 0, 0, 0);
+    let noonUtc = noonChicagoToday.getTime() - offsetMs;
+    if (Date.now() >= noonUtc) noonUtc += 24 * 60 * 60 * 1000;
+
+    return noonUtc - Date.now();
+}
+
+function scheduleDailyTunnel() {
+    const ms = msUntilNextChicagoNoon();
+    if (tunnelTimer) clearTimeout(tunnelTimer);
+    tunnelTimer = setTimeout(() => {
+        refreshTunnelAndPost();
+        // Then every 24 hours
+        tunnelTimer = setInterval(() => refreshTunnelAndPost(), 24 * 60 * 60 * 1000);
+    }, ms);
+    console.log(`Next tunnel refresh in ${Math.round(ms / 60000)} min (12 PM Chicago)`);
+}
+
+async function refreshTunnelAndPost() {
+    try {
+        console.log("Refreshing Cloudflare tunnel…");
+        const url = await startTunnel();
+        console.log(`Tunnel ready: ${url}`);
+        const channel = await client.channels.fetch(TUNNEL_CHANNEL).catch(() => null);
+        if (!channel) {
+            console.error(`Tunnel channel ${TUNNEL_CHANNEL} not found`);
+            return;
+        }
+        // Delete old message
+        if (tunnelMessageId) {
+            await channel.messages.delete(tunnelMessageId).catch(() => {});
+        }
+        const msg = await channel.send(`🌐 **TryCloudflare Tunnel** — expires in ~24 h
+${url}`);
+        tunnelMessageId = msg.id;
+        console.log(`Tunnel posted to #${channel.name}`);
+    } catch (err) {
+        console.error("Tunnel refresh failed:", err.message);
+    }
+}
+// -------------------------
 
 const today = () => new Date().toISOString().slice(0, 10);
 const daily = new Map();
@@ -189,7 +342,7 @@ client.once("clientReady", async () => {
     console.log(`Posted dispenser in #${channel.name}`);
 
     try {
-        const cmds = [ADD_LINK_CMD, REMOVE_LINK_CMD, LIST_LINKS_CMD];
+        const cmds = [ADD_LINK_CMD, REMOVE_LINK_CMD, LIST_LINKS_CMD, TUNNEL_CMD];
         if (process.env.DISCORD_GUILD_ID) {
             await client.application.commands.set(cmds, process.env.DISCORD_GUILD_ID);
             console.log(`Registered ${cmds.length} slash command(s) to guild ${process.env.DISCORD_GUILD_ID}`);
@@ -200,6 +353,9 @@ client.once("clientReady", async () => {
     } catch (err) {
         console.error("Slash command registration failed:", err);
     }
+
+    scheduleDailyTunnel();
+    refreshTunnelAndPost();
 });
 
 client.on("interactionCreate", async (interaction) => {
@@ -209,6 +365,25 @@ client.on("interactionCreate", async (interaction) => {
         }
         if (!isAdmin(interaction.member)) {
             return interaction.reply({ content: "You need Manage Server permissions to do that.", flags: MessageFlags.Ephemeral });
+        }
+
+        if (interaction.commandName === "generate-tunnel") {
+            await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+            try {
+                const url = await startTunnel();
+                const channel = await client.channels.fetch(TUNNEL_CHANNEL).catch(() => null);
+                if (channel) {
+                    if (tunnelMessageId) {
+                        await channel.messages.delete(tunnelMessageId).catch(() => {});
+                    }
+                    const msg = await channel.send(`🌐 **TryCloudflare Tunnel** — manual refresh
+${url}`);
+                    tunnelMessageId = msg.id;
+                }
+                return interaction.editReply({ content: `Tunnel created: ${url}` });
+            } catch (err) {
+                return interaction.editReply({ content: `Failed: ${err.message}` });
+            }
         }
 
         if (interaction.commandName === "add-link") {
@@ -370,5 +545,8 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 process.on("unhandledRejection", (err) => console.error("Unhandled rejection:", err));
+process.on("exit", () => killTunnel());
+process.on("SIGINT", () => { killTunnel(); process.exit(); });
+process.on("SIGTERM", () => { killTunnel(); process.exit(); });
 
 client.login(TOKEN);

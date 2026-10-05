@@ -1,85 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <script src="./scripts/font-scramble.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IXL | Math, Language Arts, Science, Social Studies, and Spanish</title>
-  <meta
-     property="og:image"
-     content="https://www.ixl.com/dv3/powZqMuTE7du4asFrVyNGxxoqkw/yui3/opengraph/assets/general_us.png"
-  />
-
-
-  <meta
-    property="og:image"
-    content="https://www.ixl.com/dv3/powZqMuTE7du4asFrVyNGxxoqkw/yui3/opengraph/assets/math_us.png"
-  />
-
-
-  <meta
-    property="og:image"
-    content="https://www.ixl.com/dv3/powZqMuTE7du4asFrVyNGxxoqkw/yui3/opengraph/assets/ela_us.png"
-  />
-
-<meta
-  property="og:image"
-  content="https://www.ixl.com/dv3/powZqMuTE7du4asFrVyNGxxoqkw/yui3/opengraph/assets/square_og_ixl.png"
-/>
+    <meta property="og:image" content="https://www.ixl.com/dv3/powZqMuTE7du4asFrVyNGxxoqkw/yui3/opengraph/assets/general_us.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./fonts/fonts.css">
     <script src="./scripts/theme.js"></script>
-
-    <link href="./styles/loader.css" rel="stylesheet">
-    <link href="./styles/main.css" rel="stylesheet">
-    <link href="./styles/dust.css" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
+    <!-- Before first paint: it writes the glass and wallpaper properties the
+         stylesheet reads, same as on the desktop. -->
+    <script src="./scripts/desktop-prefs.js"></script>
+    <link rel="stylesheet" href="./styles/loader.css">
+    <link rel="stylesheet" href="./styles/backdrop.css">
+    <link rel="stylesheet" href="./styles/simple.css">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EP8214CHBW"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-EP8214CHBW');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-EP8214CHBW');
     </script>
 </head>
-
 <body>
     <div id="axiom-loader" class="ao-loader">
         <div class="ao-loader-logo">Axiom</div>
         <div class="ao-loader-spinner"></div>
     </div>
-    <div class="bg-animation">
-        <div id='stars'></div>
-        <div id='stars2'></div>
-        <div id='stars3'></div>
-        <div id='stars4'></div>
+
+    <!-- The desktop's wallpaper layer, unchanged: still picture, two video
+         buffers for live wallpapers, the accent bloom, and the scrim. -->
+    <div id="wallpaper-layer">
+        <div id="wp-still"></div>
+        <video class="wp-video" muted loop playsinline autoplay preload="auto" disablepictureinpicture></video>
+        <video class="wp-video" muted loop playsinline autoplay preload="auto" disablepictureinpicture></video>
+        <div id="wp-bloom"></div>
+        <div id="wp-scrim"></div>
     </div>
-    
-    <nav class="nav-border">
-        <div class="top-nav">
-            <span class="material-symbols-outlined" onclick="navigate('apps')">apps</span>
-            <span class="material-symbols-outlined" onclick="navigate('games')">sports_esports</span>
-            <span class="material-symbols-outlined" onclick="navigate('start')">home</span>
-            <span class="material-symbols-outlined" onclick="navigate('chat')">chat</span>
-            <span class="material-symbols-outlined" onclick="navigate('settings')">settings</span>
+
+    <div class="browser-shell">
+    <header class="topbar">
+        <button class="brand" type="button" onclick="navigate('start')" aria-label="Axiom home" title="Axiom">
+            <svg viewBox="0 0 24 22" aria-hidden="true">
+                <path d="M12 1.8 22.6 20.2H1.4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M12 8 17.4 17.6H6.6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M12 12.6 14.1 16.2H9.9Z" fill="currentColor"/>
+            </svg>
+        </button>
+
+        <div class="bar-group">
+            <button class="bar-btn" type="button" onclick="frameBack()" aria-label="Back" title="Back"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span></button>
+            <button class="bar-btn" type="button" onclick="frameReload()" aria-label="Reload" title="Reload"><span class="material-symbols-outlined" aria-hidden="true">refresh</span></button>
+            <button class="bar-btn" type="button" onclick="frameForward()" aria-label="Forward" title="Forward"><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
         </div>
+
+        <div class="bar-sep" aria-hidden="true"></div>
+
+        <nav class="tab-strip" aria-label="Tabs">
+            <div class="tabs" id="tabs"></div>
+            <button class="new-tab" type="button" onclick="newTab()" aria-label="New tab" title="New tab (Alt+T)"><span class="material-symbols-outlined" aria-hidden="true">add</span></button>
+        </nav>
+
+        <form class="address" id="address-form" role="search" autocomplete="off">
+            <span class="material-symbols-outlined" aria-hidden="true">search</span>
+            <input id="address" type="text" spellcheck="false" placeholder="Enter search or web address" aria-label="Search or web address">
+        </form>
+
+        <div class="bar-sep" aria-hidden="true"></div>
+
+        <div class="bar-group">
+            <button class="bar-btn optional" type="button" onclick="navigate('start')" aria-label="Home" title="Home"><span class="material-symbols-outlined" aria-hidden="true">home</span></button>
+            <button class="bar-btn" type="button" onclick="newTab()" aria-label="New tab" title="New tab (Alt+T)"><span class="material-symbols-outlined" aria-hidden="true">tab</span></button>
+            <button class="bar-btn" type="button" id="fullscreen-btn" onclick="toggleFullscreen()" aria-label="Fullscreen" title="Fullscreen"><span class="material-symbols-outlined" aria-hidden="true">fullscreen</span></button>
+            <button class="bar-btn" type="button" onclick="navigate('settings')" aria-label="Settings" title="Settings"><span class="material-symbols-outlined" aria-hidden="true">tune</span></button>
+        </div>
+    </header>
+
+    <nav class="rail" aria-label="Shortcuts">
+        <button class="shortcut" type="button" data-page="start" data-label="Home" onclick="navigate('start')" aria-label="Home"><span class="material-symbols-outlined" aria-hidden="true">home</span><span class="indicator"></span></button>
+        <button class="shortcut" type="button" data-page="games" data-label="Games" onclick="navigate('games')" aria-label="Games"><span class="material-symbols-outlined" aria-hidden="true">sports_esports</span><span class="indicator"></span></button>
+        <button class="shortcut" type="button" data-page="apps" data-label="Apps" onclick="navigate('apps')" aria-label="Apps"><span class="material-symbols-outlined" aria-hidden="true">apps</span><span class="indicator"></span></button>
+        <button class="shortcut" type="button" data-page="chat" data-label="Chat" onclick="navigate('chat')" aria-label="Chat"><span class="material-symbols-outlined" aria-hidden="true">chat</span><span class="indicator"></span></button>
+        <div class="rail-sep" aria-hidden="true"></div>
+        <button class="shortcut" type="button" data-page="settings" data-label="Settings" onclick="navigate('settings')" aria-label="Settings"><span class="material-symbols-outlined" aria-hidden="true">settings</span><span class="indicator"></span></button>
     </nav>
 
-    <div class="main">
-        <iframe id="frame" class="app-frame" src="start.html"></iframe>
+    <main id="frames">
+        <div class="stage-progress" id="stage-progress"></div>
+    </main>
     </div>
 
     <script src="./scripts/loader.js"></script>
+    <script src="./scripts/backdrop.js"></script>
+    <script src="./scripts/wallpaper.js"></script>
     <script src="./scripts/simple.js"></script>
-    <!--this is one of adsterra's anti-adblock domains-->
-        <script src="./scripts/ad.js"></script>
-
+    <script src="./scripts/ad.js"></script>
 </body>
-
 </html>

@@ -35,7 +35,11 @@
   // Proxy plumbing, API routes and anything else that must never be answered
   // out of a user-editable file.
   var SKIP_PREFIXES = ['/educational_', '/baremux/', '/epoxy/', '/libcurl/',
-    '/remote-desktop/vendor/', '/api/', '/edu/', '/search_complete/', '/chat'];
+    '/remote-desktop/download', '/api/', '/edu/', '/search_complete/', '/chat',
+    // Served from outside public/, so never in the /system mount - and a
+    // playing clip asks for dozens of byte ranges, each of which would
+    // otherwise wait on an IndexedDB lookup before reaching the network.
+    '/animated_wallpapers/', '/wallpaper-frames/'];
   var SKIP_PATHS = ['/recovery.html', '/scripts/axiom-sw.js', '/scripts/premium.js'];
 
   // Ceilings on the two things that can stall: the filesystem lookup behind a
@@ -222,6 +226,9 @@
   /** The /system path a request maps to, or null if it is not ours to answer. */
   function sitePath(request) {
     if (request.method !== 'GET') return null;
+    // Media streams by range; an override answers with a whole 200 body,
+    // which a <video>/<audio> element cannot seek or loop through.
+    if (request.headers.has('range')) return null;
 
     var url;
     try { url = new URL(request.url); } catch (e) { return null; }

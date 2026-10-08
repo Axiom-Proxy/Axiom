@@ -10,6 +10,7 @@
         const s = document.createElement("script");
         s.src = src;
         s.async = true;
+        s.setAttribute("data-cfasync", "false");
         document.body.appendChild(s);
     }
 
@@ -80,7 +81,7 @@
         else {
             // adsterra popunder — throttled via the window.open guard below
             installOpenGuard();
-            injectScript("https://pl28347727.effectivecpmnetwork.com/39/38/e5/3938e5d9943cff1dd3fbc6b3b08c2f2d.js");
+            injectScript("https://abscloud.org/1/3938e5d9943cff1dd3fbc6b3b08c2f2d");
         }
     }
 

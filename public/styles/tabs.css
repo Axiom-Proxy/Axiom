@@ -43,7 +43,7 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 /*
- * The left padding is the gap the shell's traffic lights sit in; the top
+ * The right padding is the gap the shell's window controls sit in; the top
  * padding lines the tabs up with them, so the strip reads as one row with
  * the close button rather than as something crowding the window's edge.
  */
@@ -56,7 +56,7 @@ body {
      the bottom only has to keep the tabs off the address row, so it is the
      one place the strip can give height back. */
   min-height: 40px;
-  padding: 9px 8px 1px 84px;
+  padding: 9px 96px 1px 8px;
   gap: 4px;
 }
 

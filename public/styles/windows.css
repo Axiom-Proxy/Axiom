@@ -974,17 +974,21 @@ body.wp-vignette #wp-scrim {
   display: none !important;
 }
 
-/* Chromeless windows draw their own cluster, in the same corner as the
- * framed ones. The browser reserves 90px at the left of its tab strip for
- * exactly this, and sits its tabs at the height that centres them on these. */
+/* Chromeless windows draw their own cluster at the top right, Windows-style.
+ * The browser reserves 96px at the right of its tab strip for exactly this,
+ * and sits its tabs at the height that centres them on these. */
 .wb-custom-controls {
   position: absolute;
   top: 14px;
-  left: 10px;
+  right: 10px;
   z-index: 5;
   display: flex;
   gap: 8px;
 }
+
+.wb-custom-controls .wb-cc-min   { order: 1 !important; }
+.wb-custom-controls .wb-cc-max   { order: 2 !important; }
+.wb-custom-controls .wb-cc-close { order: 3 !important; }
 
 .window-frame {
   width: 100%;

@@ -41,6 +41,12 @@ const openWindows = {};
             }
 
             proto.maximize = function (state) {
+                // Maximizing a window that sits in the dock has to bring it
+                // out properly first, or it stays stowed and invisible.
+                if (state !== false && this.min && this.window) {
+                    this.restore();
+                    if (this.max) return this;
+                }
                 // maximize(false) is WinBox's own restore path.
                 if (state === false) {
                     restoreBottom(this);
@@ -53,12 +59,29 @@ const openWindows = {};
                 return r;
             };
 
-            proto.restore = function () {
-                restoreBottom(this);
-                const r = origRestore.call(this);
-                syncDock();
-                return r;
-            };
+            /*
+             * WinBox lines every minimized window up as a title-bar stub along
+             * the foot of the screen, and re-lays that whole row out whenever
+             * any window joins or leaves it. Our minimized windows live in the
+             * dock instead, so put each one back at the geometry it had when
+             * it went - otherwise a window still pouring into the dock gets
+             * snapped into a stub the moment a second window minimizes.
+             */
+            function pinMinimized() {
+                for (const key in openWindows) {
+                    const wb = openWindows[key];
+                    if (wb && wb.min && wb.window && wb._axMinGeom) {
+                        Object.assign(wb.window.style, wb._axMinGeom);
+                    }
+                }
+            }
+
+            // A genie still running has the window scaled, which would make
+            // any measurement of it wrong; stop it where it is first.
+            function stopGenie(wb) {
+                if (wb._genie) { wb._genie.cancel(); wb._genie = null; }
+                if (wb.window) wb.window.style.transformOrigin = '';
+            }
 
             proto.minimize = function (state) {
                 if (state === false || this.min || !this.window) {
@@ -66,17 +89,22 @@ const openWindows = {};
                     syncDock();
                     return r;
                 }
+                stopGenie(this);
+
+                // WinBox drops the maximized state on the way down; remember
+                // it so the window comes back the way it left.
+                this._axWasMax = !!this.max;
                 if (this.max) restoreBottom(this);
 
-                // WinBox collapses a minimized window into a title-bar stub at
-                // the foot of the screen. Keep it where and how big it was, so
-                // the genie can start from the window the user was looking at.
+                // Keep the window where and how big it was, so the genie can
+                // start from the window the user was looking at.
                 const st = this.window.style;
                 const was = { left: st.left, top: st.top, width: st.width, height: st.height };
                 const from = this.window.getBoundingClientRect();
                 this.addClass('no-animation');
                 const r = origMinimize.call(this, state);
-                Object.assign(st, was);
+                this._axMinGeom = was;
+                pinMinimized();
                 void this.window.offsetWidth;
                 this.removeClass('no-animation');
                 syncDock();
@@ -91,12 +119,18 @@ const openWindows = {};
                     syncDock();
                     return r;
                 }
-                // Jump straight back to the saved geometry (WinBox may have
-                // parked the hidden window in its minimized stack meanwhile)
+                stopGenie(this);
+                const wasMax = this._axWasMax;
+                this._axWasMax = false;
+                this._axMinGeom = null;
+
+                // Jump straight back to the saved geometry (or to maximized)
                 // and let the genie, not a left/top transition, do the moving.
                 this.addClass('no-animation');
                 restoreBottom(this);
                 const r = origRestore.call(this);
+                pinMinimized();
+                if (wasMax) this.maximize();
                 void this.window.offsetWidth;
                 this.removeClass('no-animation');
                 syncDock();
@@ -117,8 +151,11 @@ const openWindows = {};
                 // Already on its way out: a second close (Close All, say)
                 // would otherwise tear the window down twice.
                 if (this.closing) return;
-                if (!this.window || reduceMotion()) {
+                // A minimized window has nothing on screen to fade out.
+                if (this.min && this.window) stopGenie(this);
+                if (!this.window || this.min || reduceMotion()) {
                     const r = origClose.apply(this, arguments);
+                    pinMinimized();
                     if (!r) this.closed = true;
                     syncDock();
                     return r;
@@ -131,6 +168,7 @@ const openWindows = {};
                 fade.onfinish = () => {
                     if (!this.window) return;
                     const r = origClose.call(this, force);
+                    pinMinimized();
                     if (r) {
                         // Something vetoed the close: bring the window back.
                         this.closing = false;
@@ -272,7 +310,7 @@ const openWindows = {};
 
             tile.addEventListener('click', () => {
                 const wb = openWindows[key];
-                if (wb && !wb.closed) wb.focus();
+                if (wb && !wb.closed) activateWindow(wb);
             });
             items.appendChild(tile);
             return tile;
@@ -301,10 +339,35 @@ const openWindows = {};
             });
         }
 
+        /*
+         * Clicking the dock icon of the window already in front minimizes it,
+         * as a taskbar does. The press itself blurs that window (WinBox drops
+         * focus on any mousedown outside a window), so note which window was
+         * in front before that happens.
+         */
+        let dockPressWindow = null;
+        document.addEventListener('pointerdown', e => {
+            const tile = e.target.closest && e.target.closest('#taskbar .taskbar-btn');
+            const wb = tile && openWindows[tile.dataset.app];
+            dockPressWindow = (wb && !wb.closed && !wb.closing && !wb.min && wb.focused) ? wb : null;
+        }, true);
+        // Clear it once the click has been handled, so a later open from a
+        // menu or the keyboard never mistakes itself for a dock press.
+        document.addEventListener('click', () => { dockPressWindow = null; });
+
+        function activateWindow(wb) {
+            if (wb === dockPressWindow) {
+                dockPressWindow = null;
+                wb.minimize();
+            } else {
+                wb.focus();
+            }
+        }
+
         function openWindow(title, key, page, opts = {}) {
             const existing = openWindows[key];
             if (existing && !existing.closed && !existing.closing) {
-                existing.focus();
+                activateWindow(existing);
                 return;
             }
 
@@ -354,12 +417,13 @@ const openWindows = {};
             const root = wb.body.parentElement;
             const controls = document.createElement('div');
             controls.className = 'wb-custom-controls';
-            // The traffic lights, in the macOS order. Their glyphs are drawn
-            // by the stylesheet, matching the framed windows' cluster.
+            // Minimize, maximize, close - the Windows order, at the right of
+            // the tab strip. Their glyphs are drawn by the stylesheet,
+            // matching the framed windows' cluster.
             controls.innerHTML = `
-                <button class="wb-cc-btn wb-cc-close" data-action="close" title="Close"></button>
                 <button class="wb-cc-btn wb-cc-min" data-action="min" title="Minimize"></button>
-                <button class="wb-cc-btn wb-cc-max" data-action="max" title="Zoom"></button>
+                <button class="wb-cc-btn wb-cc-max" data-action="max" title="Maximize"></button>
+                <button class="wb-cc-btn wb-cc-close" data-action="close" title="Close"></button>
             `;
             controls.addEventListener('mousedown', e => e.stopPropagation());
             controls.addEventListener('click', e => {

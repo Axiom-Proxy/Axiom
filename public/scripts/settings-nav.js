@@ -132,10 +132,18 @@
             }
         };
 
-        if (window.axiomPremium && typeof axiomPremium.isPremium === 'function') {
-            axiomPremium.isPremium().then(gate).catch(() => gate(false));
-        } else {
-            gate(false);
-        }
+        // premium.js declares `const axiomPremium`, which never lands on
+        // `window`, so test the binding itself rather than window.axiomPremium.
+        const refresh = () => {
+            if (typeof axiomPremium !== 'undefined' && typeof axiomPremium.isPremium === 'function') {
+                axiomPremium.isPremium().then(gate).catch(() => gate(false));
+            } else {
+                gate(false);
+            }
+        };
+        refresh();
+        // Activating or removing a key on the Premium pane re-gates the switch
+        // without a reload.
+        window.addEventListener('axiom-premium-change', refresh);
     }
 })();

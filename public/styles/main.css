@@ -105,7 +105,6 @@ body {
   background: rgba(255, 255, 255, 0.08);
 }
 
-.rainbow-input::before,
 .nav-border::before {
   content: "";
   position: absolute;
@@ -121,8 +120,6 @@ body {
   mask-composite: exclude;
 }
 
-.rainbow-input:hover::before,
-.rainbow-input:focus-within::before,
 .nav-border:hover::before {
   opacity: 1;
 }

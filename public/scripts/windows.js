@@ -417,9 +417,10 @@ const openWindows = {};
             const root = wb.body.parentElement;
             const controls = document.createElement('div');
             controls.className = 'wb-custom-controls';
-            // Minimize, maximize, close - the Windows order, at the right of
-            // the tab strip. Their glyphs are drawn by the stylesheet,
-            // matching the framed windows' cluster.
+            // Which side of the tab strip these sit on, and in what order,
+            // follows the Window Controls setting (see windows.css). Their
+            // glyphs are drawn by the stylesheet, matching the framed
+            // windows' cluster.
             controls.innerHTML = `
                 <button class="wb-cc-btn wb-cc-min" data-action="min" title="Minimize"></button>
                 <button class="wb-cc-btn wb-cc-max" data-action="max" title="Maximize"></button>

@@ -331,11 +331,15 @@ server.server.on("upgrade", (req, socket, head) => {
   socket.destroy();
 });
 
+// TMDB catalog API — direct to api.themoviedb.org with the site's key.
+const TMDB_API_BASE = "https://api.themoviedb.org/3";
+const TMDB_API_KEY = "3fd2be6f0c70a2a598f084ddfb75487c";
+
 server.get("/api/theater/search", async (request, res) => {
   const { q } = request.query;
   if (!q) return res.code(400).send({ error: "Query required" });
   try {
-    const response = await fetch(`https://db.speedracelight.com/3/search/multi?language=en&page=1&query=${encodeURIComponent(q)}`, {
+    const response = await fetch(`${TMDB_API_BASE}/search/multi?api_key=${TMDB_API_KEY}&language=en&page=1&query=${encodeURIComponent(q)}`, {
       signal: AbortSignal.timeout(15_000),
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
@@ -371,7 +375,7 @@ function shuffleArray(array) {
 }
 
 async function fetchTheaterSearch(query) {
-  const response = await fetch(`https://db.speedracelight.com/3/search/multi?language=en&page=1&query=${encodeURIComponent(query)}`, {
+  const response = await fetch(`${TMDB_API_BASE}/search/multi?api_key=${TMDB_API_KEY}&language=en&page=1&query=${encodeURIComponent(query)}`, {
     signal: AbortSignal.timeout(15_000),
     headers: {
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
@@ -426,7 +430,7 @@ server.get("/api/theater/home", async (request, res) => {
 server.get("/api/theater/tv/:id", async (request, res) => {
   const { id } = request.params;
   try {
-    const response = await fetch(`https://db.speedracelight.com/3/tv/${id}?append_to_response=credits,external_ids,similar,videos,recommendations,translations&language=en&include_video_language=en,null`, {
+    const response = await fetch(`${TMDB_API_BASE}/tv/${id}?api_key=${TMDB_API_KEY}&append_to_response=credits,external_ids,similar,videos,recommendations,translations&language=en&include_video_language=en,null`, {
       signal: AbortSignal.timeout(15_000),
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",
@@ -450,7 +454,7 @@ server.get("/api/theater/tv/:id", async (request, res) => {
 server.get("/api/theater/movie/:id", async (request, res) => {
   const { id } = request.params;
   try {
-    const response = await fetch(`https://db.speedracelight.com/3/movie/${id}?append_to_response=credits,external_ids,videos,recommendations,translations,similar,release_dates&language=en&include_video_language=en,null`, {
+    const response = await fetch(`${TMDB_API_BASE}/movie/${id}?api_key=${TMDB_API_KEY}&append_to_response=credits,external_ids,videos,recommendations,translations,similar,release_dates&language=en&include_video_language=en,null`, {
       signal: AbortSignal.timeout(15_000),
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:153.0) Gecko/20100101 Firefox/153.0",

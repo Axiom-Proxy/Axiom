@@ -94,7 +94,9 @@
         injectAds();
     }
 
-    if (window.axiomPremium && typeof axiomPremium.isPremium === "function") {
+    // premium.js declares `const axiomPremium`, which never lands on
+    // `window`, so test the binding itself rather than window.axiomPremium.
+    if (typeof axiomPremium !== "undefined" && typeof axiomPremium.isPremium === "function") {
         axiomPremium.isPremium().then(decide).catch(() => decide(false));
     } else {
         decide(false);

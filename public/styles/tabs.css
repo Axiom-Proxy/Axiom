@@ -60,6 +60,12 @@ body {
   gap: 4px;
 }
 
+/* Window controls on the left (Settings ▸ Desktop): leave the gap there. */
+body:not(.win-controls-right) #tab-bar {
+  padding-left: 96px;
+  padding-right: 8px;
+}
+
 #tab-list {
   display: flex;
   align-items: center;
@@ -324,8 +330,7 @@ body {
 .tab::before,
 .tab-close::before,
 #new-tab-btn::before,
-.nav-btn::before,
-#address-wrap::before {
+.nav-btn::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -347,8 +352,7 @@ body {
 #new-tab-btn:hover::before,
 #new-tab-btn:focus-visible::before,
 .nav-btn:hover::before,
-.nav-btn:focus-visible::before,
-#address-wrap:focus-within::before {
+.nav-btn:focus-visible::before {
   opacity: 1;
 }
 

@@ -990,6 +990,30 @@ body.wp-vignette #wp-scrim {
 .wb-custom-controls .wb-cc-max   { order: 2 !important; }
 .wb-custom-controls .wb-cc-close { order: 3 !important; }
 
+/*
+ * Settings ▸ Desktop ▸ Window Controls. Left (the default) is the Mac cluster
+ * — close, minimize, maximize — at the start of the title bar; right is the
+ * Windows one — minimize, maximize, close — at the end. desktop-prefs.js sets
+ * the body class; chromeless windows follow it too, and tabs.css moves the
+ * browser's reserved gap to match.
+ */
+body.win-controls-right .winbox .wb-control {
+  order: 2 !important;
+  padding: 0 13px 0 0 !important;
+}
+body.win-controls-right .winbox .wb-drag  { padding: 0 0 0 105px !important; }
+body.win-controls-right .winbox .wb-min   { order: 1 !important; }
+body.win-controls-right .winbox .wb-max   { order: 2 !important; }
+body.win-controls-right .winbox .wb-close { order: 3 !important; }
+
+body:not(.win-controls-right) .wb-custom-controls {
+  right: auto;
+  left: 10px;
+}
+body:not(.win-controls-right) .wb-custom-controls .wb-cc-close { order: 1 !important; }
+body:not(.win-controls-right) .wb-custom-controls .wb-cc-min   { order: 2 !important; }
+body:not(.win-controls-right) .wb-custom-controls .wb-cc-max   { order: 3 !important; }
+
 .window-frame {
   width: 100%;
   height: 100%;

@@ -56,6 +56,9 @@
         barBattPct: false,
         barWallpaper: true,     // the live-wallpaper control in the menu bar
 
+        /* -------------------------------------------------------- windows */
+        winControls: 'left',    // 'left' | 'right' — where close/minimize sit
+
         /* ---------------------------------------------------------- glass */
         transparency: 40,       // 0 = solid panels, 100 = fully frosted glass
         tint: false             // wash the panels with the accent colour
@@ -164,6 +167,7 @@
         flag('bar-autohide', prefs.barAutohide || prefs.zen);
         flag('wp-vignette', prefs.wpVignette);
         flag('glass-tint', prefs.tint);
+        flag('win-controls-right', prefs.winControls === 'right');
         // At transparency 0 the panels are solid, so the backdrop-filter would
         // only be blur(0) saturate(100%) — a no-op that still makes the
         // compositor allocate a backdrop pass and re-read the pixels behind

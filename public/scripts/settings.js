@@ -112,6 +112,7 @@ function getCloakContent() {
                 premiumInput.value = '';
                 premiumStatus.textContent = '✓ Premium activated!';
                 premiumStatus.style.color = '#4ade80';
+                window.dispatchEvent(new Event('axiom-premium-change'));
                 panel.innerHTML = '';
         initThemes().finally(() => {
             if (window.AxiomPageReady) window.AxiomPageReady();
@@ -131,6 +132,7 @@ function getCloakContent() {
             premiumInput.value = '';
             premiumStatus.textContent = 'Key removed.';
             premiumStatus.style.color = 'rgba(255,255,255,0.5)';
+            window.dispatchEvent(new Event('axiom-premium-change'));
         });
 
         const savedKey = axiomPremium.getKey();

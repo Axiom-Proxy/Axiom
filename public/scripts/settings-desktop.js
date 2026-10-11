@@ -455,6 +455,20 @@
             ]
         },
         {
+            title: 'Windows',
+            keywords: 'window controls close minimize maximize buttons title bar left right side',
+            rows: [
+                {
+                    kind: 'segment', key: 'winControls', label: 'Window Controls',
+                    sub: 'Which side of the title bar the close, minimize and maximize buttons sit on.',
+                    options: [
+                        { value: 'left', label: 'Left' },
+                        { value: 'right', label: 'Right' }
+                    ]
+                }
+            ]
+        },
+        {
             title: 'Glass',
             keywords: 'glass blur translucency transparency tint accent frosted opaque solid',
             rows: [

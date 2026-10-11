@@ -690,8 +690,6 @@ body.sidebar-collapsed .sidebar-open { opacity: 1; pointer-events: auto; }
     border-radius: 25px;
 }
 
-.chat-composer .rainbow-input:focus-within { border-radius: 25px; }
-
 .chat-composer textarea.search-bar {
     width: 100%;
     max-width: none;
@@ -703,11 +701,6 @@ body.sidebar-collapsed .sidebar-open { opacity: 1; pointer-events: auto; }
     font-size: 16px;
     border-radius: 25px;
     max-height: 160px;
-}
-
-.chat-composer .rainbow-input:focus-within .search-bar {
-    border-radius: 25px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 .chat-composer button { flex: 0 0 auto; }
